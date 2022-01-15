@@ -1,11 +1,11 @@
 import React from 'react'
 import Image from 'next/image'
-import logo from '../../../assets/logo.png'
+import logo from '../..//assets/logo.png'
 
 const NavBar = () => {
   return (
     <>
-    <header className="text-center">
+    <header className="text-center mt-6">
       <Image src={logo} />
     </header>
     <nav className="flex text-blueDark justify-center py-3">
