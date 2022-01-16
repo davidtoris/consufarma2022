@@ -1,13 +1,20 @@
 module.exports = {
   content: [
     "./pages/**/*.{js,ts,jsx,tsx}",
-    "./components/**/*.{js,ts,jsx,tsx}",
+    "./src/components/**/*.{js,ts,jsx,tsx}",
+    "./src/containers/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
+    fontFamily: {
+      'body': ['"Open Sans"'],
+    },
     extend: {
       colors: {
-        pink: '#db3a72',
-        blueDark: '#1d202e',
+        pinkCustom: '#db3a72',
+        blueDarkCustom: '#1d202e',
+        greenCustom: '#5fb050',
+        blueLightCustom: '#00a2e2',
+        grayCustom: '#606060',
       }, 
     },
   },

@@ -2,6 +2,8 @@ import React from 'react';
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import Buscador from '../buscador'
+import Image from 'next/image'
 
 const Carousel = () => {
   var settings = {
@@ -15,18 +17,24 @@ const Carousel = () => {
     cssEase: "linear"
   };
   return (
-    <Slider {...settings}>
-      <div className="bg-blueDark">
-        <img src="https://picsum.photos/1200/250" width="100%"/>
+    <>
+       
+      <div class="relative w-100">
+        <div className="absolute left-40 top-5 z-10 mt-10">
+          <Buscador
+          />  
+        </div>
+        <Slider {...settings}>
+          <div className="">
+            <div className='relative w-100 h-80'>
+              <Image src="/courses-img/practicas.jpeg" layout='fill'/>
+            </div>
+          </div>
+        </Slider>
       </div>
-      <div>
-        <img src="https://picsum.photos/1200/250" width="100%"/>
-      </div>
-      <div>
-        <img src="https://picsum.photos/1200/250" width="100%"/>
-      </div>
-    </Slider>
+      
+    </>
   )
 }
 
-export default Carousel
+export default Carousel;
