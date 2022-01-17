@@ -3,9 +3,9 @@ import Image from 'next/image'
 import { UserCircleIcon } from '@heroicons/react/solid'
 import Link from 'next/link'
 
-const CardCourse = () => {
+const CardCourse = ({link}) => {
   return (
-    <Link href="/">
+    <Link href={`${link}`}>
       <div className='hover:scale-105 transition transform duration-200 ease-out p-2 font-body shadow-lg bg-white rounded-md w-[300px] shrink-0 cursor-pointer'>
         <div className=''>
             <div className='absolute z-10 right-0 mt-5 bg-greenCustom p-1 pl-2 text-white rounded-l-lg uppercase font-semibold'>
