@@ -1,15 +1,20 @@
 import React from 'react'
 import SectionCourse from '../components/cursos/SectionCourse'
 
-const Cursos = () => {
+
+const Cursos = ({specialities, cursos}) => {
   return (
     <div>
-      <SectionCourse />
-      <SectionCourse />
-      <SectionCourse />
-      <SectionCourse />
+      {specialities.detalle.map(esp => (
+        <SectionCourse
+        key={esp.id} 
+        cursos={cursos.detalle}
+        nombre={esp.especialidad}
+        />
+      ))}
     </div>
   )
 }
+
 
 export default Cursos

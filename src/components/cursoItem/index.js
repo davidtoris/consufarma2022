@@ -59,8 +59,8 @@ const CursoItem = () => {
       
       {/* Second Column */}
       <div className=''>
-        <div class="relative">
-          <div class="fixed top-50 right-40">
+        <div className="relative">
+          <div className="fixed top-50 right-40">
             
             <div className='bg-gray-100 w-80 px-5 py-2 rounded-md text-center'>
               <div className='text-blueDarkCustom font-bold'> Pago por empresa: </div>

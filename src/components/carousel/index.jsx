@@ -19,7 +19,7 @@ const Carousel = () => {
   return (
     <>
        
-      <div class="relative w-100">
+      <div className="relative w-100">
         <div className="absolute left-40 top-5 z-10 mt-10">
           <Buscador
           />  
@@ -27,7 +27,7 @@ const Carousel = () => {
         <Slider {...settings}>
           <div className="">
             <div className='relative w-100 h-80'>
-              <Image src="/courses-img/practicas.jpeg" layout='fill'/>
+              <Image src="/courses-img/practicas.jpeg" layout='fill' priority="false"/>
             </div>
           </div>
         </Slider>

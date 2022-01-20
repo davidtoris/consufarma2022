@@ -1,21 +1,24 @@
 import React from 'react'
 import CardCourse from './CardCourse';
 
-const SectionCourse = () => {
+const SectionCourse = ({cursos, nombre}) => {
   return (
-    <div class="max-w-7xl mx-auto pb-10">
+    <div className="max-w-7xl mx-auto pb-10">
       <section className='my-5 mt-10'>
-        <h2 className='text-blueDarkCustom text-3xl font-extrabold mb-5 font-body'>Buenas Prácticas</h2>
-        {/* <div className='grid gap-4 grid-cols-1 sm:grid-cols-1 lg:grid-cols-4'> */}
+        <h2 className='text-blueDarkCustom text-3xl font-extrabold mb-5 font-body'>{nombre}</h2>
         <div className='flex space-x-3 overflow-scroll'>
-          <CardCourse 
-            link={'/'}
-          />
-          <CardCourse />
-          <CardCourse />
-          <CardCourse />
-          <CardCourse />
-          <CardCourse />
+          {cursos.map(c => (
+            c.especialidad === nombre && (
+              <CardCourse 
+                key={c.id}
+                link={`cursos/${c.ruta}`}
+                nombre={c.nombre}
+                img={c.imagen}
+                label={'Promoción'}
+                ponente={c.ponente}
+              />
+            )
+          ))}
         </div>
         {/* </div> */}
       </section>

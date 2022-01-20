@@ -8,7 +8,9 @@ const NavBar = () => {
     <div className='bg-white'>
     <header className="text-center mt-6">
       <Link href="/">
-        <Image src={logo} className='cursor-pointer' />
+        <a>
+          <Image src={logo} className='cursor-pointer' />
+        </a>
       </Link>
     </header>
     <nav className="flex text-blueDark justify-center py-3">
