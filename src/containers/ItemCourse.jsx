@@ -67,7 +67,7 @@ const ItemCourse = ({curso}) => {
 
         <div className='temario mt-10'>
           <h2 className='text-pinkCustom text-2xl font-bold'>Temario</h2>
-          <div dangerouslySetInnerHTML={Topics()} className='-mt-3'/>
+          <div dangerouslySetInnerHTML={Topics()} className=''/>
         </div>
         
         <div className='bg-gray-100 p-3 rounded-lg'>
@@ -91,7 +91,7 @@ const ItemCourse = ({curso}) => {
         {coursesSpeciality.map(c => (
           <div key={c.nombre}>
             <CardCourse 
-            link={`cursos/${c.ruta}`}
+            link={`/cursos/${c.ruta}`}
             nombre={c.nombre}
             img={'imagen'}
             label={'Promoción'}
