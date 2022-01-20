@@ -4,6 +4,7 @@ import { CalendarIcon, ClockIcon, BadgeCheckIcon, QuestionMarkCircleIcon, Printe
 import { useRouter } from 'next/router'
 import CardCourse from '../components/cursos/CardCourse'
 import { API_BASE_URL } from '../constants'
+import Link from 'next/link'
 
 
 const ItemCourse = ({curso}) => {
@@ -125,11 +126,11 @@ const ItemCourse = ({curso}) => {
               
               
 
-            <a href={forms}>
+            <Link href={forms}>
               <div className='bg-blueDarkCustom mt-5 rounded-md p-2 text-white font-bold text-center text-xl'>
                   Inscríbete
               </div>
-            </a>
+            </Link>
 
             <div className='border-2 mt-5'>
             <h2 className='text-2xl text-gray-800 text-center mt-7'>¿Qué incluye?</h2>

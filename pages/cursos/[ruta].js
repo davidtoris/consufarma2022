@@ -4,7 +4,6 @@ import { API_BASE_URL } from '../../src/constants'
 import ItemCourse from '../../src/containers/ItemCourse'
 
 const LandingItemCourse = ({curso}) => {
-  console.log(curso);
   return (
     <div>
       <NavBar />

@@ -5,7 +5,7 @@ import Link from 'next/link'
 
 const CardCourse = ({link, nombre, img, label, ponente}) => {
   return (
-    <Link href={`${link}`}>
+    <Link href={link}>
       <a>
       <div className='hover:scale-105 transition transform duration-200 ease-out p-2 font-body shadow-lg bg-white rounded-md w-[300px] shrink-0 cursor-pointer'>
         <div className=''>

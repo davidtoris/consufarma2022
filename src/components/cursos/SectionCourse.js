@@ -11,7 +11,7 @@ const SectionCourse = ({cursos, nombre}) => {
             c.especialidad === nombre && (
               <CardCourse 
                 key={c.id}
-                link={`cursos/${c.ruta}`}
+                link={`/cursos/${c.ruta}`}
                 nombre={c.nombre}
                 img={c.imagen}
                 label={'Promoción'}
