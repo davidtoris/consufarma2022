@@ -31,7 +31,7 @@ const BackItemCourse = () => {
         
         <div className='flex'>
           <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
-            <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-state">
+            <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
               Lugar
             </label>
             <div className="relative">
@@ -42,7 +42,7 @@ const BackItemCourse = () => {
           </div>
           
           <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
-            <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-state">
+            <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
               Ubicación
             </label>
             <div className="relative">
@@ -53,7 +53,7 @@ const BackItemCourse = () => {
           </div>
           
           <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
-            <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-state">
+            <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
               Filtro
             </label>
             <div className="relative">
