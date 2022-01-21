@@ -16,7 +16,7 @@ const Filter = ({specialities : { detalle }}) => {
           <select name="especialidad" className='bg-blueDarkCustom p-2 text-white rounded-md pr-0'>
               <option value="">Especialidad</option>
             {detalle.map(s => (
-              <option value={s.especialidad}>{s.especialidad}</option>
+              <option value={s.especialidad} key={s.id}>{s.especialidad}</option>
               ))}
           </select>
         </div>
