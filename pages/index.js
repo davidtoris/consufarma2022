@@ -4,6 +4,27 @@ import Cursos from '../src/containers/Cursos';
 import { API_BASE_URL } from '../src/constants';
 
 
+
+export default function Home({specialities, courses}) {
+  return (  
+    <>
+      <div className='bg-gray-100'>
+        <NavBar />
+        <CarouselSection /> 
+        {courses.length > 0 ? 
+        
+        <div className='bg-gray-100 text-5xl'>Cargando.....</div>
+        : 
+        <Cursos
+        specialities={specialities} 
+        cursos={courses} 
+        />
+        }
+      </div>
+    </>
+  )
+}
+
 export const getServerSideProps = async () => {
   const urlSpecialities = `${API_BASE_URL}/specialities`
   const urlListCoursesBySpeciality = `${API_BASE_URL}/courses-speciality`
@@ -23,19 +44,4 @@ export const getServerSideProps = async () => {
       courses
     } 
   }
-}
-
-export default function Home({specialities, courses}) {
-  return (  
-    <>
-      <div className='bg-gray-100'>
-        <NavBar />
-        <CarouselSection /> 
-        <Cursos
-          specialities={specialities} 
-          cursos={courses} 
-          />
-      </div>
-    </>
-  )
 }

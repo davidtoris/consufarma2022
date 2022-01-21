@@ -6,7 +6,7 @@ const SectionCourse = ({cursos, nombre}) => {
     <div className="max-w-7xl mx-auto">
       <section className='my-5 mt-10'>
         <h2 className='text-blueDarkCustom text-2xl font-extrabold mb-5 font-body'>{nombre}</h2>
-        <div className='flex space-x-3 overflow-scroll'>
+        <div className='flex space-x-3 overflow-x-scroll overflow-y-hidden'>
           {cursos.map(c => (
             c.especialidad === nombre && (
               <CardCourse 

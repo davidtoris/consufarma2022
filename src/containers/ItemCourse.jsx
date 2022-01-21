@@ -70,7 +70,7 @@ const ItemCourse = ({curso}) => {
           <div dangerouslySetInnerHTML={Topics()} className=''/>
         </div>
         
-        <div className='bg-gray-100 p-3 rounded-lg'>
+        <div className='bg-gray-100 p-3 rounded-lg mt-5'>
 
           <h2 className='text-pinkCustom text-2xl font-bold'>Ubicación</h2>
           <div className='ubication flex mt-2'>
@@ -84,10 +84,10 @@ const ItemCourse = ({curso}) => {
         </div>
         
         
-        <h2 className='text-2xl text-gray-800 mb-5 mt-12'>
+        <h2 className='text-2xl text-blueDarkCustom mb-5 mt-12 font-bold'>
           Otros cursos para continuar con tu aprendizaje
         </h2>
-        <div className='flex space-x-3 overflow-scroll'>
+        <div className='flex space-x-3 overflow-x-scroll overflow-y-hidden'>
         {coursesSpeciality.map(c => (
           <div key={c.nombre}>
             <CardCourse 
@@ -109,7 +109,7 @@ const ItemCourse = ({curso}) => {
             
             <div className='bg-gray-100 w-80 px-5 py-2 rounded-md text-center'>
               <div className='text-blueDarkCustom font-bold'> Pago por empresa: </div>
-              <div className='font-normal'>{precio}</div>
+              <div className='font-normal'>$6,500 + IVA</div>
               
               <div className='text-blueDarkCustom font-bold mt-3'> Pago personal: </div>
               <div className='font-normal'>Pregunta por nuestro precio especial y opción a 3 meses sin interéses</div>
