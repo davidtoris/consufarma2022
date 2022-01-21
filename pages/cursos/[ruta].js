@@ -17,7 +17,6 @@ const LandingItemCourse = ({curso}) => {
 export default LandingItemCourse
 
 export const getServerSideProps = async ({query: {ruta}}) => {
-  console.log(ruta);
   const res = await fetch(`${API_BASE_URL}/courses/${ruta}`);
   const data = await res.json()
   const curso = data.detalle

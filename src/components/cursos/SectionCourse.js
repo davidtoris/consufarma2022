@@ -3,9 +3,9 @@ import CardCourse from './CardCourse';
 
 const SectionCourse = ({cursos, nombre}) => {
   return (
-    <div className="max-w-7xl mx-auto pb-10">
+    <div className="max-w-7xl mx-auto">
       <section className='my-5 mt-10'>
-        <h2 className='text-blueDarkCustom text-3xl font-extrabold mb-5 font-body'>{nombre}</h2>
+        <h2 className='text-blueDarkCustom text-2xl font-extrabold mb-5 font-body'>{nombre}</h2>
         <div className='flex space-x-3 overflow-scroll'>
           {cursos.map(c => (
             c.especialidad === nombre && (

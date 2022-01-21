@@ -21,7 +21,7 @@ const ItemCourse = ({curso}) => {
   
   const route = useRouter();
   
-  const {nombre, fecha_text, duracion, especialidad, especialidad_ruta, ponente, ponente_dos, objetivo, temario, precio, forms} = curso[0];
+  const {nombre, fecha_text, duracion, especialidad, especialidad_ruta, ponente, ponente_dos, objetivo, temario, precio, forms, imagen} = curso[0];
   const Objectiv = () => { 
     return {__html: objetivo};
   }
@@ -33,7 +33,7 @@ const ItemCourse = ({curso}) => {
     <div className='max-w-7xl mx-auto font-body grid-flow-row grid grid-cols-3 gap-4'>
       <div className='col-span-2'>
         <div className='relative w-100 h-60'>
-          <Image src="/courses-img/validacion.jpg" layout='fill'/>
+          <Image src={`https://www.consufarma.com/vistas/img/${imagen}`} layout='fill'/>
         </div>
 
         <h1 className='name-course text-blueDarkCustom font-bold text-2xl my-5'>
@@ -93,7 +93,7 @@ const ItemCourse = ({curso}) => {
             <CardCourse 
             link={`/cursos/${c.ruta}`}
             nombre={c.nombre}
-            img={'imagen'}
+            img={c.imagen}
             label={'Promoción'}
             ponente={c.ponente}
             />
