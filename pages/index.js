@@ -2,6 +2,7 @@ import NavBar from '../src/components/NavBar';
 import CarouselSection from '../src/containers/Carousel';
 import Cursos from '../src/containers/Cursos';
 import { API_BASE_URL } from '../src/constants';
+import Filter from '../src/components/filter';
 
 
 
@@ -11,15 +12,13 @@ export default function Home({specialities, courses}) {
       <div className='bg-gray-100'>
         <NavBar />
         <CarouselSection /> 
-        {courses.length > 0 ? 
-        
-        <div className='bg-gray-100 text-5xl'>Cargando.....</div>
-        : 
+        <Filter 
+          specialities={specialities} 
+        />
         <Cursos
         specialities={specialities} 
         cursos={courses} 
         />
-        }
       </div>
     </>
   )

@@ -13,12 +13,22 @@ const NavBar = () => {
         </a>
       </Link>
     </header>
-    <nav className="flex text-blueDark justify-center py-3">
-      <div className="px-2">item</div>
-      <div className="px-2">item</div>
-      <div className="px-2">item</div>
-      <div className="px-2">item</div>
-      <div className="px-2">item</div>
+    <nav className="flex text-blueDarkCustom justify-center py-3">
+      <Link href="/cursos">
+        <div className="px-2 cursor-pointer">Cursos</div>
+      </Link>
+      <Link href="/nosotros">
+        <div className="px-2 cursor-pointer">Nosotros</div>
+      </Link>
+      <Link href="/servicios">
+        <div className="px-2 cursor-pointer">Servicios</div>
+      </Link>
+      <Link href="/calendario">
+        <div className="px-2 cursor-pointer">Calendario</div>
+      </Link>
+      <Link href="/contacto">
+        <div className="px-2 cursor-pointer">Contacto</div>
+      </Link>
     </nav>
     </div>
   )
