@@ -3,6 +3,7 @@ import CarouselSection from '../src/containers/Carousel';
 import Cursos from '../src/containers/Cursos';
 import { API_BASE_URL } from '../src/constants';
 import Filter from '../src/components/filter';
+import Footer from '../src/containers/Footer';
 
 
 
@@ -10,7 +11,9 @@ export default function Home({specialities, courses}) {
   return (  
     <>
       <div className='bg-gray-100'>
-        <NavBar />
+        <div className='pb-4 bg-white'>
+          <NavBar />
+        </div>
         <CarouselSection /> 
         <Filter 
           specialities={specialities} 
@@ -19,6 +22,8 @@ export default function Home({specialities, courses}) {
         specialities={specialities} 
         cursos={courses} 
         />
+
+        <Footer />
       </div>
     </>
   )

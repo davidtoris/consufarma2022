@@ -20,7 +20,7 @@ const Carousel = () => {
     <>
        
       <div className="relative w-100">
-          <div className="absolute left-40 top-5 z-10 mt-10">
+          <div className="absolute left-10 sm:left-20 md:left-20 top-5 z-10 mt-10">
             <div className="text-white text-3xl font-thin drop-shadow-md">
             Sigue aprendiendo
           </div>

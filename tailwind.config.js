@@ -15,6 +15,7 @@ module.exports = {
         greenCustom: '#5fb050',
         blueLightCustom: '#00a2e2',
         grayCustom: '#606060',
+        yellowCustom: '#f2b235',
       }, 
     },
   },

@@ -26,7 +26,7 @@ const CardCourse = ({link, nombre, img, label, ponente}) => {
               {ponente}
             </div>
           </div>
-          <div className='rating text-yellow-500'>
+          <div className='rating text-yellowCustom'>
             Rating
           </div>
         </div>

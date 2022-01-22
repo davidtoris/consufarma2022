@@ -2,35 +2,42 @@ import React from 'react'
 import Image from 'next/image'
 import logo from '../..//assets/logo.png'
 import Link from 'next/link'
+import Head from 'next/head'
+import SocialContact from '../../containers/SocialContact'
 
 const NavBar = () => {
   return (
+    <>
+    <Head>
+      <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+    </Head>
     <div className='bg-white'>
-    <header className="text-center mt-6">
-      <Link href="/">
-        <a>
+
+    <SocialContact />
+    
+    <header className="text-center mt-3 px-3">
+      
+        <a href='/'>
           <Image src={logo} className='cursor-pointer' />
         </a>
-      </Link>
+      
     </header>
-    <nav className="flex text-blueDarkCustom justify-center py-3">
-      <Link href="/cursos">
-        <div className="px-2 cursor-pointer">Cursos</div>
+    <nav className="flex text-gray-700 justify-center py-3 font-semibold">
+      <Link href="/">
+        <div className="px-2 cursor-pointer hover:border-b-2 border-blueLightCustom">Cursos</div>
       </Link>
       <Link href="/nosotros">
-        <div className="px-2 cursor-pointer">Nosotros</div>
+        <div className="px-2 cursor-pointer hover:border-b-2 border-blueLightCustom">Nosotros</div>
       </Link>
       <Link href="/servicios">
-        <div className="px-2 cursor-pointer">Servicios</div>
+        <div className="px-2 cursor-pointer hover:border-b-2 border-blueLightCustom">Servicios</div>
       </Link>
       <Link href="/calendario">
-        <div className="px-2 cursor-pointer">Calendario</div>
-      </Link>
-      <Link href="/contacto">
-        <div className="px-2 cursor-pointer">Contacto</div>
+        <div className="px-2 cursor-pointer hover:border-b-2 border-blueLightCustom">Calendario</div>
       </Link>
     </nav>
     </div>
+    </>
   )
 }
 

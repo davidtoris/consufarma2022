@@ -3,6 +3,7 @@ import { API_BASE_URL } from '../../src/constants';
 import NavBar from '../../src/components/NavBar';
 import CardCourse from '../../src/components/cursos/CardCourse';
 import Buscador from '../../src/components/buscador';
+import Footer from '../../src/containers/Footer';
 
 const Courses = ({curso}) => {
   const router = useRouter();
@@ -33,6 +34,8 @@ const Courses = ({curso}) => {
           </div>
         </section>
       </div>
+
+      <Footer />
 
     </div>
   )

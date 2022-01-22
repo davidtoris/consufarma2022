@@ -1,6 +1,7 @@
 import React from 'react'
 import NavBar from '../../src/components/NavBar'
 import { API_BASE_URL } from '../../src/constants'
+import Footer from '../../src/containers/Footer'
 import ItemCourse from '../../src/containers/ItemCourse'
 
 const LandingItemCourse = ({curso}) => {
@@ -10,6 +11,7 @@ const LandingItemCourse = ({curso}) => {
       <ItemCourse 
         curso={curso}
       />
+      <Footer />
     </div>
   )
 }
