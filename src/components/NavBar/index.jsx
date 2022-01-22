@@ -2,21 +2,17 @@ import React from 'react'
 import Image from 'next/image'
 import logo from '../..//assets/logo.png'
 import Link from 'next/link'
-import Head from 'next/head'
 import SocialContact from '../../containers/SocialContact'
 
 const NavBar = () => {
   return (
     <>
-    <Head>
-      <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
-    </Head>
     <div className='bg-white'>
 
     <SocialContact />
     
-    <header className="text-center mt-3 px-3">
-      <Link href='/'>
+    <header className="text-center mt-3">
+      <Link href="/">
         <a>
           <Image src={logo} className='cursor-pointer' />
         </a>
