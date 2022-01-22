@@ -13,7 +13,7 @@ const Servicios = () => {
       <section className='mb-8 mt-5'>
         <div className='text-gray-700'>
           <p className='mt-3'>
-          Lo apoyamos en la capacitación de su personal, asesorándolo también en temas relacionados a laboratorio y sistemas de calidad, entre otros, así como en la traducción de DMF's (Archivos maestros de Ingredientes activos), para el registro de sus productos.
+          Lo apoyamos en la capacitación de su personal, asesorándolo también en temas relacionados a laboratorio y sistemas de calidad, entre otros, así como en la traducción de DMF s (Archivos maestros de Ingredientes activos), para el registro de sus productos.
           </p>
         </div>
       </section>
@@ -22,7 +22,7 @@ const Servicios = () => {
 
         <div className='text-center block'>
           <div className='relative w-100 h-36'>
-            {/* <Image src='https://www.consufarma.com/vistas/img/cursos.jpg' alt='cursos-consufarma' layout='fill'/> */}
+            <Image src='https://www.consufarma.com/vistas/img/cursos.jpg' alt='cursos-consufarma' layout='fill'/>
           </div>
           <div className='h-1 w-6/12 bg-red-500 m-auto my-3'></div>
           <h3 className='text-center font-bold text-blueDarkCustom w-8/12 m-auto'>
@@ -41,7 +41,7 @@ const Servicios = () => {
 
         <div className='text-center block'>
           <div className='relative w-100 h-36'>
-            {/* <Image src='https://www.consufarma.com/vistas/img/buenas-practicas-en-admisnitracion-de-proyectos.jpg' alt='consultoria consufarma' layout='fill'/> */}
+            <Image src='https://www.consufarma.com/vistas/img/buenas-practicas-en-admisnitracion-de-proyectos.jpg' alt='consultoria-consufarma' layout='fill'/>
           </div>
             <div className='h-1 w-6/12 bg-red-500 m-auto my-3'></div>
             <h3 className='text-center font-bold text-blueDarkCustom w-8/12 m-auto'>
@@ -54,7 +54,7 @@ const Servicios = () => {
         
         <div className='text-center block'>
           <div className='relative w-100 h-36'>
-            {/* <Image src='https://www.consufarma.com/vistas/img/traduccion.jpg' alt='traducciones' layout='fill' /> */}
+            <Image src='https://www.consufarma.com/vistas/img/traduccion.jpg' alt='traducciones' layout='fill' />
           </div>
             <div className='h-1 w-6/12 bg-red-500 m-auto my-3'>.</div>
             <h3 className='text-center font-bold text-blueDarkCustom w-8/12 m-auto'>
