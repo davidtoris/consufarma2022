@@ -20,11 +20,11 @@ const Carousel = () => {
     <>
        
       <div className="relative w-100">
-          <div className="absolute left-10 sm:left-20 md:left-20 top-5 z-10 mt-10">
-            <div className="text-white text-3xl font-thin drop-shadow-md">
+          <div className="absolute left-10 sm:left-20 md:left-20 sm:top-5 top-2 z-10 mt-0 sm:mt-10">
+            <div className="text-white sm:text-3xl text-2xl font-thin drop-shadow-md">
             Sigue aprendiendo
           </div>
-          <div className="text-white text-5xl mb-2 drop-shadow-lg">
+          <div className="text-white sm:text-5xl text-3xl mb-0 sm:mb-2 drop-shadow-lg">
             ¿Qué vas a Aprender hoy?
           </div>
           <Buscador
@@ -32,7 +32,7 @@ const Carousel = () => {
         </div>
         <Slider {...settings}>
           <div className="">
-            <div className='relative w-100 h-80'>
+            <div className='relative sm:w-100 sm:h-80 h-36'>
               <Image src="/courses-img/practicas.jpeg" layout='fill' priority="false"/>
             </div>
           </div>

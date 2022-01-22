@@ -15,7 +15,7 @@ const Buscador = () => {
   });
 
   return (
-    <div className="mt-5 w-100">
+    <div className="mt-0 sm:mt-5 w-100">
 
       <Formik
         initialValues={{
@@ -27,11 +27,11 @@ const Buscador = () => {
 
           router.push(`/courses/?find=${valores.findcourse}`);
           setSuccess(true);
-          setTimeout(() => setSuccess(false), 5000);
+          // setTimeout(() => setSuccess(false), 5000);
         }}>
         {({ errors }) => (
           <Form className="text-center">
-            <div className='flex items-center bg-gray-200 w-80 mx-auto rounded-full p-2 mt-5'>
+            <div className='flex items-center bg-gray-200 w-80 mx-auto rounded-full p-2 mt-0 sm:mt-5'>
               <Field 
                 type="text" 
                 name="findcourse" 

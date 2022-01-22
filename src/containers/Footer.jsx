@@ -1,5 +1,5 @@
 import Link from 'next/link';
-
+import Image from 'next/image';
 const Footer = () => {
   return (
     <>
@@ -9,12 +9,23 @@ const Footer = () => {
         <div className="text-right flex md:justify-between text-white items-center justify-center lg:flex-row flex-col">
 
           <div className='flex items-center'>
-            <i className="text-3xl mx-2 fab fa-instagram"></i>
-            <i className="text-3xl mx-2 fab fa-facebook-square"></i>
-            <i className="text-3xl mx-2 fab fa-twitter-square"></i>
-            <div className='ml-3'>
-              pedro.valadez@consufarma.com
+            <div className=''>
+              <Image src="/instag.png" height={30} width={30}/>
             </div>
+            <div className='ml-5'>
+              <Image src="/facebook.png" height={30} width={30} />
+            </div>
+            <div className='ml-5'>
+              <Image src="/twitter.png" height={30} width={30} />
+            </div>
+            
+            <Link href='mailto:pedro.valadez@consufarma.com'>
+              
+                <div className='ml-3 hover:text-blueLightCustom'>
+                  pedro.valadez@consufarma.com
+                </div>
+              
+            </Link>
           </div>
 
           <div className='flex mt-2 sm:mt-0'>
@@ -29,9 +40,6 @@ const Footer = () => {
             </Link>
             <Link href="/calendario">
               <div className="px-2 cursor-pointer">Calendario</div>
-            </Link>
-            <Link href="/contacto">
-              <div className="px-2 cursor-pointer">Contacto</div>
             </Link>
           </div>
         </div>
