@@ -10,17 +10,29 @@ const Footer = () => {
 
           <div className='flex items-center'>
             <div className=''>
-              <Image src="/instag.png" height={30} width={30}/>
+              <Link href="https://www.instagram.com">
+                <a>
+                  <Image src="/instag.png" height={30} width={30}/>
+                </a>
+              </Link> 
             </div>
             <div className='ml-5'>
-              <Image src="/facebook.png" height={30} width={30} />
+              <Link href="https://www.facebook.com/consufarma">
+                <a>
+                  <Image src="/facebook.png" height={30} width={30} />
+                </a>
+              </Link> 
             </div>
+
             <div className='ml-5'>
-              <Image src="/twitter.png" height={30} width={30} />
+              <Link href="https://www.twitter.com">
+                <a>
+                  <Image src="/twitter.png" height={30} width={30} />
+                </a>
+              </Link> 
             </div>
             
             <Link href='mailto:pedro.valadez@consufarma.com'>
-              
                 <div className='ml-3 hover:text-blueLightCustom'>
                   pedro.valadez@consufarma.com
                 </div>

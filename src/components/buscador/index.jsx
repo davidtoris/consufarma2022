@@ -31,7 +31,7 @@ const Buscador = () => {
         }}>
         {({ errors }) => (
           <Form className="text-center">
-            <div className='flex items-center bg-gray-200 w-80 mx-auto rounded-full p-2 mt-0 sm:mt-5'>
+            <div className='flex items-center bg-gray-200 w-80 mx-auto rounded-full p-2 mt-2 sm:mt-5'>
               <Field 
                 type="text" 
                 name="findcourse" 
