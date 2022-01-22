@@ -16,11 +16,11 @@ const NavBar = () => {
     <SocialContact />
     
     <header className="text-center mt-3 px-3">
-      
-        <a href='/'>
+      <Link href='/'>
+        <a>
           <Image src={logo} className='cursor-pointer' />
         </a>
-      
+      </Link>
     </header>
     <nav className="flex text-gray-700 justify-center py-3 font-semibold">
       <Link href="/">
