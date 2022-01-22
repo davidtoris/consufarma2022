@@ -20,9 +20,9 @@ const Servicios = () => {
 
       <div className='grid sm:grid-cols-3 grid-cols-1 text-lg gap-10'>
 
-        <div className='text-center block '>
+        <div className='text-center block'>
           <div className='relative w-100 h-36'>
-            <Image src='https://www.consufarma.com/vistas/img/cursos.jpg' alt='cursos consufarma' layout='fill'/>
+            {/* <Image src='https://www.consufarma.com/vistas/img/cursos.jpg' alt='cursos-consufarma' layout='fill'/> */}
           </div>
           <div className='h-1 w-6/12 bg-red-500 m-auto my-3'></div>
           <h3 className='text-center font-bold text-blueDarkCustom w-8/12 m-auto'>
@@ -41,7 +41,7 @@ const Servicios = () => {
 
         <div className='text-center block'>
           <div className='relative w-100 h-36'>
-            <Image src='https://www.consufarma.com/vistas/img/buenas-practicas-en-admisnitracion-de-proyectos.jpg' alt='consultoria consufarma' layout='fill'/>
+            {/* <Image src='https://www.consufarma.com/vistas/img/buenas-practicas-en-admisnitracion-de-proyectos.jpg' alt='consultoria consufarma' layout='fill'/> */}
           </div>
             <div className='h-1 w-6/12 bg-red-500 m-auto my-3'></div>
             <h3 className='text-center font-bold text-blueDarkCustom w-8/12 m-auto'>
@@ -54,7 +54,7 @@ const Servicios = () => {
         
         <div className='text-center block'>
           <div className='relative w-100 h-36'>
-            <Image src='https://www.consufarma.com/vistas/img/traduccion.jpg' alt='traducciones' layout='fill' />
+            {/* <Image src='https://www.consufarma.com/vistas/img/traduccion.jpg' alt='traducciones' layout='fill' /> */}
           </div>
             <div className='h-1 w-6/12 bg-red-500 m-auto my-3'>.</div>
             <h3 className='text-center font-bold text-blueDarkCustom w-8/12 m-auto'>
