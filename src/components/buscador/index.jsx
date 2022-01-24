@@ -27,7 +27,7 @@ const Buscador = () => {
 
           router.push(`/courses/?find=${valores.findcourse}`);
           setSuccess(true);
-          // setTimeout(() => setSuccess(false), 5000);
+          setTimeout(() => setSuccess(false), 5000);
         }}>
         {({ errors }) => (
           <Form className="text-center">

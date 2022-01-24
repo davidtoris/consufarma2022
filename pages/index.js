@@ -1,13 +1,29 @@
-import NavBar from '../src/components/NavBar';
-import CarouselSection from '../src/containers/Carousel';
-import Cursos from '../src/containers/Cursos';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { API_BASE_URL } from '../src/constants';
+
+import { addCourses } from '../slices/CoursesSlice';
+import { addSpecialities } from '../slices/SpecialitiesSlice';
+
+import CarouselSection from '../src/containers/Carousel';
+import NavBar from '../src/components/NavBar';
+import Cursos from '../src/containers/Cursos';
 import Filter from '../src/components/filter';
 import Footer from '../src/containers/Footer';
 
 
 
 export default function Home({specialities, courses}) {
+  const dispatch = useDispatch();
+  const { allCourses, status } = useSelector((state) => state.courses);
+  const { allSpecialities } = useSelector((state) => state.specialities);
+
+  useEffect(() => {
+    dispatch(addCourses(courses.detalle));
+    dispatch(addSpecialities(specialities.detalle));
+  }, []);
+  
+  
   return (  
     <>
       <div className='bg-gray-100'>
@@ -16,12 +32,14 @@ export default function Home({specialities, courses}) {
         </div>
         <CarouselSection /> 
         <Filter 
-          specialities={specialities} 
+          specialities={allSpecialities}
         />
-        <Cursos
-        specialities={specialities} 
-        cursos={courses} 
-        />
+        {!status === 'success' ? 'Cargando...' : (
+          <Cursos
+            specialities={allSpecialities}
+            cursos={allCourses} 
+          />
+        )}
 
         <Footer />
       </div>
