@@ -34,7 +34,7 @@ const ItemCourse = ({curso}) => {
     <div className='max-w-7xl container mx-auto font-body grid-flow-row grid grid-cols-1 lg:grid-cols-3 gap-4 mt-5 px-2 md:px-5'>
       <div className='col-span-1 md:col-span-2 md:px-0 px-3'>
         <div className='relative sm:w-100 sm:h-60 w-100 h-32'>
-          <Image src={`https://www.consufarma.com/vistas/img/${imagen}`} layout='fill'/>
+          <Image src={`https://www.consufarma.com/vistas/img/${imagen}`} layout='fill' alt={nombre}/>
         </div>
         <div className="flex justify-between">
           <h1 className='name-course text-blueDarkCustom font-bold text-2xl my-5 w-8/12'>
@@ -80,7 +80,7 @@ const ItemCourse = ({curso}) => {
           <h2 className='text-pinkCustom text-2xl font-bold'>Ubicación</h2>
           <div className='ubication flex mt-2'>
             <div className='relative w-6 h-6'>
-              <Image src="/courses-img/zoom-icon.png" layout='fill'/>
+              <Image src="/courses-img/zoom-icon.png" layout='fill'alt="zoom-icon"/>
             </div>
             <div className='text-gray-600 ml-1'>
               Recibirás un link para acceder a tu curso en <span className='font-bold'> TIEMPO REAL </span>

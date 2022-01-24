@@ -12,14 +12,14 @@ const Footer = () => {
             <div className=''>
               <Link href="https://www.instagram.com">
                 <a>
-                  <Image src="/instag.png" height={30} width={30}/>
+                  <Image src="/instag.png" height={30} width={30} alt="instagram"/>
                 </a>
               </Link> 
             </div>
             <div className='ml-5'>
               <Link href="https://www.facebook.com/consufarma">
                 <a>
-                  <Image src="/facebook.png" height={30} width={30} />
+                  <Image src="/facebook.png" height={30} width={30} alt="facebook"/>
                 </a>
               </Link> 
             </div>
@@ -27,7 +27,7 @@ const Footer = () => {
             <div className='ml-5'>
               <Link href="https://www.twitter.com">
                 <a>
-                  <Image src="/twitter.png" height={30} width={30} />
+                  <Image src="/twitter.png" height={30} width={30} alt="twitter"/>
                 </a>
               </Link> 
             </div>
@@ -36,7 +36,6 @@ const Footer = () => {
                 <div className='ml-3 hover:text-blueLightCustom'>
                   pedro.valadez@consufarma.com
                 </div>
-              
             </Link>
           </div>
 

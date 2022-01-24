@@ -2,11 +2,15 @@ import React from 'react'
 import Image from 'next/image'
 import logo from '../..//assets/logo.png'
 import Link from 'next/link'
-import SocialContact from '../../containers/SocialContact'
+import SocialContact from '../../containers/SocialContact';
+import Head from 'next/head'
 
 const NavBar = () => {
   return (
     <>
+    <Head>
+        <title>Consufarma</title>
+    </Head>
     <div className='bg-white'>
 
     <SocialContact />
@@ -14,7 +18,7 @@ const NavBar = () => {
     <header className="text-center mt-3">
       <Link href="/">
         <a>
-          <Image src={logo} className='cursor-pointer' />
+          <Image src={logo} className='cursor-pointer' alt="logo-consufarma"/>
         </a>
       </Link>
     </header>

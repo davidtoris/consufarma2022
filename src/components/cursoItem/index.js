@@ -44,7 +44,7 @@ const CursoItem = () => {
         <h2 className='text-pinkCustom text-2xl mt-5 font-bold'>Ubicación</h2>
         <div className='ubication flex mt-2'>
           <div className='relative w-6 h-6'>
-            <Image src="/courses-img/zoom-icon.png" layout='fill'/>
+            <Image src="/courses-img/zoom-icon.png" layout='fill' alt="zoom icon"/>
           </div>
           <div className='text-gray-600 ml-1'>
             Recibirás un link para acceder a tu curso en <span className='font-bold'> TIEMPO REAL </span>

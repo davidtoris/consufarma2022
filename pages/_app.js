@@ -6,7 +6,9 @@ const MyApp = ({ Component, pageProps }) => {
 
   return (
     <Provider store={store}>
+      <div lang="es">
       <Component {...pageProps} />
+      </div>
     </Provider>
   )
 }

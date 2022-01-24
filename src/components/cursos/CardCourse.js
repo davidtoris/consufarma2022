@@ -13,7 +13,7 @@ const CardCourse = ({link, nombre, img, label, ponente}) => {
               {label}
             </div>
             <div className='relative w-100 h-24'>
-              <Image src={`https://www.consufarma.com/vistas/img/${img}`} layout='fill' priority="false"/>
+              <Image src={`https://www.consufarma.com/vistas/img/${img}`} layout='fill' priority="false" alt={nombre}/>
             </div>
         </div>
         <div className='info p-3'>
