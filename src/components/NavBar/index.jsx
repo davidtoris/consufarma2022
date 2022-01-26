@@ -16,23 +16,23 @@ const NavBar = () => {
     <SocialContact />
     
     <header className="text-center mt-3">
-      <Link href="/">
+      <Link href="/" passHref>
         <a>
           <Image src={logo} className='cursor-pointer' alt="logo-consufarma"/>
         </a>
       </Link>
     </header>
     <nav className="flex text-gray-700 justify-center py-3 font-semibold text-lg">
-      <Link href="/">
+      <Link href="/" passHref>
         <div className="px-2 cursor-pointer hover:border-b-2 border-blueLightCustom">Cursos</div>
       </Link>
-      <Link href="/nosotros">
+      <Link href="/nosotros" passHref>
         <div className="px-2 cursor-pointer hover:border-b-2 border-blueLightCustom">Nosotros</div>
       </Link>
-      <Link href="/servicios">
+      <Link href="/servicios" passHref>
         <div className="px-2 cursor-pointer hover:border-b-2 border-blueLightCustom">Servicios</div>
       </Link>
-      <Link href="/calendario">
+      <Link href="/calendario" passHref>
         <div className="px-2 cursor-pointer hover:border-b-2 border-blueLightCustom">Calendario</div>
       </Link>
     </nav>

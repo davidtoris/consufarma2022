@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { selectSpecialities } from '../../../slices/SpecialitiesSlice';
 
 const Filter = ({specialities}) => {
@@ -9,10 +9,8 @@ const Filter = ({specialities}) => {
   
   const handleChange = (e) => {
     dispatch(selectSpecialities (e.target.value));
-    console.log(e.target.value);
   }
 
-  const { selectSpeciality } = useSelector((state) => state.specialities);
   useEffect(() => {
     dispatch(selectSpecialities (''));
   }, []);
