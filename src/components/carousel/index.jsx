@@ -22,7 +22,7 @@ const Carousel = () => {
       <div className="relative w-100">
           <div className="absolute left-8 sm:left-20 md:left-20 sm:top-5 top-2 z-10 mt-0 sm:mt-10">
             <div className="text-white sm:text-3xl text-2xl font-thin drop-shadow-md">
-            Sigue aprendiendo
+            Mantente actualizado
           </div>
           <div className="text-white sm:text-5xl text-2xl mb-0 sm:mb-2 drop-shadow-lg">
             ¿Qué vas a Aprender hoy?

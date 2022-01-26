@@ -6,7 +6,7 @@ const Nosotros = () => {
   return (
     <>
     <NavBar />
-    <div className="max-w-7xl mx-auto container px-5">
+    <div className="max-w-7xl mx-auto container px-5 pb-40">
 
       <h1 className='text-4xl text-blueDarkCustom m-auto mt-5 font-bold text-center'>Nosotros</h1>
 
@@ -15,14 +15,11 @@ const Nosotros = () => {
       <div className='grid sm:grid-cols-3 grid-cols-1 text-lg mt-4'>
 
         <div className='text-center block '>
-          <div className='p-5 m-auto mt-0'>
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12 m-auto text-pinkCustom" viewBox="0 0 20 20" fill="currentColor">
-              <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z" />
-            </svg>
+          <div className='p-5 m-auto mt-0 text-5xl font-extrabold text-redConsufarma'>
+          +500
           </div>
-          <div className='h-1 w-6/12 bg-red-500 m-auto mb-3'></div>
+          <div className='h-1 w-6/12 bg-blueConsufarma m-auto mb-3'></div>
           <h3 className='text-center text-1xl font-bold text-blueDarkCustom w-8/12 m-auto'>
-            <span className='text-blueLightCustom'>+500 </span>
             Estudiantes felices
           </h3>
         </div>

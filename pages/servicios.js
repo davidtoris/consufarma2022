@@ -6,7 +6,7 @@ const Servicios = () => {
   return (
     <>
     <NavBar />
-    <div className='max-w-7xl mx-auto container px-5'>
+    <div className='max-w-7xl mx-auto container px-5 pb-40'>
 
       <h1 className='text-4xl text-blueDarkCustom m-auto mt-6 font-bold text-center'>Servicios</h1>
 

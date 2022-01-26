@@ -10,8 +10,8 @@ const Buscador = () => {
 
   const FindSchema = Yup.object().shape({
     findcourse: Yup.string()
-      .min(2, 'Escribe un número de cuenta válido')
-      .max(12, 'Escribe un número de cuenta válido')
+      .min(2, 'Escribe un dato válido')
+      .max(20, 'Escribe un curso')
   });
 
   return (
