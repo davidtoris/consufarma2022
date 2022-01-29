@@ -110,7 +110,7 @@ const ItemCourse = ({curso}) => {
             
             <div className='bg-gray-100  px-5 py-2 rounded-md text-center'>
               <div className='text-blueDarkCustom font-bold'> Pago por empresa: </div>
-              <div className='font-normal'>$6,500 + IVA</div>
+              <div className='font-normal'>${precio} + IVA</div>
               <div className='text-blueDarkCustom font-bold mt-3'> Pago personal: </div>
               <div className='font-normal'>Pregunta por nuestro precio especial y opción a 3 meses sin interéses</div>
             </div>

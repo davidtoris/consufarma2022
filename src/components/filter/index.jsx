@@ -1,9 +1,9 @@
 import Link from 'next/link';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { selectSpecialities } from '../../../slices/SpecialitiesSlice';
 
-const Filter = ({specialities}) => {
+const Filter = ({specialities, active}) => {
 
   const dispatch = useDispatch();
   
@@ -15,6 +15,10 @@ const Filter = ({specialities}) => {
     dispatch(selectSpecialities (''));
   }, []);
   
+  const [btnActive, setbtnActive] = useState(active);
+  const handleClick = (btnSelect)=> {
+    setbtnActive(btnSelect);
+  }
 
   return (
     
@@ -23,15 +27,20 @@ const Filter = ({specialities}) => {
         
       <section className='my-5 mt-10 flex items-center justify-between'>
 
-        <div className='flex xl:w-12/12 lg:w-12/12'>
+        <div className='flex xl:w-12/12 lg:w-12/12 text-center'>
           <Link href="/">
-            <div className='bg-blueConsufarma text-center text-white cursor-pointer rounded-lg font-bold p-3 mr-3'>
-              Cursos por Especialidad
+            <div 
+              onClick={() => handleClick('especialidad')}
+              // className='bg-blueConsufarma  text-white cursor-pointer rounded-lg font-bold p-3 mr-3'>
+              className={btnActive === 'especialidad' ? 'bg-blueConsufarma  text-white cursor-pointer rounded-lg font-bold p-3 mr-3' : 'border-blueConsufarma border-2 text-blueConsufarma hover:bg-blueConsufarma hover:text-white cursor-pointer rounded-lg font-bold p-3 mr-3'}>
+                Cursos por Especialidad
             </div>
           </Link>
-          <Link href="/calendario">
-            <div className='border-blueConsufarma border-2 text-center text-blueConsufarma cursor-pointer rounded-lg font-bold p-3 hover:bg-blueConsufarma hover:text-white'>
-              Cursos por fecha
+          <Link href="/calendario" >
+            <div 
+              onClick={() => handleClick('fecha')}
+              className={btnActive === 'fecha' ? 'bg-blueConsufarma  text-white cursor-pointer rounded-lg font-bold p-3' : 'border-blueConsufarma border-2 text-blueConsufarma hover:bg-blueConsufarma hover:text-white cursor-pointer rounded-lg font-bold p-3'}>
+                Cursos por fecha
             </div>
           </Link>
         </div>

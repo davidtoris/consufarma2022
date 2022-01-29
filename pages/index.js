@@ -33,6 +33,7 @@ export default function Home({specialities, courses}) {
         <CarouselSection /> 
         <Filter 
           specialities={allSpecialities}
+          active='especialidad'
         />
         {!status === 'success' ? 'Cargando...' : (
           <Cursos

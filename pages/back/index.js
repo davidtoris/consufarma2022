@@ -2,6 +2,7 @@ import Link from 'next/link'
 import React from 'react'
 import CardCourse from '../../src/components/cursos/CardCourse'
 
+
 const Back = () => {
   return (
     <div className="max-w-7xl mx-auto p-10">
@@ -15,3 +16,5 @@ const Back = () => {
 }
 
 export default Back
+
+

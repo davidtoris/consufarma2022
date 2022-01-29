@@ -25,7 +25,7 @@ const Buscador = () => {
         onSubmit={(valores, { resetForm }) => {
           resetForm();
 
-          router.push(`/courses/?find=${valores.findcourse}`);
+          router.push(`/find/?find=${valores.findcourse}`);
           setSuccess(true);
           setTimeout(() => setSuccess(false), 5000);
         }}>
