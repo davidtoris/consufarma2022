@@ -3,8 +3,7 @@ import { Formik, Form, Field } from 'formik';
 import { API_BASE_URL } from '../../src/constants';
 import axios from 'axios';
 import qs from 'qs';
-import { createEditor } from 'slate'
-import { Slate, Editable, withReact } from 'slate-react'
+
 const BackItemCourse = ({curso}) => {
   console.log(curso);
   const [respuestaBack, setRespuestaBack] = useState('');
@@ -32,14 +31,6 @@ const BackItemCourse = ({curso}) => {
   return (
     <div className="max-w-7xl mx-auto pb-10 ">
 
-      <Slate
-        editor={editor}
-        value={value}
-        onChange={newValue => setValue(newValue)}
-      >
-        <Editable />
-      </Slate>
-
       <Formik
         initialValues={{
           nombre: curso.nombre,
@@ -58,23 +49,23 @@ const BackItemCourse = ({curso}) => {
         onSubmit={ async (valores) => {
           
           console.log(valores);
-          // console.log(qs.stringify(valores));
+          console.log(qs.stringify(valores));
 
-          // var config = {
-          //   method: 'put',
-          //   url: `${API_BASE_URL}/courses/${curso.ruta}`,
-          //   headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-          //   data : qs.stringify(valores),
-          // };
+          const config = {
+            method: 'put',
+            url: `${API_BASE_URL}/courses/${curso.ruta}`,
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+            data : qs.stringify(valores),
+          };
           
-          // await axios(config)
-          // .then(function (response) {
-          //   console.log(JSON.stringify(response.data));
-          //   setRespuestaBack(JSON.stringify(response.data.detalle));
-          // })
-          // .catch(function (error) {
-          //   console.log(error);
-          // });
+          await axios(config)
+          .then(function (response) {
+            console.log(JSON.stringify(response.data));
+            setRespuestaBack(JSON.stringify(response.data.detalle));
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
 
         }}>
         {({ }) => (
