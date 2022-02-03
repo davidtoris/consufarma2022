@@ -31,12 +31,11 @@ const Filter = ({specialities, active}) => {
           <Link href="/">
             <div 
               onClick={() => handleClick('especialidad')}
-              // className='bg-blueConsufarma  text-white cursor-pointer rounded-lg font-bold p-3 mr-3'>
               className={btnActive === 'especialidad' ? 'bg-blueConsufarma  text-white cursor-pointer rounded-lg font-bold p-3 mr-3' : 'border-blueConsufarma border-2 text-blueConsufarma hover:bg-blueConsufarma hover:text-white cursor-pointer rounded-lg font-bold p-3 mr-3'}>
                 Cursos por Especialidad
             </div>
           </Link>
-          <Link href="/calendario" >
+          <Link href="/cursos/fecha" >
             <div 
               onClick={() => handleClick('fecha')}
               className={btnActive === 'fecha' ? 'bg-blueConsufarma  text-white cursor-pointer rounded-lg font-bold p-3' : 'border-blueConsufarma border-2 text-blueConsufarma hover:bg-blueConsufarma hover:text-white cursor-pointer rounded-lg font-bold p-3'}>

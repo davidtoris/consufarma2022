@@ -6,7 +6,7 @@ module.exports = {
   ],
   theme: {
     fontFamily: {
-      'body': ['"Open Sans"'],
+      'body': ['Open Sans', 'sans-serif'],
     },
     extend: {
       colors: {

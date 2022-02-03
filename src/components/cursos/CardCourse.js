@@ -31,9 +31,9 @@ const CardCourse = ({link, nombre, img, label, ponente, fecha}) => {
               {ponente}
             </div>
           </div>
-          <div className='rating text-yellowCustom'>
+          {/* <div className='rating text-yellowCustom'>
             Rating
-          </div>
+          </div> */}
         </div>
       </div>
       </a>

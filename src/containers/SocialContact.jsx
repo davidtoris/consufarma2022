@@ -32,7 +32,11 @@ const SocialContact = () => {
             </a>
           </Link>
         </div>
-        <span>55 4781 0505</span>
+        <span>
+          <Link href="tel:5547810505">
+            55 4781 0505
+          </Link>
+          </span>
       </div>
     </div>
   )

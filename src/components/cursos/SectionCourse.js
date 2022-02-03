@@ -15,7 +15,7 @@ const SectionCourse = ({cursos, nombre}) => {
                 link={`/cursos/${c.ruta}`}
                 nombre={c.nombre}
                 img={c.imagen}
-                label={'promocion'}
+                label={c.filtro}
                 ponente={c.ponente}
                 fecha=''
               />
