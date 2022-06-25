@@ -4,7 +4,7 @@ import Link from 'next/link';
 
 const SocialContact = () => {
   return (
-    <div className='bg-gray-100 p-1 pt-2 flex'>
+    <div className='bg-blueConsufarma p-1 pt-2 flex'>
       <div className="text-gray-600 max-w-7xl mx-auto flex items-center">
         <div className=''>
           <Link href="https://www.instagram.com">

@@ -10,6 +10,7 @@ import NavBar from '../src/components/NavBar';
 import Cursos from '../src/containers/Cursos';
 import Filter from '../src/components/filter';
 import Footer from '../src/containers/Footer';
+import Logotipos from '../src/components/logotipos';
 
 
 
@@ -17,6 +18,8 @@ export default function Home({specialities, courses}) {
   const dispatch = useDispatch();
   const { allCourses, status } = useSelector((state) => state.courses);
   const { allSpecialities } = useSelector((state) => state.specialities);
+
+  console.log(allCourses);
 
   useEffect(() => {
     dispatch(addCourses(courses.detalle));
@@ -27,10 +30,11 @@ export default function Home({specialities, courses}) {
   return (  
     <>
       <div className='bg-gray-100'>
-        <div className='pb-4 bg-white'>
+        <div className='bg-white'>
           <NavBar />
         </div>
         <CarouselSection /> 
+        <Logotipos />
         <Filter 
           specialities={allSpecialities}
           active='especialidad'

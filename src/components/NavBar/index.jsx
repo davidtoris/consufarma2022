@@ -22,7 +22,7 @@ const NavBar = () => {
         </a>
       </Link>
     </header>
-    <nav className="flex text-gray-700 justify-center py-3 font-semibold text-lg">
+    <nav className="flex text-white justify-center py-3 font-semibold text-lg bg-redConsufarma">
       <Link href="/" passHref>
         <div className="px-2 cursor-pointer hover:border-b-2 border-blueLightCustom">Cursos</div>
       </Link>

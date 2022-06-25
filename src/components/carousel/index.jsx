@@ -1,9 +1,9 @@
-import React from 'react';
+import Image from 'next/image';
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Buscador from '../buscador'
-import Image from 'next/image'
+ 
 
 const Carousel = () => {
   var settings = {
@@ -33,7 +33,7 @@ const Carousel = () => {
         <Slider {...settings}>
           <div className="">
             <div className='relative sm:w-100 sm:h-80 h-36'>
-              <Image src="/courses-img/practicas.jpeg" layout='fill' priority="false" alt="buscador consufarma"/>
+              <Image src="/courses-img/practicas.png" layout='fill' priority="false" alt="buscador consufarma"/>
             </div>
           </div>
         </Slider>

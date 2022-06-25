@@ -3,27 +3,35 @@ import Image from 'next/image'
 import { UserCircleIcon } from '@heroicons/react/solid'
 import Link from 'next/link'
 import Label from './Label'
+import moment from 'moment'
 
-const CardCourse = ({link, nombre, img, label, ponente, fecha}) => {
+const CardCourse = ({link, nombre, img, label, ponente, fecha, fechaText, duracion}) => {
+  console.log(ponente);
   return (
     <Link href={link}>
       <a>
-      <div className='hover:scale-105 transition transform duration-200 ease-out p-2 font-body shadow-lg bg-white rounded-md w-[300px] shrink-0 cursor-pointer h-[285px]'>
+      <div className='hover:scale-105 transition transform duration-200 ease-out p-2 font-body shadow-lg bg-white rounded-md w-[300px] shrink-0 cursor-pointer h-[350px]'>
         <div className=''>
-              <Label 
-              label={label} />
-            <div className='relative w-100 h-24'>
-              <Image src={`https://www.consufarma.com/vistas/img/${img}`} layout='fill' priority="false" alt={nombre}/>
+            <Label 
+            label={label} />
+          <div className='relative w-100 h-24'>
+            <Image src={`https://www.consufarma.com/vistas/img/${img}`} layout='fill' priority="false" alt={nombre}/>
+          </div>
+          <div className='text-center bg-blueConsufarma text-white py-1 text-sm'>
+              {fechaText}
+            <div className='font-bold mt-1'>
+              {duracion}
             </div>
-            {fecha != '' && (
-              <div className='text-center bg-blueDarkCustom text-white py-1'>
-                {fecha}
-              </div>
-            )}
+          </div>
         </div>
-        <div className='info p-3'>
-          <div className='name-course font-semibold text-gray-700'>
+        <div className='info p-3 flex justify-between flex-col h-[60%]'>
+          <div className='name-course font-semibold text-gray-700 text-center'>
             {nombre}
+          </div>
+          <div className='flex justify-center'>
+            <div className='bg-blueLightCustom text-center text-white font-bold w-8/12 rounded-md py-1'>
+              ONLINE
+            </div>
           </div>
           <div className='instructor flex my-2 items-center'>
             <UserCircleIcon className='w-6 h-6 text-gray-600' />
@@ -31,9 +39,6 @@ const CardCourse = ({link, nombre, img, label, ponente, fecha}) => {
               {ponente}
             </div>
           </div>
-          {/* <div className='rating text-yellowCustom'>
-            Rating
-          </div> */}
         </div>
       </div>
       </a>
