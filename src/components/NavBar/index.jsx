@@ -7,7 +7,7 @@ import Head from 'next/head'
 
 const NavBar = () => {
   return (
-    <>
+    <div className='header-content'>
     <Head>
         <title>Consufarma</title>
     </Head>
@@ -37,7 +37,7 @@ const NavBar = () => {
       </Link>
     </nav>
     </div>
-    </>
+    </div>
   )
 }
 

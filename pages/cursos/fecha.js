@@ -11,6 +11,7 @@ import Footer from '../../src/containers/Footer';
 import Filter from '../../src/components/filter'
 
 const Calendario = ({cursosDate}) => {
+  console.log(cursosDate)
   const dispatch = useDispatch();
   const { allCoursesDate, statusDate } = useSelector((state) => state.courses);
   const { allSpecialities } = useSelector((state) => state.specialities);
@@ -38,28 +39,28 @@ const Calendario = ({cursosDate}) => {
           {
             selectSpeciality != '' ? allCoursesDate.filter(e => e.especialidad === selectSpeciality).map(c => (
 
-              <div className='mb-7 m-auto' key={c.id}>
+              <div className='mb-7 m-auto' key={c._id}>
                 <CardCourse  
-                  link={`/cursos/${c.ruta}`}
-                  nombre={c.nombre}
-                  img={c.imagen}
+                  link={`/cursos/${c.temario.nombre_ruta}`}
+                  nombre={c.temario.nombre}
+                  img={c.temario.imagen}
                   label=''
                   ponente={c.ponente}
-                  fecha={c.fecha_text}
+                  fechaText={c.fecha_text}
                 />
               </div>
             )) : 
             
             allCoursesDate.map(c => (
 
-              <div className='mb-7 m-auto' key={c.id}>
+              <div className='mb-7 m-auto' key={c._id}>
                 <CardCourse  
-                  link={`/cursos/${c.ruta}`}
-                  nombre={c.nombre}
-                  img={c.imagen}
+                  link={`/cursos/${c.temario.ruta}`}
+                  nombre={c.temario.nombre}
+                  img={c.temario.imagen}
                   label=''
                   ponente={c.ponente}
-                  fecha={c.fecha_text}
+                  fechaText={c.fecha_text}
                 />
               </div>
 
@@ -75,9 +76,10 @@ const Calendario = ({cursosDate}) => {
 export default Calendario;
 
 export const getServerSideProps = async () => {
-  const res = await fetch(`${API_BASE_URL}/courses-date`);
+  const res = await fetch(`${API_BASE_URL}/courses?sortBy=fecha`);
   const data = await res.json()
-  const cursosDate = data.detalle
+  console.log(data);
+  const cursosDate = data.courses
 
   return { props : { cursosDate } }
 }

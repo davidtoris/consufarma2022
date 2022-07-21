@@ -8,56 +8,6 @@ import dynamic from 'next/dynamic'
 
 const BackItemCourse = ({curso}) => {
 
-  const QuillNoSSRWrapper = dynamic(import('react-quill'), {	
-    ssr: false,
-    loading: () => <p>Loading ...</p>,
-  })
-
-  const modules = {
-    toolbar: [
-      [{ header: '1' }, { header: '2' }, { font: [] }],
-      [{ size: [] }],
-      ['bold', 'italic', 'underline', 'strike', 'blockquote'],
-      [
-        { list: 'ordered' },
-        { list: 'bullet' },
-        { indent: '-1' },
-        { indent: '+1' },
-      ],
-      ['link', 'image', 'video'],
-      ['clean'],
-    ],
-    clipboard: {
-      // toggle to add extra line breaks when pasting HTML:
-      matchVisual: false,
-    },
-  }
-
-  const formats = [
-    'header',
-    'font',
-    'size',
-    'bold',
-    'italic',
-    'underline',
-    'strike',
-    'blockquote',
-    'list',
-    'bullet',
-    'indent',
-    'link',
-    'image',
-    'video',
-  ]
-
-  const [value, setValue] = useState();
-
-  const handlechange = (e) => {
-    console.log(e.value);
-    console.log([e.target]);
-  }
-
-console.log(curso);
   const [respuestaBack, setRespuestaBack] = useState('');
   const [specialities, setSpecialities] = useState([]);
 
@@ -65,38 +15,30 @@ console.log(curso);
       const getSpecialities = async () => {
         await axios.get(`${API_BASE_URL}/specialities`)
         .then(resp => {
-          setSpecialities(resp.data.detalle);      
+          setSpecialities(resp.data.specialities);      
         })
-      
       };
       getSpecialities();
   }, []);
-
-  useEffect(() => {
-
-  },[value])
+  
 
   return (
     <>
-
-      
-
       <div className="max-w-7xl mx-auto pb-10 ">
-
         <Formik
           initialValues={{
-            nombre: curso.nombre,
-            fecha: curso.fecha,
-            fecha_text: curso.fecha_text,
-            duracion: curso.duracion,
-            lugar: curso.lugar,
-            ubicacion: curso.ubicacion,
-            ruta: curso.ruta,
-            precio: curso.precio,
-            especialidad: curso.especialidad_id,
-            ponente: curso.ponente_id,
-            filtro: curso.filtro,
-            objetivo: curso.objetivo,
+            nombre: curso[0].nombre,
+            fecha: curso[0].fecha,
+            fecha_text: curso[0].fecha_text,
+            duracion: curso[0].duracion,
+            lugar: curso[0].lugar,
+            ubicacion: curso[0].ubicacion,
+            ruta: curso[0].ruta,
+            precio: curso[0].precio,
+            especialidad: curso[0].especialidad_id,
+            ponente: curso[0].ponente_id,
+            filtro: curso[0].filtro,
+            objetivo: curso[0].objetivo,
           }}
           onSubmit={ async (valores) => {
             
@@ -166,8 +108,7 @@ console.log(curso);
                 <label className="block text-gray-700 text-sm font-bold mb-2">
                   Objetivo
                 </label>
-                <QuillNoSSRWrapper theme="snow" value={value} onChange={setValue} name="objetivo"/>
-                <p>{value}</p>
+                
                 <Field 
                   className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
                   as="textarea"
@@ -245,7 +186,7 @@ console.log(curso);
                     name="especialidad">
                       <option value={curso.especialidad_id}>{curso.especialidad}</option>
                       {specialities.map(s=>(
-                        <option value={s.id} key={s.id}>{s.especialidad}</option>
+                        <option value={s.id} key={s._id}>{s.especialidad}</option>
                       ))}
                     </Field>
                   </div>
@@ -294,11 +235,10 @@ export default BackItemCourse
 
 
 export const getServerSideProps = async ({query: {ruta}}) => {
-  const res = await fetch(`${API_BASE_URL}/courses/${ruta}`);
+  const res = await fetch(`${API_BASE_URL}/topics/${ruta}`);
   const data = await res.json()
-  const curso = data.detalle[0]
-
-  console.log(curso);
+  console.log(data);
+  const curso = data.topic
 
   return { props : { curso } }
 }

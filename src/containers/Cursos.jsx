@@ -8,25 +8,24 @@ const Cursos = ({specialities, cursos}) => {
   return (
     <div className='container m-auto px-2 md:px-2 max-w-7x'>
       {selectSpeciality != '' ?
-      specialities.filter(e => e.especialidad === selectSpeciality).map(esp => (
-        <SectionCourse
-        key={esp.id} 
-        cursos={cursos}
-        nombre={esp.especialidad}
-        />
-      ))
-      :
-      specialities.map(esp => (
-        <SectionCourse
-        key={esp.id} 
-        cursos={cursos}
-        nombre={esp.especialidad}
-        />
-      ))
-    }
+        specialities.filter(e => e.especialidad === selectSpeciality).map(esp => (
+          <SectionCourse
+          key={esp.id} 
+          cursos={cursos}
+          nombre={esp.especialidad}
+          />
+        ))
+        :
+        specialities.map(esp => (
+          <SectionCourse
+          key={esp._id} 
+          cursos={cursos}
+          nombre={esp.especialidad}
+          />
+        ))
+      }
     </div>
   )
 }
-
 
 export default Cursos

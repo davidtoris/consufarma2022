@@ -5,6 +5,8 @@ import Footer from '../../src/containers/Footer'
 import ItemCourse from '../../src/containers/ItemCourse'
 
 const LandingItemCourse = ({curso}) => {
+
+  console.log(curso)
   return (
     <div>
       <NavBar />
@@ -19,9 +21,10 @@ const LandingItemCourse = ({curso}) => {
 export default LandingItemCourse
 
 export const getServerSideProps = async ({query: {ruta}}) => {
-  const res = await fetch(`${API_BASE_URL}/courses/${ruta}`);
+  const res = await fetch(`${API_BASE_URL}/topics/${ruta}`);
   const data = await res.json()
-  const curso = data.detalle
+  const curso = data.topic
+  console.log(curso);
 
   return { props : { curso } }
 }

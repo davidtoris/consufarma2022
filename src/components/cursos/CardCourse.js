@@ -6,16 +6,17 @@ import Label from './Label'
 import moment from 'moment'
 
 const CardCourse = ({link, nombre, img, label, ponente, fecha, fechaText, duracion}) => {
-  console.log(ponente);
   return (
     <Link href={link}>
       <a>
       <div className='hover:scale-105 transition transform duration-200 ease-out p-2 font-body shadow-lg bg-white rounded-md w-[300px] shrink-0 cursor-pointer h-[350px]'>
         <div className=''>
+          {label && (
             <Label 
             label={label} />
+          )}
           <div className='relative w-100 h-24'>
-            <Image src={`https://www.consufarma.com/vistas/img/${img}`} layout='fill' priority="false" alt={nombre}/>
+            <Image src={img} layout='fill' priority="false" alt={nombre}/>
           </div>
           <div className='text-center bg-blueConsufarma text-white py-1 text-sm'>
               {fechaText}

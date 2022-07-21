@@ -57,7 +57,7 @@ const Filter = ({specialities, active}) => {
                 {specialities.map(s => (
                   <option 
                     value={s.especialidad} 
-                    key={s.id}
+                    key={s._id}
                     >{s.especialidad}</option>
                   ))}
               </select>

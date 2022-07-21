@@ -11,9 +11,9 @@ const ItemCourse = ({curso}) => {
   const [coursesSpeciality, setCoursesSpeciality] = useState([]);
   useEffect(() => {
     const especialidades = async () => {
-      const res = await fetch(`${API_BASE_URL}/filterCoursesBySpecialities/${especialidad_ruta}`);
+      const res = await fetch(`${API_BASE_URL}/courses/especialidad/${especialidad_ruta}`);
       const data = await res.json()
-      const curso = data.detalle
+      const curso = data.course
       setCoursesSpeciality(curso);
     }
     especialidades();
@@ -21,7 +21,7 @@ const ItemCourse = ({curso}) => {
   
   const route = useRouter();
   
-  const {nombre, fecha_text, duracion, especialidad, especialidad_ruta, ponente, ponente_dos, objetivo, temario, precio, forms, imagen} = curso[0];
+  const {nombre, fecha_text, duracion, especialidad, especialidad_ruta, ponente, ponente_dos, objetivo, temario, precio, imagen} = curso[0];
   const Objectiv = () => { 
     return {__html: objetivo};
   }
@@ -34,7 +34,7 @@ const ItemCourse = ({curso}) => {
     <div className='max-w-7xl container mx-auto font-body grid-flow-row grid grid-cols-1 lg:grid-cols-3 gap-4 mt-5 px-2 md:px-5'>
       <div className='col-span-1 md:col-span-2 md:px-0 px-3'>
         <div className='relative sm:w-100 sm:h-60 w-100 h-32'>
-          <Image src={`https://www.consufarma.com/vistas/img/${imagen}`} layout='fill' alt={nombre}/>
+          <Image src={imagen} layout='fill' alt={nombre}/>
         </div>
         <div className="flex justify-between">
           <h1 className='name-course text-blueDarkCustom font-bold text-2xl my-5 w-8/12'>
@@ -120,7 +120,7 @@ const ItemCourse = ({curso}) => {
               <div className='font-bold'>Añadir al Carrito</div>
             </div>
 
-            <Link href={forms}>
+            <Link href="algo">
               <div className='bg-blueDarkCustom mt-5 rounded-md p-2 sm:py-2 py-3 text-white font-bold text-center text-xl fixed sm:relative z-10 bottom-0 w-full left-0'>
                   Inscríbete
               </div>
@@ -164,13 +164,15 @@ const ItemCourse = ({curso}) => {
       </h2>
       <div className='flex space-x-3 overflow-x-scroll overflow-y-hidden'>
       {coursesSpeciality.map(c => (
-        <div key={c.nombre}>
+        <div key={c._id}>
           <CardCourse 
           link={`/cursos/${c.ruta}`}
-          nombre={c.nombre}
-          img={c.imagen}
-          label={'Promoción'}
-          ponente={c.ponente}
+          nombre={c.temario.nombre}
+          img={c.temario.imagen}
+          label={c.temario.label}
+          ponente={c.temario.maestro_uno}
+          fechaText={c.fecha_text}
+          duracion={c.duracion}
           />
         </div>
       ))}

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useCallback, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { API_BASE_URL } from '../src/constants';
 
@@ -12,20 +12,15 @@ import Filter from '../src/components/filter';
 import Footer from '../src/containers/Footer';
 import Logotipos from '../src/components/logotipos';
 
-
-
 export default function Home({specialities, courses}) {
   const dispatch = useDispatch();
   const { allCourses, status } = useSelector((state) => state.courses);
   const { allSpecialities } = useSelector((state) => state.specialities);
 
-  console.log(allCourses);
-
   useEffect(() => {
-    dispatch(addCourses(courses.detalle));
-    dispatch(addSpecialities(specialities.detalle));
+    dispatch(addCourses(courses));
+    dispatch(addSpecialities(specialities));
   }, []);
-  
   
   return (  
     <>
@@ -40,6 +35,7 @@ export default function Home({specialities, courses}) {
           active='especialidad'
         />
         {!status === 'success' ? 'Cargando...' : (
+
           <Cursos
             specialities={allSpecialities}
             cursos={allCourses} 
@@ -54,7 +50,7 @@ export default function Home({specialities, courses}) {
 
 export const getServerSideProps = async () => {
   const urlSpecialities = `${API_BASE_URL}/specialities`
-  const urlListCoursesBySpeciality = `${API_BASE_URL}/courses-speciality`
+  const urlListCoursesBySpeciality = `${API_BASE_URL}/courses`
 
   const [respSpecialities, respCourses] = await Promise.all([
     fetch(urlSpecialities),
@@ -67,8 +63,8 @@ export const getServerSideProps = async () => {
   ])
 
   return { props : { 
-      specialities,
-      courses
+      specialities : specialities.specialities,
+      courses: courses.courses
     } 
   }
 }
