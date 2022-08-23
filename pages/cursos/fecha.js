@@ -41,11 +41,11 @@ const Calendario = ({cursosDate}) => {
 
               <div className='mb-7 m-auto' key={c._id}>
                 <CardCourse  
-                  link={`/cursos/${c.temario.nombre_ruta}`}
-                  nombre={c.temario.nombre}
-                  img={c.temario.imagen}
+                  link={`/cursos/${c.nombre_ruta}`}
+                  nombre={c.nombre}
+                  img={c.imagen}
                   label=''
-                  ponente={c.ponente}
+                  ponente={c.ponente_uno}
                   fechaText={c.fecha_text}
                 />
               </div>
@@ -55,11 +55,11 @@ const Calendario = ({cursosDate}) => {
 
               <div className='mb-7 m-auto' key={c._id}>
                 <CardCourse  
-                  link={`/cursos/${c.temario.ruta}`}
-                  nombre={c.temario.nombre}
-                  img={c.temario.imagen}
+                  link={`/cursos/${c.ruta}`}
+                  nombre={c.nombre}
+                  img={c.imagen}
                   label=''
-                  ponente={c.ponente}
+                  ponente={c.ponente_uno}
                   fechaText={c.fecha_text}
                 />
               </div>

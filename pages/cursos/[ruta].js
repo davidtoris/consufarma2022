@@ -21,10 +21,9 @@ const LandingItemCourse = ({curso}) => {
 export default LandingItemCourse
 
 export const getServerSideProps = async ({query: {ruta}}) => {
-  const res = await fetch(`${API_BASE_URL}/topics/${ruta}`);
+  const res = await fetch(`${API_BASE_URL}/courses/${ruta}`);
   const data = await res.json()
-  const curso = data.topic
-  console.log(curso);
+  const curso = data.course[0]
 
   return { props : { curso } }
 }

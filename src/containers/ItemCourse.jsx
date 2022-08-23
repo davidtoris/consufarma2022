@@ -9,19 +9,24 @@ import Link from 'next/link'
 
 const ItemCourse = ({curso}) => {
   const [coursesSpeciality, setCoursesSpeciality] = useState([]);
+
+
   useEffect(() => {
     const especialidades = async () => {
       const res = await fetch(`${API_BASE_URL}/courses/especialidad/${especialidad_ruta}`);
       const data = await res.json()
-      const curso = data.course
+      console.log(data);
+      const curso = data.courseSpecialitty
       setCoursesSpeciality(curso);
     }
     especialidades();
   }, []);
   
-  const route = useRouter();
+
+
   
-  const {nombre, fecha_text, duracion, especialidad, especialidad_ruta, ponente, ponente_dos, objetivo, temario, precio, imagen} = curso[0];
+  const {nombre, fecha_text, duracion, especialidad, especialidad_ruta, ponente, ponente_dos, objetivo, temario, precio, imagen} = curso;
+
   const Objectiv = () => { 
     return {__html: objetivo};
   }
@@ -29,12 +34,15 @@ const ItemCourse = ({curso}) => {
     return {__html: temario};
   }
 
+  const url = imagen
   return (
     <>
     <div className='max-w-7xl container mx-auto font-body grid-flow-row grid grid-cols-1 lg:grid-cols-3 gap-4 mt-5 px-2 md:px-5'>
       <div className='col-span-1 md:col-span-2 md:px-0 px-3'>
         <div className='relative sm:w-100 sm:h-60 w-100 h-32'>
+         {imagen && (
           <Image src={imagen} layout='fill' alt={nombre}/>
+         )} 
         </div>
         <div className="flex justify-between">
           <h1 className='name-course text-blueDarkCustom font-bold text-2xl my-5 w-8/12'>
@@ -167,10 +175,10 @@ const ItemCourse = ({curso}) => {
         <div key={c._id}>
           <CardCourse 
           link={`/cursos/${c.ruta}`}
-          nombre={c.temario.nombre}
-          img={c.temario.imagen}
-          label={c.temario.label}
-          ponente={c.temario.maestro_uno}
+          nombre={c.nombre}
+          img={c.imagen}
+          label={c.label}
+          ponente={c.ponente_uno}
           fechaText={c.fecha_text}
           duracion={c.duracion}
           />

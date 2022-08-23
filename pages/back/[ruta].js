@@ -5,7 +5,8 @@ import axios from 'axios';
 import qs from 'qs';
 import "react-quill/dist/quill.snow.css";
 import dynamic from 'next/dynamic'
-
+import ReactQuill from "react-quill"
+import 'react-quill/dist/quill.snow.css'
 const BackItemCourse = ({curso}) => {
 
   const [respuestaBack, setRespuestaBack] = useState('');
@@ -20,10 +21,15 @@ const BackItemCourse = ({curso}) => {
       };
       getSpecialities();
   }, []);
-  
+  const [convertedText, setConvertedText] = useState("sds");
 
   return (
     <>
+    <ReactQuill
+          theme='snow'
+          value={convertedText}
+          onChange={setConvertedText}
+        />
       <div className="max-w-7xl mx-auto pb-10 ">
         <Formik
           initialValues={{
