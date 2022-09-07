@@ -2,9 +2,6 @@ import { useEffect } from "react";
 
 const PrintTopic = ( {curso} ) => {
 
-  const {imagen} = curso
-
-
   useEffect(() => {
     setTimeout(() => {
       window.print();
