@@ -5,6 +5,7 @@ import NavBar from '../../src/components/NavBar';
 import CardCourse from '../../src/components/cursos/CardCourse';
 import Buscador from '../../src/components/buscador';
 import Footer from '../../src/containers/Footer';
+import instanceAPI from '../../src/config/axiosConfig';
 
 const Courses = ({curso}) => {
 
@@ -14,9 +15,11 @@ const Courses = ({curso}) => {
 
   useEffect(() => {
     const findCoursese = async () => {
-      const res = await fetch(`${API_BASE_URL}/courses/find/name?value=${value}`);
-      const data = await res.json();
+      const res = await instanceAPI
+      .get(`/courses/find/name?value=${value}`);
+      const data = await res.data;
       setCourseFinded(data.coursesFinded);
+      console.log(data.coursesFinded);
     }
 
     findCoursese();
@@ -45,24 +48,23 @@ const Courses = ({curso}) => {
             </>
           )}
           
-          
           <div className='flex space-x-3 overflow-x-scroll overflow-y-hidden my-5'>
             {courseFinded.map(c => (
 
               <CardCourse
                 key={c._id}
-                link={`/cursos/${c.temario.nombre_ruta}`}
-                nombre={c.temario.nombre}
-                img={c.temario.imagen}
+                link={`/cursos/${c.nombre_ruta}`}
+                nombre={c.nombre}
+                img={c.imagen}
                 fechaText={c.fecha_text}
-                label={c.temario.label}
-                ponente={c.temario.maestro_uno}
+                label={c.label}
+                ponente={c.ponente_uno_id.ponente}
               />
             
             ))}
           </div>
         </section>
-      </div>
+      </div> 
 
       <Footer />
 

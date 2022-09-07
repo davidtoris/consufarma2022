@@ -23,6 +23,7 @@ const Buscador = () => {
         }}
         validationSchema={FindSchema}
         onSubmit={(valores, { resetForm }) => {
+          console.log(valores)
           resetForm();
 
           router.push(`/find/?find=${valores.findcourse}`);

@@ -9,10 +9,12 @@ import CarouselSection from '../src/containers/Carousel';
 import NavBar from '../src/components/NavBar';
 import Cursos from '../src/containers/Cursos';
 import Filter from '../src/components/filter';
+import PluginFB from '../src/components/PluginFB';
 import Footer from '../src/containers/Footer';
 import Logotipos from '../src/components/logotipos';
 
 export default function Home({specialities, courses}) {
+
   const dispatch = useDispatch();
   const { allCourses, status } = useSelector((state) => state.courses);
   const { allSpecialities } = useSelector((state) => state.specialities);
@@ -41,6 +43,8 @@ export default function Home({specialities, courses}) {
             cursos={allCourses} 
           />
         )}
+
+        <PluginFB />
 
         <Footer />
       </div>

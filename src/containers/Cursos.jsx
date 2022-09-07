@@ -5,12 +5,13 @@ import { useSelector } from 'react-redux';
 const Cursos = ({specialities, cursos}) => {
 
   const { selectSpeciality } = useSelector((state) => state.specialities);
+
   return (
     <div className='container m-auto px-2 md:px-2 max-w-7x'>
       {selectSpeciality != '' ?
         specialities.filter(e => e.especialidad === selectSpeciality).map(esp => (
           <SectionCourse
-          key={esp.id} 
+          key={esp._id} 
           cursos={cursos}
           nombre={esp.especialidad}
           />

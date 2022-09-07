@@ -5,6 +5,7 @@ import { useRouter } from 'next/router'
 import CardCourse from '../components/cursos/CardCourse'
 import { API_BASE_URL } from '../constants'
 import Link from 'next/link'
+import Head from 'next/head'
 
 
 const ItemCourse = ({curso}) => {
@@ -15,7 +16,6 @@ const ItemCourse = ({curso}) => {
     const especialidades = async () => {
       const res = await fetch(`${API_BASE_URL}/courses/especialidad/${especialidad_ruta}`);
       const data = await res.json()
-      console.log(data);
       const curso = data.courseSpecialitty
       setCoursesSpeciality(curso);
     }
@@ -23,9 +23,8 @@ const ItemCourse = ({curso}) => {
   }, []);
   
 
-
-  
-  const {nombre, fecha_text, duracion, especialidad, especialidad_ruta, ponente, ponente_dos, objetivo, temario, precio, imagen} = curso;
+  const {nombre, nombre_ruta, fecha_text, duracion, horario, especialidad, especialidad_ruta, ponente_uno_id, ponente_dos_id, objetivo, temario, precio, imagen, register} = curso;
+  const {ponente, ponente_cv, ponente_img} = ponente_uno_id;
 
   const Objectiv = () => { 
     return {__html: objetivo};
@@ -36,56 +35,143 @@ const ItemCourse = ({curso}) => {
 
   const url = imagen
   return (
-    <>
-    <div className='max-w-7xl container mx-auto font-body grid-flow-row grid grid-cols-1 lg:grid-cols-3 gap-4 mt-5 px-2 md:px-5'>
-      <div className='col-span-1 md:col-span-2 md:px-0 px-3'>
-        <div className='relative sm:w-100 sm:h-60 w-100 h-32'>
-         {imagen && (
-          <Image src={imagen} layout='fill' alt={nombre}/>
-         )} 
+    <div className='no-print'>
+      <div className='max-w-7xl container mx-auto font-body grid-flow-row grid grid-cols-1 lg:grid-cols-3 gap-4 mt-5 px-2 md:px-5'>
+        <div className='col-span-1 md:col-span-2 md:px-0 px-3'>
+          <div className="flex justify-between">
+            <h1 className='name-course text-blueDarkCustom font-bold text-2xl my-5 w-8/12'>
+              {nombre}
+            </h1>
+            {/* <div className='rating text-yellowCustom mt-5 flex items-base'>
+              <span className=""> 4.5 </span>
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                </svg>
+              <span className="mx-2 text-gray-500"> (31) </span>
+            </div> */}
+          </div>
+          <div className='relative sm:w-100 sm:h-60 w-100 h-32'>
+          {imagen && (
+            <Image src={imagen} layout='fill' alt={nombre}/>
+          )} 
+          </div>
+
+          <div className='date-hour-course bg-blueConsufarma p-2 text-white rounded-md flex md:w-[40rem] w-100 flex-col md:flex-row font-bold text-lg mt-3'>
+            <div className='flex ml-3'>
+            <ClockIcon className='w-6 h-6 ml-1 mr-1'/> {duracion}
+              <span className='mx-3 '>/</span> {horario}
+            </div>
+            
+            <div className='flex ml-4'> 
+              <CalendarIcon className='w-6 h-6 ml-3 mr-1'/>{fecha_text}
+            </div>
+          </div>
+          
+          
+          <h2 className='text-2xl text-blueConsufarma uppercase font-bold mt-10 border-b-4 border-redConsufarma w-24'>objetivos</h2>
+          <ul className='ml-2 mt-2 text-gray-600 mb-7'>
+            <div dangerouslySetInnerHTML={Objectiv()} />
+          </ul>
+
+          <div className='temario mt-10'>
+            <h2 className='text-2xl text-blueConsufarma uppercase font-bold mt-10 border-b-4 border-redConsufarma w-24'>Temario</h2>
+            <div dangerouslySetInnerHTML={Topics()} className='ml-2 mt-2 h-[350px] overflow-y-scroll'/>
+          </div>
+
         </div>
-        <div className="flex justify-between">
-          <h1 className='name-course text-blueDarkCustom font-bold text-2xl my-5 w-8/12'>
-            {nombre}
-          </h1>
-          <div className='rating text-yellowCustom mt-5 flex items-base'>
-            <span className=""> 4.5 </span>
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-              </svg>
-            <span className="mx-2 text-gray-500"> (31) </span>
+        
+        {/* Second Column */}
+        <div className='sm:pl-5 px-2'>
+          
+            <div className="top-50 right-40">
+              
+              <div className='bg-gray-100 px-5 py-4 rounded-md text-center'>
+                <div className='text-grayCustom font-bold mt-2'> Pago por empresa: </div>
+                <div className='font-bold text-3xl mt-1'>${precio} + IVA</div>
+                <div className='text-grayCustom font-bold mt-3'> 
+                  Pago personal: Pregunta por nuestro precio especial y opción a 3 meses sin interéses
+                </div>
+                {/* <button className='bg-blueConsufarma rounded-xl text-white font-bold text-lg w-11/12 mt-4 p-2'>
+                  Regístrate
+                </button> */}
+                {/* <div className='mt-6 mb-2 flex justify-center'>
+                  <ShoppingCartIcon className='w-7 h-7 text-grayCustom '/>
+                  <div className='font-bold text-xl underline'>Añadir al Carrito</div>
+                </div> */}
+                <Link href={`/print/${nombre_ruta}`}>
+                <button className='bg-blueConsufarma rounded-xl text-white font-bold text-lg w-11/12 mt-4 p-2'>
+                  Imprimir Temario
+                </button>
+                </Link>
+                <a href={register} target="blank">
+                <button className='bg-redConsufarma rounded-xl text-white font-bold text-lg w-11/12 uppercase my-3 p-2'>
+                  Registráte
+                </button>
+                </a>
+              </div>
+              
+              <div className='flex justify-center flex-col text-center mt-2'>
+
+                <div>
+                  <a href={`https://api.whatsapp.com/send?phone=5215618003145&text=Hola, me gustaría mayor información del curso: ${nombre}`}>
+                    <Image src="https://res.cloudinary.com/drq8o9k36/image/upload/v1661528416/BOTON_WHATSAPP-01_lktuwg.webp" layout='fixed' width={250} height={90} alt="">
+                    </Image>
+                  </a>
+                </div>
+                <div className='m-auto'>
+                  <iframe className='mt-4' src="https://www.facebook.com/plugins/share_button.php?href=https%3A%2F%2Fwww.consufarma.com%2Ftaller-de-validacion-de-metodos-analitcos&layout=button&size=small&appId=212287463617267&width=89&height=20" width="103" height="28" scrolling="no" frameBorder="0" allowFullScreen={true} allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
+                </div>
+              </div>
+              
+              
+              <div className='border-2 mt-12'>
+                <h2 className='text-2xl text-gray-800 text-center mt-7'>¿Qué incluye?</h2>
+                <div className='w-80 px-5 py-2 rounded-md'>
+                  <div className=''> 
+                    <div className='text-gray-700 flex my-3'>
+                      <QuestionMarkCircleIcon className='w-14 h-14 mr-3'/>
+                      Recepción de dudas por parte de los asistentes previo al inicio del curso. 
+                    </div>
+                    <div className='text-gray-700 flex my-3'>
+                      <PrinterIcon className='w-11 h-11 mr-3'/>
+                      Material y ejercicios impreso o digital (Cursos virtual)
+                    </div>
+                    <div className='text-gray-700 flex my-3'>
+                      <AcademicCapIcon className='w-7 h-7 mr-3'/>
+                      Diploma de participación
+                    </div>
+                    <div className='text-gray-700 flex my-3'>
+                      <DocumentIcon className='w-7 h-7 mr-3'/>
+                      Examen a solicitud del participante
+                    </div>
+                    <div className='text-gray-700 flex my-3'>
+                      <EmojiHappyIcon className='w-7 h-7 mr-3'/>
+                      Servicio Posventa Resolución de dudas
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+        </div>
+      </div>
+      <div className='max-w-7xl container mx-auto '>
+        <div className='ponente bg-blueConsufarma text-white my-8 flex p-4 pb-5 rounded-md w-12/12'>
+          {ponente_img && (
+            <Image src={ponente_img} layout='fixed' width={400} height={100} alt="" />
+          )}
+          <div className='ml-5'>
+            <h2 className='text-2xl font-bold mb-2'>{ponente}</h2>
+            <div>{ponente_cv}</div>
           </div>
         </div>
+      </div>
 
-        <div className='date-hour-course bg-blueLightCustom p-2 text-white rounded-md flex items-center justify-center md:w-[40rem] w-100 flex-col md:flex-row '>
-            
-            <div className='flex'>
-              <span className='font-bold'>Fecha de inicio: </span> 
-            </div>
-            
-            <div className='flex'>
-              <CalendarIcon className='w-6 h-6 ml-3 mr-1'/> {duracion}
-              <span className='ml-3 '>/</span>
-            </div>
-            
-            <div className='flex'> 
-              <ClockIcon className='w-6 h-6 ml-1 mr-1'/> {fecha_text}
-            </div>
-        </div>
+    
+      <div className='max-w-7xl container mx-auto '>
+        <h2 className='text-2xl text-blueConsufarma uppercase font-bold mt-10 border-b-4 border-redConsufarma w-24'>ubicación</h2>
         
-        
-        <h2 className='text-2xl text-gray-800 mt-10'>¿Qué aprenderás?</h2>
-        <ul className='list-disc ml-10 mt-2 text-gray-600 mb-7'>
-          <div dangerouslySetInnerHTML={Objectiv()} />
-        </ul>
-
-        <div className='temario mt-10'>
-          <h2 className='text-pinkCustom text-2xl font-bold'>Temario</h2>
-          <div dangerouslySetInnerHTML={Topics()} className='mt-1'/>
-        </div>
-        
-        <div className='bg-gray-100 p-3 rounded-lg mt-10'>
-          <h2 className='text-pinkCustom text-2xl font-bold'>Ubicación</h2>
+        <div className='bg-gray-100 p-3 rounded-lg mt-4'>
           <div className='ubication flex mt-2'>
             <div className='relative w-6 h-6'>
               <Image src="/courses-img/zoom-icon.png" layout='fill'alt="zoom-icon"/>
@@ -95,98 +181,31 @@ const ItemCourse = ({curso}) => {
             </div>
           </div>
         </div>
-
-        <div className='speciality mt-5 flex'>
-          <BadgeCheckIcon className='w-6 h-6 text-blueDarkCustom'/>
-          <span className='text-blueDarkCustom font-bold'>Especialidad: </span>
-          <span className='text-gray-700 ml-2'>{especialidad}</span>
-        </div>
-        
-        <div className='instructor mb-7 flex'>
-          <BadgeCheckIcon className='w-6 h-6 text-blueDarkCustom'/>
-          <span className='text-blueDarkCustom font-bold'>Ponente: </span>
-          <span className='text-gray-700 ml-2'>{ponente}</span>
-          <span className='text-gray-700 ml-2'>{ponente_dos === 'ninguno' ? '' : `/ ${ponente_dos}` }</span>
-        </div>
-
       </div>
-      
-      {/* Second Column */}
-      <div className='sm:pl-5 px-2'>
-        
-          <div className="top-50 right-40">
-            
-            <div className='bg-gray-100  px-5 py-2 rounded-md text-center'>
-              <div className='text-blueDarkCustom font-bold'> Pago por empresa: </div>
-              <div className='font-normal'>${precio} + IVA</div>
-              <div className='text-blueDarkCustom font-bold mt-3'> Pago personal: </div>
-              <div className='font-normal'>Pregunta por nuestro precio especial y opción a 3 meses sin interéses</div>
-            </div>
-            
-            <div className=' text-center flex items-center text-blueLightCustom mt-5 justify-center border-2 py-2'>
-              <ShoppingCartIcon className='w-7 h-7 mr-3 '/>
-              <div className='font-bold'>Añadir al Carrito</div>
-            </div>
 
-            <Link href="algo">
-              <div className='bg-blueDarkCustom mt-5 rounded-md p-2 sm:py-2 py-3 text-white font-bold text-center text-xl fixed sm:relative z-10 bottom-0 w-full left-0'>
-                  Inscríbete
-              </div>
-            </Link>
 
-            <div className='border-2 mt-5'>
-              <h2 className='text-2xl text-gray-800 text-center mt-7'>¿Qué incluye?</h2>
-              <div className='w-80 px-5 py-2 rounded-md'>
-                <div className=''> 
-                  <div className='text-gray-700 flex my-3'>
-                    <QuestionMarkCircleIcon className='w-14 h-14 mr-3'/>
-                    Recepción de dudas por parte de los asistentes previo al inicio del curso. 
-                  </div>
-                  <div className='text-gray-700 flex my-3'>
-                    <PrinterIcon className='w-11 h-11 mr-3'/>
-                    Material y ejercicios impreso o digital (Cursos virtual)
-                  </div>
-                  <div className='text-gray-700 flex my-3'>
-                    <AcademicCapIcon className='w-7 h-7 mr-3'/>
-                    Diploma de participación
-                  </div>
-                  <div className='text-gray-700 flex my-3'>
-                    <DocumentIcon className='w-7 h-7 mr-3'/>
-                    Examen a solicitud del participante
-                  </div>
-                  <div className='text-gray-700 flex my-3'>
-                    <EmojiHappyIcon className='w-7 h-7 mr-3'/>
-                    Servicio Posventa Resolución de dudas
-                  </div>
-                </div>
-              </div>
-            </div>
-
+      <div className='max-w-7xl mx-auto mt-5 container px-3'>
+        <h2 className='text-2xl text-blueDarkCustom mb-5 mt-12 font-bold'>
+        Otros cursos para continuar con tu aprendizaje
+        </h2>
+        <div className='flex space-x-3 overflow-x-scroll overflow-y-hidden'>
+        {coursesSpeciality.map(c => (
+          <div key={c._id}>
+            <CardCourse 
+            link={`/cursos/${c.nombre_ruta}`}
+            nombre={c.nombre}
+            img={c.imagen}
+            label={c.label}
+            ponente={c.ponente_uno_id.ponente}
+            fechaText={c.fecha_text}
+            duracion={c.duracion}
+            horario={c.horario}
+            />
           </div>
-      </div>
-    </div>
-
-    <div className='max-w-7xl mx-auto mt-5 container px-3'>
-      <h2 className='text-2xl text-blueDarkCustom mb-5 mt-12 font-bold'>
-      Otros cursos para continuar con tu aprendizaje
-      </h2>
-      <div className='flex space-x-3 overflow-x-scroll overflow-y-hidden'>
-      {coursesSpeciality.map(c => (
-        <div key={c._id}>
-          <CardCourse 
-          link={`/cursos/${c.ruta}`}
-          nombre={c.nombre}
-          img={c.imagen}
-          label={c.label}
-          ponente={c.ponente_uno}
-          fechaText={c.fecha_text}
-          duracion={c.duracion}
-          />
+        ))}
         </div>
-      ))}
       </div>
     </div>
-  </>
   )
 }
 
