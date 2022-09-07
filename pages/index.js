@@ -44,7 +44,7 @@ export default function Home({specialities, courses}) {
           />
         )}
 
-        <PluginFB />
+        {/* <PluginFB /> */}
 
         <Footer />
       </div>

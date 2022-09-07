@@ -1,5 +1,3 @@
-import React from 'react'
-
 const PluginFB = () => {
   return (
     <div className='flex justify-center'>
