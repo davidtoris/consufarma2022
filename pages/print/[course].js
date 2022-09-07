@@ -2,11 +2,13 @@ import React, { useEffect } from 'react'
 import { API_BASE_URL } from '../../src/constants';
 
 const Print = ({curso}) => {
-  useEffect(() => {
-    setTimeout(() => {
-      window.print();
-    }, 1000);
-  });
+
+  console.log(curso)
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     window.print();
+  //   }, 1000);
+  // });
   
 
   const createMarkup = () => {
