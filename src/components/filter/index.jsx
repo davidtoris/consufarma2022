@@ -13,7 +13,7 @@ const Filter = ({specialities, active}) => {
 
   useEffect(() => {
     dispatch(selectSpecialities (''));
-  }, []);
+  });
   
   const [btnActive, setbtnActive] = useState(active);
   const handleClick = (btnSelect)=> {

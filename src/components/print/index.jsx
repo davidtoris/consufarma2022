@@ -9,7 +9,7 @@ const PrintTopic = ( {curso} ) => {
     setTimeout(() => {
       window.print();
     }, 1000);
-  }, []);
+  });
   
 
   const createMarkup = () => {

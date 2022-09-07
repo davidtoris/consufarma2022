@@ -20,7 +20,7 @@ const ItemCourse = ({curso}) => {
       setCoursesSpeciality(curso);
     }
     especialidades();
-  }, []);
+  });
   
 
   const {nombre, nombre_ruta, fecha_text, duracion, horario, especialidad, especialidad_ruta, ponente_uno_id, ponente_dos_id, objetivo, temario, precio, imagen, register} = curso;

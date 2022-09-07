@@ -21,7 +21,7 @@ const Calendario = ({cursosDate}) => {
 
   useEffect(() => {
     dispatch(addCoursesDate(cursosDate));
-  }, []);
+  });
 
 
   console.log(cursosDate)
