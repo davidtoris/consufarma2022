@@ -3,12 +3,11 @@ import { API_BASE_URL } from '../../src/constants';
 
 const Print = ({curso}) => {
 
-  console.log(curso)
-  // useEffect(() => {
-  //   setTimeout(() => {
-  //     window.print();
-  //   }, 1000);
-  // });
+  useEffect(() => {
+    setTimeout(() => {
+      window.print();
+    }, 1000);
+  });
   
 
   const createMarkup = () => {
@@ -37,7 +36,7 @@ const Print = ({curso}) => {
         <div className='container'>
           <div className='header'>
             <div className='imagen col-left'>
-              {/* <img src={curso.imagen} alt="sds" /> */}
+              <img src={curso.imagen} alt="sds" />
               <div className="content-info">
               
                 <div className='content-duration'>
