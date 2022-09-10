@@ -20,7 +20,6 @@ const Contacto = () => {
             <form
               action="https://formspree.io/f/xdojaypg"
               method="POST"
-              enctype="multipart/form-data"
             >
 
             <div className="mb-4">
