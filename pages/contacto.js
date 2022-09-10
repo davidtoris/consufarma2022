@@ -56,6 +56,16 @@ const Contacto = () => {
                 name="mensaje"
                 placeholder="Déjanos tu mensaje" />
             </div>
+            
+            <div className="mb-4">
+
+              <input 
+                className=" mr-2" 
+                type="checkbox"
+                id="aviso"
+                name="aviso"/>
+                Estoy de acuerdo con el <a href='' className='text-blueLightCustom'>Aviso de Privacidad</a>
+            </div>
 
             <div className="flex items-center justify-between mt-5">
               <button 

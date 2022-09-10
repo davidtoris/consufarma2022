@@ -17,6 +17,24 @@
   .print {
     display: block;
   }
+
+  
+}
+
+.cols-calendar {
+  display: flex;
+  flex-wrap: wrap;
+  
+}
+
+.cont-cols-calendar {
+  max-width: 900px;
+}
+
+.card-calendar {
+  font-size: 10px;
+  width: 181px;
+  height: 140px;
 }
 
 .print-container {

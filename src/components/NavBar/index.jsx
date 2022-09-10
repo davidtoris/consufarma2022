@@ -32,12 +32,12 @@ const NavBar = () => {
           <Link href="/servicios" passHref>
             <div className="px-2 cursor-pointer">Servicios</div>
           </Link>
+          <Link href="/cursos/calendario" passHref>
+            <div className="px-2 cursor-pointer">Calendario</div>
+          </Link>
           <Link href="/contacto" passHref>
             <div className="px-2 cursor-pointer">Contacto</div>
           </Link>
-          {/* <Link href="/calendario" passHref>
-            <div className="px-2 cursor-pointer">Calendario</div>
-          </Link> */}
         </nav>
       </div>
     </div>
