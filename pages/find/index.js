@@ -94,7 +94,6 @@ const Courses = ({curso}) => {
                 label={c.label}
                 ponente={c.ponente_uno_id.ponente}
               />
-            
             ))}
           </div>
         </section>

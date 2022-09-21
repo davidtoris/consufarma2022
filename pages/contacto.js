@@ -60,7 +60,7 @@ const Contacto = () => {
             <div className="mb-4">
 
               <input 
-                className=" mr-2" 
+                className="mr-2" 
                 type="checkbox"
                 id="aviso"
                 name="aviso"/>
