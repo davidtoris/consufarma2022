@@ -10,6 +10,7 @@ import instanceAPI from '../../src/config/axiosConfig';
 const Courses = ({curso}) => {
 
   const [courseFinded, setCourseFinded] = useState([]);
+  const [fourCourses, setFourCourses] = useState([]);
   const router = useRouter();
   const value = router.query.find;
 
@@ -26,6 +27,22 @@ const Courses = ({curso}) => {
   
   }, [value]);
   
+  useEffect(() => {
+    const getFourCourses = async () => {
+      const res = await instanceAPI
+      .get('/courses/');
+      const data = await res.data.courses;
+      
+      setFourCourses([data[0], data[1], data[2], data[3], data[4]]);
+    }
+
+    getFourCourses();
+  
+  }, [value]);
+
+
+
+  
   return (
     <div>
       <NavBar />
@@ -36,6 +53,7 @@ const Courses = ({curso}) => {
           <h3 className='font-extrabold text-2xl text-blueDarkCustom mb-5 text-center mt-5'>
             Se encontraron {courseFinded.length} resultados de la búsqueda: {value} 
           </h3>
+          
           {courseFinded.length === 0 && (
             <>
               <p className='text-blueDarkCustom mb-5 text-center'>
@@ -45,6 +63,21 @@ const Courses = ({curso}) => {
               <p className='font-extrabold text-blueDarkCustom mb-5 text-center'>
                 Estos cursos podrían ser de tu interés
               </p>
+
+              <div className='flex space-x-3 overflow-x-scroll overflow-y-hidden my-5'>
+                {fourCourses.map(c => (
+                  <CardCourse
+                    key={c._id}
+                    link={`/cursos/${c.nombre_ruta}`}
+                    nombre={c.nombre}
+                    img={c.imagen}
+                    fechaText={c.fecha_text}
+                    horario={c.horario}
+                    label={c.label}
+                    ponente={c.ponente_uno_id.ponente}
+                  />
+                ))}
+              </div>
             </>
           )}
           
@@ -57,6 +90,7 @@ const Courses = ({curso}) => {
                 nombre={c.nombre}
                 img={c.imagen}
                 fechaText={c.fecha_text}
+                horario={c.horario}
                 label={c.label}
                 ponente={c.ponente_uno_id.ponente}
               />

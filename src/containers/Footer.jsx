@@ -1,9 +1,10 @@
 import Link from 'next/link';
-import Image from 'next/image';
+import { FaFacebookSquare, FaLinkedin, FaWhatsapp } from 'react-icons/fa';
+
 const Footer = () => {
   return (
     <>
-    <div className='bg-blueConsufarma p-5 mt-14 no-print'>
+    <div className='bg-blueConsufarma p-5 mt-14 no-print pb-2'>
       <div className="max-w-7xl mx-auto">
 
         <div className="text-right flex md:justify-between text-white items-center justify-center lg:flex-row flex-col">
@@ -12,29 +13,35 @@ const Footer = () => {
             <div className=''>
               <Link href="https://www.instagram.com">
                 <a>
-                  <Image src="/instag.png" height={30} width={30} alt="instagram"/>
+                  <FaLinkedin className='text-white text-2xl' />
                 </a>
               </Link> 
             </div>
             <div className='ml-5'>
               <Link href="https://www.facebook.com/consufarma">
                 <a>
-                  <Image src="/facebook.png" height={30} width={30} alt="facebook"/>
+                  <FaFacebookSquare className='text-white text-2xl' />
                 </a>
               </Link> 
             </div>
 
             <div className='ml-5'>
-              <Link href="https://www.twitter.com">
+              <Link href="https://wa.me/525547810505?text=Hola%20me%20gusta%20el%20curso%20de..." target="blank">
                 <a>
-                  <Image src="/twitter.png" height={30} width={30} alt="twitter"/>
+                  <FaWhatsapp className='text-white text-2xl' />
                 </a>
-              </Link> 
+              </Link>
             </div>
+            <span>
+              <Link href="tel:525618003145">
+                <span className='text-white ml-2'> +52 56 1800 3145</span>
+              </Link>
+            </span>
+
             
             <Link href='mailto:pedro.valadez@consufarma.com'>
                 <div className='ml-3 hover:text-blueLightCustom'>
-                  pedro.valadez@consufarma.com
+                   / pedro.valadez@consufarma.com
                 </div>
             </Link>
           </div>

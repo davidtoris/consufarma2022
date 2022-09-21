@@ -1,6 +1,6 @@
 import React from 'react'
 import Image from 'next/image'
-import { CalendarIcon, ClockIcon, UserCircleIcon } from '@heroicons/react/solid'
+import { FaCalendarAlt, FaClock, FaUserCircle } from 'react-icons/fa';
 import Link from 'next/link'
 import Label from './Label'
 import moment from 'moment'
@@ -20,12 +20,12 @@ const CardCourse = ({link, nombre, img, label, ponente, horario, fechaText, dura
               <Image src={img} layout='fill' priority="false" alt={nombre}/>
             </div>
             <div className='text-center bg-blueConsufarma text-white py-1 text-sm'>
-              <div className='font-bold mt-1 flex justify-center'>
-                <CalendarIcon className='w-6 h-6 ml-3 mr-1'/>
+              <div className='font-bold mt-1 flex justify-center items-center'>
+                <FaCalendarAlt className='w-4 h-4 ml-3 mr-1'/>
                 {fechaText}
               </div>
-              <div className='font-bold mt-1 flex justify-center'>
-                <ClockIcon className='w-6 h-6 ml-1 mr-1'/>
+              <div className='font-bold mt-1 flex justify-center items-center'>
+                <FaClock className='w-4 h-4 ml-1 mr-1'/>
                 {duracion} {horario}
               </div>
             </div>
@@ -40,7 +40,7 @@ const CardCourse = ({link, nombre, img, label, ponente, horario, fechaText, dura
               </div>
             </div>
             <div className='instructor flex my-2 items-center'>
-              <UserCircleIcon className='w-6 h-6 text-gray-600' />
+              <FaUserCircle className='w-6 h-6 text-gray-600' />
               <div className='name-instructor text-sm ml-2 text-gray-600'>
                 {ponente}
               </div>

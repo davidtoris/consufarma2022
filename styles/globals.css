@@ -126,6 +126,7 @@
 .objectives h2 {
   font-weight: bold;
   font-size: 14px;
+  margin-top: 10px;
 }
 .objectives {
   padding: .5em;
@@ -261,4 +262,9 @@ padding: 1em 2em;
 }
 .slick-prev{
   display: none !important;
+}
+
+.temario p {
+  margin-top: 10px;
+  font-size: 17px;
 }

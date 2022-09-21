@@ -75,18 +75,50 @@ const ItemCourse = ({curso}) => {
 
           <div className='temario mt-10'>
             <h2 className='text-2xl text-blueConsufarma uppercase font-bold mt-10 border-b-4 border-redConsufarma w-24'>Temario</h2>
-            <div dangerouslySetInnerHTML={Topics()} className='ml-2 mt-2 h-[350px] overflow-y-scroll'/>
+            <div dangerouslySetInnerHTML={Topics()} className='ml-2 mt-2 '/>
           </div>
+
+          <button className='bg-redConsufarma rounded-xl text-white text-center font-bold text-lg w-full uppercase my-3 p-2 flex justify-center md:hidden'>
+            Registráte
+          </button>
 
         </div>
         
         {/* Second Column */}
         <div className='sm:pl-5 px-2'>
           
-            <div className="top-50 right-40">
+            <div className="top-50 right-40 mt-8">
+
+              <div className='border-2'>
+                <h2 className='text-2xl text-gray-800 text-center mt-7'>¿Qué incluye?</h2>
+                <div className='w-80 px-5 py-2 rounded-md'>
+                  <div className=''> 
+                    <div className='text-gray-700 flex my-3'>
+                      <QuestionMarkCircleIcon className='w-14 h-14 mr-3'/>
+                      Recepción de dudas por parte de los asistentes previo al inicio del curso. 
+                    </div>
+                    <div className='text-gray-700 flex my-3'>
+                      <PrinterIcon className='w-11 h-11 mr-3'/>
+                      Material y ejercicios impreso o digital (Cursos virtual)
+                    </div>
+                    <div className='text-gray-700 flex my-3'>
+                      <AcademicCapIcon className='w-7 h-7 mr-3'/>
+                      Diploma de participación
+                    </div>
+                    <div className='text-gray-700 flex my-3'>
+                      <DocumentIcon className='w-7 h-7 mr-3'/>
+                      Examen a solicitud del participante
+                    </div>
+                    <div className='text-gray-700 flex my-3'>
+                      <EmojiHappyIcon className='w-7 h-7 mr-3'/>
+                      Servicio Posventa Resolución de dudas
+                    </div>
+                  </div>
+                </div>
+              </div>
               
-              <div className='bg-gray-100 px-5 py-4 rounded-md text-center'>
-                <div className='text-grayCustom font-bold mt-2'> Pago por empresa: </div>
+              <div className='bg-gray-100 px-5 py-4 rounded-md text-center mt-10'>
+                <div className='text-grayCustom font-bold mt-2'> Precio a empresas: </div>
                 <div className='font-bold text-3xl mt-1'>${precio} + IVA</div>
                 <div className='text-grayCustom font-bold mt-3'> 
                   Pago personal: Pregunta por nuestro precio especial y opción a 3 meses sin interéses
@@ -118,39 +150,10 @@ const ItemCourse = ({curso}) => {
                     </Image>
                   </a>
                 </div>
-                <div className='m-auto'>
-                  <iframe className='mt-4' src="https://www.facebook.com/plugins/share_button.php?href=https%3A%2F%2Fwww.consufarma.com%2Ftaller-de-validacion-de-metodos-analitcos&layout=button&size=small&appId=212287463617267&width=89&height=20" width="103" height="28" scrolling="no" frameBorder="0" allowFullScreen={true} allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
-                </div>
               </div>
               
               
-              <div className='border-2 mt-12'>
-                <h2 className='text-2xl text-gray-800 text-center mt-7'>¿Qué incluye?</h2>
-                <div className='w-80 px-5 py-2 rounded-md'>
-                  <div className=''> 
-                    <div className='text-gray-700 flex my-3'>
-                      <QuestionMarkCircleIcon className='w-14 h-14 mr-3'/>
-                      Recepción de dudas por parte de los asistentes previo al inicio del curso. 
-                    </div>
-                    <div className='text-gray-700 flex my-3'>
-                      <PrinterIcon className='w-11 h-11 mr-3'/>
-                      Material y ejercicios impreso o digital (Cursos virtual)
-                    </div>
-                    <div className='text-gray-700 flex my-3'>
-                      <AcademicCapIcon className='w-7 h-7 mr-3'/>
-                      Diploma de participación
-                    </div>
-                    <div className='text-gray-700 flex my-3'>
-                      <DocumentIcon className='w-7 h-7 mr-3'/>
-                      Examen a solicitud del participante
-                    </div>
-                    <div className='text-gray-700 flex my-3'>
-                      <EmojiHappyIcon className='w-7 h-7 mr-3'/>
-                      Servicio Posventa Resolución de dudas
-                    </div>
-                  </div>
-                </div>
-              </div>
+              
 
             </div>
         </div>

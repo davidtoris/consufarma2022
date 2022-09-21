@@ -24,19 +24,19 @@ const NavBar = () => {
         </header>
         <nav className="flex text-white justify-center py-3 font-semibold text-lg bg-redConsufarma">
           <Link href="/" passHref>
-            <div className="px-2 cursor-pointer">Cursos</div>
+            <div className="px-4 cursor-pointer">Cursos</div>
           </Link>
           <Link href="/nosotros" passHref>
-            <div className="px-2 cursor-pointer">Nosotros</div>
+            <div className="px-4 cursor-pointer">Nosotros</div>
           </Link>
           <Link href="/servicios" passHref>
-            <div className="px-2 cursor-pointer">Servicios</div>
+            <div className="px-4 cursor-pointer">Servicios</div>
           </Link>
           <Link href="/cursos/calendario" passHref>
-            <div className="px-2 cursor-pointer">Calendario</div>
+            <div className="px-4 cursor-pointer hidden md:inline">Calendario</div>
           </Link>
           <Link href="/contacto" passHref>
-            <div className="px-2 cursor-pointer">Contacto</div>
+            <div className="px-4 cursor-pointer">Contacto</div>
           </Link>
         </nav>
       </div>

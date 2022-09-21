@@ -7,12 +7,12 @@ const Logotipos = () => {
     var settings = {
       dots: false,
       infinite: true,
-      speed: 100,
+      speed: 500,
       slidesToShow: 6,
       slidesToScroll: 1,
       autoplay: true,
       autoplaySpeed: 2000,
-      cssEase: "linear",
+      cssEase: "ease",
       nextArrow: false,
       prevArrow: false,
     };
