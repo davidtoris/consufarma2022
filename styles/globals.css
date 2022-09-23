@@ -18,6 +18,21 @@
     display: block;
   }
 
+  .card-calendar {
+    font-size: 10px;
+    width: 181px;
+    height: 140px;
+  }
+
+  @page {
+    size: 21cm 29.7cm;   /*A4*/
+    margin: 0; /*webkit says no*/
+  }
+  
+  body,
+  html {
+      width: 1100px;
+  }
   
 }
 
@@ -28,13 +43,17 @@
 }
 
 .cont-cols-calendar {
-  max-width: 900px;
+  max-width: 1100px;
 }
 
 .card-calendar {
   font-size: 10px;
-  width: 181px;
-  height: 140px;
+  width: 235px;
+  margin-left: 5px;
+  margin-right: 5px;
+  margin-top: 15px;
+  margin-bottom: 8px;
+  height: 300px;
 }
 
 .print-container {
