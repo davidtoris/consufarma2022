@@ -1,20 +1,21 @@
 import Image from 'next/image';
 import React from 'react';
 import CardCalendar from '../../src/components/cursos/cardCalendar';
-
-import NavBar from '../../src/components/NavBar';
 import { API_BASE_URL } from '../../src/constants';
-import Footer from '../../src/containers/Footer';
+import { FaPrint } from 'react-icons/fa';
 
 const Calendar = ({cursosDate}) => {
 
-  const months = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
-
-  console.log(cursosDate.filter(f => f.fecha_text.includes('Octubre')))
-
+  const handlePrint = () => {
+    window.print();
+  }
 
   return (
     <div className=''>
+
+      <div className='fixed bottom-5 right-5 bg-redConsufarma p-5 text-white text-center flex items-center rounded-md cursor-pointer no-print' onClick={handlePrint}>
+        <FaPrint className='w-4 h-4 ml-3 mr-2'/>Imprimir
+      </div>
       <div className=''>
         <div className='w-[1000px] m-auto'>
           <div className='w-12/12'>
@@ -33,6 +34,8 @@ const Calendar = ({cursosDate}) => {
                     fecha={c.fecha_text}
                     duracion={c.duracion}
                     horario={c.horario}
+                    link={c.nombre_ruta}
+                    color="blueConsufarma"
                   />
                 ))}
               </div>
@@ -40,9 +43,9 @@ const Calendar = ({cursosDate}) => {
           </div>
 
           <div className='h-[63px]'></div>
-          <div className='w-12/12'>
+          {/* <div className='w-12/12'>
             <Image src="/calendario/footer.png" objectFit='content' width={1000} height={40} />
-          </div>
+          </div> */}
         </div>
       </div>
 
@@ -65,6 +68,8 @@ const Calendar = ({cursosDate}) => {
                     fecha={c.fecha_text}
                     duracion={c.duracion}
                     horario={c.horario}
+                    link={c.nombre_ruta}
+                    color="blueLightCustom"
                   />
                 ))}
               </div>
@@ -72,9 +77,9 @@ const Calendar = ({cursosDate}) => {
           </div>
 
           <div className='h-[43px]'></div>
-          <div className='w-12/12'>
+          {/* <div className='w-12/12'>
             <Image src="/calendario/footer.png" objectFit='content' width={1000} height={40} />
-          </div>
+          </div> */}
         </div>
       </div>
       
@@ -97,6 +102,8 @@ const Calendar = ({cursosDate}) => {
                     fecha={c.fecha_text}
                     duracion={c.duracion}
                     horario={c.horario}
+                    link={c.nombre_ruta}
+                    color="redConsufarma"
                   />
                 ))}
               </div>
@@ -110,6 +117,8 @@ const Calendar = ({cursosDate}) => {
                     fecha={c.fecha_text}
                     duracion={c.duracion}
                     horario={c.horario}
+                    link={c.nombre_ruta}
+                    color="redConsufarma"
                   />
                 ))}
               </div>
@@ -117,9 +126,9 @@ const Calendar = ({cursosDate}) => {
           </div>
 
           <div className='h-[43px]'></div>
-          <div className='w-12/12'>
+          {/* <div className='w-12/12'>
             <Image src="/calendario/footer.png" objectFit='content' width={1000} height={40} />
-          </div>
+          </div> */}
         </div>
       </div>
     </div>
