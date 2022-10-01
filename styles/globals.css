@@ -53,7 +53,7 @@
   margin-right: 5px;
   margin-top: 15px;
   margin-bottom: 8px;
-  height: 250px;
+  height: 25  0px;
 }
 
 .print-container {
@@ -173,12 +173,12 @@
 .topic-content {
   columns: 200px 3;
   column-gap: 3rem;
-  font-size: 11px;
+  font-size: 13px;
   margin-top: 1em;
 }
 .topic-content li {
   margin: 3px 0;
-  font-size: 10px;
+  font-size: 12px;
 }
 .topic-content p {
   font-size: 14px;

@@ -71,7 +71,7 @@ const Print = ({curso}) => {
             <div dangerouslySetInnerHTML={createMarkupTwo()} />
           </div>
         </div>
-        <div className='profesor' style={{marginTop: '120px'}}>
+        <div className='profesor' style={{marginTop: '50px'}}>
           {curso.ponente_uno_id.ponente_img && (
             <img className='img-profesor' src={curso.ponente_uno_id.ponente_img} alt='Image' />
           )}

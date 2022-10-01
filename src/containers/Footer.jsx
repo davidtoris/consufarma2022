@@ -34,7 +34,7 @@ const Footer = () => {
             </div>
             <span>
               <Link href="tel:525618003145">
-                <span className='text-white ml-2'> +52 56 1800 3145</span>
+                <span className='text-white ml-2'> (+52) 56 1800 3145</span>
               </Link>
             </span>
 

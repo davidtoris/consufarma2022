@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import Image from 'next/image'
-import { CalendarIcon, ClockIcon, BadgeCheckIcon, QuestionMarkCircleIcon, PrinterIcon, EmojiHappyIcon, DocumentIcon, AcademicCapIcon, ShoppingCartIcon } from '@heroicons/react/solid'
+import { FaCalendarAlt, FaClock } from 'react-icons/fa';
+import { QuestionMarkCircleIcon, PrinterIcon, EmojiHappyIcon, DocumentIcon, AcademicCapIcon } from '@heroicons/react/solid'
 import { useRouter } from 'next/router'
 import CardCourse from '../components/cursos/CardCourse'
 import { API_BASE_URL } from '../constants'
@@ -57,13 +58,13 @@ const ItemCourse = ({curso}) => {
           </div>
 
           <div className='date-hour-course bg-blueConsufarma p-2 text-white rounded-md flex md:w-[40rem] w-100 flex-col md:flex-row font-bold text-lg mt-3'>
-            <div className='flex ml-3'>
-            <ClockIcon className='w-6 h-6 ml-1 mr-1'/> {duracion}
+            <div className='flex ml-3 items-center'>
+              <FaClock className='w-4 h-4 ml-1 mr-1'/> {duracion}
               <span className='mx-3 '>/</span> {horario}
             </div>
             
-            <div className='flex ml-4'> 
-              <CalendarIcon className='w-6 h-6 ml-3 mr-1'/>{fecha_text}
+            <div className='flex ml-4 items-center'> 
+              <FaCalendarAlt className='w-4 h-4 ml-3 mr-1'/>{fecha_text}
             </div>
           </div>
           
@@ -119,7 +120,8 @@ const ItemCourse = ({curso}) => {
               
               <div className='bg-gray-100 px-5 py-4 rounded-md text-center mt-10'>
                 <div className='text-grayCustom font-bold mt-2'> Precio a empresas: </div>
-                <div className='font-bold text-3xl mt-1'>${precio} + IVA</div>
+                <div className='text-grayCustom font-light'> (Por participante) </div>
+                <div className='font-bold text-3xl mt-3'>${precio} + IVA</div>
                 <div className='text-grayCustom font-bold mt-3'> 
                   Pago personal: Pregunta por nuestro precio especial y opción a 3 meses sin interéses
                 </div>
