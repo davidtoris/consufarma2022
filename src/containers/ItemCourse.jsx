@@ -76,7 +76,7 @@ const ItemCourse = ({curso}) => {
 
           <div className='temario mt-10'>
             <h2 className='text-2xl text-blueConsufarma uppercase font-bold mt-10 border-b-4 border-redConsufarma w-24'>Temario</h2>
-            <div dangerouslySetInnerHTML={Topics()} className='ml-2 mt-2 '/>
+            <div dangerouslySetInnerHTML={Topics()} className='ml-2 mt-2 topic-html'/>
           </div>
 
           <button className='bg-redConsufarma rounded-xl text-white text-center font-bold text-lg w-full uppercase my-3 p-2 flex justify-center md:hidden'>

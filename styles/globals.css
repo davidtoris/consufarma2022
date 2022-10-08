@@ -161,6 +161,16 @@
   /* background: #042A57; */
   color: #042A57;
 }
+
+.topic-html ul .ql-align-justify {
+  list-style-type: square;
+  margin-left: 10px;
+}
+
+.topic-html ul .ql-indent-1 {
+  list-style-type: circle;
+  margin-left: 25px;
+} 
 .topic-header {
   background: #D1001F;
   padding: .2em 0;
