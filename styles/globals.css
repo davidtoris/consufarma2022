@@ -162,6 +162,12 @@
   color: #042A57;
 }
 
+.topic-html strong {
+  margin-left: -5px;
+}
+.topic-html br {
+  
+}
 .topic-html ul .ql-align-justify {
   list-style-type: square;
   margin-left: 10px;
@@ -294,6 +300,5 @@ padding: 1em 2em;
 }
 
 .temario p {
-  margin-top: 10px;
   font-size: 17px;
 }

@@ -75,7 +75,7 @@ const ItemCourse = ({curso}) => {
           </ul>
 
           <div className='temario mt-10'>
-            <h2 className='text-2xl text-blueConsufarma uppercase font-bold mt-10 border-b-4 border-redConsufarma w-24'>Temario</h2>
+            <h2 className='text-2xl text-blueConsufarma uppercase font-bold mt-10 mb-7 border-b-4 border-redConsufarma w-24'>Temario</h2>
             <div dangerouslySetInnerHTML={Topics()} className='ml-2 mt-2 topic-html'/>
           </div>
 
