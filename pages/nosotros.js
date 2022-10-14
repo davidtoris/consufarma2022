@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import React from 'react';
 import NavBar from '../src/components/NavBar';
 import Footer from '../src/containers/Footer';
@@ -84,15 +85,19 @@ const Nosotros = () => {
 
     <div className="max-w-7xl mx-auto container px-5 py-10">
       <div className='grid sm:grid-cols-3 grid-cols-1 text-lg gap-10 text-center'>
-        <div className='p-3 bg-blueConsufarma text-white mt-4 cursor-pointer hover:scale-105 transition rounded-md font-bold'>
-          Consulta el calendario anual
-        </div>
-        <div className='p-3 bg-redConsufarma text-white mt-4 cursor-pointer hover:scale-105 transition rounded-md font-bold'>
-          Contáctanos ahora
-        </div>
-        <div className='p-3 bg-blueConsufarma text-white mt-4 cursor-pointer hover:scale-105 transition rounded-md font-bold'>
+        <Link href="/cursos/calendario">
+          <div className='p-3 bg-blueConsufarma text-white mt-4 cursor-pointer hover:scale-105 transition rounded-md font-bold'>
+            Consulta el calendario anual
+          </div>
+        </Link>
+        <Link href="/contacto">
+          <div className='p-3 bg-redConsufarma text-white mt-4 cursor-pointer hover:scale-105 transition rounded-md font-bold'>
+            Contáctanos ahora
+          </div>
+        </Link>
+        {/* <div className='p-3 bg-blueConsufarma text-white mt-4 cursor-pointer hover:scale-105 transition rounded-md font-bold'>
           Conoce los recursos gratuitos
-        </div>
+        </div> */}
       </div>
     </div>
 

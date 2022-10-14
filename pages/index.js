@@ -10,8 +10,9 @@ import Footer from '../src/containers/Footer';
 import Filter from '../src/components/filter'
 import Logotipos from '../src/components/logotipos';
 import CarouselSection from '../src/containers/Carousel';
+import { addSpecialities } from '../slices/SpecialitiesSlice';
 
-const Calendario = ({cursosDate}) => {
+const Calendario = ({specialities, cursosDate}) => {
   const dispatch = useDispatch();
   const { allCoursesDate, statusDate } = useSelector((state) => state.courses);
   const { allSpecialities } = useSelector((state) => state.specialities);
@@ -21,10 +22,8 @@ const Calendario = ({cursosDate}) => {
 
   useEffect(() => {
     dispatch(addCoursesDate(cursosDate));
+    dispatch(addSpecialities(specialities));
   });
-
-
-  console.log(cursosDate)
   
   const today = moment().startOf('day').format()
 
@@ -111,11 +110,24 @@ const Calendario = ({cursosDate}) => {
 
 export default Calendario;
 
-export const getServerSideProps = async () => {
-  const res = await fetch(`${API_BASE_URL}/courses?sortBy=fecha`);
-  const data = await res.json()
-  console.log(data);
-  const cursosDate = data.courses
 
-  return { props : { cursosDate } }
+export const getServerSideProps = async () => {
+  const urlSpecialities = `${API_BASE_URL}/specialities`
+  const urlListCoursesByDate = `${API_BASE_URL}/courses?sortBy=fecha`
+
+  const [respSpecialities, respCourses] = await Promise.all([
+    fetch(urlSpecialities),
+    fetch(urlListCoursesByDate),
+  ])
+  
+  const [specialities, courses] = await Promise.all([
+    respSpecialities.json(),
+    respCourses.json(),
+  ])
+
+  return { props : { 
+      specialities : specialities.specialities,
+      cursosDate: courses.courses
+    } 
+  }
 }

@@ -12,23 +12,25 @@ const Footer = () => {
           <div className='flex flex-col md:flex-row items-center'>
             
             <div className='flex items-center justify-center'>
+
               <div className=''>
-                <Link href="https://www.instagram.com">
-                  <a>
-                    <FaLinkedin className='text-white text-2xl' />
-                  </a>
-                </Link> 
-              </div>
-              <div className='ml-5'>
                 <Link href="https://www.facebook.com/consufarma">
                   <a>
                     <FaFacebookSquare className='text-white text-2xl' />
                   </a>
                 </Link> 
               </div>
+              <div className='ml-5'>
+                <Link href="https://www.linkedin.com/in/pedro-valadez-eslava-8075a439/">
+                  <a>
+                    <FaLinkedin className='text-white text-2xl' />
+                  </a>
+                </Link> 
+              </div>
+              
 
               <div className='ml-5'>
-                <Link href="https://wa.me/525547810505?text=Hola%20me%20gusta%20el%20curso%20de..." target="blank">
+                <Link href="https://wa.me/525618003145?text=Hola%20me%20gusta%20el%20curso%20de..." target="blank">
                   <a>
                     <FaWhatsapp className='text-white text-2xl' />
                   </a>

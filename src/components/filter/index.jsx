@@ -10,10 +10,6 @@ const Filter = ({specialities, active}) => {
   const handleChange = (e) => {
     dispatch(selectSpecialities (e.target.value));
   }
-
-  useEffect(() => {
-    dispatch(selectSpecialities (''));
-  });
   
   const [btnActive, setbtnActive] = useState(active);
   const handleClick = (btnSelect)=> {
@@ -28,18 +24,18 @@ const Filter = ({specialities, active}) => {
         <section className='my-5 flex flex-col md:flex-row items-center justify-between px-10'>
 
           <div className='flex xl:w-12/12 lg:w-12/12 text-center'>
-            <Link href="/">
-              <div 
-                onClick={() => handleClick('especialidad')}
-                className={btnActive === 'especialidad' ? 'bg-white  text-blueConsufarma cursor-pointer rounded-lg font-bold p-3 mr-3' : 'border-white border-2 text-white hover:bg-white hover:text-blueConsufarma cursor-pointer rounded-lg font-bold p-3 mr-3'}>
-                  Cursos por Especialidad
-              </div>
-            </Link>
-            <Link href="/cursos/fecha" >
+            <Link href="/" >
               <div 
                 onClick={() => handleClick('fecha')}
-                className={btnActive === 'fecha' ? 'bg-white  text-blueConsufarma cursor-pointer rounded-lg font-bold p-3' : 'border-white border-2 text-white hover:bg-white hover:text-blueConsufarma cursor-pointer rounded-lg font-bold p-3'}>
+                className={btnActive === 'fecha' ? 'bg-white  text-blueConsufarma cursor-pointer rounded-lg font-bold p-3 mr-3' : 'border-white border-2 text-white hover:bg-white hover:text-blueConsufarma cursor-pointer rounded-lg font-bold p-3 mr-3'}>
                   Cursos por fecha
+              </div>
+            </Link>
+            <Link href="/fecha">
+              <div 
+                onClick={() => handleClick('especialidad')}
+                className={btnActive === 'especialidad' ? 'bg-white  text-blueConsufarma cursor-pointer rounded-lg font-bold p-3' : 'border-white border-2 text-white hover:bg-white hover:text-blueConsufarma cursor-pointer rounded-lg font-bold p-3'}>
+                  Cursos por Especialidad
               </div>
             </Link>
           </div>

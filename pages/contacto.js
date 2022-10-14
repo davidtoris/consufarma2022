@@ -30,7 +30,8 @@ const Contacto = () => {
                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
                 id="nombre"
                 type="name" 
-                name="nombre" 
+                name="nombre"
+                required
                 placeholder="Tu nombre" />
             </div>
             
@@ -43,6 +44,7 @@ const Contacto = () => {
                 type="email" 
                 id="correo"
                 name="correo" 
+                required
                 placeholder="Tu correo" />
             </div>
             
@@ -54,6 +56,7 @@ const Contacto = () => {
                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
                 id="mensaje"
                 name="mensaje"
+                required
                 placeholder="Déjanos tu mensaje" />
             </div>
             
@@ -63,8 +66,9 @@ const Contacto = () => {
                 className="mr-2" 
                 type="checkbox"
                 id="aviso"
+                required
                 name="aviso"/>
-                Estoy de acuerdo con el <a href='' className='text-blueLightCustom'>Aviso de Privacidad</a>
+                Estoy de acuerdo con el <a href='aviso.pdf' className='text-blueLightCustom'>Aviso de Privacidad</a>
             </div>
 
             <div className="flex items-center justify-between mt-5">

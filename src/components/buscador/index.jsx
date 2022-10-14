@@ -23,10 +23,15 @@ const Buscador = () => {
         }}
         validationSchema={FindSchema}
         onSubmit={(valores, { resetForm }) => {
-          console.log(valores)
           resetForm();
+          
+          const value = valores.findcourse;
+          const removeAccents = (str) => {
+            return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+          }
 
-          router.push(`/find/?find=${valores.findcourse}`);
+
+          router.push(`/find/?find=${removeAccents(value)}`);
           setSuccess(true);
           setTimeout(() => setSuccess(false), 5000);
         }}>

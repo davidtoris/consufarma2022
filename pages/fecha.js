@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback, useRef } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { API_BASE_URL } from '../src/constants';
 
@@ -25,23 +25,22 @@ export default function Home({specialities, courses}) {
   
   return (  
     <>
-        <NavBar />
-        <CarouselSection /> 
-        <Logotipos />
-        <Filter 
+      <NavBar />
+      <CarouselSection /> 
+      <Logotipos />
+      <Filter 
+        specialities={allSpecialities}
+        active='especialidad'
+      />
+      
+      {!status === 'success' ? 'Cargando...' : (
+
+        <Cursos
           specialities={allSpecialities}
-          active='especialidad'
+          cursos={allCourses} 
         />
-        
-        {!status === 'success' ? 'Cargando...' : (
-
-          <Cursos
-            specialities={allSpecialities}
-            cursos={allCourses} 
-          />
-        )}
-
-        <Footer />
+      )}
+      <Footer />
     </>
   )
 }

@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import Link from 'next/link';
 import NavBar from '../src/components/NavBar';
 import Footer from '../src/containers/Footer';
 
@@ -31,12 +32,16 @@ const Servicios = () => {
           <div className='text-gray-500 mt-5 text-sm'>
             Consulta nuestro calendario anual de cursos abiertos, contamos también con cursos cerrados para empresas, desarrollamos los temarios de acuerdo a tus necesidades.
           </div>
-          <div className='p-3 bg-redConsufarma text-white mt-4 cursor-pointer hover:scale-105 transition rounded-md font-bold'>
-            Cursos
-          </div>
-          <div className='p-3 bg-blueConsufarma text-white mt-4 cursor-pointer hover:scale-105 transition rounded-md font-bold'>
-            Consulte nuestro Calendario Anual
-          </div>
+          <Link href="/">
+            <div className='p-3 bg-redConsufarma text-white mt-4 cursor-pointer hover:scale-105 transition rounded-md font-bold'>
+              Cursos
+            </div>
+          </Link>
+          <Link href="/cursos/calendario">
+            <div className='p-3 bg-blueConsufarma text-white mt-4 cursor-pointer hover:scale-105 transition rounded-md font-bold'>
+              Consulte nuestro Calendario Anual
+            </div>
+          </Link>
         </div>
 
         <div className='text-center block'>
@@ -49,9 +54,11 @@ const Servicios = () => {
             <div className='text-gray-500 mt-5 text-sm'>
               Ofrecemos asesoría para el desarrollo y validación de métodos analíticos, implementación de sistemas de calidad y estudios de estabilidad entre otros servicios.
             </div>
-            <div className='p-3 bg-redConsufarma text-white mt-4 cursor-pointer hover:scale-105 transition rounded-md font-bold'>
-              Contáctanos ahora
-            </div>
+            <Link href="contacto">
+              <div className='p-3 bg-redConsufarma text-white mt-4 cursor-pointer hover:scale-105 transition rounded-md font-bold'>
+                Contáctanos ahora
+              </div>
+            </Link>
         </div>
         
         <div className='text-center block'>
@@ -65,9 +72,11 @@ const Servicios = () => {
           <div className='text-gray-500 mt-5 text-sm'>
             Traducimos tus DMF ́s del idioma Inglés al Español.
           </div>
-          <div className='text-center p-3 bg-redConsufarma text-white mt-4 cursor-pointer hover:scale-105 transition rounded-md font-bold'>
-            Solicita tu traducción aquí
-          </div>
+          <Link href="contacto">
+            <div className='text-center p-3 bg-redConsufarma text-white mt-4 cursor-pointer hover:scale-105 transition rounded-md font-bold'>
+              Solicita tu traducción aquí
+            </div>
+          </Link>
         </div>
       </div>
 
