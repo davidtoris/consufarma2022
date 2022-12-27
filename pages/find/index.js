@@ -17,7 +17,7 @@ const Courses = ({curso}) => {
   useEffect(() => {
     const findCoursese = async () => {
       const res = await instanceAPI
-      .get(`/courses/find/name?value=${value}`);
+      .get(`/courses/find?value=${value}`);
       const data = await res.data;
       setCourseFinded(data.coursesFinded);
       console.log(data.coursesFinded);
