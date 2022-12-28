@@ -1,10 +1,10 @@
 import mongoose from 'mongoose';
 import { Speaker } from "../Models/Speaker";
-import { Specialities } from "../Models/Specialities";
+import { Specialitie } from "../Models/Specialities";
 
 export const dbConnection = async () => {
   
-  await mongoose.connect( process.env.MONGO_URL , [Speaker, Specialities],  {
+  await mongoose.connect( process.env.MONGO_URL , [Speaker, Specialitie],  {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
