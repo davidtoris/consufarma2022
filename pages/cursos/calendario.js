@@ -19,15 +19,15 @@ const Calendar = ({cursosDate}) => {
       <div className=''>
         <div className='w-[1000px] m-auto'>
           <div className='w-12/12'>
-            <Image src="/calendario/banner1.png" objectFit='content' width={1000} height={250} />
+            <Image src="/calendario/banner3.png" objectFit='content' width={1000} height={250} />
           </div>
 
           <div className='container m-auto px-2 md:px-2 mt-0 cont-cols-calendar'>
 
             <div>
-              <h2 className='text-4xl text-blueDarkCustom m-auto mt-2 font-bold text-center mb-8 uppercase'>Enero</h2>
+              <h2 className='text-4xl text-blueDarkCustom m-auto mt-2 font-bold text-center mb-8 uppercase'>Febrero</h2>
               <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 cols-calendar'>
-                {cursosDate.filter(f => f.fecha_text.includes('Enero')).map(c => (
+                {cursosDate.filter(f => f.fecha_text.includes('Febrero')).map(c => (
                   <CardCalendar
                     key={c._id}
                     nombre={c.nombre}
@@ -59,9 +59,9 @@ const Calendar = ({cursosDate}) => {
           <div className='container m-auto px-2 md:px-2 mt-0 cont-cols-calendar'>
 
             <div>
-              <h2 className='text-4xl text-blueDarkCustom m-auto mt-6 font-bold text-center mb-8 uppercase'>Febrero</h2>
+              <h2 className='text-4xl text-blueDarkCustom m-auto mt-6 font-bold text-center mb-8 uppercase'>Marzo</h2>
               <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 cols-calendar'>
-                {cursosDate.filter(f => f.fecha_text.includes('Febrero')).map(c => (
+                {cursosDate.filter(f => f.fecha_text.includes('Marzo')).map(c => (
                   <CardCalendar
                     key={c._id}
                     nombre={c.nombre}
@@ -93,9 +93,9 @@ const Calendar = ({cursosDate}) => {
           <div className='container m-auto px-2 md:px-2 mt-0 cont-cols-calendar'>
 
             <div>
-              <h2 className='text-4xl text-blueDarkCustom m-auto mt-6 font-bold text-center mb-8 uppercase'>Marzo</h2>
+              <h2 className='text-4xl text-blueDarkCustom m-auto mt-6 font-bold text-center mb-8 uppercase'>Abril</h2>
               <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 cols-calendar'>
-                {cursosDate.filter(f => f.fecha_text.includes('Marzo')).map(c => (
+                {cursosDate.filter(f => f.fecha_text.includes('Abril')).map(c => (
                   <CardCalendar
                     key={c._id}
                     nombre={c.nombre}
