@@ -25,9 +25,9 @@ const Calendar = ({cursosDate}) => {
           <div className='container m-auto px-2 md:px-2 mt-0 cont-cols-calendar'>
 
             <div>
-              <h2 className='text-4xl text-blueDarkCustom m-auto mt-2 font-bold text-center mb-8 uppercase'>Septiembre</h2>
+              <h2 className='text-4xl text-blueDarkCustom m-auto mt-2 font-bold text-center mb-8 uppercase'>Enero</h2>
               <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 cols-calendar'>
-                {cursosDate.filter(f => f.fecha_text.includes('Septiembre')).map(c => (
+                {cursosDate.filter(f => f.fecha_text.includes('Enero')).map(c => (
                   <CardCalendar
                     key={c._id}
                     nombre={c.nombre}
@@ -59,9 +59,9 @@ const Calendar = ({cursosDate}) => {
           <div className='container m-auto px-2 md:px-2 mt-0 cont-cols-calendar'>
 
             <div>
-              <h2 className='text-4xl text-blueDarkCustom m-auto mt-6 font-bold text-center mb-8 uppercase'>Octubre</h2>
+              <h2 className='text-4xl text-blueDarkCustom m-auto mt-6 font-bold text-center mb-8 uppercase'>Febrero</h2>
               <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 cols-calendar'>
-                {cursosDate.filter(f => f.fecha_text.includes('Octubre')).map(c => (
+                {cursosDate.filter(f => f.fecha_text.includes('Febrero')).map(c => (
                   <CardCalendar
                     key={c._id}
                     nombre={c.nombre}
@@ -93,9 +93,9 @@ const Calendar = ({cursosDate}) => {
           <div className='container m-auto px-2 md:px-2 mt-0 cont-cols-calendar'>
 
             <div>
-              <h2 className='text-4xl text-blueDarkCustom m-auto mt-6 font-bold text-center mb-8 uppercase'>Noviembre y Diciembre</h2>
+              <h2 className='text-4xl text-blueDarkCustom m-auto mt-6 font-bold text-center mb-8 uppercase'>Marzo</h2>
               <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 cols-calendar'>
-                {cursosDate.filter(f => f.fecha_text.includes('Noviembre')).map(c => (
+                {cursosDate.filter(f => f.fecha_text.includes('Marzo')).map(c => (
                   <CardCalendar
                     key={c._id}
                     nombre={c.nombre}
@@ -108,7 +108,7 @@ const Calendar = ({cursosDate}) => {
                 ))}
               </div>
             </div>
-            <div>
+            {/* <div>
               <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 cols-calendar'>
                 {cursosDate.filter(f => f.fecha_text.includes('Diciembre')).map(c => (
                   <CardCalendar
@@ -122,7 +122,7 @@ const Calendar = ({cursosDate}) => {
                   />
                 ))}
               </div>
-            </div>
+            </div> */}
           </div>
 
           <div className='h-[43px]'></div>
