@@ -4,7 +4,6 @@ import { API_BASE_URL } from '../src/constants';
 
 
 const calendario = ( {curso} ) => {
-  console.log(curso);
 
   const createMarkup = () => {
     return {__html: curso.objetivo};

@@ -20,7 +20,6 @@ const Courses = ({curso}) => {
       .get(`/courses/find/name?value=${value}`);
       const data = await res.data;
       setCourseFinded(data.coursesFinded);
-      console.log(data.coursesFinded);
     }
 
     findCoursese();

@@ -42,7 +42,7 @@ const Calendar = ({cursosDate}) => {
             </div>
           </div>
 
-          <div className='h-[63px]'></div>
+          <div className='h-[580px]'></div>
           {/* <div className='w-12/12'>
             <Image src="/calendario/footer.png" objectFit='content' width={1000} height={40} />
           </div> */}
@@ -76,7 +76,7 @@ const Calendar = ({cursosDate}) => {
             </div>
           </div>
 
-          <div className='h-[43px]'></div>
+          <div className='h-[300px]'></div>
           {/* <div className='w-12/12'>
             <Image src="/calendario/footer.png" objectFit='content' width={1000} height={40} />
           </div> */}
@@ -140,7 +140,6 @@ export default Calendar;
 export const getServerSideProps = async () => {
   const res = await fetch(`${API_BASE_URL}/courses?sortBy=fecha`);
   const data = await res.json()
-  console.log(data);
   const cursosDate = data.courses
 
   return { props : { cursosDate } }

@@ -11,7 +11,7 @@ const CardCalendar = ({ link, nombre, fecha, duracion, horario, color}) => {
       <Link href={`/cursos/${link}`}>
         <a>
           <div className='hover:scale-105 transition transform duration-200 ease-out px-0 py-3 font-body
-          shadow-xl bg-white rounded-md w-[320px] shrink-0 cursor-pointer mb-4 h-[200px] flex align-middle justify-center card-calendar border-solid border-2 border-gray-200'>
+          shadow-xl bg-white rounded-md w-[320px] shrink-0 cursor-pointer mb-4 h-[250px] flex align-middle justify-center card-calendar border-solid border-2 border-gray-200'>
 
             <div className='flex flex-col justify-around flex-1 items-center'>
               <div className='name-course font-semibold text-gray-700 text-center text-base p-2 h-[150px] flex items-center'>

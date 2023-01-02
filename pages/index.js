@@ -18,8 +18,6 @@ const Calendario = ({specialities, cursosDate}) => {
   const { allSpecialities } = useSelector((state) => state.specialities);
   const { selectSpeciality } = useSelector((state) => state.specialities);
 
-  console.log(selectSpeciality)
-
   useEffect(() => {
     dispatch(addCoursesDate(cursosDate));
     dispatch(addSpecialities(specialities));
