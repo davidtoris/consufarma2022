@@ -161,9 +161,11 @@ const ItemCourse = ({curso}) => {
         </div>
       </div>
       <div className='max-w-7xl container mx-auto '>
-        <div className='ponente bg-blueConsufarma text-white my-8 flex p-4 pb-5 rounded-md w-12/12'>
+        <div className='ponente bg-blueConsufarma text-white my-8 sm:block md:flex p-4 pb-5 rounded-md w-12/12'>
           {ponente_img && (
-            <Image src={ponente_img} layout='fixed' width={250} height={90} alt="" />
+            <>
+              <img src={ponente_img} layout='fixed' width="20%" alt="" className="mb-2" />
+            </>
           )}
           <div className='ml-5'>
             <h2 className='text-2xl font-bold mb-2'>{ponente}</h2>
