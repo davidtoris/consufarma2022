@@ -60,7 +60,7 @@ const Print = ({curso}) => {
               </div>
               <div className='objectives'>
                 <h2>Objetivos</h2>
-                <div dangerouslySetInnerHTML={createMarkup()} />
+                <div className='content-objectives' dangerouslySetInnerHTML={createMarkup()} />
               </div>
             </div>
           </div>

@@ -157,6 +157,10 @@
   margin: 7px 0;
   list-style-type: decimal;
 }
+
+.objectives li span {
+  color: white !important;
+}
 .imagen {
   /* background: #042A57; */
   color: #042A57;

@@ -112,16 +112,16 @@ const ItemCourse = ({curso}) => {
                     </div>
                     <div className='text-gray-700 flex my-3'>
                       <EmojiHappyIcon className='w-7 h-7 mr-3'/>
-                      Servicio Posventa Resolución de dudas
+                      Servicio Posventa: Resolución de dudas
                     </div>
                   </div>
                 </div>
               </div>
               
               <div className='bg-gray-100 px-5 py-4 rounded-md text-center mt-10'>
-                {/* <div className='text-grayCustom font-bold mt-2'> Precio a empresas: </div>
+                <div className='text-grayCustom font-bold mt-2'> Precio a empresas: </div>
                 <div className='text-grayCustom font-light'> (Por participante) </div>
-                <div className='font-bold text-3xl mt-3'>${precio} + IVA</div> */}
+                <div className='font-bold text-3xl mt-3'>${precio} + IVA</div>
                 <div className='text-grayCustom font-bold mt-3'> 
                   Pago personal: Pregunta por nuestro precio especial y opción a 3 meses sin interéses
                 </div>
@@ -139,7 +139,7 @@ const ItemCourse = ({curso}) => {
                 </Link>
                 <a href={register} target="blank">
                 <button className='bg-redConsufarma rounded-xl text-white font-bold text-lg w-11/12 uppercase my-3 p-2'>
-                  Registráte
+                  Regístrate
                 </button>
                 </a>
               </div>
