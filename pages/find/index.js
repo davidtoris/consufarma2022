@@ -6,6 +6,7 @@ import CardCourse from '../../src/components/cursos/CardCourse';
 import Buscador from '../../src/components/buscador';
 import Footer from '../../src/containers/Footer';
 import instanceAPI from '../../src/config/axiosConfig';
+import moment from 'moment';
 
 const Courses = ({curso}) => {
 
@@ -40,7 +41,7 @@ const Courses = ({curso}) => {
   }, [value]);
 
 
-
+  const today = moment().startOf('day').format()
   
   return (
     <div>
@@ -70,7 +71,7 @@ const Courses = ({curso}) => {
                     link={`/cursos/${c.nombre_ruta}`}
                     nombre={c.nombre}
                     img={c.imagen}
-                    fechaText={c.fecha_text}
+                    fechaText={c.fecha > today ? c.fecha_text : 'Por Programar'}
                     horario={c.horario}
                     label={c.label}
                     ponente={c.ponente_uno_id.ponente}
@@ -88,7 +89,7 @@ const Courses = ({curso}) => {
                 link={`/cursos/${c.nombre_ruta}`}
                 nombre={c.nombre}
                 img={c.imagen}
-                fechaText={c.fecha_text}
+                fechaText={c.fecha > today ? c.fecha_text : 'Por Programar'}
                 horario={c.horario}
                 label={c.label}
                 ponente={c.ponente_uno_id.ponente}
