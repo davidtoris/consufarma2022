@@ -5,8 +5,8 @@ import { QuestionMarkCircleIcon, PrinterIcon, EmojiHappyIcon, DocumentIcon, Acad
 import { useRouter } from 'next/router'
 import CardCourse from '../components/cursos/CardCourse'
 import { API_BASE_URL } from '../constants'
-import Link from 'next/link'
-import Head from 'next/head'
+import Link from 'next/link';
+import moment from 'moment';
 
 
 const ItemCourse = ({curso}) => {
@@ -24,7 +24,7 @@ const ItemCourse = ({curso}) => {
   });
   
 
-  const {nombre, nombre_ruta, fecha_text, duracion, horario, especialidad, especialidad_ruta, ponente_uno_id, ponente_dos_id, objetivo, temario, precio, imagen, register} = curso;
+  const {nombre, nombre_ruta, fecha, fecha_text, duracion, horario, especialidad, especialidad_ruta, ponente_uno_id, ponente_dos_id, objetivo, temario, precio, imagen, register} = curso;
   const {ponente, ponente_cv, ponente_img} = ponente_uno_id;
 
   const Objectiv = () => { 
@@ -33,6 +33,8 @@ const ItemCourse = ({curso}) => {
   const Topics = () => { 
     return {__html: temario};
   }
+  
+  const today = moment().startOf('day').format()
 
   const url = imagen
   return (
@@ -64,7 +66,9 @@ const ItemCourse = ({curso}) => {
             </div>
             
             <div className='flex ml-4 items-center'> 
-              <FaCalendarAlt className='w-4 h-4 ml-3 mr-1'/>{fecha_text}
+              <FaCalendarAlt className='w-4 h-4 ml-3 mr-1'/>
+                {fecha > today ? fecha_text : 'Por Programar'}
+                
             </div>
           </div>
           
@@ -204,7 +208,7 @@ const ItemCourse = ({curso}) => {
             img={c.imagen}
             label={c.label}
             ponente={c.ponente_uno_id.ponente}
-            fechaText={c.fecha_text}
+            fechaText={c.fecha > today ? c.fecha_text : 'Por Programar'}
             duracion={c.duracion}
             horario={c.horario}
             />
