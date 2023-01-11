@@ -31,7 +31,8 @@
   
   body,
   html {
-      width: 11 00px;
+      width: 1100px;
+      white-space: "pre-wrap"
   }
 
 }
