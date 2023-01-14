@@ -12,7 +12,8 @@ module.exports = {
       colors: {
         pinkCustom: '#db3a72',
         blueDarkCustom: '#29304d',
-        blueConsufarma: '#042A57',
+        blueConsufarma: '#173452',
+        // blueConsufarma: '#042A57',
         redConsufarma: '#D1001F',
         greenCustom: '#5fb050',
         blueLightCustom: '#00A2E2',

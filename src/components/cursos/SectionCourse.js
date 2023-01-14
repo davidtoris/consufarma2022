@@ -1,7 +1,9 @@
-
 import CardCourse from './CardCourse';
+import moment from 'moment';
 
 const SectionCourse = ({cursos, nombre}) => {
+
+  const today = moment().startOf('day').format()
 
   return (
     <div className="flex justify-center">
@@ -18,7 +20,7 @@ const SectionCourse = ({cursos, nombre}) => {
                 label={c.label}
                 ponente={c.ponente_uno_id.ponente}
                 fecha={c.fecha}
-                fechaText={c.fecha_text}
+                fechaText={c.fecha > today ? c.fecha_text : 'Por Programar'}
                 duracion={c.duracion}
                 horario={c.horario}
               />

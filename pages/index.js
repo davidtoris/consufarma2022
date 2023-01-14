@@ -51,7 +51,7 @@ const Calendario = ({specialities, cursosDate}) => {
                   label=''
                   ponente={c.ponente_uno_id.ponente}
                 fecha={c.fecha}
-                fechaText={c.fecha_text}
+                fechaText={c.fecha > today ? c.fecha_text : 'Por Programar'}
                 duracion={c.duracion}
                 horario={c.horario}
                 />
@@ -67,7 +67,7 @@ const Calendario = ({specialities, cursosDate}) => {
                   label=''
                   ponente={c.ponente_uno_id.ponente}
                 fecha={c.fecha}
-                fechaText={c.fecha_text}
+                fechaText={c.fecha > today ? c.fecha_text : 'Por Programar'}
                 duracion={c.duracion}
                 horario={c.horario}
                 />

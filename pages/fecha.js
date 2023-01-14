@@ -47,7 +47,7 @@ export default function Home({specialities, courses}) {
 
 export const getServerSideProps = async () => {
   const urlSpecialities = `${API_BASE_URL}/specialities`
-  const urlListCoursesBySpeciality = `${API_BASE_URL}/courses`
+  const urlListCoursesBySpeciality = `${API_BASE_URL}/courses?sortBy=nombre`
 
   const [respSpecialities, respCourses] = await Promise.all([
     fetch(urlSpecialities),

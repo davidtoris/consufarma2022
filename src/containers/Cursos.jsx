@@ -3,7 +3,7 @@ import SectionCourse from '../components/cursos/SectionCourse'
 import { useSelector } from 'react-redux';
 
 const Cursos = ({specialities, cursos}) => {
-
+  console.log(cursos);
   const { selectSpeciality } = useSelector((state) => state.specialities);
 
   return (
