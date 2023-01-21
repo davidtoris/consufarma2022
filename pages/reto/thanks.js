@@ -1,10 +1,12 @@
 import axios from "axios";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { API_BASE_URL } from "../../src/constants";
 
 
 const Thanks = () => {
+
+  const [emailSended, setEmailSended] = useState('')
 
   const { correo } = useSelector(state => state.results.itemResults);
   const data = {
@@ -13,7 +15,9 @@ const Thanks = () => {
   };
 
   const sendEmail = async () => {
-    await axios.post(`${API_BASE_URL}/email/send`, data);
+    const email = await axios.post(`${API_BASE_URL}/email/send`, data);
+    console.log(email.data.msg);
+    setEmailSended('Se hizo correcto');
   }
 
   useEffect(() => {
@@ -32,7 +36,9 @@ const Thanks = () => {
           ¡Gracias por tu registro!
         </div>
         <div className='text-gray-600 p-3 text-3xl font-mediumbold'>
-          Te estaremos enviando a tu correo el link para que puedas acceder el.
+          {
+            emailSended === '' ? 'Te estaremos enviando a tu correo el link para que puedas acceder el.' : 'EL CORREO SE ENVIÓ'
+          }
         </div>
         <div className='bg-redConsufarma p-3 h-3'>
         </div>

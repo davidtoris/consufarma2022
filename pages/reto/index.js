@@ -25,7 +25,7 @@ const Home = () => {
       <div className='w-12/12 sm:w-12/12 md:w-10/12 lg:w-6/12 xl:w-5/12 2xl:w-4/12 text-center'>
         <div className='bg-redConsufarma p-2 h-2 sm:mt-10'></div>
         <div className='bg-blueConsufarma p-4 pt-2 text-white text-3xl font-extrabold sm:mb-6'>
-          Te invitamos a registrárte sin costo al reto Consufarma
+          Te invitamos a registrarte sin costo al reto Consufarma
         </div>
       </div>
         
