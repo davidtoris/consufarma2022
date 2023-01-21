@@ -35,20 +35,38 @@ const Thanks = () => {
         <div className='text-redConsufarma p-3 text-5xl font-extrabold'>
           ¡Gracias por tu registro!
         </div>
-        <div className='text-gray-600 p-3 text-3xl font-mediumbold'>
-          {
-            emailSended === '' ? 'Te estaremos enviando a tu correo el link para que puedas acceder el.' : 'EL CORREO SE ENVIÓ'
-          }
+
+        { emailSended === '' ? (
+            <>
+              <div className='bg-blueConsufarma p-3 h-2 mt-10'></div>
+              <div className='bg-redConsufarma p-3 text-white text-3xl font-extrabold'>
+                <div>Te estaremos enviando un correo con el link para que puedas acceder</div>
+              </div>
+              <div className='text-blueConsufarma text-3xl font-extrabold italic my-4'>
+                ¿No lo recibiste? Revisa tu carpeta de correo no deseado
+              </div>
+            </>
+          ) : (
+            <div className="px-10">
+              <div className='bg-redConsufarma p-3 h-2 mt-10'></div>
+              <div className='bg-blueConsufarma p-3 text-white text-3xl font-extrabold'>
+                <div>Hemos enviado un correo electrónico con el link para que puedas acceder</div>
+              </div>
+              <div className='text-redConsufarma text-3xl font-extrabold italic my-4'>
+                ¿No lo recibiste? Revisa tu carpeta de correo no deseado
+              </div>
+            </div>
+          )
+        }
+        
+        <div className='text-gray-600 p-3 text-3xl font-extrabold mt-10'>
+          Te esperamos el Viernes 3 de Febrero
         </div>
-        <div className='bg-redConsufarma p-3 h-3'>
+        
+        <div className='text-blueConsufarma text-4xl font-extrabold'>
+          Horarios
         </div>
-        <div className='bg-blueConsufarma p-3 text-white text-4xl font-extrabold'>
-          Viernes 3 de Febrero 2023
-        </div>
-        <div className='text-orangeCustom text-4xl font-extrabold my-4'>
-          Horario
-        </div>
-        <div className='text-gray-500 text-2xl font-italic my-4'>
+        <div className='text-gray-500 text-2xl font-italic my-2'>
           Ciudad de México y Guatemala - 10 h <br></br>
           Colombia - 11 h<br></br>
           Argentina - 13h <br></br>
