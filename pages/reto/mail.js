@@ -12,7 +12,7 @@ const Mail = () => {
           Gracias por tu interés en participar en el Reto Consufarma 
         </div>
         <div className='text-blueConsufarma text-5xl font-extrabold mb-14 mt-8'>
-          "Buenas prácticas de almacenamiento y distribución"
+          Buenas prácticas de almacenamiento y distribución
         </div>
 
         <div className='bg-redConsufarma p-3 h-3'>
