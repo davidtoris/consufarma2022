@@ -27,7 +27,7 @@ const Results = () => {
           buttonText="Descargar"/>
       </div> */}
        
-       <table id="table-to-xls" class="table-auto max-w-7xl mx-auto pb-10 mt-8">
+       <table id="table-to-xls" className="table-auto max-w-7xl mx-auto pb-10 mt-8">
         <thead>
           <tr>
             <th className='font-bold text-2xl bg-redConsufarma p-2 text-white'>Fecha</th>
@@ -39,7 +39,7 @@ const Results = () => {
         <tbody>
           {challenge !== undefined && (
             challenge.map(s => (
-              <tr className='border-2 text-center'>
+              <tr className='border-2 text-center' key={s._id}>
                 <td className='border-2 p-2'>{s.fecha}</td>
                 <td className='border-2 p-2'>{s.nombre}</td>
                 <td className='border-2 p-2'>{s.correo}</td>
