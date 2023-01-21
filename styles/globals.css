@@ -305,3 +305,10 @@ padding: 1em 2em;
 .temario p {
   font-size: 17px;
 }
+
+.bg-login {
+  background: url('../public/bg-image.png');
+  background-size: cover;
+  background-position: top;
+  height: 74.5vh;
+}

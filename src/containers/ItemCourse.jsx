@@ -157,15 +157,11 @@ const ItemCourse = ({curso}) => {
                   </a>
                 </div>
               </div>
-              
-              
-              
-
             </div>
         </div>
       </div>
-      <div className='max-w-7xl container mx-auto '>
-        <div className='ponente bg-blueConsufarma text-white my-8 sm:block md:flex p-4 pb-5 rounded-md w-12/12'>
+      <div className='max-w-7xl container mx-auto mt-10 '>
+        <div className='ponente bg-gray-100 text-gray-600 my-8 sm:block md:flex p-4 pb-5 rounded-md w-12/12'>
           {ponente_img && (
             <>
               <img src={ponente_img} layout='fixed' width="20%" alt="" className="mb-2" />
