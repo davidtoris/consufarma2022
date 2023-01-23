@@ -21,21 +21,22 @@ const Filter = ({specialities, active}) => {
     <div className='bg-blueConsufarma py-1'>
       <div className="max-w-7xl mx-auto bg-blueConsufarma">
           
-        <section className='my-5 flex flex-col md:flex-row items-center justify-between px-10'>
+        <section className='my-5 flex flex-col md:flex-row items-center justify-between px-2 '>
 
-          <div className='flex xl:w-12/12 lg:w-12/12 text-center'>
+          <div className='flex xl:w-12/12 lg:w-12/12 text-center items-center'>
+            <div className='text-white mr-3'>Cursos por:</div>
             <Link href="/" >
               <div 
                 onClick={() => handleClick('fecha')}
                 className={btnActive === 'fecha' ? 'bg-white  text-blueConsufarma cursor-pointer rounded-lg font-bold p-3 mr-3' : 'border-white border-2 text-white hover:bg-white hover:text-blueConsufarma cursor-pointer rounded-lg font-bold p-3 mr-3'}>
-                  Cursos por fecha
+                  fecha
               </div>
             </Link>
             <Link href="/fecha">
               <div 
                 onClick={() => handleClick('especialidad')}
                 className={btnActive === 'especialidad' ? 'bg-white  text-blueConsufarma cursor-pointer rounded-lg font-bold p-3' : 'border-white border-2 text-white hover:bg-white hover:text-blueConsufarma cursor-pointer rounded-lg font-bold p-3'}>
-                  Cursos por Especialidad
+                  Especialidad
               </div>
             </Link>
           </div>
@@ -46,7 +47,8 @@ const Filter = ({specialities, active}) => {
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                   <path fillRule="evenodd" d="M3 3a1 1 0 011-1h12a1 1 0 011 1v3a1 1 0 01-.293.707L12 11.414V15a1 1 0 01-.293.707l-2 2A1 1 0 018 17v-5.586L3.293 6.707A1 1 0 013 6V3z" clipRule="evenodd" />
                 </svg>
-                Filtrar por especialidad:
+                <span className='hidden md:inline'>Filtrar por especialidad:</span>
+                <span className='inline md:hidden'>Especialidad</span>
               </div> 
               <select name="especialidad" className='bg-white p-2 text-blueConsufarma rounded-md pr-0' onChange={handleChange}>
                   <option value="" className='text-blueConsufarma'>Todas</option>

@@ -1,7 +1,7 @@
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { FaFacebookSquare, FaLinkedin, FaWhatsapp } from 'react-icons/fa';
+import { FaFacebookSquare, FaLinkedin, FaWhatsapp, FaPhone } from 'react-icons/fa';
 
 const SocialContact = () => {
   return (
@@ -29,7 +29,7 @@ const SocialContact = () => {
         </div>
         <span>
           <Link href="tel:525618003145">
-            <span className='text-white'> +52 56 1800 3145</span>
+              <FaPhone className='text-white text-2xl' />
           </Link>
         </span>
       </div>
