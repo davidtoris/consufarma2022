@@ -10,6 +10,7 @@ const NavBar = () => {
     <div className='header-content no-print'>
       <Head>
           <title>Consufarma</title>
+          <link rel="icon" href="https://res.cloudinary.com/drq8o9k36/image/upload/v1674500063/favicon_belpvv.ico" type="image/x-icon" />
       </Head>
       <div className='bg-white'>
 
