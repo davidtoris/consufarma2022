@@ -1,12 +1,14 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import CardCourse from "../../src/components/cursos/CardCourse";
 import { API_BASE_URL } from "../../src/constants";
-
+import moment from 'moment';
 
 const Thanks = () => {
 
-  const [emailSended, setEmailSended] = useState('')
+  const [emailSended, setEmailSended] = useState('');
+  const [coursesSpeker, setCoursesSpeker] = useState([]);
 
   const { correo } = useSelector(state => state.results.itemResults);
   const data = {
@@ -26,6 +28,17 @@ const Thanks = () => {
     }
   }, [correo]);
   
+  const coursesBySpeaker = async () => {
+    const coursesData = await axios.get(`${API_BASE_URL}/courses/ponente/63b706ba807ebe9bd534742b`);
+    console.log(coursesData.data.courses);
+    setCoursesSpeker(coursesData.data.courses);
+  }
+  
+  useEffect(() => {
+    coursesBySpeaker()
+  }, []);
+
+  const today = moment().startOf('day').format()
   
   return (
     <div className="flex flex-col items-center justify-center min-h-screen py-2 bg-gray-100">
@@ -52,7 +65,7 @@ const Thanks = () => {
               <div className='bg-blueConsufarma p-3 text-white text-3xl font-extrabold'>
                 <div>Hemos enviado un correo electrónico con el link para que puedas acceder</div>
               </div>
-              <div className='text-redConsufarma text-3xl font-extrabold italic my-4'>
+              <div className='text-redConsufarma text-2xl font-extrabold italic my-4'>
                 ¿No lo recibiste? Revisa tu carpeta de correo no deseado
               </div>
             </div>
@@ -63,17 +76,36 @@ const Thanks = () => {
           Te esperamos el Viernes 3 de Febrero
         </div>
         
-        <div className='text-blueConsufarma text-4xl font-extrabold'>
+        <div className='text-blueConsufarma text-2xl font-extrabold'>
           Horarios
         </div>
-        <div className='text-gray-500 text-2xl font-italic my-2'>
+        <div className='text-gray-500 text-1xl font-italic my-2'>
           Ciudad de México y Guatemala - 10 h <br></br>
           Colombia - 11 h<br></br>
           Argentina - 13h <br></br>
         </div>
-        <div className='text-gray-600 p-3 text-3xl font-mediumbold'>
+        <div className='text-blueConsufarma text-3xl font-extrabold mt-10'>
           Cursos relacionados que pueden ser de tu interés:
         </div>    
+
+        <div className='container m-auto px-2 md:px-2 mt-2'>
+          <div className='flex flex-col sm:flex-row'>
+            {coursesSpeker.map(c => (
+              <div className='m-auto my-2'>
+              <CardCourse 
+              link={`/cursos/${c.nombre_ruta}`}
+              nombre={c.nombre}
+              img={c.imagen}
+              label={c.label}
+              ponente={c.ponente_uno_id.ponente}
+              fechaText={c.fecha > today ? c.fecha_text : 'Por Programar'}
+              duracion={c.duracion}
+              horario={c.horario}
+              />
+              </div>
+            ))}
+          </div>
+        </div>
           
       </div>
     </div>
