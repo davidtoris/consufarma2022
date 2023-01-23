@@ -27,7 +27,7 @@ const NavBar = () => {
             <div className="px-4 cursor-pointer">Cursos</div>
           </Link>
           <Link href="/reto" passHref>
-            <div className="px-4 cursor-pointer bg-blueLightCustom py-1 rounded-md">Reto Consufarma</div>
+            <div className="px-2 cursor-pointer bg-blueLightCustom rounded-md text-center">Reto Consufarma</div>
           </Link>
           <Link href="/nosotros" passHref>
             <div className="px-4 cursor-pointer hidden md:inline">Nosotros</div>
@@ -39,7 +39,7 @@ const NavBar = () => {
             <div className="px-4 cursor-pointer hidden md:inline">Calendario</div>
           </Link>
           <Link href="/contacto" passHref>
-            <div className="px-4 cursor-pointer">Contacto</div>
+            <div className="px-4 cursor-pointer hidden md:inline">Contacto</div>
           </Link>
         </nav>
       </div>

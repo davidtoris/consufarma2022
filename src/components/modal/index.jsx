@@ -12,7 +12,6 @@ const ModalComp = () => {
 
   return (
     <>
-      <button onClick={onOpenModal}>Open modal</button>
       <Modal open={open} onClose={onCloseModal} center>
         <Link href="/reto">
           <div className='cursor-pointer'>
