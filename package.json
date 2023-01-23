@@ -25,6 +25,7 @@
     "react-icons": "^4.4.0",
     "react-quill": "^2.0.0",
     "react-redux": "^7.2.6",
+    "react-responsive-modal": "^6.4.1",
     "react-slick": "^0.28.1",
     "slick-carousel": "^1.8.1",
     "yup": "^0.32.11"

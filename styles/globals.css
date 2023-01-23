@@ -312,3 +312,20 @@ padding: 1em 2em;
   background-position: top;
   height: 74.5vh;
 }
+
+.react-responsive-modal-modal {
+  max-width: 30% !important  
+}
+@media (max-width: 600px) {
+  .react-responsive-modal-modal {
+    max-width: 70% !important;
+  }
+}
+
+.react-responsive-modal-root {
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.react-responsive-modal-closeButton {
+  background: #D1001F !important;
+}

@@ -11,6 +11,8 @@ import Filter from '../src/components/filter'
 import Logotipos from '../src/components/logotipos';
 import CarouselSection from '../src/containers/Carousel';
 import { addSpecialities } from '../slices/SpecialitiesSlice';
+import Modal from '../src/components/modal';
+
 
 const Calendario = ({specialities, cursosDate}) => {
   const dispatch = useDispatch();
@@ -36,6 +38,7 @@ const Calendario = ({specialities, cursosDate}) => {
         active='fecha'
       />
       
+      <Modal />
 
       <div className='container m-auto px-2 md:px-2 mt-10'>
         <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'>
