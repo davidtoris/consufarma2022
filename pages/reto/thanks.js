@@ -91,7 +91,7 @@ const Thanks = () => {
         <div className='container m-auto px-2 md:px-2 mt-2'>
           <div className='flex flex-col sm:flex-row'>
             {coursesSpeker.map(c => (
-              <div className='m-auto my-2'>
+              <div className='m-auto my-2' key={_id}>
               <CardCourse 
               link={`/cursos/${c.nombre_ruta}`}
               nombre={c.nombre}
