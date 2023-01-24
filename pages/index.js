@@ -15,6 +15,7 @@ import Modal from '../src/components/modal';
 
 
 const Calendario = ({specialities, cursosDate}) => {
+
   const dispatch = useDispatch();
   const { allCoursesDate, statusDate } = useSelector((state) => state.courses);
   const { allSpecialities } = useSelector((state) => state.specialities);

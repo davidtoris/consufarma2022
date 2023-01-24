@@ -1,17 +1,23 @@
-import Image from 'next/image'
 import React, { useState } from 'react'
 import NavBar from '../src/components/NavBar'
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import Link from 'next/link';
 import Footer from '../src/containers/Footer';
+import axios from 'axios';
+import { API_BASE_URL } from '../src/constants';
+import Loader from '../src/components/loader';
+import Cookies from 'js-cookie'
 
 const Login = () => {
-  const [success, setSuccess] = useState(false);
   const loginSchema = Yup.object().shape({
-    email: Yup.string().email('Escribe un email válido').required('Campo requerido'),
-    password: Yup.string().min(2, 'La contraseña no es válida').required('Campo requerido'),
+    correo: Yup.string().email('Escribe un email válido').required('Campo requerido'),
+    password: Yup.string().min(2, 'La contraseña no es válida').required('Campo requerido').min(6, 'La contraseña debe tener mínimo 6 caractéres'),
   });
+
+  const [errorsData, setErrorsData] = useState([]);
+  const [loading, setLoading] = useState(false);
+
   return (
     <div className='flex flex-col justify-between'>
     
@@ -23,13 +29,25 @@ const Login = () => {
               <div className="mt-0 sm:mt-5">
                 <Formik
                   initialValues={{
-                    email: '',
+                    correo: '',
                     password: '',
                   }}
                   validationSchema={loginSchema}
-                  onSubmit={(valores, { resetForm }) => {
-                    resetForm();
+                  onSubmit={async (valores) => {
                     console.log(valores)
+                    setLoading(true);
+                    await axios.post(`${API_BASE_URL}/auth/login`, valores)
+                      .then((resp) => {
+                        console.log(resp.data)
+                        setLoading(false);
+                        setErrorsData('');
+                        Cookies.set('user', JSON.stringify(resp.data))
+                      })
+                      .catch((err) => {
+                        console.log(err.response.data.msg);
+                        setLoading(false);
+                        setErrorsData(err.response.data.msg);
+                      })
 
                   }}>
                   {({ errors }) => (
@@ -41,13 +59,13 @@ const Login = () => {
                         <div className="">
                           <Field 
                             type="text" 
-                            name="email" 
+                            name="correo" 
                             className="text-lg pl-3 text-gray-600 border-2 border-gray-200 w-full m-auto rounded px-3
                             py-1.5" />
                           <ErrorMessage
-                            name="email"
+                            name="correo"
                             component={() => (
-                              <div className="text-redConsufarma text-xs ml-2 mt-2">{ errors.email }</div>)} />
+                              <div className="text-orangeCustom text-xs ml-2 mt-2">{ errors.correo }</div>)} />
                         </div>
                       </div>
 
@@ -62,13 +80,21 @@ const Login = () => {
                           <ErrorMessage
                             name="password"
                             component={() => (
-                              <div className="text-redConsufarma text-xs ml-2 mt-2">{ errors.password }</div>)} />
+                              <div className="text-orangeCustom text-xs ml-2 mt-2">{ errors.password }</div>)} />
                         </div>
                       </div>
 
+                      <div className='mb-3 m-auto w-10/12'>
+                          {errorsData !== '' && (
+                            <div className="text-yellow-300 text-xs ml-2 mt-2">
+                              {errorsData}
+                            </div>
+                          )}
+                        </div>
+
                       <div className='m-auto w-10/12 text-center'>
-                        <button type="submit" className="btn btn-primary bg-redConsufarma border-0 w-3/12 p-2  text-1xl rounded font-bold shadow-xl mt-4 mb-6">
-                          Enviar
+                        <button type="submit" className="btn btn-primary bg-redConsufarma border-0 w-4/12 p-2  text-1xl rounded font-bold shadow-xl mt-4 mb-6">
+                          {loading ? <Loader /> : 'Iniciar sesión'}
                         </button>
                       </div>
                       

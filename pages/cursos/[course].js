@@ -5,7 +5,6 @@ import Footer from '../../src/containers/Footer'
 import ItemCourse from '../../src/containers/ItemCourse'
 
 const LandingItemCourse = ({curso}) => {
-
   return (
     <div>
       <NavBar />

@@ -23,7 +23,7 @@ const Servicios = () => {
 
         <div className='text-center block'>
           <div className='relative w-100 h-36'>
-            <Image src='https://www.consufarma.com/vistas/img/cursos.jpg' alt='cursos-consufarma' layout='fill'/>
+            <Image src='https://res.cloudinary.com/drq8o9k36/image/upload/v1674502972/Captura_de_Pantalla_2023-01-23_a_la_s_1.42.34_p.m._awlc7n.png' alt='cursos-consufarma' layout='fill'/>
           </div>
 
           <h3 className='text-center font-bold text-blueConsufarma w-8/12 m-auto mt-5'>
@@ -46,7 +46,7 @@ const Servicios = () => {
 
         <div className='text-center block'>
           <div className='relative w-100 h-36'>
-            <Image src='https://www.consufarma.com/vistas/img/buenas-practicas-en-admisnitracion-de-proyectos.jpg' alt='consultoria-consufarma' layout='fill'/>
+            <Image src='https://res.cloudinary.com/drq8o9k36/image/upload/v1674502966/Captura_de_Pantalla_2023-01-23_a_la_s_1.42.39_p.m._sjq17j.png' alt='consultoria-consufarma' layout='fill'/>
           </div>
             <h3 className='text-center font-bold text-blueConsufarma w-8/12 m-auto mt-5'>
               CONSULTORIA
@@ -63,7 +63,7 @@ const Servicios = () => {
         
         <div className='text-center block'>
           <div className='relative w-100 h-36'>
-            <Image src='https://www.consufarma.com/vistas/img/traduccion.jpg' alt='traducciones' layout='fill' />
+            <Image src='https://res.cloudinary.com/drq8o9k36/image/upload/v1674502864/Captura_de_Pantalla_2023-01-23_a_la_s_1.40.50_p.m._cqf2tt.png' alt='traducciones' layout='fill' />
           </div>
 
           <h3 className='text-center font-bold text-blueDarkCustom w-8/12 m-auto mt-5'>

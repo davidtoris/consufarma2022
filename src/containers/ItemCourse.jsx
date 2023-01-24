@@ -1,32 +1,35 @@
 import { useEffect, useState } from 'react'
 import Image from 'next/image'
 import { FaCalendarAlt, FaClock } from 'react-icons/fa';
-import { QuestionMarkCircleIcon, PrinterIcon, EmojiHappyIcon, DocumentIcon, AcademicCapIcon } from '@heroicons/react/solid'
+import { QuestionMarkCircleIcon, PrinterIcon, EmojiHappyIcon, DocumentIcon, AcademicCapIcon, ShoppingCartIcon } from '@heroicons/react/solid'
 import { useRouter } from 'next/router'
 import CardCourse from '../components/cursos/CardCourse'
 import { API_BASE_URL } from '../constants'
 import Link from 'next/link';
 import moment from 'moment';
-
+import axios from 'axios';
+import { useDispatch } from 'react-redux';
+import { addItem } from '../../slices/basketSlice';
+import Cookies from 'js-cookie'
 
 const ItemCourse = ({curso}) => {
-  const [coursesSpeciality, setCoursesSpeciality] = useState([]);
 
+  const dispatch = useDispatch();
 
-  useEffect(() => {
-    const especialidades = async () => {
-      const res = await fetch(`${API_BASE_URL}/courses/especialidad/${especialidad_ruta}`);
-      const data = await res.json()
-      const curso = data.courseSpecialitty
-      setCoursesSpeciality(curso);
-    }
-    especialidades();
-  });
-  
-
-  const {nombre, nombre_ruta, fecha, fecha_text, duracion, horario, especialidad, especialidad_ruta, ponente_uno_id, ponente_dos_id, objetivo, temario, precio, imagen, register} = curso;
+  const {nombre, nombre_ruta, fecha, fecha_text, duracion, horario, especialidad_id, ponente_uno_id, ponente_dos_id, objetivo, temario, precio, imagen, register} = curso;
   const {ponente, ponente_cv, ponente_img} = ponente_uno_id;
 
+  const [coursesSpeciality, setCoursesSpeciality] = useState([]);
+
+  const especialidades = async () => {
+    const res = await axios.get(`${API_BASE_URL}/courses/especialidad/${especialidad_id._id}`);
+    setCoursesSpeciality(res.data.courseSpecialitty);
+  }
+
+  useEffect(() => {
+    especialidades();
+  }, []);
+  
   const Objectiv = () => { 
     return {__html: objetivo};
   }
@@ -34,7 +37,21 @@ const ItemCourse = ({curso}) => {
     return {__html: temario};
   }
   
-  const today = moment().startOf('day').format()
+  const today = moment().startOf('day').format();
+
+  const addToBasket = () => {
+    const dataBasket = {
+      nombre,
+      fecha_text,
+      duracion,
+      horario,
+      precio,
+      imagen
+    };
+    dispatch(addItem(dataBasket));
+    Cookies.set('basket', JSON.stringify(dataBasket));
+    
+  };
 
   const url = imagen
   return (
@@ -42,7 +59,7 @@ const ItemCourse = ({curso}) => {
       <div className='max-w-7xl container mx-auto font-body grid-flow-row grid grid-cols-1 lg:grid-cols-3 gap-4 mt-5 px-2 md:px-5'>
         <div className='col-span-1 md:col-span-2 md:px-0 px-3'>
           <div className="flex justify-between">
-            <h1 className='name-course text-blueDarkCustom font-bold text-2xl my-5 w-8/12'>
+            <h1 className='name-course text-blueDarkCustom font-bold text-2xl my-5 w-12/12 md:w-8/12'>
               {nombre}
             </h1>
             {/* <div className='rating text-yellowCustom mt-5 flex items-base'>
@@ -65,7 +82,7 @@ const ItemCourse = ({curso}) => {
               <span className='mx-3 '>/</span> {horario}
             </div>
             
-            <div className='flex ml-4 items-center'> 
+            <div className='flex ml-1 md:ml-4 items-center'> 
               <FaCalendarAlt className='w-4 h-4 ml-3 mr-1'/>
                 {fecha > today ? fecha_text : 'Por Programar'}
                 
@@ -132,10 +149,10 @@ const ItemCourse = ({curso}) => {
                 {/* <button className='bg-blueConsufarma rounded-xl text-white font-bold text-lg w-11/12 mt-4 p-2'>
                   Regístrate
                 </button> */}
-                {/* <div className='mt-6 mb-2 flex justify-center'>
-                  <ShoppingCartIcon className='w-7 h-7 text-grayCustom '/>
-                  <div className='font-bold text-xl underline'>Añadir al Carrito</div>
-                </div> */}
+                <div className='mt-6 mb-2 flex justify-center cursor-pointer' onClick={addToBasket}>
+                  {/* <ShoppingCartIcon className='w-7 h-7 text-grayCustom '/>
+                  <div className='font-bold text-xl underline'>Añadir al Carrito</div> */}
+                </div>
                 <Link href={`/print/${nombre_ruta}`}>
                 <button className='bg-blueConsufarma rounded-xl text-white font-bold text-lg w-11/12 mt-4 p-2'>
                   Imprimir Temario
@@ -176,10 +193,10 @@ const ItemCourse = ({curso}) => {
 
     
       <div className='max-w-7xl container mx-auto '>
-        <h2 className='text-2xl text-blueConsufarma uppercase font-bold mt-10 border-b-4 border-redConsufarma w-24'>ubicación</h2>
+        <h2 className='text-2xl text-blueConsufarma uppercase font-bold mt-10 border-b-4 border-redConsufarma w-24 ml-5'>ubicación</h2>
         
         <div className='bg-gray-100 p-3 rounded-lg mt-4'>
-          <div className='ubication flex mt-2'>
+          <div className='ubication flex mt-2 ml-2'>
             <div className='relative w-6 h-6'>
               <Image src="/courses-img/zoom-icon.png" layout='fill'alt="zoom-icon"/>
             </div>
@@ -192,7 +209,7 @@ const ItemCourse = ({curso}) => {
 
 
       <div className='max-w-7xl mx-auto mt-5 container px-3'>
-        <h2 className='text-2xl text-blueDarkCustom mb-5 mt-12 font-bold'>
+        <h2 className='text-2xl text-blueDarkCustom mb-5 mt-12 font-bold ml-2'>
         Otros cursos para continuar con tu aprendizaje
         </h2>
         <div className='flex space-x-3 overflow-x-scroll overflow-y-hidden'>
