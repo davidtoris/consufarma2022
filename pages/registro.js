@@ -248,7 +248,7 @@ const Registro = () => {
 
                         <div className='mb-3 m-auto w-10/12'>
                           {errorsData.length > 0 && errorsData.map(e => (
-                            <div className="text-yellow-300 text-xs ml-2 mt-2">
+                            <div className="text-yellow-300 text-xs ml-2 mt-2" key={e.msg}>
                               {e.msg}
                             </div>
                           ))}
