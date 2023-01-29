@@ -16,7 +16,7 @@ const ItemCourse = ({curso}) => {
 
   const dispatch = useDispatch();
 
-  const {nombre, nombre_ruta, fecha, fecha_text, duracion, horario, especialidad_id, ponente_uno_id, ponente_dos_id, objetivo, temario, precio, imagen, register} = curso;
+  const {_id, nombre, nombre_ruta, fecha, fecha_text, duracion, horario, especialidad_id, ponente_uno_id, ponente_dos_id, objetivo, temario, precio, imagen, register} = curso;
   const {ponente, ponente_cv, ponente_img} = ponente_uno_id;
 
   const [coursesSpeciality, setCoursesSpeciality] = useState([]);
@@ -39,19 +39,37 @@ const ItemCourse = ({curso}) => {
   
   const today = moment().startOf('day').format();
 
+  const [baskState, setBaskState] = useState([])
+
   const addToBasket = () => {
-    const dataBasket = {
-      nombre,
-      fecha_text,
-      duracion,
-      horario,
-      precio,
-      imagen
-    };
-    dispatch(addItem(dataBasket));
-    Cookies.set('basket', JSON.stringify(dataBasket));
+    const dataBasket = { nombre, fecha_text, duracion, horario, precio, imagen, _id };
     
+    const existInBasket = baskState.find(course => course._id === _id);
+    if (existInBasket === undefined) {
+      setBaskState([...baskState, dataBasket])
+    }
+
   };
+
+  useEffect(() => {
+    const dataCookie = Cookies.get("basket");
+    
+    // Existe la cookie
+    if (dataCookie !== undefined) {
+      let dataCookieParse = JSON.parse(dataCookie)
+
+      // Tiene algo la cookie
+      if (dataCookieParse.length > 0) {
+        setBaskState(dataCookieParse);
+      }
+    }
+  }, [])
+
+  useEffect(() => {
+    Cookies.set('basket', JSON.stringify(baskState));
+    console.log(baskState)
+  }, [baskState])
+  
 
   const url = imagen
   return (
@@ -150,8 +168,8 @@ const ItemCourse = ({curso}) => {
                   Regístrate
                 </button> */}
                 <div className='mt-6 mb-2 flex justify-center cursor-pointer' onClick={addToBasket}>
-                  {/* <ShoppingCartIcon className='w-7 h-7 text-grayCustom '/>
-                  <div className='font-bold text-xl underline'>Añadir al Carrito</div> */}
+                  <ShoppingCartIcon className='w-7 h-7 text-grayCustom '/>
+                  <div className='font-bold text-xl underline'>Añadir al Carrito</div>
                 </div>
                 <Link href={`/print/${nombre_ruta}`}>
                 <button className='bg-blueConsufarma rounded-xl text-white font-bold text-lg w-11/12 mt-4 p-2'>
