@@ -24,7 +24,7 @@ const Home = () => {
     <div className="flex flex-col items-center justify-center min-h-screen sm:py-2 bg-gray-200 ">
 
      {fecha > fechaFin ? (
-       <iframe width="860" height="515" src="https://www.youtube.com/embed/-2dBk9g400Y" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen />
+       <iframe width="860" height="515" src="https://www.youtube.com/embed/-2dBk9g400Y" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullscreen />
      ) : ( 
       <>
         <div className='w-12/12 sm:w-12/12 md:w-10/12 lg:w-6/12 xl:w-5/12 2xl:w-4/12 text-center'>
