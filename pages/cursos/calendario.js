@@ -3,19 +3,20 @@ import React from 'react';
 import CardCalendar from '../../src/components/cursos/cardCalendar';
 import { API_BASE_URL } from '../../src/constants';
 import { FaPrint } from 'react-icons/fa';
+import Link from 'next/link';
 
 const Calendar = ({cursosDate}) => {
 
-  const handlePrint = () => {
-    window.print();
-  }
+  // const handlePrint = () => {
+  //   window.print();
+  // }
 
   return (
     <div className=''>
 
-      <div className='fixed bottom-5 right-5 bg-redConsufarma p-5 text-white text-center flex items-center rounded-md cursor-pointer no-print' onClick={handlePrint}>
+      <a href="../calendario-cursos-2023.pdf" className='fixed bottom-5 right-5 bg-redConsufarma p-5 text-white text-center flex items-center rounded-md cursor-pointer no-print'>
         <FaPrint className='w-4 h-4 ml-3 mr-2'/>Imprimir
-      </div>
+      </a>
 
 
       <div className=''>
