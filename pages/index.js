@@ -36,7 +36,7 @@ const Calendario = ({specialities, cursosDate}) => {
         <div className="container">
         {/* <!-- Global site tag (gtag.js) - Google Analytics --> */}
         <Script
-          src="https://www.googletagmanager.com/gtag/js?id=G-9P1PHP99N1"
+          src="https://www.googletagmanager.com/gtag/js?id=G-QV34QL6593"
           strategy="afterInteractive"
         />
         <Script id="google-analytics" strategy="afterInteractive">
