@@ -30,7 +30,6 @@ const Thanks = () => {
   
   const coursesBySpeaker = async () => {
     const coursesData = await axios.get(`${API_BASE_URL}/courses/fundamentos-y-aplicacion-de-los-metodos-farmacopeicos-y-calculos-criticos-empleados-en-el-analisis-farmaceutico`);
-    console.log(coursesData.data.course);
     setCoursesSpeker(coursesData.data.course);
   }
   
