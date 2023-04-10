@@ -20,7 +20,7 @@ const ModalComp = () => {
             </div>
             <div>
               <img 
-                src="https://res.cloudinary.com/drq8o9k36/image/upload/v1674494540/reto/Captura_de_Pantalla_2023-01-23_a_la_s_11.22.06_a.m._rfignx.png"
+                src="https://res.cloudinary.com/drq8o9k36/image/upload/v1681159706/reto/Captura_de_pantalla_2023-04-10_a_la_s_2.47.50_p.m._ihezuj.png"
                 width="500px"
                 className='m-auto'/>
             </div>

@@ -29,9 +29,9 @@ const Thanks = () => {
   }, [correo]);
   
   const coursesBySpeaker = async () => {
-    const coursesData = await axios.get(`${API_BASE_URL}/courses/ponente/63b706ba807ebe9bd534742b`);
-    console.log(coursesData.data.courses);
-    setCoursesSpeker(coursesData.data.courses);
+    const coursesData = await axios.get(`${API_BASE_URL}/courses/fundamentos-y-aplicacion-de-los-metodos-farmacopeicos-y-calculos-criticos-empleados-en-el-analisis-farmaceutico`);
+    console.log(coursesData.data.course);
+    setCoursesSpeker(coursesData.data.course);
   }
   
   useEffect(() => {
@@ -43,10 +43,10 @@ const Thanks = () => {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen py-2 bg-gray-100">
       <img src="..//logo.png" width="600px" className='my-5 m-auto'/>
-      <img src="https://res.cloudinary.com/drq8o9k36/image/upload/v1665492528/courses-img/Captura_de_Pantalla_2022-10-11_a_la_s_7.48.33_a.m._vy9r5m.png" width="300px" className='my-5 m-auto'/>
+      <img src="https://res.cloudinary.com/drq8o9k36/image/upload/v1681159649/reto/Captura_de_pantalla_2023-04-10_a_la_s_2.44.55_p.m._lxb5tq.png" width="300px" className='my-5 m-auto'/>
       <div className='text-center'>
         <div className='text-redConsufarma p-3 text-5xl font-extrabold'>
-          ¡Gracias por tu registro!
+          ¡Gracias por tu registro al reto Consufarma!
         </div>
 
         { emailSended === '' ? (
@@ -73,17 +73,17 @@ const Thanks = () => {
         }
         
         <div className='text-gray-600 p-3 text-3xl font-extrabold mt-10'>
-          Te esperamos el Viernes 3 de Febrero
+          Podrás acceder ya sea el 10 u 11 de Abril
         </div>
         
         <div className='text-blueConsufarma text-2xl font-extrabold'>
-          Horarios
+          En el horario de tu preferencia
         </div>
-        <div className='text-gray-500 text-1xl font-italic my-2'>
+        {/* <div className='text-gray-500 text-1xl font-italic my-2'>
           Ciudad de México y Guatemala - 10 h <br></br>
           Colombia - 11 h<br></br>
           Argentina - 13h <br></br>
-        </div>
+        </div> */}
         <div className='text-blueConsufarma text-3xl font-extrabold mt-10'>
           Cursos relacionados que pueden ser de tu interés:
         </div>    

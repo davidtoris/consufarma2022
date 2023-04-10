@@ -16,9 +16,9 @@ const Home = () => {
     correo: Yup.string().email('Escribe un correo válido').required('Campo requerido'),
   });
 
-  const tag = 'ene23';
+  const tag = 'abr10';
   const fecha = moment().startOf('day').format();
-  const fechaFin = '2023-02-03T00:00:00-06:00';
+  const fechaFin = '2023-04-12T00:00:00-06:00';
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen sm:py-2 bg-gray-200 ">
@@ -35,7 +35,7 @@ const Home = () => {
         </div>
           
         <div className=''>
-          <img src="https://res.cloudinary.com/drq8o9k36/image/upload/v1674268425/reto/RETO-CONSUFARMA_oun1vf.jpg" width="600px"/>
+          <img src="https://res.cloudinary.com/drq8o9k36/image/upload/v1681159705/reto/Captura_de_pantalla_2023-04-10_a_la_s_2.48.09_p.m._c1fvnb.png" width="600px"/>
           <div className='px-6 sm:px-0'>
 
             <Formik
