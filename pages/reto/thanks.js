@@ -11,8 +11,9 @@ const Thanks = () => {
   const [coursesSpeker, setCoursesSpeker] = useState([]);
 
   const { correo } = useSelector(state => state.results.itemResults);
+
   const data = {
-    correo,
+    correo: 'edavid.toris@gmail.com',
     subject: "Reto Consufarma",
   };
 
@@ -72,7 +73,7 @@ const Thanks = () => {
         }
         
         <div className='text-gray-600 p-3 text-3xl font-extrabold mt-10'>
-          Podrás acceder ya sea el 10 u 11 de Abril
+          Podrás acceder ya sea el 11 o 12 de Abril
         </div>
         
         <div className='text-blueConsufarma text-2xl font-extrabold'>

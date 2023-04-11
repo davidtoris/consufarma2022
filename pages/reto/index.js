@@ -35,7 +35,7 @@ const Home = () => {
         </div>
           
         <div className=''>
-          <img src="https://res.cloudinary.com/drq8o9k36/image/upload/v1681159705/reto/Captura_de_pantalla_2023-04-10_a_la_s_2.48.09_p.m._c1fvnb.png" width="600px"/>
+          <img src="https://res.cloudinary.com/drq8o9k36/image/upload/v1681177606/reto/Captura_de_pantalla_2023-04-10_a_la_s_7.45.26_p.m._vxikii.png" width="600px"/>
           <div className='px-6 sm:px-0'>
 
             <Formik
