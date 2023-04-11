@@ -13,7 +13,7 @@ const Thanks = () => {
   const { correo } = useSelector(state => state.results.itemResults);
 
   const data = {
-    correo: 'edavid.toris@gmail.com',
+    correo,
     subject: "Reto Consufarma",
   };
 
