@@ -17,8 +17,9 @@ const Home = () => {
   });
 
   const tag = 'abr10';
-  const fecha = moment().startOf('day').format();
-  const fechaFin = '2023-04-12T00:00:00-06:00';
+  const fecha = moment().format();
+  const fechaFin = '2023-04-12T00:00:00-00:00';
+
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen sm:py-2 bg-gray-200 ">
