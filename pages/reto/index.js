@@ -18,7 +18,7 @@ const Home = () => {
 
   const tag = 'abr10';
   const fecha = moment().format();
-  const fechaFin = '2023-04-12T00:00:00-00:00';
+  const fechaFin = '2023-04-13T00:00:00-00:00';
 
 
   return (
