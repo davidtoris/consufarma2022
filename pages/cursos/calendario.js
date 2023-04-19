@@ -9,6 +9,7 @@ import { saveAs } from 'file-saver';
 const Calendar = ({cursosDate}) => {
 
   const handleClick = async () => {
+    console.log('enviando')
     await instanceAPI.get("/pdf/getPDF", {responseType: 'blob'})
     .then(res => {
       const pdfBlob = new Blob([res.data], {type:'application/pdf'})
