@@ -5,6 +5,7 @@ import { API_BASE_URL } from '../../src/constants';
 import { FaPrint } from 'react-icons/fa';
 import Link from 'next/link';
 import { saveAs } from 'file-saver';
+import instanceAPI from '../../src/config/axiosConfig';
 
 const Calendar = ({cursosDate}) => {
 
