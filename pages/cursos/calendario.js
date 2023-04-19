@@ -4,19 +4,28 @@ import CardCalendar from '../../src/components/cursos/cardCalendar';
 import { API_BASE_URL } from '../../src/constants';
 import { FaPrint } from 'react-icons/fa';
 import Link from 'next/link';
+import { saveAs } from 'file-saver';
 
 const Calendar = ({cursosDate}) => {
 
-  // const handlePrint = () => {
-  //   window.print();
-  // }
+  const handleClick = async () => {
+    await instanceAPI.get("/pdf/getPDF", {responseType: 'blob'})
+    .then(res => {
+      const pdfBlob = new Blob([res.data], {type:'application/pdf'})
+      saveAs(pdfBlob, "output.pdf")
+    })
+  } 
+  
 
   return (
     <div className=''>
 
-      <a href="../calendario-cursos-2023.pdf" className='fixed bottom-5 right-5 bg-redConsufarma p-5 text-white text-center flex items-center rounded-md cursor-pointer no-print'>
+      {/* <a href="../calendario-cursos-2023.pdf" className='fixed bottom-5 right-5 bg-redConsufarma p-5 text-white text-center flex items-center rounded-md cursor-pointer no-print'>
         <FaPrint className='w-4 h-4 ml-3 mr-2'/>Imprimir
-      </a>
+      </a> */}
+      <button onClick={handleClick} href="../calendario-cursos-2023.pdf" className='fixed bottom-5 right-5 bg-redConsufarma p-5 text-white text-center flex items-center rounded-md cursor-pointer no-print'>
+        <FaPrint className='w-4 h-4 ml-3 mr-2'/>Imprimir PDF
+      </button>
 
 
       <div className=''>
