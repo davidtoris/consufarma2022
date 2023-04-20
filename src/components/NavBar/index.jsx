@@ -27,9 +27,9 @@ const NavBar = () => {
           <Link href="/" passHref>
             <div className="px-4 cursor-pointer">Cursos</div>
           </Link>
-          <Link href="/reto" passHref>
+          {/* <Link href="/reto" passHref>
             <div className="px-2 cursor-pointer bg-blueLightCustom rounded-md text-center">Reto Consufarma</div>
-          </Link>
+          </Link> */}
           <Link href="/nosotros" passHref>
             <div className="px-4 cursor-pointer hidden md:inline">Nosotros</div>
           </Link>

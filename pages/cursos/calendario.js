@@ -17,17 +17,17 @@ const Calendar = ({cursosDate}) => {
       saveAs(pdfBlob, "output.pdf")
     })
   } 
-  
+
 
   return (
     <div className=''>
 
-      {/* <a href="../calendario-cursos-2023.pdf" className='fixed bottom-5 right-5 bg-redConsufarma p-5 text-white text-center flex items-center rounded-md cursor-pointer no-print'>
+      <a href="../calendario-cursos-2023.pdf" className='fixed bottom-5 right-5 bg-redConsufarma p-5 text-white text-center flex items-center rounded-md cursor-pointer no-print'>
         <FaPrint className='w-4 h-4 ml-3 mr-2'/>Imprimir
-      </a> */}
-      <button onClick={handleClick} href="../calendario-cursos-2023.pdf" className='fixed bottom-5 right-5 bg-redConsufarma p-5 text-white text-center flex items-center rounded-md cursor-pointer no-print'>
+      </a>
+      {/* <button onClick={handleClick} href="../calendario-cursos-2023.pdf" className='fixed bottom-5 right-5 bg-redConsufarma p-5 text-white text-center flex items-center rounded-md cursor-pointer no-print'>
         <FaPrint className='w-4 h-4 ml-3 mr-2'/>Imprimir PDF
-      </button>
+      </button> */}
 
 
       <div className=''>
