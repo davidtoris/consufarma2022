@@ -72,10 +72,11 @@ const Calendario = ({specialities, cursosDate}) => {
                   img={c.imagen}
                   label=''
                   ponente={c.ponente_uno_id.ponente}
-                fecha={c.fecha}
-                fechaText={c.fecha > today ? c.fecha_text : 'Por Programar'}
-                duracion={c.duracion}
-                horario={c.horario}
+                  ponenteDos={c.ponente_dos_id.ponente}
+                  fecha={c.fecha}
+                  fechaText={c.fecha > today ? c.fecha_text : 'Por Programar'}
+                  duracion={c.duracion}
+                  horario={c.horario}
                 />
               </div>
             )) : 
@@ -88,10 +89,11 @@ const Calendario = ({specialities, cursosDate}) => {
                   img={c.imagen}
                   label=''
                   ponente={c.ponente_uno_id.ponente}
-                fecha={c.fecha}
-                fechaText={c.fecha > today ? c.fecha_text : 'Por Programar'}
-                duracion={c.duracion}
-                horario={c.horario}
+                  ponenteDos={c.ponente_dos_id.ponente}
+                  fecha={c.fecha}
+                  fechaText={c.fecha > today ? c.fecha_text : 'Por Programar'}
+                  duracion={c.duracion}
+                  horario={c.horario}
                 />
               </div>
             ))
@@ -113,10 +115,11 @@ const Calendario = ({specialities, cursosDate}) => {
                   img={c.imagen}
                   label=''
                   ponente={c.ponente_uno_id.ponente}
-                fecha={'Por programar'}
-                fechaText={'Por programar'}
-                duracion={c.duracion}
-                horario={c.horario}
+                  ponenteDos={c.ponente_dos_id.ponente}
+                  fecha={'Por programar'}
+                  fechaText={'Por programar'}
+                  duracion={c.duracion}
+                  horario={c.horario}
                 />
               </div>
             ))

@@ -18,6 +18,7 @@ const ItemCourse = ({curso}) => {
 
   const {_id, nombre, nombre_ruta, fecha, fecha_text, duracion, horario, especialidad_id, ponente_uno_id, ponente_dos_id, objetivo, temario, precio, imagen, register} = curso;
   const {ponente, ponente_cv, ponente_img} = ponente_uno_id;
+  const {ponente:ponente_dos, ponente_cv:ponente_cv_dos, ponente_img:ponente_img_dos} = ponente_dos_id;
 
   const [coursesSpeciality, setCoursesSpeciality] = useState([]);
 
@@ -207,6 +208,19 @@ const ItemCourse = ({curso}) => {
             <div>{ponente_cv}</div>
           </div>
         </div>
+        {ponente_cv_dos !== 'ninguno' && (
+          <div className='ponente bg-gray-100 text-gray-600 my-8 sm:block md:flex p-4 pb-5 rounded-md w-12/12'>
+            {ponente_img_dos && (
+              <>
+                <img src={ponente_img_dos} layout='fixed' width="20%" alt="" className="mb-2" />
+              </>
+            )}
+            <div className='ml-5'>
+              <h2 className='text-2xl font-bold mb-2'>{ponente_dos}</h2>
+              <div>{ponente_cv_dos}</div>
+            </div>
+          </div>
+        )}
       </div>
 
     
