@@ -14,11 +14,9 @@ const Home = () => {
   const dataSchema = Yup.object().shape({
     nombre: Yup.string().required('Campo requerido'),
     correo: Yup.string().email('Escribe un correo válido').required('Campo requerido'),
-    nombreDos: Yup.string().required('Campo requerido'),
-    correoDos: Yup.string().email('Escribe un correo válido').required('Campo requerido'),
   });
 
-  const tag = 'mayo23';
+  const tag = 'abr10';
   const fecha = moment().format();
   const fechaFin = '2023-07-13T00:00:00-00:00';
 
@@ -38,24 +36,20 @@ const Home = () => {
         </div>
           
         <div className=''>
-          <img src="https://picsum.photos/600/300" width="600px"/>
+          <img src="https://res.cloudinary.com/drq8o9k36/image/upload/v1681177606/reto/Captura_de_pantalla_2023-04-10_a_la_s_7.45.26_p.m._vxikii.png" width="600px"/>
           <div className='px-6 sm:px-0'>
 
             <Formik
                 initialValues={{
                   nombre: '',
                   correo: '',
-                  nombreDos: '',
-                  correoDos: '',
                 }}
                 validationSchema={dataSchema}
-                onSubmit={ async ({nombre, correo, nombreDos, correoDos}) =>  {
+                onSubmit={ async ({nombre, correo}) =>  {
 
                   const data = {
                     nombre,
                     correo,
-                    nombreDos,
-                    correoDos,
                     fecha,
                     tag 
                   };
@@ -96,37 +90,6 @@ const Home = () => {
                           name="correo"
                           component={() => (
                             <div className="text-orangeCustom mt-1 ml-3">{ errors.correo }</div>)} />
-                      </div> 
-                    </div>
-
-                    {/* Segunda persona */}
-                    <div className='mb-3 m-auto w-12/12'>
-                      <div className='text-left text-blue-900 font-bold text-lg ml-2 mt-2'>Nombre del Invitado:</div>  
-                      <div className="">
-                        <Field
-                          type="text" 
-                          className="text-lg pl-3 text-gray-600 border-2 border-gray-300 w-full m-auto rounded-md px-3 py-1.5 bg-white" 
-                          aria-describedby="emailHelp"
-                          name="nombreDos" />
-                        <ErrorMessage
-                          name="nombreDos"
-                          component={() => (
-                            <div className="text-orangeCustom mt-1 ml-3">{ errors.nombreDos }</div>)} />
-                      </div> 
-                    </div>
-
-                    <div className='mb-3 m-auto w-12/12'>
-                      <div className='text-left text-blue-900 font-bold text-lg ml-2 mt-2'>Correo del Invitado:</div>
-                      <div className="">
-                        <Field 
-                          type="email" 
-                          className="text-lg pl-3 text-gray-600 border-2 border-gray-300 w-full m-auto rounded-md px-3 py-1.5 bg-white" 
-                          aria-describedby="emailHelp"
-                          name="correoDos" />  
-                        <ErrorMessage
-                          name="correoDos"
-                          component={() => (
-                            <div className="text-orangeCustom mt-1 ml-3">{ errors.correoDos }</div>)} />
                       </div> 
                     </div>
                     

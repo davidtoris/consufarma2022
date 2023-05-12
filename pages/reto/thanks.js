@@ -10,16 +10,23 @@ const Thanks = () => {
   const [emailSended, setEmailSended] = useState('');
   const [coursesSpeker, setCoursesSpeker] = useState([]);
 
-  const { correo } = useSelector(state => state.results.itemResults);
+  const { correo, correoDos } = useSelector(state => state.results.itemResults);
 
   const data = {
     correo,
     subject: "Reto Consufarma",
   };
+  
+  const dataDos = {
+    correo: correoDos,
+    subject: "Reto Consufarma",
+  };
 
   const sendEmail = async () => {
     const email = await axios.post(`${API_BASE_URL}/email/send`, data);
+    const emailDos = await axios.post(`${API_BASE_URL}/email/send`, dataDos);
     console.log(email.data.msg);
+    console.log(emailDos.data.msg);
     setEmailSended('Se hizo correcto');
   }
 
@@ -43,7 +50,7 @@ const Thanks = () => {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen py-2 bg-gray-100">
       <img src="..//logo.png" width="600px" className='my-5 m-auto'/>
-      <img src="https://res.cloudinary.com/drq8o9k36/image/upload/v1681159649/reto/Captura_de_pantalla_2023-04-10_a_la_s_2.44.55_p.m._lxb5tq.png" width="300px" className='my-5 m-auto'/>
+      <img src="https://picsum.photos/300/300" width="300px" className='my-5 m-auto'/>
       <div className='text-center'>
         <div className='text-redConsufarma p-3 text-5xl font-extrabold'>
           ¡Gracias por tu registro al reto Consufarma!
