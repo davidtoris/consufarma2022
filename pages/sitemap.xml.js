@@ -8,10 +8,10 @@ function generateSiteMap(posts) {
    <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
      <!--We manually set the two URLs we know already-->
      <url>
-       <loc>https://jsonplaceholder.typicode.com</loc>
+       <loc>${`${URL}`}</loc>
      </url>
      <url>
-       <loc>https://jsonplaceholder.typicode.com/guide</loc>
+       <loc>${`${URL}/nosotros`}</loc>
      </url>
      ${posts
        .map(({ nombre_ruta }) => {
