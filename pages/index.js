@@ -50,7 +50,7 @@ const Calendario = ({specialities, cursosDate}) => {
         </Script>
 
         {/* <!-- Google tag (gtag.js) --> */}
-        <Script id="google-analytics2" async src="https://www.googletagmanager.com/gtag/js?id=G-TH99DJV80J" />
+        <Script id="google-analytics-two" async src="https://www.googletagmanager.com/gtag/js?id=G-TH99DJV80J" />
         <Script>
           {`
             window.dataLayer = window.dataLayer || [];
