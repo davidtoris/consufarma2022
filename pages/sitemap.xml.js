@@ -13,6 +13,9 @@ function generateSiteMap(posts) {
      <url>
        <loc>${`${URL}/nosotros`}</loc>
      </url>
+     <url>
+       <loc>${`${URL}/cursos/calendario`}</loc>
+     </url>
      ${posts
        .map(({ nombre_ruta }) => {
          return `
