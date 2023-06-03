@@ -54,7 +54,7 @@ const Calendario = ({specialities, cursosDate}) => {
         <Script id="google-analytics-two">
           {`
             window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
+            function gtag(){window.dataLayer.push(arguments);}
             gtag('js', new Date());
 
             gtag('config', 'G-TH99DJV80J');
