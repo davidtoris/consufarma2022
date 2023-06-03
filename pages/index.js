@@ -60,6 +60,17 @@ const Calendario = ({specialities, cursosDate}) => {
             gtag('config', 'G-TH99DJV80J');
           `}
         </Script>
+        {/* <!-- Google tag (gtag.js) --> */}
+        <Script async src="https://www.googletagmanager.com/gtag/js?id=GTM-N3TSTCP" />
+        <Script id="google-analytics-three">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){window.dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'GTM-N3TSTCP');
+          `}
+        </Script>
       </div>
       <NavBar />
       <CarouselSection /> 
