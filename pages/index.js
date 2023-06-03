@@ -48,6 +48,19 @@ const Calendario = ({specialities, cursosDate}) => {
             gtag('config', 'GA_MEASUREMENT_ID');
           `}
         </Script>
+
+        {/* <!-- Google tag (gtag.js) --> */}
+        <Script async src="https://www.googletagmanager.com/gtag/js?id=G-TH99DJV80J" />
+        <Script>
+          {
+            `
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'G-TH99DJV80J');
+          `}
+        </Script>
       </div>
       <NavBar />
       <CarouselSection /> 
