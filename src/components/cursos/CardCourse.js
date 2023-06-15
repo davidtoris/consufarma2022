@@ -5,7 +5,7 @@ import Link from 'next/link'
 import Label from './Label'
 import moment from 'moment'
 
-const CardCourse = ({link, nombre, img, label, ponente, ponenteDos, horario, fechaText, duracion}) => {
+const CardCourse = ({link, nombre, img, label, ponente, ponenteDos, horario, fechaText, duracion, lugar}) => {
   
   return (
     <Link href={link}>
@@ -35,9 +35,16 @@ const CardCourse = ({link, nombre, img, label, ponente, ponenteDos, horario, fec
               {nombre}
             </div>
             <div className='flex justify-center'>
-              <div className='bg-blueLightCustom text-center text-white font-bold w-8/12 rounded-md py-1'>
-                ONLINE
-              </div>
+              {lugar === 'ONLINE' && (
+                <div className='bg-blueLightCustom text-center text-white font-bold w-8/12 rounded-md py-1'>
+                  ONLINE
+                </div>
+              )}
+              {lugar === 'PRESENCIAL' && (
+                <div className='bg-pinkCustom text-center text-white font-bold w-8/12 rounded-md py-1'>
+                  PRESENCIAL
+                </div>
+              )}
             </div>
             <div className='instructor flex my-2 items-center flex-col'>
               <div className='flex'>

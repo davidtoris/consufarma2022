@@ -100,6 +100,7 @@ const Calendario = ({specialities, cursosDate}) => {
                   fechaText={c.fecha > today ? c.fecha_text : 'Por Programar'}
                   duracion={c.duracion}
                   horario={c.horario}
+                  lugar={c.lugar}
                 />
               </div>
             )) : 
@@ -117,6 +118,7 @@ const Calendario = ({specialities, cursosDate}) => {
                   fechaText={c.fecha > today ? c.fecha_text : 'Por Programar'}
                   duracion={c.duracion}
                   horario={c.horario}
+                  lugar={c.lugar}
                 />
               </div>
             ))
