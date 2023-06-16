@@ -28,8 +28,6 @@ const Calendario = ({specialities, cursosDate}) => {
   });
   
   const today = moment().startOf('day').format()
-
-
   return (
     <>
 
@@ -93,7 +91,7 @@ const Calendario = ({specialities, cursosDate}) => {
                   link={`/cursos/${c.nombre_ruta}`}
                   nombre={c.nombre}
                   img={c.imagen}
-                  label=''
+                  label={c.label}
                   ponente={c.ponente_uno_id.ponente}
                   ponenteDos={c.ponente_dos_id.ponente}
                   fecha={c.fecha}
@@ -111,7 +109,7 @@ const Calendario = ({specialities, cursosDate}) => {
                   link={`/cursos/${c.nombre_ruta}`}
                   nombre={c.nombre}
                   img={c.imagen}
-                  label=''
+                  label={c.label}
                   ponente={c.ponente_uno_id.ponente}
                   ponenteDos={c.ponente_dos_id.ponente}
                   fecha={c.fecha}

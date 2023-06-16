@@ -6,7 +6,6 @@ import Label from './Label'
 import moment from 'moment'
 
 const CardCourse = ({link, nombre, img, label, ponente, ponenteDos, horario, fechaText, duracion, lugar}) => {
-  
   return (
     <Link href={link}>
       <a>
