@@ -36,9 +36,11 @@ const NavBar = () => {
           <Link href="/servicios" passHref>
             <div className="px-4 cursor-pointer">Servicios</div>
           </Link>
-          <Link href="/cursos/calendario" passHref>
-            <div className="px-4 cursor-pointer hidden md:inline">Calendario</div>
-          </Link>
+          <a href="../calendario-cursos-2023.pdf">
+            <div className="px-4 cursor-pointer hidden md:inline">
+              Calendario
+            </div>
+          </a>
           <Link href="/contacto" passHref>
             <div className="px-4 cursor-pointer hidden md:inline">Contacto</div>
           </Link>
