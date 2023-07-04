@@ -40,7 +40,6 @@ const Courses = ({curso}) => {
   
   }, [value]);
 
-
   const today = moment().startOf('day').format()
   
   return (
@@ -75,6 +74,7 @@ const Courses = ({curso}) => {
                     horario={c.horario}
                     label={c.label}
                     ponente={c.ponente_uno_id.ponente}
+                    ponenteDos={c.ponente_dos_id.ponente}
                   />
                 ))}
               </div>
@@ -93,6 +93,7 @@ const Courses = ({curso}) => {
                 horario={c.horario}
                 label={c.label}
                 ponente={c.ponente_uno_id.ponente}
+                ponenteDos={c.ponente_dos_id.ponente}
               />
             ))}
           </div>
