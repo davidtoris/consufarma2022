@@ -279,6 +279,7 @@ const ItemCourse = ({curso}) => {
             img={c.imagen}
             label={c.label}
             ponente={c.ponente_uno_id.ponente}
+            ponenteDos={c.ponente_dos_id.ponente}
             fechaText={c.fecha > today ? c.fecha_text : 'Por Programar'}
             duracion={c.duracion}
             horario={c.horario}
