@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import Image from 'next/image'
-import { FaCalendarAlt, FaClock } from 'react-icons/fa';
+import { FaCalendarAlt, FaClock, FaHardHat, FaBeer } from 'react-icons/fa';
 import { QuestionMarkCircleIcon, PrinterIcon, EmojiHappyIcon, DocumentIcon, AcademicCapIcon, ShoppingCartIcon } from '@heroicons/react/solid'
 import { useRouter } from 'next/router'
 import CardCourse from '../components/cursos/CardCourse'
@@ -16,7 +16,7 @@ const ItemCourse = ({curso}) => {
 
   const dispatch = useDispatch();
 
-  const {_id, nombre, nombre_ruta, fecha, fecha_text, duracion, horario, especialidad_id, ponente_uno_id, ponente_dos_id, objetivo, temario, precio, imagen, register} = curso;
+  const {_id, nombre, nombre_ruta, fecha, fecha_text, duracion, horario, especialidad_id, ponente_uno_id, ponente_dos_id, objetivo, temario, precio, imagen, register, lugar} = curso;
   const {ponente, ponente_cv, ponente_img} = ponente_uno_id;
   const {ponente:ponente_dos, ponente_cv:ponente_cv_dos, ponente_img:ponente_img_dos} = ponente_dos_id;
 
@@ -154,6 +154,18 @@ const ItemCourse = ({curso}) => {
                       <EmojiHappyIcon className='w-7 h-7 mr-3'/>
                       Servicio Posventa: Resolución de dudas
                     </div>
+                    {lugar === 'PRESENCIAL' && (
+                      <>
+                        <div className='text-gray-700 flex my-3'>
+                          <FaBeer className='w-6 h-6 mr-3'/>
+                            Café durante todo el evento
+                        </div>
+                        <div className='text-gray-700 flex my-3'>
+                          <FaHardHat className='w-6 h-6 mr-3'/>
+                            Comida
+                        </div>
+                      </>
+                    )}
                   </div>
                 </div>
               </div>
@@ -228,15 +240,29 @@ const ItemCourse = ({curso}) => {
         <h2 className='text-2xl text-blueConsufarma uppercase font-bold mt-10 border-b-4 border-redConsufarma w-24 ml-5'>ubicación</h2>
         
         <div className='bg-gray-100 p-3 rounded-lg mt-4'>
-          <div className='ubication flex mt-2 ml-2'>
-            <div className='relative w-6 h-6'>
-              <Image src="/courses-img/zoom-icon.png" layout='fill'alt="zoom-icon"/>
+          {lugar === 'PRESENCIAL'? (
+            <>
+              <div className='text-gray-600 ml-1 font-bold mb-3 text-xl'>
+                Rómulo Valdez 86, Presidentes Ejidales, Coyoacán, 04470, CDMX
+              </div>
+              <div>
+              <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3764.97768522465!2d-99.12941102332726!3d19.32677458193016!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85ce01c33ad4b609%3A0xe8debbf2a03c28c2!2sR%C3%B3mulo%20Valdez%20Romero%2086%2C%20Coapa%2C%20Presidentes%20Ejidales%201ra%20Secc%2C%20Coyoac%C3%A1n%2C%2004470%20Ciudad%20de%20M%C3%A9xico%2C%20CDMX!5e0!3m2!1ses-419!2smx!4v1688494250753!5m2!1ses-419!2smx" width="100%" height="450" allowFullScreen="" loading="lazy" referrerPolicy="no-referrer-when-downgrade"></iframe>
+              </div>
+            </>
+
+          ) : (
+            <div className='ubication flex mt-2 ml-2'>
+              <div className='relative w-6 h-6'>
+                <Image src="/courses-img/zoom-icon.png" layout='fill'alt="zoom-icon"/>
+              </div>
+              <div className='text-gray-600 ml-1'>
+                Recibirás un link para acceder a tu curso en <span className='font-bold'> TIEMPO REAL </span>
+              </div>
             </div>
-            <div className='text-gray-600 ml-1'>
-              Recibirás un link para acceder a tu curso en <span className='font-bold'> TIEMPO REAL </span>
-            </div>
-          </div>
+          )}
         </div>
+
+
       </div>
 
 
