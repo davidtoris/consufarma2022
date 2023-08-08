@@ -14,12 +14,12 @@ const Thanks = () => {
 
   const data = {
     correo,
-    subject: "Reto Consufarma",
+    subject: "Consufarma - Webinar",
   };
   
   const dataDos = {
     correo: correoDos,
-    subject: "Reto Consufarma",
+    subject: "Consufarma - Webinar",
   };
 
   const sendEmail = async () => {
