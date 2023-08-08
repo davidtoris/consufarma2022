@@ -33,8 +33,8 @@ const Results = () => {
             <th className='font-bold text-2xl bg-redConsufarma p-2 text-white'>Fecha</th>
             <th className='font-bold text-2xl bg-redConsufarma p-2 text-white'>Nombre</th>
             <th className='font-bold text-2xl bg-redConsufarma p-2 text-white'>Correo</th>
-            <th className='font-bold text-2xl bg-redConsufarma p-2 text-white'>Nombre Invitado</th>
-            <th className='font-bold text-2xl bg-redConsufarma p-2 text-white'>Correo Invitado</th>
+            {/* <th className='font-bold text-2xl bg-redConsufarma p-2 text-white'>Nombre Invitado</th>
+            <th className='font-bold text-2xl bg-redConsufarma p-2 text-white'>Correo Invitado</th> */}
             <th className='font-bold text-2xl bg-redConsufarma p-2 text-white'>Tag</th>
           </tr>
         </thead>
@@ -45,8 +45,8 @@ const Results = () => {
                 <td className='border-2 p-2'>{s.fecha}</td>
                 <td className='border-2 p-2'>{s.nombre}</td>
                 <td className='border-2 p-2'>{s.correo}</td>
-                <td className='border-2 p-2'>{s.nombreDos}</td>
-                <td className='border-2 p-2'>{s.correoDos}</td>
+                {/* <td className='border-2 p-2'>{s.nombreDos}</td>
+                <td className='border-2 p-2'>{s.correoDos}</td> */}
                 <td className='border-2 p-2'>{s.tag}</td>
               </tr>
             ))
