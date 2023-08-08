@@ -80,8 +80,8 @@ const Thanks = () => {
           )
         }
         
-        <div className='text-gray-600 p-3 text-xl font-extrabold mt-10'>
-        Conoce qué es un proceso biotecnológico desde la molécula, plataformas tecnológicas, crecimiento en biorreactores, purificación, calidad del producto, y los parámetros así críticos de cada operación unitaria.
+        <div className='text-gray-600 p-3 text-xl font-extrabold mt-10 w-10/12 sm:w-6/12 m-auto'>
+          Conoce qué es un proceso biotecnológico desde la molécula, plataformas tecnológicas, crecimiento en biorreactores, purificación, calidad del producto, y los parámetros así críticos de cada operación unitaria.
         </div>
         
         {/* <div className='text-blueConsufarma p-3 text-xl font-extrabold mt-10'>
@@ -96,20 +96,21 @@ const Thanks = () => {
           Colombia - 17 h<br></br>
           Argentina - 18h <br></br>
         </div>
-        <div className='text-blueConsufarma text-3xl font-extrabold mt-10'>
+        <div className='text-blueConsufarma text-3xl font-extrabold my-10'>
           Cursos relacionados que pueden ser de tu interés:
         </div>    
 
         <div className='container m-auto px-2 md:px-2 mt-2 overflow-scroll'>
-          <div className='flex flex-col sm:flex-row'>
+          <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'>
             {coursesSpeker.map(c => (
-              <div className='m-auto my-2' key={c._id}>
+              <div className='mb-7 m-auto' key={c._id}>
               <CardCourse 
               link={`/cursos/${c.nombre_ruta}`}
               nombre={c.nombre}
               img={c.imagen}
               label={c.label}
               ponente={c.ponente_uno_id.ponente}
+              ponenteDos={c.ponente_dos_id.ponente}
               fechaText={c.fecha > today ? c.fecha_text : 'Por Programar'}
               duracion={c.duracion}
               horario={c.horario}
