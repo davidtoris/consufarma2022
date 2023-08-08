@@ -23,10 +23,8 @@ const Thanks = () => {
   };
 
   const sendEmail = async () => {
-    const email = await axios.post(`${API_BASE_URL}/email/send`, data);
-    const emailDos = await axios.post(`${API_BASE_URL}/email/send`, dataDos);
-    console.log(email.data.msg);
-    console.log(emailDos.data.msg);
+    await axios.post(`${API_BASE_URL}/email/send`, data);
+    // const emailDos = await axios.post(`${API_BASE_URL}/email/send`, dataDos);
     setEmailSended('Se hizo correcto');
   }
 
