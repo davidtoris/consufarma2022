@@ -63,7 +63,7 @@ const Home = () => {
                   console.log(data);
                   dispatch(itemResults(data));
                   axios.post(`${API_BASE_URL}/challenge`, data)
-                  router.push('/reto/thanks')
+                  router.push('/webinar/thanks')
                 }}>
                 {({ errors }) => (
 
