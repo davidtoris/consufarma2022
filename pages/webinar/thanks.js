@@ -92,9 +92,9 @@ const Thanks = () => {
         24 de Agosto 2023
         </div>
         <div className='text-gray-500 text-1xl font-italic my-2'>
-          Ciudad de México y Guatemala - 16 h <br></br>
+          Ciudad de México - 16 h <br></br>
           Colombia - 17 h<br></br>
-          Argentina - 18h <br></br>
+          Chile - 18h <br></br>
         </div>
         <div className='text-blueConsufarma text-3xl font-extrabold my-10'>
           Cursos relacionados que pueden ser de tu interés:
