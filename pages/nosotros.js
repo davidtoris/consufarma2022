@@ -1,9 +1,24 @@
 import Link from 'next/link';
-import React from 'react';
+import React, { useState } from 'react';
 import NavBar from '../src/components/NavBar';
 import Footer from '../src/containers/Footer';
+import axios from 'axios';
 
 const Nosotros = () => {
+
+  const [document, setDocument] = useState('')
+  const getPdf = async () => {
+    // console.log('first')
+    await axios.get('http://localhost:8080/api/pdf/downloadPDF', {responseType: 'blob'})
+    .then((resp) => {
+      console.log(resp.data)
+      window.open(URL.createObjectURL(resp.data));
+    })
+    .catch((err) => {
+      console.log(err)
+    })
+  }
+
   return (
     <>
     <NavBar />
@@ -95,9 +110,9 @@ const Nosotros = () => {
             Contáctanos ahora
           </div>
         </Link>
-        {/* <div className='p-3 bg-blueConsufarma text-white mt-4 cursor-pointer hover:scale-105 transition rounded-md font-bold'>
-          Conoce los recursos gratuitos
-        </div> */}
+        <div onClick={() => getPdf()} className='p-3 bg-blueConsufarma text-white mt-4 cursor-pointer hover:scale-105 transition rounded-md font-bold'>
+          PDF
+        </div>
       </div>
     </div>
 
