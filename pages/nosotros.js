@@ -111,7 +111,7 @@ const Nosotros = () => {
           </div>
         </Link>
         <div onClick={() => getPdf()} className='p-3 bg-blueConsufarma text-white mt-4 cursor-pointer hover:scale-105 transition rounded-md font-bold'>
-          PDFShow
+          PDF
         </div>
       </div>
     </div>
