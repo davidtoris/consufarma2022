@@ -3,13 +3,14 @@ import React, { useState } from 'react';
 import NavBar from '../src/components/NavBar';
 import Footer from '../src/containers/Footer';
 import axios from 'axios';
+import { API_BASE_URL } from '../src/constants';
 
 const Nosotros = () => {
 
   const [document, setDocument] = useState('')
   const getPdf = async () => {
     // console.log('first')
-    await axios.get('http://localhost:8080/api/pdf/downloadPDF', {responseType: 'blob'})
+    await axios.get(`${API_BASE_URL}/pdf/downloadPDF`, {responseType: 'blob'})
     .then((resp) => {
       console.log(resp.data)
       window.open(URL.createObjectURL(resp.data));
