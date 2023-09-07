@@ -38,7 +38,7 @@ const Thanks = () => {
     // const coursesData = await axios.get(`${API_BASE_URL}/courses/fundamentos-y-aplicacion-de-los-metodos-farmacopeicos-y-calculos-criticos-empleados-en-el-analisis-farmaceutico`);
     // setCoursesSpeker(coursesData.data.course);
     
-    const coursesData = await axios.get(`${API_BASE_URL}/courses/especialidad/631290020e17f3e5fe489d21`);
+    const coursesData = await axios.get(`${API_BASE_URL}/courses/especialidad/6312576268423e81ea97df00`);
     setCoursesSpeker(coursesData.data.courseSpecialitty);
   }
   
@@ -51,7 +51,7 @@ const Thanks = () => {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen py-2 bg-gray-100">
       <img src="..//logo.png" width="600px" className='my-5 m-auto'/>
-      <img src="https://res.cloudinary.com/drq8o9k36/image/upload/v1691516858/reto/Captura_de_pantalla_2023-08-08_a_la_s_11.42.12_a.m._pwmgdq.png" width="300px" className='my-5 m-auto'/>
+      <img src="https://res.cloudinary.com/drq8o9k36/image/upload/v1694116968/reto/banner_cuadrado_aazxjy.png" width="300px" className='my-5 m-auto'/>
       <div className='text-center'>
         <div className='text-redConsufarma p-3 text-5xl font-extrabold'>
           ¡Gracias por tu registro al Webinar!
@@ -71,7 +71,7 @@ const Thanks = () => {
             <div className="px-10">
               <div className='bg-redConsufarma p-3 h-2 mt-10'></div>
               <div className='bg-blueConsufarma p-3 text-white text-3xl font-extrabold'>
-                <div>Hemos enviado un correo electrónico con el link para que puedas acceder</div>
+                <div>Hemos enviado, al correo electrónico registrado, el enlace para que puedas acceder al webinar</div>
               </div>
               <div className='text-redConsufarma text-2xl font-extrabold italic my-4'>
                 ¿No lo recibiste? Revisa tu carpeta de correo no deseado
@@ -80,21 +80,26 @@ const Thanks = () => {
           )
         }
         
-        <div className='text-gray-600 p-3 text-xl font-extrabold mt-10 w-10/12 sm:w-6/12 m-auto'>
-          Conoce qué es un proceso biotecnológico desde la molécula, plataformas tecnológicas, crecimiento en biorreactores, purificación, calidad del producto, y los parámetros así críticos de cada operación unitaria.
+        <div className='text-gray-600 p-3 text-xl font-extrabold mt-5 w-10/12 sm:w-6/12 m-auto'>
+          <ul>  
+            <li>¿Qué necesito para pensionarme? </li>
+            <li>¿Cómo se calcula la pensión? </li>
+            <li>Aspectos clave que no debes descuidar </li>
+            <li>¿Cómo mejorar tu pensión? </li>
+            <li>Errores comunes que disminuyen tu pensión Empodérate </li>
+            <li>Toma las mejores decisiones para maximizar tu pensión</li>
+          </ul>
         </div>
         
         {/* <div className='text-blueConsufarma p-3 text-xl font-extrabold mt-10'>
           24 de Agosto 2023
         </div> */}
         
-        <div className='text-blueConsufarma text-3xl font-extrabold'>
-        24 de Agosto 2023
+        <div className='text-blueConsufarma text-3xl font-extrabold mt-5'>
+        19 de Septiembre 2023
         </div>
-        <div className='text-gray-500 text-1xl font-italic my-2'>
-          Ciudad de México - 16 h <br></br>
-          Colombia - 17 h<br></br>
-          Chile - 18h <br></br>
+        <div className='text-gray-500 text-2xl font-italic my-2'>
+          México - 16 h <br></br>
         </div>
         <div className='text-blueConsufarma text-3xl font-extrabold my-10'>
           Cursos relacionados que pueden ser de tu interés:

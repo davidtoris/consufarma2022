@@ -12,15 +12,15 @@ const Home = () => {
   const dispatch = useDispatch();
 
   const dataSchema = Yup.object().shape({
-    nombre: Yup.string().required('Campo requerido'),
+    nombre: Yup.string().required('Campo requerido').min(15, 'Escribe tu nombre completo'),
     correo: Yup.string().email('Escribe un correo válido').required('Campo requerido'),
     // nombreDos: Yup.string().required('Campo requerido'),
     // correoDos: Yup.string().email('Escribe un correo válido').required('Campo requerido'),
   });
 
-  const tag = 'webinarAgo';
+  const tag = 'webinarSept';
   const fecha = moment().format();
-  const fechaFin = '2023-10-01T00:00:00-00:00';
+  const fechaFin = '2023-11-01T00:00:00-00:00';
 
 
   return (
@@ -38,7 +38,7 @@ const Home = () => {
         </div>
           
         <div className=''>
-          <img src="https://res.cloudinary.com/drq8o9k36/image/upload/v1691516858/reto/Captura_de_pantalla_2023-08-08_a_la_s_11.46.48_a.m._r7njhz.png" width="600px"/>
+          <img src="https://res.cloudinary.com/drq8o9k36/image/upload/v1694116968/reto/banner_largo__ugsk1b.png" width="600px"/>
           <div className='px-6 sm:px-0'>
 
             <Formik
@@ -70,7 +70,7 @@ const Home = () => {
                   <Form>
 
                     <div className='mb-3 m-auto w-12/12'>
-                      <div className='text-left text-blue-900 font-bold text-lg ml-2 mt-2'>Nombre:</div>  
+                      <div className='text-left text-blue-900 font-bold text-lg ml-2 mt-2'>Nombre completo:</div>  
                       <div className="">
                         <Field
                           type="text" 

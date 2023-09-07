@@ -15,7 +15,6 @@ const Results = () => {
   return (
     <div className="max-w-7xl mx-auto pb-10">
       <img src="../logo.png" width="600px" className='my-5 m-auto'/>
-      <img src="https://res.cloudinary.com/drq8o9k36/image/upload/v1665492528/courses-img/Captura_de_Pantalla_2022-10-11_a_la_s_7.48.33_a.m._vy9r5m.png" width="300px" className='my-5 m-auto'/>
       
       {/* <div className='m-auto text-center'>
         <ReactHTMLTableToExcel
@@ -40,7 +39,7 @@ const Results = () => {
         </thead>
         <tbody>
           {challenge !== undefined && (
-            challenge.filter((f) => f.tag === 'webinarAgo').map(s => (
+            challenge.filter((f) => f.tag === 'webinarSept').map(s => (
               <tr className='border-2 text-center' key={s._id}>
                 <td className='border-2 p-2'>{s.fecha}</td>
                 <td className='border-2 p-2'>{s.nombre}</td>
