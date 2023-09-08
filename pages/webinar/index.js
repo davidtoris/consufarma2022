@@ -12,7 +12,7 @@ const Home = () => {
   const dispatch = useDispatch();
 
   const dataSchema = Yup.object().shape({
-    nombre: Yup.string().required('Campo requerido').min(15, 'Escribe tu nombre completo'),
+    nombre: Yup.string().required('Campo requerido').min(10, 'Escribe tu nombre completo'),
     correo: Yup.string().email('Escribe un correo válido').required('Campo requerido'),
     // nombreDos: Yup.string().required('Campo requerido'),
     // correoDos: Yup.string().email('Escribe un correo válido').required('Campo requerido'),
@@ -38,7 +38,7 @@ const Home = () => {
         </div>
           
         <div className=''>
-          <img src="https://res.cloudinary.com/drq8o9k36/image/upload/v1694116968/reto/banner_largo__ugsk1b.png" width="600px"/>
+          <img src="https://res.cloudinary.com/drq8o9k36/image/upload/v1694135276/reto/banner_largo__xobzhq.png" width="600px"/>
           <div className='px-6 sm:px-0'>
 
             <Formik

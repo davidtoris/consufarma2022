@@ -51,7 +51,7 @@ const Thanks = () => {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen py-2 bg-gray-100">
       <img src="..//logo.png" width="600px" className='my-5 m-auto'/>
-      <img src="https://res.cloudinary.com/drq8o9k36/image/upload/v1694116968/reto/banner_cuadrado_aazxjy.png" width="300px" className='my-5 m-auto'/>
+      <img src="https://res.cloudinary.com/drq8o9k36/image/upload/v1694135276/reto/banner_cuadrado_z9p0ro.png" width="300px" className='my-5 m-auto'/>
       <div className='text-center'>
         <div className='text-redConsufarma p-3 text-5xl font-extrabold'>
           ¡Gracias por tu registro al Webinar!
