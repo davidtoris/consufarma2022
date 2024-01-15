@@ -176,6 +176,11 @@
   margin-left: 10px;
 }
 
+.topic-html ul li {
+  list-style-type: square;
+  margin-left: 10px;
+}
+
 .topic-html ul .ql-indent-1 {
   list-style-type: circle;
   margin-left: 25px;
@@ -310,7 +315,7 @@ padding: 1em 2em;
   background: url('../public/bg-image.png');
   background-size: cover;
   background-position: top;
-  height: 74.5vh;
+  height: 100vh;
 }
 
 .react-responsive-modal-modal {
@@ -329,4 +334,38 @@ padding: 1em 2em;
 
 .react-responsive-modal-closeButton {
   background: #D1001F !important;
+}
+
+.lds-dual-ring {
+  display: inline-block;
+  width: 80px;
+  height: 80px;
+}
+.lds-dual-ring:after {
+  content: " ";
+  display: block;
+  width: 80px;
+  height: 80px;
+  margin: 10px;
+  border-radius: 50%;
+  border: 8px solid #173452;
+  border-color: #173452 transparent #173452 transparent;
+  animation: lds-dual-ring 1.2s linear infinite;
+}
+@keyframes lds-dual-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+input:checked {
+  opacity: 0;
+  background: #D1001F;
+}
+
+input[type="radio"] {
+  opacity: 0;
 }
