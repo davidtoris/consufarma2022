@@ -181,10 +181,14 @@
   margin-left: 10px;
 }
 
+.topic-html ul li strong em {
+  margin-left: 4px;
+}
+
 .topic-html ul .ql-indent-1 {
   list-style-type: circle;
   margin-left: 25px;
-} 
+}
 
 .topic-html ul .ql-indent-2{
   list-style-type: circle ;
