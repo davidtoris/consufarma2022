@@ -185,6 +185,17 @@
   list-style-type: circle;
   margin-left: 25px;
 } 
+
+.topic-html ul .ql-indent-2{
+  list-style-type: circle ;
+  margin-left: 40px;
+}
+
+.topic-html ul .ql-indent-3{
+  list-style-type: square ;
+  margin-left: 60px;
+}
+
 .topic-header {
   background: #D1001F;
   padding: .2em 0;
