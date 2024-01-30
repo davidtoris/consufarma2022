@@ -5,10 +5,10 @@ import * as Yup from 'yup';
 import Link from 'next/link';
 import Footer from '../src/containers/Footer';
 import Loader from '../src/components/loader';
-import { forgot, forgotPassword } from '../services/authService';
+
 import { useDispatch, useSelector } from 'react-redux';
 import { useRouter } from 'next/router';
-import { userSuccess } from '../slices/authSlice';
+import { forgotPassword } from '../store/slices/Auth/authService';
 
 const Forgot = () => {
 
@@ -30,8 +30,8 @@ const Forgot = () => {
   return (
 
     <div className='flex flex-col justify-between'>
-      <NavBar />
-      <div className='flex'>
+      {/* <NavBar /> */}
+      <div className='flex max-h-[638px]'>
         <div className='w-6/12'>
           <img src='https://res.cloudinary.com/drq8o9k36/image/upload/v1701922237/Captura_de_pantalla_2023-12-06_a_la_s_10.09.27_p.m._oydfzk.png' />
         </div>
@@ -54,8 +54,8 @@ const Forgot = () => {
                   }}>
                   {({ errors }) => (
                     <Form className="p-5 flex justify-center flex-col">
-                      <h2 className='text-4xl font-bold text-blueConsufarma text-center'>¿Olvidaste tu contraseña?</h2>
-                      <div className='mb-5 mt-2 text-blueConsufarma text-center w-8/12 m-auto'>
+                      <h2 className='text-4xl font-bold text-blueConsufarma text-center mb-2'>¿Olvidaste tu contraseña?</h2>
+                      <div className='mb-5 mt-2 text-blueConsufarma text-center w-7/12 m-auto'>
                         Te enviaremos un correo para crear una nueva contraseña, no olvides revisar en tu bandeja de spam
                       </div>
                       
@@ -97,7 +97,7 @@ const Forgot = () => {
                       </div>
                       
                       <div className='text-center cursor-pointer flex flex-col'>
-                        <Link href="/forgot">
+                        <Link href="/login">
                           <span className='underline underline-offset-1 hover:text-blueLightCustom mt-1'>
                             Regresar al Login
                           </span>

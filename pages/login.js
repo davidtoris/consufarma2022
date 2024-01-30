@@ -41,10 +41,10 @@ const Login = () => {
 
   return (
     <div className='flex flex-col justify-between'>
-      <NavBar />
-      <div className='flex'>
-        <div className='w-6/12'>
-          <img src='https://res.cloudinary.com/drq8o9k36/image/upload/v1701922237/Captura_de_pantalla_2023-12-06_a_la_s_10.09.27_p.m._oydfzk.png' />
+      {/* <NavBar /> */}
+      <div className='flex max-h-[638px]'>
+      <div className='w-6/12 bg-cover' style={{backgroundImage: 'url(https://res.cloudinary.com/drq8o9k36/image/upload/v1701922237/Captura_de_pantalla_2023-12-06_a_la_s_10.09.27_p.m._oydfzk.png)'}}>
+          <img src='' />
         </div>
         <div className='w-6/12'>
           <div className='font-body my-28'>
@@ -123,8 +123,7 @@ const Login = () => {
                   </Formik>
                 </div>
               </div>
-            
-          
+
         </div>
         </div>
         </div>

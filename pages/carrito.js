@@ -9,8 +9,8 @@ import Cookies from 'js-cookie'
 import Spinner from '../src/components/spinner';
 import { useRouter } from 'next/router';
 import { useDispatch } from 'react-redux';
-import { orderError, orderSuccess } from '../slices/OrderSlice';
-import { addItem } from '../slices/basketSlice';
+import { orderError, orderSuccess } from '../store/slices/OrderSlice';
+import { addItem } from '../store/slices/basketSlice';
 
 const Carrito = ({ hoursData, peopleData }) => {
 
