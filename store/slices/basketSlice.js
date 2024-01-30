@@ -3,11 +3,12 @@ import { createSlice } from '@reduxjs/toolkit';
 const basketSlice = createSlice({
   name: 'basket',
   initialState: {
-    allBasket: [],
+    allBasket: 0,
+    staus: null,
   },
   reducers: {
     addItem: (state, action) => {
-      state.allBasket = [...state.allBasket, action.payload];
+      state.allBasket = action.payload;
     },
   }
 });

@@ -1,24 +1,32 @@
-import { useEffect, useState } from 'react'
+'use client'
 import Image from 'next/image'
-import { FaCalendarAlt, FaClock, FaHardHat, FaBeer } from 'react-icons/fa';
-import { QuestionMarkCircleIcon, PrinterIcon, EmojiHappyIcon, DocumentIcon, AcademicCapIcon, ShoppingCartIcon } from '@heroicons/react/solid'
-import { useRouter } from 'next/router'
-import CardCourse from '../components/cursos/CardCourse'
-import { API_BASE_URL } from '../constants'
 import Link from 'next/link';
 import moment from 'moment';
 import axios from 'axios';
-import { useDispatch } from 'react-redux';
-import { addItem } from '../../slices/basketSlice';
-import Cookies from 'js-cookie'
+import _ from "lodash";
+import CardCourse from '../components/cursos/CardCourse'
+import { useEffect, useState } from 'react'
+import { API_BASE_URL } from '../constants'
+import { FaCalendarAlt, FaClock, FaHardHat, FaBeer } from 'react-icons/fa';
+import { QuestionMarkCircleIcon, PrinterIcon, EmojiHappyIcon, DocumentIcon, AcademicCapIcon, ShoppingCartIcon } from '@heroicons/react/solid'
+import { useRouter } from 'next/router'
+import { useDispatch, useSelector } from 'react-redux';
+
+import { Thousands } from '../helpers/Thousands';
+import { addItem } from '../../store/slices/basketSlice';
 
 const ItemCourse = ({curso}) => {
 
   const dispatch = useDispatch();
+  const router = useRouter()
 
-  const {_id, nombre, nombre_ruta, fecha, fecha_text, duracion, horario, especialidad_id, ponente_uno_id, ponente_dos_id, objetivo, temario, precio, imagen, register, lugar} = curso;
-  const {ponente, ponente_cv, ponente_img} = ponente_uno_id;
-  const {ponente:ponente_dos, ponente_cv:ponente_cv_dos, ponente_img:ponente_img_dos} = ponente_dos_id;
+  const { allBasket } = useSelector((state) => state.basket);
+
+  const { _id, nombre, nombre_ruta, fecha, fecha_text, duracion, horario, especialidad_id, ponente_uno_id, ponente_dos_id, objetivo, temario, precio, precioUSD, descuento, imagen, register, lugar, disponible } = curso;
+  const { ponente, ponente_cv, ponente_img } = ponente_uno_id;
+  const { ponente: ponente_dos, ponente_cv: ponente_cv_dos, ponente_img: ponente_img_dos } = ponente_dos_id;
+
+  console.log(precio)
 
   const [coursesSpeciality, setCoursesSpeciality] = useState([]);
 
@@ -40,39 +48,54 @@ const ItemCourse = ({curso}) => {
   
   const today = moment().startOf('day').format();
 
-  const [baskState, setBaskState] = useState([])
+  const [cartItems, setCartItems] = useState([]);
+
+  useEffect(() => {
+    const storedCart = JSON.parse(localStorage.getItem('cart'));
+    if (storedCart) {
+      setCartItems(storedCart);
+      dispatch(addItem(storedCart.length))
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem('cart', JSON.stringify(cartItems));
+  }, [cartItems]);
+
+
+  // const dataProduct = { nombre, fecha_text, duracion, horario, precio, precioUSD, descuento, imagen, _id };
+
+  
+  const dataItem  = {
+    cantidad: 1,
+    descuento: descuento === undefined ? 1 : descuento,
+    descuentoTotal: 0,
+    duracion,
+    fecha_text,
+    horario,
+    imagen,
+    nombre,
+    precio,
+    precioUSD,
+    total: 0,
+    _id,
+  }
 
   const addToBasket = () => {
-    const dataBasket = { nombre, fecha_text, duracion, horario, precio, imagen, _id };
     
-    const existInBasket = baskState.find(course => course._id === _id);
-    if (existInBasket === undefined) {
-      setBaskState([...baskState, dataBasket])
+    // Check if the item is already in the cart
+    const itemIndex = cartItems.findIndex(
+      (item) => item._id === _id);
+      if (itemIndex === -1) {
+        setCartItems([...cartItems, dataItem])
+        dispatch(addItem(allBasket + 1))
+        localStorage.setItem('cart', JSON.stringify(cartItems));
+        router.push("/carrito")
+    } else {
+      alert('Item already exists in the cart.');
     }
+  }
 
-  };
-
-  useEffect(() => {
-    const dataCookie = Cookies.get("basket");
-    
-    // Existe la cookie
-    if (dataCookie !== undefined) {
-      let dataCookieParse = JSON.parse(dataCookie)
-
-      // Tiene algo la cookie
-      if (dataCookieParse.length > 0) {
-        setBaskState(dataCookieParse);
-      }
-    }
-  }, [])
-
-  useEffect(() => {
-    Cookies.set('basket', JSON.stringify(baskState));
-    console.log(baskState)
-  }, [baskState])
-  
-
-  const url = imagen
   return (
     <div className='no-print'>
       <div className='max-w-7xl container mx-auto font-body grid-flow-row grid grid-cols-1 lg:grid-cols-3 gap-4 mt-5 px-2 md:px-5'>
@@ -97,7 +120,7 @@ const ItemCourse = ({curso}) => {
 
           <div className='date-hour-course bg-blueConsufarma p-2 text-white rounded-md flex md:w-[40rem] w-100 flex-col md:flex-row font-bold text-lg mt-3'>
             <div className='flex ml-3 items-center'>
-              <FaClock className='w-4 h-4 ml-1 mr-1'/> {duracion}
+              <FaClock className='w-4 h-4 ml-1 mr-1'/> {duracion}h
               <span className='mx-3 '>/</span> {horario}
             </div>
             
@@ -110,7 +133,7 @@ const ItemCourse = ({curso}) => {
           
           
           <h2 className='text-2xl text-blueConsufarma uppercase font-bold mt-10 border-b-4 border-redConsufarma w-24'>objetivos</h2>
-          <ul className='ml-2 mt-2 text-gray-600 mb-7'>
+          <ul className='ml-2 mt-2 text-gray-600 mb-7 objectives-html'>
             <div dangerouslySetInnerHTML={Objectiv()} />
           </ul>
 
@@ -173,26 +196,35 @@ const ItemCourse = ({curso}) => {
               <div className='bg-gray-100 px-5 py-4 rounded-md text-center mt-10'>
                 <div className='text-grayCustom font-bold mt-2'> Precio a empresas: </div>
                 <div className='text-grayCustom font-light'> (Por participante) </div>
-                <div className='font-bold text-3xl mt-3'>${precio} + IVA</div>
+                {/* <div className='font-bold text-3xl mt-3'>${Thousands(precio)} + IVA</div> */}
                 <div className='text-grayCustom font-bold mt-3'> 
                   Pago personal: Pregunta por nuestro precio especial y opción a 3 meses sin interéses
                 </div>
                 {/* <button className='bg-blueConsufarma rounded-xl text-white font-bold text-lg w-11/12 mt-4 p-2'>
                   Regístrate
                 </button> */}
-                <div className='mt-6 mb-2 flex justify-center cursor-pointer' onClick={addToBasket}>
-                  <ShoppingCartIcon className='w-7 h-7 text-grayCustom '/>
-                  <div className='font-bold text-xl underline'>Añadir al Carrito</div>
-                </div>
+                {disponible && (
+                  <div className='mt-6 mb-2 flex justify-center cursor-pointer' onClick={addToBasket}>
+                    <ShoppingCartIcon className='w-7 h-7 text-grayCustom '/>
+                    <div className='font-bold text-xl underline'>Añadir al Carrito</div>
+                  </div>
+                )}
                 <Link href={`/print/${nombre_ruta}`}>
                 <button className='bg-blueConsufarma rounded-xl text-white font-bold text-lg w-11/12 mt-4 p-2'>
                   Imprimir Temario
                 </button>
                 </Link>
                 <a href={register} target="blank">
-                <button className='bg-redConsufarma rounded-xl text-white font-bold text-lg w-11/12 uppercase my-3 p-2'>
-                  Regístrate
-                </button>
+                {!disponible && (
+                  <>
+                    <button className='bg-redConsufarma rounded-xl text-white font-bold text-lg w-11/12 uppercase my-3 p-2'>
+                      Regístrate
+                    </button>
+                    <div>
+                      Con tu inscripción estamos más cerca de tener el mínimo de participantes para aperturar el curso, te estaremos avisando si el curso se abre en la fecha programada o se reprograma para que puedas realizar tu compra.
+                    </div>
+                  </>
+                )}
                 </a>
               </div>
               

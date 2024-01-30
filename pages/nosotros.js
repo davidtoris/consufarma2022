@@ -10,7 +10,7 @@ const Nosotros = () => {
   const [document, setDocument] = useState('')
   const getPdf = async () => {
     // console.log('first')
-    await axios.get(`${API_BASE_URL}/pdf/downloadPDF`, {responseType: 'blob'})
+    await axios.get(`http://localhost:8080/api/pdf/downloadPDF/64daf309f49116878c135b8d`, {responseType: 'blob'})
     .then((resp) => {
       console.log(resp.data)
       window.open(URL.createObjectURL(resp.data));
@@ -25,11 +25,7 @@ const Nosotros = () => {
     <NavBar />
     <div className="max-w-7xl mx-auto container px-5 pb-10">
 
-
       <h1 className='text-4xl text-blueDarkCustom m-auto mt-5 font-bold text-center'>Nosotros</h1>
-
-      
-
       <div className='grid sm:grid-cols-3 grid-cols-1 text-lg mt-4'>
 
         <div className='text-center block '>

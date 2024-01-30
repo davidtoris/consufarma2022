@@ -1,15 +1,19 @@
 import { configureStore } from '@reduxjs/toolkit';
-import coursesReducer from '../slices/CoursesSlice';
-import specialitiesReducer from '../slices/SpecialitiesSlice';
-import resultsReducer from '../slices/resultsSlice';
-import basketReducer from '../slices/basketSlice';
+import coursesReducer from './slices/Courses/CoursesSlice';
+import specialitiesReducer from './slices/Speciality/SpecialitiesSlice';
+import resultsReducer from './slices/resultsSlice';
+import basketReducer from './slices/basketSlice';
+import orderReducer from './slices/OrderSlice';
+import authReducer from './slices/Auth/AuthSlice';
 
 const store = configureStore({
   reducer: {
+    auths: authReducer,
+    orders: orderReducer,
     basket: basketReducer,
     results: resultsReducer,
-    courses: coursesReducer,
     specialities: specialitiesReducer,
+    courses: coursesReducer,
   },
 });
 

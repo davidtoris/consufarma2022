@@ -228,6 +228,28 @@
     "@nodelib/fs.scandir" "2.1.5"
     fastq "^1.6.0"
 
+"@paypal/paypal-js@^7.0.0":
+  version "7.0.3"
+  resolved "https://registry.yarnpkg.com/@paypal/paypal-js/-/paypal-js-7.0.3.tgz#16844270029d8562e4cb326df52b6f0277ee71c4"
+  integrity sha512-Mpq0TGKzypi02Iw4p11eq5+dxVKcuJ+98UDrxLRbqZcr8pBRFPX+jqPFkVq6hzs3sHxwIuMPFCxnrckxxLSznw==
+  dependencies:
+    promise-polyfill "^8.3.0"
+
+"@paypal/react-paypal-js@^8.1.3":
+  version "8.1.3"
+  resolved "https://registry.yarnpkg.com/@paypal/react-paypal-js/-/react-paypal-js-8.1.3.tgz#2a46bd864eee02efada370ca50fab5a5bf38f4ff"
+  integrity sha512-hEm27iYP/UHS3XPBhDdiK2U4PH1FxrOD5O3f9tstAVLJd82l/laCjq751HiESSm63PVOoFeKE41Fe1mYGab+oA==
+  dependencies:
+    "@paypal/paypal-js" "^7.0.0"
+    "@paypal/sdk-constants" "^1.0.122"
+
+"@paypal/sdk-constants@^1.0.122":
+  version "1.0.131"
+  resolved "https://registry.yarnpkg.com/@paypal/sdk-constants/-/sdk-constants-1.0.131.tgz#ef846a8923b5a074c31428c6f89ed5ac4f6f665f"
+  integrity sha512-wL8YG9cl4CA2ZRL1QqG98TtkDqrj5COPIRfR1gMrAGbVaCp9PcSil9bvUslhTuopExRANk4SFfuEyhFc975dLw==
+  dependencies:
+    hi-base32 "^0.5.0"
+
 "@reduxjs/toolkit@^1.7.1":
   version "1.7.1"
   resolved "https://registry.yarnpkg.com/@reduxjs/toolkit/-/toolkit-1.7.1.tgz#994962aeb7df3c77be343dd2ad1aa48221dbaa0c"
@@ -1145,6 +1167,11 @@ file-entry-cache@^6.0.1:
   dependencies:
     flat-cache "^3.0.4"
 
+file-saver@^2.0.5:
+  version "2.0.5"
+  resolved "https://registry.yarnpkg.com/file-saver/-/file-saver-2.0.5.tgz#d61cfe2ce059f414d899e9dd6d4107ee25670c38"
+  integrity sha512-P9bmyZ3h/PRG+Nzga+rbdI4OEpNDzAVyy74uVO9ATgzLK6VtAsYybF/+TOCvrc0MO793d6+42lLyZTw7/ArVzA==
+
 fill-range@^7.0.1:
   version "7.0.1"
   resolved "https://registry.yarnpkg.com/fill-range/-/fill-range-7.0.1.tgz#1919a6a7c75fe38b2c7c77e5198535da9acdda40"
@@ -1322,6 +1349,11 @@ has@^1.0.3:
   integrity sha512-f2dvO0VU6Oej7RkWJGrehjbzMAjFp5/VKPp5tTpWIV4JHHZK1/BxbFRtf/siA2SWTe09caDmVtYYzWEIbBS4zw==
   dependencies:
     function-bind "^1.1.1"
+
+hi-base32@^0.5.0:
+  version "0.5.1"
+  resolved "https://registry.yarnpkg.com/hi-base32/-/hi-base32-0.5.1.tgz#1279f2ddae2673219ea5870c2121d2a33132857e"
+  integrity sha512-EmBBpvdYh/4XxsnUybsPag6VikPYnN30td+vQk+GI3qpahVEG9+gTkG0aXVxTjBqQ5T6ijbWIu77O+C5WFWsnA==
 
 hoist-non-react-statics@^3.3.0, hoist-non-react-statics@^3.3.2:
   version "3.3.2"
@@ -1995,6 +2027,11 @@ progress@^2.0.0:
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/progress/-/progress-2.0.3.tgz#7e8cf8d8f5b8f239c1bc68beb4eb78567d572ef8"
   integrity sha512-7PiHtLll5LdnKIMw100I+8xJXR5gW2QwWYkT6iJva0bXitZKa/XMrSbdmg3r2Xnaidz9Qumd0VPaMrZlF9V9sA==
+
+promise-polyfill@^8.3.0:
+  version "8.3.0"
+  resolved "https://registry.yarnpkg.com/promise-polyfill/-/promise-polyfill-8.3.0.tgz#9284810268138d103807b11f4e23d5e945a4db63"
+  integrity sha512-H5oELycFml5yto/atYqmjyigJoAo3+OXwolYiH7OfQuYlAqhxNvTfiNMbV9hsC6Yp83yE5r2KTVmtrG6R9i6Pg==
 
 prop-types@^15.7.2:
   version "15.8.1"

@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { selectSpecialities } from '../../../slices/SpecialitiesSlice';
+import { selectSpecialities } from '../../../store/slices/Speciality/SpecialitiesSlice';
 
 const Filter = ({specialities, active}) => {
 

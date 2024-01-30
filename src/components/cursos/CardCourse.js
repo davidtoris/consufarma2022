@@ -21,7 +21,10 @@ const CardCourse = ({link, nombre, img, label, ponente, ponenteDos, horario, fec
             <div className='text-center bg-blueConsufarma text-white py-1 text-sm'>
               <div className='font-bold mt-1 flex justify-center items-center'>
                 <FaCalendarAlt className='w-4 h-4 ml-3 mr-1'/>
-                {fechaText}
+                {fechaText === 'Programar' ? (
+                  <div>Por programar: <span className='text-blueLightCustom'>“Inscríbete”</span></div>
+                ) : fechaText }
+                
               </div>
               <div className='font-bold mt-1 flex justify-center items-center'>
                 <FaClock className='w-4 h-4 ml-1 mr-1'/>

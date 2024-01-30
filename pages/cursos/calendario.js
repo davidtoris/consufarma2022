@@ -41,15 +41,16 @@ const Calendar = ({cursosDate}) => {
               <h2 className='text-4xl text-blueDarkCustom m-auto mt-6 font-bold text-center mb-8 uppercase'>Junio</h2>
               <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 cols-calendar'>
                 {cursosDate.filter(f => f.fecha_text.includes('Junio')).map(c => (
-                  <CardCalendar
-                    key={c._id}
-                    nombre={c.nombre}
-                    fecha={c.fecha_text}
-                    duracion={c.duracion}
-                    horario={c.horario}
-                    link={c.nombre_ruta}
-                    color="redConsufarma"
-                  />
+                  <div key={c._id}>
+                    <CardCalendar
+                      nombre={c.nombre}
+                      fecha={c.fecha_text}
+                      duracion={c.duracion}
+                      horario={c.horario}
+                      link={c.nombre_ruta}
+                      color="redConsufarma"
+                    />
+                  </div>
                 ))}
               </div>
             </div>

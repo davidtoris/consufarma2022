@@ -1,9 +1,8 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { API_BASE_URL } from '../src/constants';
+import { addCourses, addSpecialities } from '../store/slices/Courses/CoursesSlice';
 
-import { addCourses } from '../slices/CoursesSlice';
-import { addSpecialities } from '../slices/SpecialitiesSlice';
 
 import CarouselSection from '../src/containers/Carousel';
 import NavBar from '../src/components/NavBar';
@@ -17,6 +16,9 @@ export default function Home({specialities, courses}) {
   const dispatch = useDispatch();
   const { allCourses, status } = useSelector((state) => state.courses);
   const { allSpecialities } = useSelector((state) => state.specialities);
+
+  console.log(allSpecialities)
+  console.log(allCourses)
 
   useEffect(() => {
     dispatch(addCourses(courses));
