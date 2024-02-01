@@ -70,11 +70,13 @@ const Courses = ({curso}) => {
                     link={`/cursos/${c.nombre_ruta}`}
                     nombre={c.nombre}
                     img={c.imagen}
-                    fechaText={c.fecha > today ? c.fecha_text : 'Por Programar'}
-                    horario={c.horario}
                     label={c.label}
                     ponente={c.ponente_uno_id.ponente}
                     ponenteDos={c.ponente_dos_id.ponente}
+                    fechaText={c.fecha > today ? c.fecha_text : 'Por Programar'}
+                    duracion={c.duracion}
+                    horario={c.horario}
+                    lugar={c.lugar}
                   />
                 ))}
               </div>
@@ -89,11 +91,13 @@ const Courses = ({curso}) => {
                 link={`/cursos/${c.nombre_ruta}`}
                 nombre={c.nombre}
                 img={c.imagen}
-                fechaText={c.fecha > today ? c.fecha_text : 'Por Programar'}
-                horario={c.horario}
                 label={c.label}
                 ponente={c.ponente_uno_id.ponente}
                 ponenteDos={c.ponente_dos_id.ponente}
+                fechaText={c.fecha > today ? c.fecha_text : 'Por Programar'}
+                horario={c.horario}
+                duracion={c.duracion}
+                lugar={c.lugar}
               />
             ))}
           </div>

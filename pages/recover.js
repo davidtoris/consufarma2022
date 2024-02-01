@@ -8,6 +8,9 @@ import Loader from '../src/components/loader';
 import { newPass, validateToken } from '../store/slices/Auth/authService';
 import { useDispatch, useSelector } from 'react-redux';
 import { useRouter } from 'next/router';
+import { userDefault } from '../store/slices/Auth/AuthSlice';
+import logo from '../src/assets/logo.png'
+import Image from 'next/image';
 
 const Recover = () => {
 
@@ -30,7 +33,6 @@ const Recover = () => {
   const { userLoading, userErrorMsg, userSuccess, userToken  } = useSelector((state) => state.auths)
 
   const { token } = router.query;
-  console.log(userToken)
 
   // useEffect(() => {
   //   userSuccess && router.push("/")
@@ -46,13 +48,27 @@ const Recover = () => {
     userToken && setShowForm(true)
   }, [userToken])
 
+  const goToLogin = () => {
+    router.push("/login")
+    dispatch(userDefault())
+  }
+
+  useEffect(() => {
+    if (userSuccess) {
+      setTimeout(() => {
+        router.push("/login")
+      }, 2000);
+    }
+  }, [userSuccess])
+  
+
   return (
 
     <div className='flex flex-col justify-between'>
-      <NavBar />
-      <div className='flex'>
-        <div className='w-6/12'>
-          <img src='https://res.cloudinary.com/drq8o9k36/image/upload/v1701922237/Captura_de_pantalla_2023-12-06_a_la_s_10.09.27_p.m._oydfzk.png' />
+      {/* <NavBar /> */}
+      <div className='flex max-h-[638px]'>
+        <div className='w-6/12 bg-cover' style={{backgroundImage: 'url(https://res.cloudinary.com/drq8o9k36/image/upload/v1701922237/Captura_de_pantalla_2023-12-06_a_la_s_10.09.27_p.m._oydfzk.png)'}}>
+          <img src='' />
         </div>
         <div className='w-6/12'>
       
@@ -72,62 +88,85 @@ const Recover = () => {
                 </div>
               </div>
             ) : (
-              <div className=' md:px-0 px-3 flex-1 rounded-xl'>
-                <div className="mt-0 sm:mt-5">
-                <Formik
-                  initialValues={{
-                    password: '',
-                  }}
-                  validationSchema={loginSchema}
-                  onSubmit={async (valores) => {
-                    newPass(dispatch, valores)
-                  }}>
-                  {({ errors }) => (
-                    <Form className="p-5 flex justify-center flex-col">
-                      <h2 className='text-3xl font-bold text-blueConsufarma text-center mb-5'>Nueva contraseña</h2>
-                      <div className='flex justify-center mb-7'>
-                        Crea una nueva contraseña
-                      </div>
-                      
-                      <div className='mb-3 m-auto w-8/12'>
-                        <div className='text-center text-blueConsufarma font-semibold text-lg ml-2 mb-1 '>Contraseña:</div>
-                        <div className="w-100">
-                          <Field 
-                            type="password" 
-                            name="password" 
-                            className="text-lg pl-3 text-gray-600 border-2 border-gray-200 w-full rounded px-3
-                            py-1.5" />
-                          <ErrorMessage
-                            name="password"
-                            component={() => (
-                              <div className="text-orangeCustom text-xs ml-2 mt-2">{ errors.password }</div>)} />
-                        </div>
-                      </div>
 
-                      <div className='mb-3 m-auto w-8/12'>
-                        {userErrorMsg !== '' && (
-                          <div className="text-red-600 text-xs ml-2 mt-2">
-                            {userErrorMsg}
-                          </div>
-                        )}
-                      </div>
+              <>
 
-                      <div className='m-auto w-8/12 text-center'>
-                        <button type="submit" className="btn btn-primary bg-redConsufarma text-white border-0 w-8/12 p-2 text-1xl rounded font-bold shadow-xl mb-2 hover:scale-110 transition shadow-md">
-                          {userLoading ? <Loader /> : 'Guardar'}
-                        </button>
-                      </div>
-                      
-                      <div className='text-center cursor-pointer flex flex-col'>
-                        <Link href="/login">
-                          <span className='underline underline-offset-1 hover:text-blueLightCustom'> Login</span>
-                        </Link>
-                      </div>
-                    </Form>
-                  )}
-                </Formik>
+                <div className='text-center '>
+                  <Link href="/">
+                    <div>
+                      <Image src={logo} className='cursor-pointer' alt="logo-consufarma" width={450} height={80} />
+                    </div>
+                  </Link>
                 </div>
-              </div>
+
+                <div className=' md:px-0 px-3 flex-1 rounded-xl'>
+                  <div className="mt-0 sm:mt-5">
+                  <Formik
+                    initialValues={{
+                      password: '',
+                    }}
+                    validationSchema={loginSchema}
+                    onSubmit={async (valores, resetForm) => {
+                      newPass(dispatch, valores, token)
+                      if ( userSuccess ) {
+                        resetForm()
+                      }
+                    }}>
+                    {({ errors }) => (
+                      <Form className="p-5 flex justify-center flex-col">
+                        <h2 className='text-3xl font-bold text-blueConsufarma text-center mb-5'>Nueva contraseña</h2>
+                        <div className='flex justify-center mb-7'>
+                          Crea una nueva contraseña
+                        </div>
+                        
+                        <div className='mb-3 m-auto w-8/12'>
+                          <div className='text-center text-blueConsufarma font-semibold text-lg ml-2 mb-1 '>Contraseña:</div>
+                          <div className="w-100">
+                            <Field 
+                              type="password" 
+                              name="password" 
+                              className="text-lg pl-3 text-gray-600 border-2 border-gray-200 w-full rounded px-3
+                              py-1.5" />
+                            <ErrorMessage
+                              name="password"
+                              component={() => (
+                                <div className="text-orangeCustom text-xs ml-2 mt-2">{ errors.password }</div>)} />
+                          </div>
+                        </div>
+
+                        <div className='mb-3 m-auto w-8/12'>
+                          {userErrorMsg !== '' && (
+                            <div className="text-red-600 text-xs ml-2 mt-2">
+                              El token expiró, vuelve a mandar el correo para recuperar tu contraseña
+                            </div>
+                          )}
+                        </div>
+
+                        <div className='mb-3 m-auto w-7/12'>
+                          {userSuccess && (
+                            <div className="bg-blueLightCustom text-md mt-2 text-center text-white rounded-md p-2">
+                              Tu contraseña se a actualizado correctamente, en un momento serás dirigido al Login
+                            </div>
+                          )}
+                        </div>
+
+                        <div className='m-auto w-8/12 text-center'>
+                          <button type="submit" className="btn btn-primary bg-redConsufarma text-white border-0 w-8/12 p-2 text-1xl rounded font-bold shadow-xl mb-2 hover:scale-110 transition">
+                            {userLoading ? <Loader /> : 'Guardar'}
+                          </button>
+                        </div>
+                        
+                        <div className='text-center cursor-pointer flex flex-col'>
+                          <button type='button' onClick={() => goToLogin()}>
+                            <span className='underline underline-offset-1 hover:text-blueLightCustom'> Regresar al Login</span>
+                          </button>
+                        </div>
+                      </Form>
+                    )}
+                  </Formik>
+                  </div>
+                </div>
+              </>
             )}
             </div>
           </div>

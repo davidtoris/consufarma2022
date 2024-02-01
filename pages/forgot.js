@@ -32,8 +32,8 @@ const Forgot = () => {
     <div className='flex flex-col justify-between'>
       {/* <NavBar /> */}
       <div className='flex max-h-[638px]'>
-        <div className='w-6/12'>
-          <img src='https://res.cloudinary.com/drq8o9k36/image/upload/v1701922237/Captura_de_pantalla_2023-12-06_a_la_s_10.09.27_p.m._oydfzk.png' />
+      <div className='w-6/12 bg-cover' style={{backgroundImage: 'url(https://res.cloudinary.com/drq8o9k36/image/upload/v1701922237/Captura_de_pantalla_2023-12-06_a_la_s_10.09.27_p.m._oydfzk.png)'}}>
+          <img src='' />
         </div>
         <div className='w-6/12'>
       
@@ -87,6 +87,12 @@ const Forgot = () => {
                           <div className="bg-blueLightCustom text-md mt-2 text-center text-white rounded-md p-2">
                             Te hemos enviado un correo para recuperar tu cuenta
                           </div>
+                        )}
+                      </div>
+
+                      <div className='m-auto w-12/12 font-bold text-center text-blueConsufarma'>
+                        {userLoading && (
+                          <div>Te estamos enviando el correo, por favor no recargues la página</div>
                         )}
                       </div>
 

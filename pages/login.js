@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from 'react'
-import NavBar from '../src/components/NavBar'
+import React, { useEffect } from 'react'
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import Link from 'next/link';
@@ -8,7 +7,9 @@ import Loader from '../src/components/loader';
 import { useDispatch, useSelector } from 'react-redux';
 import { useRouter } from 'next/router';
 import { authLogin } from '../store/slices/Auth/authService';
-import { userErrorFunc } from '../store/slices/Auth/AuthSlice';
+import { userDefault, userErrorFunc } from '../store/slices/Auth/AuthSlice';
+import Image from 'next/image';
+import logo from '../src/assets/logo.png'
 
 const Login = () => {
 
@@ -43,14 +44,20 @@ const Login = () => {
     <div className='flex flex-col justify-between'>
       {/* <NavBar /> */}
       <div className='flex max-h-[638px]'>
-      <div className='w-6/12 bg-cover' style={{backgroundImage: 'url(https://res.cloudinary.com/drq8o9k36/image/upload/v1701922237/Captura_de_pantalla_2023-12-06_a_la_s_10.09.27_p.m._oydfzk.png)'}}>
+        <div className='w-6/12 bg-cover' style={{backgroundImage: 'url(https://res.cloudinary.com/drq8o9k36/image/upload/v1701922237/Captura_de_pantalla_2023-12-06_a_la_s_10.09.27_p.m._oydfzk.png)'}}>
           <img src='' />
         </div>
         <div className='w-6/12'>
-          <div className='font-body my-28'>
+          <div className='font-body mb-28 mt-14'>
+
+              <div className='text-center '>
+                <Link href="/">
+                  <Image src={logo} cla ssName='cursor-pointer' alt="logo-consufarma" width={450} height={80} className='cursor-pointer'/>
+                </Link>
+              </div>
             
               <div className=' md:px-0 px-3 flex-1 rounded-xl'>
-                <div className="mt-0 sm:mt-5">
+                <div className="">
                   <Formik
                     initialValues={{
                       correo: '',

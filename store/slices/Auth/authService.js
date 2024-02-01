@@ -58,26 +58,21 @@ export const validateToken = async ( dispatch, token ) => {
   } catch (error) {
     console.log(error.response.data.msg);
     dispatch(userErrorFunc(error.response.data.msg))
-    // Cookies.remove('tokenUser')
-    // Cookies.remove('user')
-    // location.replace("/login")
   }
 }
 
-// export const newPass = ( pass, token) => {
-//     dispatch(userDefault())
-//     dispatch(userLoading(true))
-//     console.log(token);
-//     try {
-//       const resp = await instanceAPI.post('/auth/newPass', pass, {
-//         headers: {
-//           'x-tokens': token,
-//         },
-//       })
-//       dispatch(userRespFunc('newPass'))
-//       dispatch(userLoading(false))
-//     } catch (error) {
-//       console.log(error)
-//       dispatch(userStatusFunc(error?.response?.status));
-//     }
-// }
+export const newPass = async ( dispatch, pass, token) => {
+    dispatch(userDefault())
+    dispatch(userLoadingFunc(true))
+    try {
+      const resp = await instanceAPI.post('/auth/newPass', pass, {
+        headers: {
+          'x-token': token,
+        },
+      })
+      dispatch(userSuccess())
+    } catch (error) {
+      console.log(error.response)
+      dispatch(userErrorFunc(error.response.data.msg))
+    }
+}

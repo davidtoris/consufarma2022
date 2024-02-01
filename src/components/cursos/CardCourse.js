@@ -28,7 +28,7 @@ const CardCourse = ({link, nombre, img, label, ponente, ponenteDos, horario, fec
               </div>
               <div className='font-bold mt-1 flex justify-center items-center'>
                 <FaClock className='w-4 h-4 ml-1 mr-1'/>
-                {duracion} {horario}
+                {duracion}h {horario}
               </div>
             </div>
           </div>

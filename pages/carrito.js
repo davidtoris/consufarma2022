@@ -11,6 +11,7 @@ import { useRouter } from 'next/router';
 import { useDispatch } from 'react-redux';
 import { orderError, orderSuccess } from '../store/slices/OrderSlice';
 import { addItem } from '../store/slices/basketSlice';
+import { IoTrashOutline } from "react-icons/io5";
 
 const Carrito = ({ hoursData, peopleData }) => {
 
@@ -20,11 +21,10 @@ const Carrito = ({ hoursData, peopleData }) => {
   const [cartItems, setCartItems] = useState([]);
   const [cuponText, setCuponText] = useState('');
   const [cuponDiscount, setCuponDiscount] = useState(1);
-  const [cuponId, setCuponId] = useState('');
 
   const handleChangeCuponText = (e) => {
     setCuponText(e.target.value);
-  } 
+  }
 
   const [userData, setUserData] = useState('')
   useEffect(() => {
@@ -37,30 +37,31 @@ const Carrito = ({ hoursData, peopleData }) => {
   
   const [haveCupon, setHaveCupon] = useState('');
   const canjearCupon = async () => {
+    setHaveCupon('')
     if ( cuponText !== '' ) {
       await axios.get(`${API_BASE_URL}/cupons/validate/${cuponText}`)
       .then(({data}) => {
-        const {date, findCupon} = data;
+        // const {date, findCupon} = data;
+
+        const { findCupon } = data;
+        const date = '2024-02-01T19:16:09-06:00'
+        const { descuentoCupon, fechaExpira, fechaInicia, _id } = findCupon[0]
+
+
+        
         if(findCupon.length) {
-          if (findCupon[0]?.isValid) {
-            
-            if (findCupon[0]?.fechaFin > date) {
-              setHaveCupon('valido');
-              setCuponDiscount(findCupon[0]?.descuentoCupon)
-              localStorage.setItem('cuponId', findCupon[0]?._id)
-            } else {
-              setHaveCupon('expired');
-            }
-            
+          if (date >= fechaInicia && date <= fechaExpira) {
+            setHaveCupon('valido');
+            setCuponDiscount(descuentoCupon)
+            localStorage.setItem('cuponId', _id)
           } else {
-            setHaveCupon('noActive');
+            setHaveCupon('noValido');
           }
-        } else {
-          setHaveCupon('noValido');
+            
         }
       })
       .catch((err) => {
-        setHaveCupon('noValido');
+        setHaveCupon('Error al validar el cupón');
       })
     }
   }
@@ -80,12 +81,11 @@ const Carrito = ({ hoursData, peopleData }) => {
 
   useEffect(() => {
     const storedCart = JSON.parse(localStorage.getItem('cart'));
-    console.log(storedCart.length)
     dispatch(addItem(storedCart.length))
   }, [cartItems]);
 
   const [typeMoney, setTypeMoney ] = useState('MX');
-  const [businessPersonalF3, setBusinessPersonalF3 ] = useState(0.9);
+  const [businessPersonalF3, setBusinessPersonalF3 ] = useState(0.83);
 
   const updateQuantity = (id, value) => {
 
@@ -131,8 +131,9 @@ const Carrito = ({ hoursData, peopleData }) => {
   }, [businessPersonalF3, typeMoney]);
 
   const [subtotal, setSubtotal] = useState(0)
-  const [iva, setIva] = useState(0)
-  const [discountTotalHours, setDiscountTotalHours] = useState(0)
+  const [precioMasIVA, setPrecioMasIVA] = useState(0)
+  const [discountTotalHoursNum, setDiscountTotalHoursNum] = useState(0)
+  const [discountTotalHoursPercent, setDiscountTotalHoursPercent] = useState(0)
   const [total, setTotal] = useState(0)
 
   useEffect(() => {
@@ -145,12 +146,14 @@ const Carrito = ({ hoursData, peopleData }) => {
     const subtotal = cartItems.reduce((sum, value) => (value.total ? sum + value.total : sum), 0)
 
     setSubtotal((subtotal).toFixed(2));
-    setIva((subtotal * 1.16).toFixed(2));
-    setDiscountTotalHours((iva - (iva * descHoursOfAllCoursesF4[0]?.descuentoHoras)).toFixed(2));
-    setTotal((iva * descHoursOfAllCoursesF4[0]?.descuentoHoras * cuponDiscount).toFixed(2))
+    setPrecioMasIVA((subtotal * 1.16).toFixed(2));
+    setDiscountTotalHoursNum((precioMasIVA - (precioMasIVA * descHoursOfAllCoursesF4[0]?.descuentoHoras)));
+    setTotal((precioMasIVA * descHoursOfAllCoursesF4[0]?.descuentoHoras * cuponDiscount).toFixed(2))
+    setDiscountTotalHoursPercent( Math.round(discountTotalHoursNum * 100 / precioMasIVA) )
+
 
     localStorage.setItem('totalFinal', total)
-  }, [cartItems, subtotal, businessPersonalF3, cuponDiscount])
+  }, [cartItems, subtotal, businessPersonalF3, cuponDiscount, precioMasIVA, discountTotalHoursNum])
 
   const removeItem = (id) => {
     const filterToRemove = cartItems.filter(f => f._id !== id);
@@ -214,63 +217,65 @@ const Carrito = ({ hoursData, peopleData }) => {
           {cartItems.length ? (
             <div className='max-w-7xl mx-auto container px-5 pb-40 text-blueConsufarma mt-10'>
               <div className='flex'>
+
                 <div>
-                  <label className='cursor-pointer'>
-                    <input type="radio" name='precio' defaultChecked onClick={() => setBusinessPersonalF3(0.9)} /> 
-                    <span className='font-bold'> Precio pago personal </span>
+                  <label className={`cursor-pointer p-3 rounded-md ${businessPersonalF3 === 0.83 ? 'bg-blueConsufarma text-white' : 'text-blueConsufarma border-2 border-blueConsufarma'} `}>
+                    <button type="button" name='precio' onClick={() => setBusinessPersonalF3(0.83)} /> 
+                    <span className=''> Precio pago personal </span>
                   </label>
-                  <label className='cursor-pointer'>
-                    <input type="radio" name='precio'  onClick={() => setBusinessPersonalF3(1)} className='ml-7'/>
-                    <span className='font-bold'> Precio a empresa / </span> por participante
+
+                  <label className={`cursor-pointer p-3 rounded-md ml-7 ${businessPersonalF3 === 1 ? 'bg-blueConsufarma text-white' : 'text-blueConsufarma border-2 border-blueConsufarma'}`}>
+                    <button type="button" name='precio'  onClick={() => setBusinessPersonalF3(1)} className=''/>
+                    <span className=''> Precio a empresa / </span> por participante
                   </label>
                 </div>
   
                 <div className='ml-24'>
-                  <label className='cursor-pointer'>
-                    <input type="radio" name="coin"  defaultChecked onClick={() => setTypeMoney('MX')} /> <span className='font-bold'> MX </span>
+                  <label className={`cursor-pointer p-3 rounded-md ${typeMoney === `MX` ? 'bg-gray-500 text-white' : 'text-blueConsufarma border-2 border-blueConsufarma'}`}>
+                    <button type="button" name="coin" onClick={() => setTypeMoney('MX')} /> <span className='font-bold'> MX </span>
                   </label>
-                  <label className='cursor-pointer'>
-                    <input type="radio" name="coin" className='ml-7' onClick={() => setTypeMoney('USD')} /> USD
+                  <label className={`cursor-pointer p-3 rounded-md ml-5 ${typeMoney === `USD` ? 'bg-gray-500 text-white' : 'text-blueConsufarma border-2 border-blueConsufarma'}`}>
+                    <button type="button" name="coin" className='' onClick={() => setTypeMoney('USD')} /> USD
                   </label>
                 </div>
               </div>
-              <h2 className='text-grayCustom font-bold mt-3'>A mayor número de asistentes y cursos, obtienes un mayor descuento</h2>
+              <h2 className='text-grayCustom font-bold mt-7'>A mayor número de asistentes y cursos, obtienes un mayor descuento</h2>
   
               <div className='flex'>
                 <div className='flex-1'>
-                  <div className='bg-blueConsufarma p-3 text-white rounded-md mr-5 mt-3'>
-                    <div className='grid gap-4 grid-cols-6 px-2 text-center'>
-                      <div>
+                  <div className='bg-blueConsufarma p-3 text-white rounded-md mr-5 mt-1'>
+                    <div className='flex px-2 text-center'>
+                      <div className='w-3/12'>
                         Curso
                       </div>
-                      <div>
+                      <div className='w-2/12'>
                         Precio
                       </div>
-                      <div>
-                        Cantidad
+                      <div className='w-2/12'>
+                        Asistentes
                       </div>
-                      <div>
+                      <div className='w-2/12'>
                         Descuento
                       </div>
-                      <div>
+                      <div className='w-2/12'>
                         Total
                       </div>
                     </div>
                   </div>
   
                   {cartItems.length && cartItems.map( i => (
-                    <div className='grid gap-4 grid-cols-6 px-2 text-center my-5 border-b-2 border-gray-300 pb-5 mr-5' key={i._id}>
-                      <div>
+                    <div className='flex px-2 text-center my-5 border-b-2 border-gray-300 pb-5 mr-5' key={i._id}>
+                      <div className='w-3/12'>
                         <img src={i.imagen} />
                         <div className='mt-2'>{i.nombre}</div>
                         <div className='font-thin'>{i.fecha_text}</div>
-                        <div>{`${i.duracion} (${i.horario})`}</div>
+                        <div>{`${i.duracion}h (${i.horario})`}</div>
                       </div>
-                      <div className='font-bold text-2xl'>
+                      <div className='w-2/12 font-bold text-2xl'>
                         ${typeMoney === 'MX' ? Thousands(i.precio) : i.precioUSD}
                       </div>
-                      <div>
-                        <select name="select" value={i.cantidad} onChange={(e) => updateQuantity(i._id, e.target.value)}>
+                      <div className='w-2/12'>
+                        <select className='bg-blueConsufarma p-1 rounded-md text-white' name="select" value={i.cantidad} onChange={(e) => updateQuantity(i._id, e.target.value)}>
                           <option value="1" >1</option>
                           <option value="2">2</option>
                           <option value="3">3</option>
@@ -284,14 +289,16 @@ const Carrito = ({ hoursData, peopleData }) => {
                         </select>
                         {/* <input className=' text-xl p-2' type="number" value={i.cantidad} onChange={(e) => updateQuantity(i._id, e.target.value)} /> */}
                       </div>
-                      <div className='font-bold text-2xl'>
+                      <div className='w-2/12 font-bold text-2xl'>
                       {i.descuentoTotal}%  
                       </div>
-                      <div className='font-bold text-2xl'>
+                      <div className='w-2/12 font-bold text-2xl'>
                         ${Thousands(i.total)}
                       </div>
-                      <div className='font-bold text-2xl'>
-                        <div className='cursor-pointer w-2/12 m-auto' onClick={() => removeItem(i._id)}>x</div>
+                      <div className='w-1/12 font-bold text-2xl'>
+                        <div className='cursor-pointer w-2/12 m-auto' onClick={() => removeItem(i._id)}>
+                          <IoTrashOutline />
+                        </div>
                       </div>
                     </div>
                   ))}
@@ -303,11 +310,11 @@ const Carrito = ({ hoursData, peopleData }) => {
                   <div className='font-bold text-xl ml-2'>Subtotal:</div>
                   <div className='font-normal ml-2 mb-3'>${Thousands(subtotal)}</div>
                   
-                  <div className='font-bold text-xl ml-2'>Precio más IVA:</div>
-                  <div className='font-normal ml-2 mb-3'>${Thousands(iva)}</div>
+                  <div className='font-bold text-xl ml-2'>Precio más Impuestos:</div>
+                  <div className='font-normal ml-2 mb-3'>${Thousands(precioMasIVA)}</div>
   
                   <div className='font-bold text-xl ml-2'>Descuento × No. cursos adquiridos:</div>
-                  <div className='font-normal ml-2 mb-3'>${Thousands(discountTotalHours)}</div>
+                  <div className='font-normal ml-2 mb-3'>Ahorraste un ${discountTotalHoursPercent}%</div>
   
                   <div className='font-bold text-xl ml-2 mb-2'>Cupón de descuento</div>
                   
@@ -343,7 +350,8 @@ const Carrito = ({ hoursData, peopleData }) => {
                           purchase_units: [
                             {
                               amount: {
-                                value: localStorage.getItem('totalFinal')
+                                value: localStorage.getItem('totalFinal'),
+                                currency: "USD", 
                               }
                             }
                           ]

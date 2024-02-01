@@ -127,7 +127,6 @@ const ItemCourse = ({curso}) => {
             <div className='flex ml-1 md:ml-4 items-center'> 
               <FaCalendarAlt className='w-4 h-4 ml-3 mr-1'/>
                 {fecha > today ? fecha_text : 'Por Programar'}
-                
             </div>
           </div>
           
@@ -196,7 +195,7 @@ const ItemCourse = ({curso}) => {
               <div className='bg-gray-100 px-5 py-4 rounded-md text-center mt-10'>
                 <div className='text-grayCustom font-bold mt-2'> Precio a empresas: </div>
                 <div className='text-grayCustom font-light'> (Por participante) </div>
-                {/* <div className='font-bold text-3xl mt-3'>${Thousands(precio)} + IVA</div> */}
+                <div className='font-bold text-3xl mt-3'>${Thousands(precio)} + Impuestos</div>
                 <div className='text-grayCustom font-bold mt-3'> 
                   Pago personal: Pregunta por nuestro precio especial y opción a 3 meses sin interéses
                 </div>

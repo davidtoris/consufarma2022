@@ -26,7 +26,7 @@ const Registro = () => {
       .matches(/[a-z]/, getCharacterValidationError("minúsucla"))
       .matches(/[A-Z]/, getCharacterValidationError("mayúsucula")),
     empresa: Yup.string().required('El campo es obligatorio'),
-    pais: Yup.string().required('El campo es obligatorio').min(4, 'El nombre no puede ser tan corto'),
+    pais: Yup.string().required('El campo es obligatorio').min(4, 'El país no puede ser tan corto'),
     pfisica: Yup.string().required('El campo es obligatorio'),
     nombre: Yup.string()
       .when(["pfisica"], {
@@ -41,22 +41,22 @@ const Registro = () => {
     razonSocial: Yup.string()
       .when(["pfisica"], {
         is: (pfisica) => pfisica === "false",
-        then: (razonSocial) => razonSocial.required('El campo es obligatorio'),
+        then: (razonSocial) => razonSocial.required('El campo es obligatorio').min(8, 'La razón social no puede ser tan corta'),
       }),
     pcontacto: Yup.string()
       .when(["pfisica"], {
         is: (pfisica) => pfisica === "false",
-        then: (pcontacto) => pcontacto.required('El campo es obligatorio'),
+        then: (pcontacto) => pcontacto.required('El campo es obligatorio').min(4, 'La persona de contacto no puede ser tan corta'),
       }),
     empresa: Yup.string()
       .when(["pfisica"], {
         is: (pfisica) => pfisica === "false",
-        then: (empresa) => empresa.required('El campo es obligatorio'),
+        then: (empresa) => empresa.required('El campo es obligatorio').min(4, 'La empresa no puede ser tan corta'),
       }),
     RFC: Yup.string()
       .when(["pfisica"], {
         is: (pfisica) => pfisica === "false",
-        then: (RFC) => RFC.required('El campo es obligatorio'),
+        then: (RFC) => RFC.required('El campo es obligatorio').min(8, 'El RFC no puede ser tan corto'),
       }),
   });
 
@@ -190,7 +190,7 @@ const Registro = () => {
                           <div className='text-left text-blueConsufarma font-semibold text-lg ml-2 mt-2'>Password:</div>
                           <div className="">
                             <Field 
-                              type="text" 
+                              type="password" 
                               name="password" 
                               className="text-lg pl-3 text-gray-700 border-2 border-gray-200 w-full rounded-lg pt-1 px-3 pb-1.5 shadow-md" />
                             <ErrorMessage
