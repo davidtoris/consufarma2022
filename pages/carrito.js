@@ -41,15 +41,13 @@ const Carrito = ({ hoursData, peopleData }) => {
     if ( cuponText !== '' ) {
       await axios.get(`${API_BASE_URL}/cupons/validate/${cuponText}`)
       .then(({data}) => {
-        // const {date, findCupon} = data;
+        const {date, findCupon} = data;
+        console.log(findCupon.length > 0)
 
-        const { findCupon } = data;
-        const date = '2024-02-01T19:16:09-06:00'
         const { descuentoCupon, fechaExpira, fechaInicia, _id } = findCupon[0]
 
-
         
-        if(findCupon.length) {
+        if(findCupon.length > 0) {
           if (date >= fechaInicia && date <= fechaExpira) {
             setHaveCupon('valido');
             setCuponDiscount(descuentoCupon)
@@ -57,11 +55,12 @@ const Carrito = ({ hoursData, peopleData }) => {
           } else {
             setHaveCupon('noValido');
           }
-            
+        } else {
+          setHaveCupon('noValido');
         }
       })
       .catch((err) => {
-        setHaveCupon('Error al validar el cupón');
+        setHaveCupon('noValido');
       })
     }
   }
@@ -324,8 +323,8 @@ const Carrito = ({ hoursData, peopleData }) => {
                   {haveCupon === 'noValido' && (
                     <div className='font-bold text-xs ml-2 mt-2 text-red-600 mb-3'>Cupon no válido</div>
                   )}
-                  {haveCupon === 'noActive' && (
-                    <div className='font-bold text-xs ml-2 mt-2 text-red-600 mb-3'>El cupón ya se ha usado </div>
+                  {haveCupon === 'error' && (
+                    <div className='font-bold text-xs ml-2 mt-2 text-red-600 mb-3'>El cupón tiene error </div>
                   )}
                   {haveCupon === 'expired' && (
                     <div className='font-bold text-xs ml-2 mt-2 text-red-600 mb-3'>El cupon ha expirado</div>

@@ -87,7 +87,7 @@ const Login = () => {
                         </div>
 
                         <div className='mb-1 m-auto w-10/12'>
-                          <div className='text-left text-blueConsufarma font-bold text-lg ml-2 mt-2 mb-1'>Password:</div>
+                          <div className='text-left text-blueConsufarma font-bold text-lg ml-2 mt-2 mb-1'>Contraseña:</div>
                           <div className="mb-3 w-100">
                             <Field 
                               type="password" 

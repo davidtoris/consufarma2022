@@ -30,9 +30,11 @@ const NavBar = () => {
   const { allBasket } = useSelector((state) => state.basket);
 
   useEffect(() => {
-    const storedCart = JSON.parse(localStorage.getItem('cart'));
-    if (storedCart) {
-      dispatch(addItem(storedCart.length))
+    if ( localStorage.getItem('cart') ) {
+      const storedCart = JSON.parse(localStorage.getItem('cart'));
+      if (storedCart) {
+        dispatch(addItem(storedCart.length))
+      }
     }
   }, []);
 
@@ -93,15 +95,13 @@ const NavBar = () => {
             ) : (
               <Link href="/login">
                 <div className="flex items-center cursor-pointer hover:scale-105 transition relative" onClick={showMenuToogle}>
-                  <FaUserCircle className="text-blueConsufarma ml-3"/>
+                  <div className="flex items-center">
+                    <FaUserCircle className="text-blueConsufarma ml-3"/>
+                    <div className="ml-2 text-sm">Iniciar Sesión</div>
+                  </div>
                 </div>
               </Link>
             )}
-
-            {/* <div className="flex items-center">
-              <FaUserCircle className="text-blueConsufarma ml-3"/>
-              <div className="ml-2 text-sm">Pedro valadez</div>
-            </div> */}
 
           </div>
         </header>

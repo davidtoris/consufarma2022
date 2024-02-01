@@ -187,7 +187,7 @@ const Registro = () => {
                         </div>
 
                         <div className='mb-1 m-auto w-8/12'>
-                          <div className='text-left text-blueConsufarma font-semibold text-lg ml-2 mt-2'>Password:</div>
+                          <div className='text-left text-blueConsufarma font-semibold text-lg ml-2 mt-2'>Contraseña:</div>
                           <div className="">
                             <Field 
                               type="password" 

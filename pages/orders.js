@@ -72,15 +72,15 @@ const Orders = () => {
 
           <div className='flex '>
             {orderData?.order?.producto.map( o => (
-              <>
-                <div className='flex flex-col text-center mx-9 text-blueDarkCustom font-semibold bg-slate-100 rounded-md p-4 shadow-md' key={o.nombre}>
+              <div key={o.nombre}>
+                <div className='flex flex-col text-center mx-9 text-blueDarkCustom font-semibold bg-slate-100 rounded-md p-4 shadow-md'>
                   <div className="mb-4 text-2xl">{o.nombre}</div>
                   <img src={o.imagen} />
                 <div className="mt-5 text-xl font-normal">Fecha: {o.fecha_text}</div>
                 <h2 className=" text-xl font-normal">{o.duracion} horas</h2>
                 <h2 className=" text-xl font-normal">Horario: {o.horario} horas</h2>
                 </div>
-              </>
+              </div>
             ))}
           </div>
 
