@@ -5,7 +5,7 @@ import moment from 'moment';
 import axios from 'axios';
 import { API_BASE_URL } from '../../src/constants';
 import { useDispatch } from 'react-redux';
-import { itemResults } from '../../slices/resultsSlice';
+import { itemResults } from '../../store/slices/resultsSlice';
 
 const Home = () => {
   const router = useRouter();

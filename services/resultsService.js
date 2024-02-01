@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { resultsPending, resultsSuccess, resultsError } from '../slices/resultsSlice';
+import { resultsPending, resultsSuccess, resultsError } from '../store/slices/resultsSlice';
 import { API_BASE_URL } from '../src/constants';
 
 export const getResults = async (dispatch) => {
