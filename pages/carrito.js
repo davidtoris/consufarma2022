@@ -158,7 +158,7 @@ const Carrito = ({ hoursData, peopleData }) => {
     setCartItems(filterToRemove);
   }
 
-  const [loadingPay, setLoadingPay] = useState(true);
+  const [loadingPay, setLoadingPay] = useState(false);
 
   const validateOrder = async (order) => {
     setLoadingPay(true);
