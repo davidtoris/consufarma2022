@@ -23,7 +23,6 @@ const NavBar = () => {
     if (userCookie) {
       const user = JSON.parse(userCookie)
       setUserName(user.nombre)
-      console.log(user)
     }
   }, [])
 

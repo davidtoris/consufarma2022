@@ -17,9 +17,6 @@ export default function Home({specialities, courses}) {
   const { allCourses, status } = useSelector((state) => state.courses);
   const { allSpecialities } = useSelector((state) => state.specialities);
 
-  console.log(allSpecialities)
-  console.log(allCourses)
-
   useEffect(() => {
     dispatch(addCourses(courses));
     dispatch(addSpecialities(specialities));

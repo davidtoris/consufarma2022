@@ -64,8 +64,6 @@ const Registro = () => {
   const dispatch = useDispatch()
   const router = useRouter();
 
-  console.log(userRegister);
-
   useEffect(() => {
     userRegister && router.push("/login")
   }, [userRegister])
@@ -94,7 +92,6 @@ const Registro = () => {
                     }}
                     validationSchema={phisicSchema}
                     onSubmit={async (valores) => {
-                      console.log(valores)
                       registerUser(dispatch, valores)
                     }}>
                       {

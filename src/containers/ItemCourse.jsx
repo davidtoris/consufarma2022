@@ -17,6 +17,7 @@ import { addItem } from '../../store/slices/basketSlice';
 
 const ItemCourse = ({curso}) => {
 
+
   const dispatch = useDispatch();
   const router = useRouter()
 
@@ -25,8 +26,6 @@ const ItemCourse = ({curso}) => {
   const { _id, nombre, nombre_ruta, fecha, fecha_text, duracion, horario, especialidad_id, ponente_uno_id, ponente_dos_id, objetivo, temario, precio, precioUSD, descuento, imagen, register, lugar, disponible } = curso;
   const { ponente, ponente_cv, ponente_img } = ponente_uno_id;
   const { ponente: ponente_dos, ponente_cv: ponente_cv_dos, ponente_img: ponente_img_dos } = ponente_dos_id;
-
-  console.log(precio)
 
   const [coursesSpeciality, setCoursesSpeciality] = useState([]);
 
@@ -51,13 +50,15 @@ const ItemCourse = ({curso}) => {
   const [cartItems, setCartItems] = useState([]);
 
   useEffect(() => {
-    const storedCart = JSON.parse(localStorage.getItem('cart'));
-    if (storedCart) {
-      setCartItems(storedCart);
-      dispatch(addItem(storedCart.length))
+    if ( localStorage.getItem('cart') ) {
+      const storedCart = JSON.parse(localStorage.getItem('cart'));
+      if (storedCart) {
+        setCartItems(storedCart);
+        dispatch(addItem(storedCart.length))
+      }
     }
   }, []);
-
+  
   useEffect(() => {
     localStorage.setItem('cart', JSON.stringify(cartItems));
   }, [cartItems]);

@@ -42,7 +42,6 @@ const Carrito = ({ hoursData, peopleData }) => {
       await axios.get(`${API_BASE_URL}/cupons/validate/${cuponText}`)
       .then(({data}) => {
         const {date, findCupon} = data;
-        console.log(findCupon.length > 0)
 
         const { descuentoCupon, fechaExpira, fechaInicia, _id } = findCupon[0]
 
@@ -67,9 +66,11 @@ const Carrito = ({ hoursData, peopleData }) => {
 
   // Traer todos los elementos de LocalStorage y ponerlos en State del componente
   useEffect(() => {
-    const storedCart = JSON.parse(localStorage.getItem('cart')); 
-    if (storedCart) {
-      setCartItems(storedCart);
+    if (localStorage.getItem('cart')) {
+      const storedCart = JSON.parse(localStorage.getItem('cart')); 
+      if (storedCart) {
+        setCartItems(storedCart);
+      }
     }
   }, []);
 
@@ -112,8 +113,6 @@ const Carrito = ({ hoursData, peopleData }) => {
     updatedItems[itemIndex].total = total
     updatedItems[itemIndex].descuentoTotal = Math.floor(percent);
     setCartItems(updatedItems);
-    
-    // console.log({priceMX, priceUSD, discountPercent, discountCourseF1, total, percent, priceSelected})
   }
 
   // 
@@ -159,12 +158,12 @@ const Carrito = ({ hoursData, peopleData }) => {
     setCartItems(filterToRemove);
   }
 
-  const [loadingPay, setLoadingPay] = useState(false);
+  const [loadingPay, setLoadingPay] = useState(true);
 
   const validateOrder = async (order) => {
     setLoadingPay(true);
     const data = {
-      usuario: userData._id,
+      usuario_id: userData._id,
       total: localStorage.getItem('totalFinal'),
       producto: cartItems,
     }
@@ -173,12 +172,10 @@ const Carrito = ({ hoursData, peopleData }) => {
     await axios.post(`${API_BASE_URL}/orders`, data)
     .then((resp) => {
       const { data } = resp;
-      console.log(data)
       idOrder = data.orders._id
     })
     .catch((err) => {
-      console.log(err.response.data)
-      
+      throw new Error(err.response.data)
     });
 
     await axios.get(`${API_BASE_URL}/pays/payOrder/${order}?idOrder=${idOrder}&cupon=${localStorage.getItem('cuponId')}`)
@@ -195,7 +192,6 @@ const Carrito = ({ hoursData, peopleData }) => {
   }
 
   const showTotalPayPal = () => {
-    // console.log(total);
     return total
   }
   useEffect(() => {

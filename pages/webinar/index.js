@@ -60,7 +60,6 @@ const Home = () => {
                     tag 
                   };
 
-                  console.log(data);
                   dispatch(itemResults(data));
                   axios.post(`${API_BASE_URL}/challenge`, data)
                   router.push('/webinar/thanks')

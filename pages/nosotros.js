@@ -9,14 +9,12 @@ const Nosotros = () => {
 
   const [document, setDocument] = useState('')
   const getPdf = async () => {
-    // console.log('first')
     await axios.get(`http://localhost:8080/api/pdf/downloadPDF/64daf309f49116878c135b8d`, {responseType: 'blob'})
     .then((resp) => {
-      console.log(resp.data)
       window.open(URL.createObjectURL(resp.data));
     })
     .catch((err) => {
-      console.log(err)
+      throw new Error(err.response.data)
     })
   }
 

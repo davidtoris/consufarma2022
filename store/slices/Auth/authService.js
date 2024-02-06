@@ -13,7 +13,6 @@ export const authLogin = async(dispatch, user) => {
     dispatch(getUser(resp.data));
   })
   .catch((err) => {
-    console.log(err.response.data.msg)
     dispatch(userErrorFunc(err.response.data.msg))
   });
 }
@@ -27,7 +26,6 @@ export const registerUser = async (dispatch, user) => {
   })
   .catch(error => {
     if(error !== undefined){
-      console.log(error)
       dispatch(userErrorFunc(error.response.data.errors[0].msg))
     }
   })
@@ -40,7 +38,6 @@ export const forgotPassword = async(dispatch, email) => {
     const resp = await instanceAPI.post(`${API_BASE_URL}/auth/forgot`, email)
     dispatch(userSuccess())
   } catch (error) {
-    console.log(error.response.data)
     dispatch(userErrorFunc(error.response.data.msg))
   }
 }
@@ -56,7 +53,6 @@ export const validateToken = async ( dispatch, token ) => {
     })
     dispatch(userSuccessTokenFunc())
   } catch (error) {
-    console.log(error.response.data.msg);
     dispatch(userErrorFunc(error.response.data.msg))
   }
 }
@@ -72,7 +68,6 @@ export const newPass = async ( dispatch, pass, token) => {
       })
       dispatch(userSuccess())
     } catch (error) {
-      console.log(error.response)
       dispatch(userErrorFunc(error.response.data.msg))
     }
 }
