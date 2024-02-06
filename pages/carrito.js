@@ -363,6 +363,7 @@ const Carrito = ({ hoursData, peopleData }) => {
             </div>
           ) : (
             <h3 className='font-extrabold text-2xl text-blueDarkCustom mb-5 text-center mt-5'>
+              <img src={"/../../../cart.jpg"} width={300} alt='vacio...' className='m-auto'  />
               Tu carrito esta vacio
             </h3>
           )}
