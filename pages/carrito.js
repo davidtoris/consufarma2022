@@ -342,14 +342,12 @@ const Carrito = ({ hoursData, peopleData }) => {
                       createOrder={( data, actions ) => {
                         
                         return actions.order.create({
-                          purchase_units: [
-                            {
-                              amount: {
-                                value: localStorage.getItem('totalFinal'),
-                                currency: "USD", 
-                              }
+                          purchase_units: [{
+                            amount: {
+                              value: localStorage.getItem('totalFinal'),
+                              currency_code: 'MXN',
                             }
-                          ]
+                          }]
                         })
                       }}
                       onApprove={ async (data, actions) => {

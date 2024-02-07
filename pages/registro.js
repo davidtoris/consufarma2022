@@ -20,7 +20,7 @@ const Registro = () => {
   const phisicSchema = Yup.object().shape({
     correo: Yup.string().email('Escribe un email válido').required('El campo es obligatorio'),
     password: Yup.string()
-      .required("Escribe un email de 8 caracteres, 1 número, 1 minúscula y 1 mayúscula")
+      .required("Escribe una contraseña de 8 caracteres, 1 número, 1 minúscula y 1 mayúscula")
       .min(6, "El password debe tener al menos 8 caractéres")
       .matches(/[0-9]/, getCharacterValidationError("número"))
       .matches(/[a-z]/, getCharacterValidationError("minúsucla"))
