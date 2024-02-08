@@ -32,12 +32,11 @@ const Forgot = () => {
     <div className='flex flex-col justify-between'>
       {/* <NavBar /> */}
       <div className='flex max-h-[638px]'>
-      <div className='w-6/12 bg-cover' style={{backgroundImage: 'url(https://res.cloudinary.com/drq8o9k36/image/upload/v1701922237/Captura_de_pantalla_2023-12-06_a_la_s_10.09.27_p.m._oydfzk.png)'}}>
-          <img src='' />
-        </div>
-        <div className='w-6/12'>
+        <div className='w-6/12 bg-cover hidden md:block' style={{backgroundImage: 'url(https://res.cloudinary.com/drq8o9k36/image/upload/v1701922237/Captura_de_pantalla_2023-12-06_a_la_s_10.09.27_p.m._oydfzk.png)'}} />
+  
+        <div className='w-11/12 md:w-6/12 m-auto '>
       
-          <div className='font-body my-28'>
+          <div className='font-body my-10 md:my-28'>
             
               <div className=' md:px-0 px-3 flex-1 rounded-xl'>
                 <div className="mt-0 sm:mt-5">
@@ -59,7 +58,7 @@ const Forgot = () => {
                         Te enviaremos un correo para crear una nueva contraseña, no olvides revisar en tu bandeja de spam
                       </div>
                       
-                      <div className='mb-1 m-auto w-8/12'>
+                      <div className='mb-1 m-auto w-12/12 md:w-8/12'>
                         <div className=' text-blueConsufarma font-semibold text-lg ml-2 mt-2 mb-1'>Correo:</div>
                         <div className="">
                           <Field 
@@ -74,7 +73,7 @@ const Forgot = () => {
                         </div>
                       </div>
 
-                      <div className='mb-3 m-auto w-8/12'>
+                      <div className='mb-3 m-auto w-12/12 md:w-8/12'>
                         {userErrorMsg !== '' && (
                           <div className="text-red-600 text-sm ml-2 mt-2">
                             {userErrorMsg}
@@ -82,7 +81,7 @@ const Forgot = () => {
                         )}
                       </div>
 
-                      <div className='mb-3 m-auto w-7/12'>
+                      <div className='mb-3 m-auto w-12/12 md:w-8/12'>
                         {userSuccess && (
                           <div className="bg-blueLightCustom text-md mt-2 text-center text-white rounded-md p-2">
                             Te hemos enviado un correo para recuperar tu cuenta
@@ -97,7 +96,7 @@ const Forgot = () => {
                       </div>
 
                       <div className='m-auto w-8/12 text-center'>
-                        <button type="submit" className="btn btn-primary bg-redConsufarma text-white border-0 w-4/12 p-2 text-1xl rounded font-bold shadow-xl mt-4 mb-2 hover:scale-110 transition">
+                        <button type="submit" className="btn btn-primary bg-redConsufarma text-white border-0 w-12/12 md:w-4/12 p-2 text-1xl rounded font-bold shadow-xl mt-4 mb-2 hover:scale-110 transition">
                           {userLoading ? <Loader /> : 'Recuperar'}
                         </button>
                       </div>

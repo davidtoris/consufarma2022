@@ -67,12 +67,11 @@ const Recover = () => {
     <div className='flex flex-col justify-between'>
       {/* <NavBar /> */}
       <div className='flex max-h-[638px]'>
-        <div className='w-6/12 bg-cover' style={{backgroundImage: 'url(https://res.cloudinary.com/drq8o9k36/image/upload/v1701922237/Captura_de_pantalla_2023-12-06_a_la_s_10.09.27_p.m._oydfzk.png)'}}>
-          <img src='' />
-        </div>
-        <div className='w-6/12'>
+        <div className='w-6/12 bg-cover hidden md:block' style={{backgroundImage: 'url(https://res.cloudinary.com/drq8o9k36/image/upload/v1701922237/Captura_de_pantalla_2023-12-06_a_la_s_10.09.27_p.m._oydfzk.png)'}} />
+
+        <div className='w-11/12 md:w-6/12 m-auto'>
       
-          <div className='font-body my-28'>
+          <div className='font-body my-10 md:my-28'>
             {!showForm ? (
               <div className='flex justify-center'>
                 <div className='flex justify-center flex-col text-center mt-20'>
@@ -119,7 +118,7 @@ const Recover = () => {
                           Crea una nueva contraseña
                         </div>
                         
-                        <div className='mb-3 m-auto w-8/12'>
+                        <div className='mb-3 m-auto w-12/12 md:w-8/12'>
                           <div className='text-center text-blueConsufarma font-semibold text-lg ml-2 mb-1 '>Contraseña:</div>
                           <div className="w-100">
                             <Field 
@@ -134,7 +133,7 @@ const Recover = () => {
                           </div>
                         </div>
 
-                        <div className='mb-3 m-auto w-8/12'>
+                        <div className='mb-3 m-auto w-12/12 md:w-8/12'>
                           {userErrorMsg !== '' && (
                             <div className="text-red-600 text-xs ml-2 mt-2">
                               El token expiró, vuelve a mandar el correo para recuperar tu contraseña

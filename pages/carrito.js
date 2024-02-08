@@ -197,6 +197,8 @@ const Carrito = ({ hoursData, peopleData }) => {
   useEffect(() => {
     showTotalPayPal()
   }, [total])
+
+  const [showResume, setShowResume] = useState(false)
   
 
   return (
@@ -210,10 +212,10 @@ const Carrito = ({ hoursData, peopleData }) => {
       ) : (
         <div>
           {cartItems.length ? (
-            <div className='max-w-7xl mx-auto container px-5 pb-40 text-blueConsufarma mt-10'>
-              <div className='flex'>
+            <div className='max-w-7xl mx-auto container pb-40 text-blueConsufarma mt-3 md:mt-10'>
+              <div className='flex p-2'>
 
-                <div>
+                <div className='text-sm md:text-base flex text-center'>
                   <label className={`cursor-pointer p-3 rounded-md ${businessPersonalF3 === 0.83 ? 'bg-blueConsufarma text-white' : 'text-blueConsufarma border-2 border-blueConsufarma'} `}>
                     <button type="button" name='precio' onClick={() => setBusinessPersonalF3(0.83)} /> 
                     <span className=''> Precio pago personal </span>
@@ -225,7 +227,7 @@ const Carrito = ({ hoursData, peopleData }) => {
                   </label>
                 </div>
   
-                <div className='ml-24'>
+                <div className='ml-24 hidden'>
                   <label className={`cursor-pointer p-3 rounded-md ${typeMoney === `MX` ? 'bg-gray-500 text-white' : 'text-blueConsufarma border-2 border-blueConsufarma'}`}>
                     <button type="button" name="coin" onClick={() => setTypeMoney('MX')} /> <span className='font-bold'> MX </span>
                   </label>
@@ -234,20 +236,23 @@ const Carrito = ({ hoursData, peopleData }) => {
                   </label>
                 </div>
               </div>
-              <h2 className='text-grayCustom font-bold mt-7'>A mayor número de asistentes y cursos, obtienes un mayor descuento</h2>
+
+              <h2 className='text-grayCustom font-bold md:mt-7 text-sm md:text-md p-2 text-center md:text-left'>A mayor número de asistentes y cursos, obtienes un mayor descuento</h2>
   
-              <div className='flex'>
+              <div className='flex text-sm md:text-md'>
                 <div className='flex-1'>
-                  <div className='bg-blueConsufarma p-3 text-white rounded-md mr-5 mt-1'>
-                    <div className='flex px-2 text-center'>
+
+                  <div className='bg-blueConsufarma p-2 px-0 md:px-2 md:p-3 text-white rounded-md mr-5 mt-1 hidden md:block'>
+                    <div className='flex px-2 text-center font-bold text-lg'>
                       <div className='w-3/12'>
                         Curso
                       </div>
-                      <div className='w-2/12'>
+                      <div className='w-3/12'>
                         Precio
                       </div>
-                      <div className='w-2/12'>
-                        Asistentes
+                      <div className='w-1/12'>
+                        {/* <span>Asistentes</span> */}
+                        <span>Num</span>
                       </div>
                       <div className='w-2/12'>
                         Descuento
@@ -255,51 +260,163 @@ const Carrito = ({ hoursData, peopleData }) => {
                       <div className='w-2/12'>
                         Total
                       </div>
+                      <div className='w-1/12 text-right'>
+                        
+                      </div>
                     </div>
                   </div>
   
                   {cartItems.length && cartItems.map( i => (
-                    <div className='flex px-2 text-center my-5 border-b-2 border-gray-300 pb-5 mr-5' key={i._id}>
-                      <div className='w-3/12'>
-                        <img src={i.imagen} />
-                        <div className='mt-2'>{i.nombre}</div>
-                        <div className='font-thin'>{i.fecha_text}</div>
-                        <div>{`${i.duracion}h (${i.horario})`}</div>
-                      </div>
-                      <div className='w-2/12 font-bold text-2xl'>
-                        ${typeMoney === 'MX' ? Thousands(i.precio) : i.precioUSD}
-                      </div>
-                      <div className='w-2/12'>
-                        <select className='bg-blueConsufarma p-1 rounded-md text-white' name="select" value={i.cantidad} onChange={(e) => updateQuantity(i._id, e.target.value)}>
-                          <option value="1" >1</option>
-                          <option value="2">2</option>
-                          <option value="3">3</option>
-                          <option value="4">4</option>
-                          <option value="5">5</option>
-                          <option value="6">6</option>
-                          <option value="7">7</option>
-                          <option value="8">8</option>
-                          <option value="9">9</option>
-                          <option value="10">10</option>
-                        </select>
-                        {/* <input className=' text-xl p-2' type="number" value={i.cantidad} onChange={(e) => updateQuantity(i._id, e.target.value)} /> */}
-                      </div>
-                      <div className='w-2/12 font-bold text-2xl'>
-                      {i.descuentoTotal}%  
-                      </div>
-                      <div className='w-2/12 font-bold text-2xl'>
-                        ${Thousands(i.total)}
-                      </div>
-                      <div className='w-1/12 font-bold text-2xl'>
-                        <div className='cursor-pointer w-2/12 m-auto' onClick={() => removeItem(i._id)}>
-                          <IoTrashOutline />
+                    <>
+                      
+                      {/* INFO CART FOR MOBILE */}
+                      <div className='flex md:hidden px-2 ml-0 text-center my-5 border-b-2 border-gray-300 pb-5 mr-0' key={i._id}>
+                        <div className='w-5/12'>
+                          <img src={i.imagen} />
+                          <div className='mt-2'>{i.nombre}</div>
+                          <div className='font-thin'>{i.fecha_text}</div>
+                          <div>{`${i.duracion}h (${i.horario})`}</div>
+                        </div>
+                        <div className='w-6/12 font-bold text-md flex items-center justify-center text-left'>
+                          <div>
+                            <div>
+                              Precio: ${typeMoney === 'MX' ? Thousands(i.precio) : i.precioUSD}
+                            </div>
+                            <div className='flex items-center my-2'>
+                              <div className='mr-2'>Cantidad:</div>
+                              <select className='bg-blueConsufarma p-1 rounded-md text-white text-md' name="select" value={i.cantidad} onChange={(e) => updateQuantity(i._id, e.target.value)}>
+                                <option value="1" >1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                                <option value="9">9</option>
+                                <option value="10">10</option>
+                              </select>
+                            </div>
+                            <div className='font-bold text-base text-blueLightCustom'>
+                              Descuento: {i.descuentoTotal}%  
+                            </div>
+                            <div className='font-bold text-base mt-2'>
+                              Total: ${Thousands(i.total)}
+                            </div>
+                          </div>
+
+                        </div>
+                        <div className='w-1/12 font-bold text-md flex items-center'>
+                          <div className='cursor-pointer text-lg' onClick={() => removeItem(i._id)}>
+                            <IoTrashOutline />
+                          </div>
                         </div>
                       </div>
-                    </div>
+
+                      {/* INFO CART FOR DESKTOP */}
+                      <div className='hidden md:flex px-0 md:px-2 ml-0 text-center my-5 border-b-2 border-gray-300 pb-5 mr-0 md:mr-5 items-center' key={i._id}>
+                        <div className='w-3/12'>
+                          <img src={i.imagen} />
+                          <div className='mt-2'>{i.nombre}</div>
+                          <div className='font-thin'>{i.fecha_text}</div>
+                          <div>{`${i.duracion}h (${i.horario})`}</div>
+                        </div>
+                        <div className='w-3/12 font-bold text-md md:text-2xl'>
+                          ${typeMoney === 'MX' ? Thousands(i.precio) : i.precioUSD}
+                        </div>
+                        <div className='w-1/12'>
+                          <select className='bg-blueConsufarma p:0 md:p-1 rounded-md text-white text-md md:text-2xl' name="select" value={i.cantidad} onChange={(e) => updateQuantity(i._id, e.target.value)}>
+                            <option value="1" >1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                          </select>
+                          {/* <input className=' text-xl p-2' type="number" value={i.cantidad} onChange={(e) => updateQuantity(i._id, e.target.value)} /> */}
+                        </div>
+                        <div className='w-2/12 font-bold text-md md:text-2xl'>
+                        {i.descuentoTotal}%  
+                        </div>
+                        <div className='w-2/12 font-bold text-md md:text-2xl'>
+                          ${Thousands(i.total)}
+                        </div>
+                        <div className='w-1/12 font-bold text-md md:text-2xl'>
+                          <div className='cursor-pointer w-2/12 m-auto' onClick={() => removeItem(i._id)}>
+                            <IoTrashOutline />
+                          </div>
+                        </div>
+                      </div>
+                    </>
                   ))}
                 </div>
+
+                <div className='bg-redConsufarma p-2 rounded-t-lg fixed w-full bottom-0 shadow-sm z-20 block md:hidden' onClick={() => setShowResume(!showResume)}>
+                  <div className='font-bold text-lg ml-2 text-center text-white'>Pagar</div>
+                </div>
+
+                { showResume && (
+                  <div className='bg-gray-100 p-1 rounded-t-lg absolute w-full z-10 overflow-y-scroll bottom-10 h-[390px] shadow-lg'>
+
+                    <div className='font-bold text-lg ml-2'>Subtotal:</div>
+                    <div className='font-normal ml-2 mb-2'>${Thousands(subtotal)}</div>
+                    
+                    <div className='font-bold text-lg ml-2'>Precio más Impuestos:</div>
+                    <div className='font-normal ml-2 mb-2'>${Thousands(precioMasIVA)}</div>
+    
+                    <div className='font-bold text-lg ml-2'>Descuento × No. cursos adquiridos:</div>
+                    <div className='font-normal ml-2 mb-2'>Ahorraste un ${discountTotalHoursPercent}%</div>
+    
+                    <div className='font-bold text-lg ml-2'>Cupón de descuento</div>
+                    <input type="text" className='p-2 bg-gray-300 rounded-md' value={cuponText} onChange={handleChangeCuponText}/>
+                    <button type="button" className='bg-blueConsufarma text-white p-2 rounded-md ml-1' onClick={canjearCupon}>Canjear</button>
+    
+                    {haveCupon === 'noValido' && (
+                      <div className='font-bold text-xs ml-2 mt-2 text-red-600 mb-3'>Cupon no válido</div>
+                    )}
+                    {haveCupon === 'error' && (
+                      <div className='font-bold text-xs ml-2 mt-2 text-red-600 mb-3'>El cupón tiene error </div>
+                    )}
+                    {haveCupon === 'expired' && (
+                      <div className='font-bold text-xs ml-2 mt-2 text-red-600 mb-3'>El cupon ha expirado</div>
+                    )}
+                    {haveCupon === 'valido' && (
+                      <div className='font-bold text-xs ml-2 mt-2 text-green-600 mb-3'>El cupón se aplicó correctamente </div>
+                    )}
+    
+                    <div className='font-bold text-xl ml-2 mt-2'>Total:</div>
+                    <div className='font-bold ml-2 mb-3'>${Thousands(total)}</div>
+    
+                    {userData === '' ? (
+                      <Link href="/login">
+                        <div className='bg-blueLightCustom text-white p-2 mb-3 w-full rounded-md text-center cursor-pointer hover:scale-105 transition'>Inicia sesión para continuar con el pago </div>
+                      </Link>
+                    ) : (
+                      <PayPalButtons 
+                        style={{ layout: "vertical" }} 
+                        createOrder={( data, actions ) => {
+                          
+                          return actions.order.create({
+                            purchase_units: [{
+                              amount: {
+                                value: localStorage.getItem('totalFinal'),
+                                currency_code: 'MXN',
+                              }
+                            }]
+                          })
+                        }}
+                        onApprove={ async (data, actions) => {
+                          const order = await actions.order.capture()
+                          validateOrder(order.id)
+                        }}
+                      />
+                    )}
+                  </div>
+                )}
   
-                <div className='bg-gray-100 p-2 rounded-md'>
+
+                <div className='bg-gray-100 p-2 rounded-md hidden md:block'>
                   <div className='font-bold text-2xl ml-2 mb-3'>Resumen</div>
                   
                   <div className='font-bold text-xl ml-2'>Subtotal:</div>
@@ -314,7 +431,7 @@ const Carrito = ({ hoursData, peopleData }) => {
                   <div className='font-bold text-xl ml-2 mb-2'>Cupón de descuento</div>
                   
                   <input type="text" className='p-2 bg-gray-300 rounded-md' value={cuponText} onChange={handleChangeCuponText}/>
-                  <button type="button" className='bg-blueConsufarma text-white p-2 rounded-md' onClick={canjearCupon}>Canjear</button>
+                  <button type="button" className='bg-blueConsufarma text-white p-2 rounded-md ml-1' onClick={canjearCupon}>Canjear</button>
   
                   {haveCupon === 'noValido' && (
                     <div className='font-bold text-xs ml-2 mt-2 text-red-600 mb-3'>Cupon no válido</div>

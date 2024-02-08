@@ -75,22 +75,24 @@ const Orders = () => {
 
       {orderStatus === 'success' && (
         
-        <div className='container m-auto px-2 md:px-2 mt-10 w-8/12'>
-          <h2 className="mt-6 text-5xl font-bold text-blueDarkCustom text-center mb-10">Gracias por tu compra</h2>
+        <div className='container m-auto px-2 md:px-2 mt-10 w-12/12 md:w-8/12'>
+          <h2 className="mt-6 text-2xl md:text-5xl font-bold text-blueDarkCustom text-center mb-0 md:mb-10">Gracias por tu compra</h2>
 
-          <div className="mt-7">
-            <div className="mt-6 text-3xl font-bold text-blueDarkCustom text-center mb-10">Resumen de la compra:</div>
+          <div className="mt-0 md:mt-2">
+            <div className="mt-0 md:mt-6 text-xl md:text-3xl font-bold text-blueDarkCustom text-center mb-10">Resumen de la compra:</div>
           </div>
 
           <div className={clsx('grid gap-4 grid-cols-1', orderData?.order?.producto.length === 1 ? 'sm:grid-cols-1' : 'sm:grid-cols-2')}>
             {orderData?.order?.producto.map( o => (
               <div key={o.nombre}>
                 <div className='flex flex-col text-center mx-9 text-blueDarkCustom font-semibold bg-slate-100 rounded-md p-4 shadow-md'>
-                  <div className="mb-4 text-2xl">{o.nombre}</div>
+                  <div className="mb-4 text-lg md:text-2xl">{o.nombre}</div>
                   <img src={o.imagen} />
-                <div className="mt-5 text-xl font-normal">Fecha: {o.fecha_text}</div>
-                <h2 className=" text-xl font-normal">Duración: {o.duracion} horas</h2>
-                <h2 className=" text-xl font-normal">Horario: {o.horario} horas</h2>
+                  <div className='text-md md:text-xl font-normal'>
+                    <div className="mt-5">Fecha: {o.fecha_text}</div>
+                    <h2>Duración: {o.duracion} horas</h2>
+                    <h2>Horario: {o.horario} horas</h2>
+                  </div>
                 </div>
               </div>
             ))}
@@ -98,18 +100,18 @@ const Orders = () => {
 
           <div className="mt-7">
             <div className="mt-6 text-2xl font-normal text-blueDarkCustom text-center"><span className='font-bold'>Fecha:</span> {dayjs(orderData?.order?.fecha).format('DD-MM-YYYY')}</div>
-            <div className="text-2xl font-normal text-blueDarkCustom text-center mb-10 mt-1"><span className='font-bold'>Total:</span> ${Thousands(orderData?.order?.total)}</div>
+            <div className="text-2xl font-normal text-blueDarkCustom text-center mb-0 md:mb-10 mt-1"><span className='font-bold'>Total:</span> ${Thousands(orderData?.order?.total)}</div>
           </div>
 
           <div className="mt-6 m-auto" >
-            <div className="mt-6 text-2xl font-bold bg-blueConsufarma text-white text-center mb-2 p-3 rounded-md">En breve recibirás un correo con los datos de tu compra</div>
+            <div className="mt-6 text-md md:text-2xl font-bold bg-blueConsufarma text-white text-center mb-2 p-3 rounded-md mx-5 md:mx-0">En breve recibirás un correo con los datos de tu compra</div>
           </div>
-          <div className='m-auto text-center'>
-          <button type="button" onClick={returnToHome}>
-            <h2 className="mb-6 text-xl font-semibold bg-redConsufarma text-white cursor-pointer text-center p-5 rounded-md shadow-lg ">
-              Seguir comprando
-            </h2>
-          </button>
+          <div className='m-auto text-center mt-4 md:mt-0'>
+            <button type="button" onClick={returnToHome}>
+              <h2 className="mb-6 text-xl font-semibold bg-redConsufarma text-white cursor-pointer text-center p-5 rounded-md shadow-lg ">
+                Seguir comprando
+              </h2>
+            </button>
           </div>
           
         </div>

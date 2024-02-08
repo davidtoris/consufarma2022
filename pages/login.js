@@ -44,19 +44,19 @@ const Login = () => {
     <div className='flex flex-col justify-between'>
       {/* <NavBar /> */}
       <div className='flex max-h-[638px]'>
-        <div className='w-6/12 bg-cover' style={{backgroundImage: 'url(https://res.cloudinary.com/drq8o9k36/image/upload/v1701922237/Captura_de_pantalla_2023-12-06_a_la_s_10.09.27_p.m._oydfzk.png)'}}>
+        <div className='w-6/12 bg-cover hidden md:block' style={{backgroundImage: 'url(https://res.cloudinary.com/drq8o9k36/image/upload/v1701922237/Captura_de_pantalla_2023-12-06_a_la_s_10.09.27_p.m._oydfzk.png)'}}>
           <img src='' />
         </div>
-        <div className='w-6/12'>
-          <div className='font-body mb-28 mt-14'>
+        <div className='w-12/12 md:w-6/12'>
+          <div className='font-body mb-5 md:mb-28 mt-5 md:mt-14'>
 
-              <div className='text-center '>
+              <div className='text-center mx-4 md:mx-0'>
                 <Link href="/">
                   <Image src={logo} cla ssName='cursor-pointer' alt="logo-consufarma" width={450} height={80} className='cursor-pointer'/>
                 </Link>
               </div>
             
-              <div className=' md:px-0 px-3 flex-1 rounded-xl'>
+              <div className='flex-1 rounded-xl'>
                 <div className="">
                   <Formik
                     initialValues={{
@@ -68,8 +68,8 @@ const Login = () => {
                       dispatch(authLogin(dispatch, valores))
                     }}>
                     {({ errors }) => (
-                      <Form className=" p-5 flex justify-center flex-col">
-                        <h2 className='text-3xl font-bold mb-5 text-blueConsufarma text-center'>Inicia sesión</h2>
+                      <Form className=" p-0 md:p-5 flex justify-center flex-col">
+                        <h2 className='text-3xl font-bold mb-5 text-blueConsufarma text-center mt-2'>Inicia sesión</h2>
                         
                         <div className='mb-1 m-auto w-10/12'>
                           <div className='text-left text-blueConsufarma font-bold text-lg ml-2 mt-2 mb-1'>Correo:</div>
@@ -110,12 +110,12 @@ const Login = () => {
                         </div>
 
                         <div className='m-auto w-10/12 text-center'>
-                          <button type="submit" className="btn btn-primary bg-redConsufarma text-white border-0 w-4/12 p-2  text-1xl rounded font-bold shadow-xl mt-4 mb-6">
+                          <button type="submit" className="btn btn-primary bg-redConsufarma text-white border-0 w-6/12 md:w-4/12 p-2 text-1xl rounded font-bold shadow-xl mt-4 mb-6">
                             {userLoading ? <Loader /> : 'Iniciar sesión'}
                           </button>
                         </div>
                         
-                        <div className='text-center cursor-pointer'>
+                        <div className='text-center cursor-pointer mb-3'>
                           <div onClick={handleRegister}>
                             <span className='underline underline-offset-1 hover:text-blueLightCustom text-blueConsufarma'> ¿No tienes cuenta? Regístrate</span>
                           </div>
@@ -131,8 +131,8 @@ const Login = () => {
                 </div>
               </div>
 
-        </div>
-        </div>
+            </div>
+          </div>
         </div>
       <Footer />
     </div>

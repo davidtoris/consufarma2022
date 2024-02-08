@@ -69,17 +69,15 @@ const Registro = () => {
   }, [userRegister])
 
   return (
-    <div className='flex flex-col justify-between'>
+    <div className='flex flex-col justify-between '>
       {/* <NavBar /> */}
       <div className='flex max-h-[638px]'>
-        <div className='w-6/12 bg-cover' style={{backgroundImage: 'url(https://res.cloudinary.com/drq8o9k36/image/upload/v1701922237/Captura_de_pantalla_2023-12-06_a_la_s_10.09.27_p.m._oydfzk.png)'}}>
-          <img src='' />
-        </div>
-        <div className='w-6/12 overflow-scroll pb-2'>  
+        <div className='w-6/12 bg-cover hidden md:block' style={{backgroundImage: 'url(https://res.cloudinary.com/drq8o9k36/image/upload/v1701922237/Captura_de_pantalla_2023-12-06_a_la_s_10.09.27_p.m._oydfzk.png)'}} />
+        <div className='w-full md:w-6/12 overflow-scroll pb-2'>  
           <div className='font-body'>
               <div className=' md:px-0 px-3 flex-1 rounded-xl'>
                 <div className="mt-0 sm:mt-5">
-                <Formik
+                  <Formik
                     initialValues={{
                       pfisica: 'true',
                       correo: '',
@@ -107,12 +105,12 @@ const Registro = () => {
                         }, [values.pfisica])
 
                     return (
-                      <Form className=" p-5 flex justify-center flex-col">
+                      <Form className="p-0 md:p-5 flex justify-center flex-col ">
 
                       <h2 className='text-4xl font-bold mb-5 text-blueConsufarma text-center'>Regístrate</h2>
 
                       <div className='flex mb-10 m-auto'>
-                        <div className={`${values.pfisica === 'true' ? 'bg-blueConsufarma text-white' : '' } rounded-md border border-nobel py-2 pl-2 pr-5 mr-10 ml-10 cursor-pointer`}>
+                        <div className={`${values.pfisica === 'true' ? 'bg-blueConsufarma text-white' : '' } rounded-md border border-nobel py-2 pl-2 pr-5 mr-2 md:mr-10 ml-0 md:ml-2 md:ml-10 cursor-pointer`}>
                           <Field 
                             type="radio"
                             name="pfisica"
@@ -134,42 +132,43 @@ const Registro = () => {
                           <label className='cursor-pointer' htmlFor="pmoral">Persona Moral</label>
                         </div>
                       </div>
-
-                      {isPersonaFisica && (
-                        <div className='mb-1 m-auto w-8/12'>
-                          <div className='text-left text-blueConsufarma font-semibold text-lg ml-2'> 
-                            Nombre:
+                      
+                      <div className='w-11/12 md:w-81/12 m-auto'>
+                        {isPersonaFisica && (
+                          <div className='mb-1'>
+                            <div className='text-left text-blueConsufarma font-semibold text-lg ml-2'> 
+                              Nombre:
+                            </div>
+                            <div className="">
+                              <Field 
+                                type="text" 
+                                name="nombre" 
+                                className="text-lg pl-3 text-gray-700 border-2 border-gray-200 w-full rounded-lg pt-1 px-3 pb-1.5 shadow-md" />
+                              <ErrorMessage
+                                name="nombre"
+                                component={() => (
+                                  <div className="text-orangeCustom text-xs ml-2 mt-2">{ errors.nombre }</div>)} />
+                            </div>
                           </div>
-                          <div className="">
-                            <Field 
-                              type="text" 
-                              name="nombre" 
-                              className="text-lg pl-3 text-gray-700 border-2 border-gray-200 w-full rounded-lg pt-1 px-3 pb-1.5 shadow-md" />
-                            <ErrorMessage
-                              name="nombre"
-                              component={() => (
-                                <div className="text-orangeCustom text-xs ml-2 mt-2">{ errors.nombre }</div>)} />
+                        )}
+                      
+                        {!isPersonaFisica && (
+                          <div className='mb-1'>
+                            <div className='text-left text-blueConsufarma font-semibold text-lg ml-2 mt-2'>Persona de Contacto:</div>
+                            <div className="">
+                              <Field 
+                                type="text" 
+                                name="pcontacto" 
+                                className="text-lg pl-3 text-gray-700 border-2 border-gray-200 w-full rounded-lg pt-1 px-3 pb-1.5 shadow-md" />
+                              <ErrorMessage
+                                name="pcontacto"
+                                component={() => (
+                                  <div className="text-orangeCustom text-xs ml-2 mt-2">{ errors.pcontacto }</div>)} />
+                            </div>
                           </div>
-                        </div>
-                      )}
-
-                      {!isPersonaFisica && (
-                        <div className='mb-1 m-auto w-8/12'>
-                          <div className='text-left text-blueConsufarma font-semibold text-lg ml-2 mt-2'>Persona de Contacto:</div>
-                          <div className="">
-                            <Field 
-                              type="text" 
-                              name="pcontacto" 
-                              className="text-lg pl-3 text-gray-700 border-2 border-gray-200 w-full rounded-lg pt-1 px-3 pb-1.5 shadow-md" />
-                            <ErrorMessage
-                              name="pcontacto"
-                              component={() => (
-                                <div className="text-orangeCustom text-xs ml-2 mt-2">{ errors.pcontacto }</div>)} />
-                          </div>
-                        </div>
-                      )}
+                        )}
                         
-                        <div className='mb-1 m-auto w-8/12'>
+                        <div className='mb-1'>
                           <div className='text-left text-blueConsufarma font-semibold text-lg ml-2 mt-2'>Correo:</div>
                           <div className="">
                             <Field 
@@ -183,7 +182,7 @@ const Registro = () => {
                           </div>
                         </div>
 
-                        <div className='mb-1 m-auto w-8/12'>
+                        <div className='mb-1'>
                           <div className='text-left text-blueConsufarma font-semibold text-lg ml-2 mt-2'>Contraseña:</div>
                           <div className="">
                             <Field 
@@ -197,7 +196,7 @@ const Registro = () => {
                           </div>
                         </div>
 
-                        <div className='mb-1 m-auto w-8/12'>
+                        <div className='mb-1'>
                           <div className='text-left text-blueConsufarma font-semibold text-lg ml-2 mt-2'>País:</div>
                           <div className="">
                             <Field 
@@ -213,7 +212,7 @@ const Registro = () => {
 
                         {!isPersonaFisica && (
                           <>
-                            <div className='mb-1 m-auto w-8/12'>
+                            <div className='mb-1'>
                               <div className='text-left text-blueConsufarma font-semibold text-lg ml-2 mt-2'>Empresa:</div>
                               <div className="">
                                 <Field 
@@ -227,7 +226,7 @@ const Registro = () => {
                               </div>
                             </div>
 
-                            <div className='mb-1 m-auto w-8/12'>
+                            <div className='mb-1'>
                               <div className='text-left text-blueConsufarma font-semibold text-lg ml-2 mt-2'>Razón Social:</div>
                               <div className="">
                                 <Field 
@@ -241,7 +240,7 @@ const Registro = () => {
                               </div>
                             </div>
     
-                            <div className='mb-1 m-auto w-8/12'>
+                            <div className='mb-1'>
                               <div className='text-left text-blueConsufarma font-semibold text-lg ml-2 mt-2'>RFC / RUC:</div>
                               <div className="">
                                 <Field 
@@ -257,7 +256,7 @@ const Registro = () => {
                           </>
                         )}
 
-                        <div className='mb-1 m-auto w-8/12'>
+                        <div className='mb-1'>
                           {userErrorMsg && (
                             <div className="text-red-600 text-md ml-2 mt-2">
                               {userErrorMsg}
@@ -267,18 +266,19 @@ const Registro = () => {
 
                         <div className='m-auto w-6/12 text-center'>
                           <button type="submit" className="btn btn-primary bg-redConsufarma text-white border-0 w-10/12 p-2 text-1xl
-                           rounded-md font-bold shadow-xl mt-6 mb-6">
+                          rounded-md font-bold shadow-xl mt-6 mb-6">
                             {userLoading ? <Loader /> : 'Crear cuenta'}
                           </button>
                         </div>
                         
-                        <div className='text-center cursor-pointer'>
+                        <div className='text-center cursor-pointer mb-4 md:mb-0'>
                           <Link href="/login">
                             <span className='underline underline-offset-1 hover:text-blueLightCustom'> ¿Ya tienes cuenta? Inicia sesión</span>
                           </Link>
                         </div>
-                      </Form>
-                    )}}
+                      </div>
+                    </Form>
+                  )}}
                   </Formik>
                 </div>
               </div>
