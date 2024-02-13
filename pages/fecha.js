@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { API_BASE_URL } from '../src/constants';
-import { addCourses, addSpecialities } from '../store/slices/Courses/CoursesSlice';
+import { addCourses } from '../store/slices/Courses/CoursesSlice';
+import { addSpecialities } from '../store/slices/Speciality/SpecialitiesSlice';
 
 
 import CarouselSection from '../src/containers/Carousel';
