@@ -160,7 +160,7 @@ const NavBar = () => {
             {/* ************** */}
           
           
-          <a href="../calendario-2024.pdf">
+          <a href="../calendario.pdf">
             <div className="px-4 cursor-pointer hidden md:inline">
               Calendario
             </div>
