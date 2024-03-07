@@ -438,7 +438,7 @@ const Carrito = ({ hoursData, peopleData }) => {
                   <div className='font-bold text-xl ml-2'>Precio más Impuestos:</div>
                   <div className='font-normal ml-2 mb-3'>${Thousands(precioMasIVA)}</div>
   
-                  <div className='font-bold text-xl ml-2'>Descuento × No. cursos adquiridos:</div>
+                  <div className='font-bold text-xl ml-2'>Descuento × No. total de horas solicitadas:</div>
                   <div className='font-normal ml-2 mb-3'>Ahorraste un ${discountTotalHoursPercent}%</div>
   
                   <div className='font-bold text-xl ml-2 mb-2'>Cupón de descuento</div>
