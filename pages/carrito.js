@@ -3,7 +3,7 @@ import NavBar from '../src/components/NavBar'
 import { API_BASE_URL } from '../src/constants';
 import { Thousands } from '../src/helpers/Thousands';
 import axios from 'axios';
-import { PayPalButtons } from "@paypal/react-paypal-js";
+import { PayPalButtons, usePayPalScriptReducer } from "@paypal/react-paypal-js";
 import Link from 'next/link';
 import Cookies from 'js-cookie'
 import Spinner from '../src/components/spinner';
@@ -16,7 +16,7 @@ import { IoTrashOutline } from "react-icons/io5";
 const Carrito = ({ hoursData, peopleData }) => {
 
   const router = useRouter();
-  const dispatch = useDispatch();
+  const dispatchTemp = useDispatch();
 
   const [cartItems, setCartItems] = useState([]);
   const [cuponText, setCuponText] = useState('');
@@ -81,10 +81,10 @@ const Carrito = ({ hoursData, peopleData }) => {
 
   useEffect(() => {
     const storedCart = JSON.parse(localStorage.getItem('cart'));
-    dispatch(addItem(storedCart.length))
+    dispatchTemp(addItem(storedCart.length))
   }, [cartItems]);
 
-  const [typeMoney, setTypeMoney ] = useState('MX');
+  const [typeMoney, setTypeMoney ] = useState('MXN');
   const [businessPersonalF3, setBusinessPersonalF3 ] = useState(0.83);
 
   const updateQuantity = (id, value) => {
@@ -98,11 +98,11 @@ const Carrito = ({ hoursData, peopleData }) => {
     const updatedItems = [...cartItems];
     
     // Constants
-    const priceMX = updatedItems[itemIndex].precio;
+    const priceMXN = updatedItems[itemIndex].precio;
     const priceUSD = updatedItems[itemIndex].precioUSD;
 
     let priceSelected
-    typeMoney === 'MX' ? priceSelected = priceMX : priceSelected = priceUSD
+    typeMoney === 'MXN' ? priceSelected = priceMXN : priceSelected = priceUSD
     
     const discountPercent = updatedItems[itemIndex].descuento;
     const discountCourseF1 = (100 - discountPercent) / 100;
@@ -123,7 +123,7 @@ const Carrito = ({ hoursData, peopleData }) => {
     })
   }, [cartItems]);
 
-  // Actualizar valores (Business and People / MXN and USD)
+  // Actualizar valores (Business and People / MXNN and USD)
   useEffect(() => {
     cartItems.map( m => updateQuantity(m._id, m.cantidad))
   }, [businessPersonalF3, typeMoney]);
@@ -181,11 +181,11 @@ const Carrito = ({ hoursData, peopleData }) => {
     await axios.get(`${API_BASE_URL}/pays/payOrder/${order}?idOrder=${idOrder}&cupon=${localStorage.getItem('cuponId')}`)
     .then((resp) => {
       const { data } = resp;
-      dispatch(orderSuccess(data))
+      dispatchTemp(orderSuccess(data))
       router.push("/orders")
     })
     .catch((err) => {
-      dispatch(orderError(err.response.data.message))
+      dispatchTemp(orderError(err.response.data.message))
       router.push("/orders")
     });
     setLoadingPay(false);
@@ -199,8 +199,22 @@ const Carrito = ({ hoursData, peopleData }) => {
   }, [total])
 
   const [showResume, setShowResume] = useState(false)
-  
 
+  const [{ options }, dispatch] = usePayPalScriptReducer();
+  const onCurrencyChange = () => {
+    dispatch({
+        type: "resetOptions",
+        value: {
+            ...options,
+            currency: typeMoney,
+        },
+    });
+  }
+
+  useEffect(() => {
+    onCurrencyChange()
+  }, [typeMoney])
+  
   return (
     <>
       <NavBar />
@@ -213,8 +227,7 @@ const Carrito = ({ hoursData, peopleData }) => {
         <div>
           {cartItems.length ? (
             <div className='max-w-7xl mx-auto container pb-40 text-blueConsufarma mt-3 md:mt-10'>
-              <div className='flex p-2'>
-
+              <div className='flex'>
                 <div className='text-sm md:text-base flex text-center'>
                   <label className={`cursor-pointer p-3 rounded-md ${businessPersonalF3 === 0.83 ? 'bg-blueConsufarma text-white' : 'text-blueConsufarma border-2 border-blueConsufarma'} `}>
                     <button type="button" name='precio' onClick={() => setBusinessPersonalF3(0.83)} /> 
@@ -225,13 +238,11 @@ const Carrito = ({ hoursData, peopleData }) => {
                     <button type="button" name='precio'  onClick={() => setBusinessPersonalF3(1)} className=''/>
                     <span className=''> Precio a empresa / </span> por participante
                   </label>
-                </div>
-  
-                <div className='ml-24 hidden'>
-                  <label className={`cursor-pointer p-3 rounded-md ${typeMoney === `MX` ? 'bg-gray-500 text-white' : 'text-blueConsufarma border-2 border-blueConsufarma'}`}>
-                    <button type="button" name="coin" onClick={() => setTypeMoney('MX')} /> <span className='font-bold'> MX </span>
+
+                  <label className={`ml-10 cursor-pointer p-3 rounded-md ${typeMoney === `MXN` ? 'bg-blueConsufarma text-white' : 'text-blueConsufarma border-2 border-blueConsufarma'}`}>
+                    <button type="button" name="coin" onClick={() => setTypeMoney('MXN')} /> <span className='font-bold'> MXN </span>
                   </label>
-                  <label className={`cursor-pointer p-3 rounded-md ml-5 ${typeMoney === `USD` ? 'bg-gray-500 text-white' : 'text-blueConsufarma border-2 border-blueConsufarma'}`}>
+                  <label className={`cursor-pointer p-4 rounded-md ml-5 ${typeMoney === `USD` ? 'bg-blueConsufarma text-white' : 'text-blueConsufarma border-2 border-blueConsufarma'}`}>
                     <button type="button" name="coin" className='' onClick={() => setTypeMoney('USD')} /> USD
                   </label>
                 </div>
@@ -280,7 +291,7 @@ const Carrito = ({ hoursData, peopleData }) => {
                         <div className='w-6/12 font-bold text-md flex items-center justify-center text-left'>
                           <div>
                             <div>
-                              Precio: ${typeMoney === 'MX' ? Thousands(i.precio) : i.precioUSD}
+                              Precio: ${typeMoney === 'MXN' ? Thousands(i.precio) : i.precioUSD}
                             </div>
                             <div className='flex items-center my-2'>
                               <div className='mr-2'>Cantidad:</div>
@@ -298,7 +309,7 @@ const Carrito = ({ hoursData, peopleData }) => {
                               </select>
                             </div>
                             <div className='font-bold text-base text-blueLightCustom'>
-                              Descuento: {i.descuentoTotal}%  
+                              Descuento: {i.descuentoTotal}%
                             </div>
                             <div className='font-bold text-base mt-2'>
                               Total: ${Thousands(i.total)}
@@ -322,7 +333,7 @@ const Carrito = ({ hoursData, peopleData }) => {
                           <div>{`${i.duracion}h (${i.horario})`}</div>
                         </div>
                         <div className='w-3/12 font-bold text-md md:text-2xl'>
-                          ${typeMoney === 'MX' ? Thousands(i.precio) : i.precioUSD}
+                          ${typeMoney === 'MXN' ? Thousands(i.precio) : i.precioUSD}
                         </div>
                         <div className='w-1/12'>
                           <select className='bg-blueConsufarma p:0 md:p-1 rounded-md text-white text-md md:text-2xl' name="select" value={i.cantidad} onChange={(e) => updateQuantity(i._id, e.target.value)}>
@@ -333,11 +344,14 @@ const Carrito = ({ hoursData, peopleData }) => {
                             <option value="5">5</option>
                             <option value="6">6</option>
                             <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="9">9</option>
+                            <option value="10">10</option>
                           </select>
                           {/* <input className=' text-xl p-2' type="number" value={i.cantidad} onChange={(e) => updateQuantity(i._id, e.target.value)} /> */}
                         </div>
                         <div className='w-2/12 font-bold text-md md:text-2xl'>
-                        {i.descuentoTotal}%  
+                        {i.descuentoTotal}%
                         </div>
                         <div className='w-2/12 font-bold text-md md:text-2xl'>
                           ${Thousands(i.total)}
@@ -365,7 +379,7 @@ const Carrito = ({ hoursData, peopleData }) => {
                     <div className='font-bold text-lg ml-2'>Precio más Impuestos:</div>
                     <div className='font-normal ml-2 mb-2'>${Thousands(precioMasIVA)}</div>
     
-                    <div className='font-bold text-lg ml-2'>Descuento × No. cursos adquiridos:</div>
+                    <div className='font-bold text-lg ml-2'>Descuento × No. total de horas solicitadas:</div>
                     <div className='font-normal ml-2 mb-2'>Ahorraste un ${discountTotalHoursPercent}%</div>
     
                     <div className='font-bold text-lg ml-2'>Cupón de descuento</div>
@@ -401,7 +415,6 @@ const Carrito = ({ hoursData, peopleData }) => {
                             purchase_units: [{
                               amount: {
                                 value: localStorage.getItem('totalFinal'),
-                                currency_code: 'MXN',
                               }
                             }]
                           })
@@ -457,12 +470,10 @@ const Carrito = ({ hoursData, peopleData }) => {
                     <PayPalButtons 
                       style={{ layout: "vertical" }} 
                       createOrder={( data, actions ) => {
-                        
                         return actions.order.create({
                           purchase_units: [{
                             amount: {
                               value: localStorage.getItem('totalFinal'),
-                              currency_code: 'MXN',
                             }
                           }]
                         })

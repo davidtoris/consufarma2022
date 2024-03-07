@@ -48,7 +48,6 @@ const NavBar = () => {
     Cookies.remove('user');
   }
 
-  console.log(showMenu)
   return (
     <div className='header-content no-print'>
       <Head>
