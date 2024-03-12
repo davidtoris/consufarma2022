@@ -215,17 +215,17 @@ const ItemCourse = ({curso}) => {
                 </button>
                 </Link>
                 <a href={register} target="blank">
+                <button className='bg-redConsufarma rounded-xl text-white font-bold text-lg w-11/12 uppercase my-3 p-2'>
+                  Regístrate
+                </button>
+                </a>
                 {!disponible && (
                   <>
-                    <button className='bg-redConsufarma rounded-xl text-white font-bold text-lg w-11/12 uppercase my-3 p-2'>
-                      Regístrate
-                    </button>
                     <div>
                       Con tu inscripción estamos más cerca de tener el mínimo de participantes para aperturar el curso, te estaremos avisando si el curso se abre en la fecha programada o se reprograma para que puedas realizar tu compra.
                     </div>
                   </>
                 )}
-                </a>
               </div>
               
               <div className='flex justify-center flex-col text-center mt-2'>
