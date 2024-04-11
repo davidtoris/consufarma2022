@@ -51,7 +51,7 @@ const Thanks = () => {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen py-2 bg-gray-100">
       {/* <img src="..//logo.png" width="600px" className='my-5 m-auto'/> */}
-      <img src="https://res.cloudinary.com/drq8o9k36/image/upload/v1712849239/reto/Captura_de_pantalla_2024-04-11_a_la_s_9.16.37_a.m._v4umfy.png" width="300px" className='my-5 m-auto'/>
+      <img src="https://res.cloudinary.com/drq8o9k36/image/upload/v1712871699/reto/Captura_de_pantalla_2024-04-11_a_la_s_3.41.26_p.m._nei3hm.png" width="300px" className='my-5 m-auto'/>
       <div className='text-center'>
         <div className='text-redConsufarma p-3 text-5xl font-extrabold'>
           Agradecemos tu interés para éste Webinar
@@ -93,13 +93,16 @@ const Thanks = () => {
         22 de Abril de 2024
         </div>
         <div className='text-gray-500 text-2xl font-italic my-2'>
-          Argentina - 15 h <br></br>
+          CDMX - 15h <br></br>
         </div>
         <div className='text-gray-500 text-2xl font-italic my-2'>
-          Colombia - 15 h <br></br>
+          Colombia - 16h <br></br>
         </div>
         <div className='text-gray-500 text-2xl font-italic my-2'>
-          Rep. Dominacana - 15 h <br></br>
+          Chile - 17h <br></br>
+        </div>
+        <div className='text-gray-500 text-2xl font-italic my-2'>
+          Argentina - 18h <br></br>
         </div>
         
         <div className='text-blueConsufarma text-3xl font-extrabold my-10'>
