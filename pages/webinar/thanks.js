@@ -38,7 +38,7 @@ const Thanks = () => {
     // const coursesData = await axios.get(`${API_BASE_URL}/courses/fundamentos-y-aplicacion-de-los-metodos-farmacopeicos-y-calculos-criticos-empleados-en-el-analisis-farmaceutico`);
     // setCoursesSpeker(coursesData.data.course);
     
-    const coursesData = await axios.get(`${API_BASE_URL}/courses/especialidad/6312576268423e81ea97df00`);
+    const coursesData = await axios.get(`${API_BASE_URL}/courses/especialidad/63128fb30e17f3e5fe489d19`);
     setCoursesSpeker(coursesData.data.courseSpecialitty);
   }
   
@@ -50,11 +50,11 @@ const Thanks = () => {
   
   return (
     <div className="flex flex-col items-center justify-center min-h-screen py-2 bg-gray-100">
-      <img src="..//logo.png" width="600px" className='my-5 m-auto'/>
-      <img src="https://res.cloudinary.com/drq8o9k36/image/upload/v1694135276/reto/banner_cuadrado_z9p0ro.png" width="300px" className='my-5 m-auto'/>
+      {/* <img src="..//logo.png" width="600px" className='my-5 m-auto'/> */}
+      <img src="https://res.cloudinary.com/drq8o9k36/image/upload/v1712849239/reto/Captura_de_pantalla_2024-04-11_a_la_s_9.16.37_a.m._v4umfy.png" width="300px" className='my-5 m-auto'/>
       <div className='text-center'>
         <div className='text-redConsufarma p-3 text-5xl font-extrabold'>
-          ¡Gracias por tu registro al Webinar!
+          Agradecemos tu interés para éste Webinar
         </div>
 
         { emailSended === '' ? (
@@ -81,14 +81,8 @@ const Thanks = () => {
         }
         
         <div className='text-gray-600 p-3 text-xl font-extrabold mt-5 w-10/12 sm:w-6/12 m-auto'>
-          <ul>  
-            <li>¿Qué necesito para pensionarme? </li>
-            <li>¿Cómo se calcula la pensión? </li>
-            <li>Aspectos clave que no debes descuidar </li>
-            <li>¿Cómo mejorar tu pensión? </li>
-            <li>Errores comunes que disminuyen tu pensión Empodérate </li>
-            <li>Toma las mejores decisiones para maximizar tu pensión</li>
-          </ul>
+        Conocerá los elementos básicos a considerar para determinar la calidad deseada en un producto desde su diseño hasta el desarrollo del proceso de producción.
+          
         </div>
         
         {/* <div className='text-blueConsufarma p-3 text-xl font-extrabold mt-10'>
@@ -96,11 +90,18 @@ const Thanks = () => {
         </div> */}
         
         <div className='text-blueConsufarma text-3xl font-extrabold mt-5'>
-        19 de Septiembre 2023
+        22 de Abril de 2024
         </div>
         <div className='text-gray-500 text-2xl font-italic my-2'>
-          México - 16 h <br></br>
+          Argentina - 15 h <br></br>
         </div>
+        <div className='text-gray-500 text-2xl font-italic my-2'>
+          Colombia - 15 h <br></br>
+        </div>
+        <div className='text-gray-500 text-2xl font-italic my-2'>
+          Rep. Dominacana - 15 h <br></br>
+        </div>
+        
         <div className='text-blueConsufarma text-3xl font-extrabold my-10'>
           Cursos relacionados que pueden ser de tu interés:
         </div>    

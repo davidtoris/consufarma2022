@@ -39,7 +39,7 @@ const Results = () => {
         </thead>
         <tbody>
           {challenge !== undefined && (
-            challenge.filter((f) => f.tag === 'webinarSept').map(s => (
+            challenge.filter((f) => f.tag === 'webinarAbr24').map(s => (
               <tr className='border-2 text-center' key={s._id}>
                 <td className='border-2 p-2'>{s.fecha}</td>
                 <td className='border-2 p-2'>{s.nombre}</td>
