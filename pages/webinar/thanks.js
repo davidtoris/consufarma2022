@@ -64,7 +64,7 @@ const Thanks = () => {
                 <div>Te estaremos enviando un correo con el link para que puedas acceder</div>
               </div>
               <div className='text-blueConsufarma text-3xl font-extrabold italic my-4'>
-                ¿No lo recibiste? <br /> Revisa tu carpeta de correo no deseado
+                ¿No lo recibiste? <br /> Revisa tu carpeta de correo no deseado ó escríbenos a <span> <a className="underline" href="mailto:pedro.valadez@consufarma.com">pedro.valadez@consufarma.com</a></span>
               </div>
             </>
           ) : (
@@ -74,7 +74,7 @@ const Thanks = () => {
                 <div>Hemos enviado, al correo electrónico registrado, el enlace para que puedas acceder al webinar</div>
               </div>
               <div className='text-redConsufarma text-2xl font-extrabold italic my-4'>
-                ¿No lo recibiste? Revisa tu carpeta de correo no deseado
+                ¿No lo recibiste? Revisa tu carpeta de correo no deseado ó escríbenos a <span> <a className="underline" href="mailto:pedro.valadez@consufarma.com">pedro.valadez@consufarma.com</a></span>
               </div>
             </div>
           )
