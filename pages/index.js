@@ -156,7 +156,6 @@ const Calendario = ({specialities, cursosDate}) => {
 
       <div className='bg-blueConsufarma text-white p-3 text-center font-bold text-2xl'> 
         Cursos Cerrados para Empresas - Estos cursos se pueden impartir de manera cerrada para su empresa, vía zoom, a partir de 6 participantes.
-        <span className='font-normal'>Da click en el curso de tu interés para registrarte y se de seguimiento a la programación del curso</span>
       </div>
 
 
