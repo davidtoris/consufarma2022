@@ -153,6 +153,37 @@ const Calendario = ({specialities, cursosDate}) => {
           }
         </div>
       </div>
+
+      <div className='bg-blueConsufarma text-white p-3 text-center font-bold text-2xl'> 
+        Cursos Cerrados para Empresas - Estos cursos se pueden impartir de manera cerrada para su empresa, vía zoom, a partir de 6 participantes.
+        <span className='font-normal'>Da click en el curso de tu interés para registrarte y se de seguimiento a la programación del curso</span>
+      </div>
+
+
+      <div className='container m-auto px-2 md:px-2 mt-10'>
+        <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'>
+
+          {
+            allCoursesDate.filter(course => course.label === 'Cerrado').map(c => (
+              <div className='mb-7 m-auto' key={c.nombre}>
+                <CardCourse  
+                  link={`/cursos/${c.nombre_ruta}`}
+                  nombre={c.nombre}
+                  img={c.imagen}
+                  label=''
+                  ponente={c.ponente_uno_id.ponente}
+                  ponenteDos={c.ponente_dos_id.ponente}
+                  fecha={'CERRADO”'}
+                  fechaText={'CERRADO'}
+                  duracion={c.duracion}
+                  horario={c.horario}
+                />
+              </div>
+            ))
+          }
+        </div>
+      </div>
+
       <Footer />
     </>
   )

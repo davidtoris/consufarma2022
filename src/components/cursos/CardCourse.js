@@ -24,7 +24,6 @@ const CardCourse = ({link, nombre, img, label, ponente, ponenteDos, horario, fec
                 {fechaText === 'Programar' ? (
                   <div>Por programar: <span className='text-blueLightCustom'>“Inscríbete”</span></div>
                 ) : fechaText }
-                
               </div>
               <div className='font-bold mt-1 flex justify-center items-center'>
                 <FaClock className='w-4 h-4 ml-1 mr-1'/>
