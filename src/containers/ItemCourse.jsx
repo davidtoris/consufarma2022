@@ -142,9 +142,11 @@ const ItemCourse = ({curso}) => {
             <div dangerouslySetInnerHTML={Topics()} className='ml-2 mt-2 topic-html'/>
           </div>
 
-          <button className='bg-redConsufarma rounded-xl text-white text-center font-bold text-lg w-full uppercase my-3 p-2 flex justify-center md:hidden'>
-            Registráte
-          </button>
+          <a href={register} target="blank">
+            <button className='bg-redConsufarma rounded-xl text-white text-center font-bold text-lg w-full uppercase my-3 p-2 flex justify-center md:hidden'>
+              Regístrate
+            </button>
+          </a>
 
         </div>
         
