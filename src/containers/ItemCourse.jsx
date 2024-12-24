@@ -23,7 +23,7 @@ const ItemCourse = ({curso}) => {
 
   const { allBasket } = useSelector((state) => state.basket);
 
-  const { _id, nombre, nombre_ruta, fecha, fecha_text, duracion, horario, especialidad_id, ponente_uno_id, ponente_dos_id, objetivo, temario, precio, precioUSD, descuento, imagen, register, lugar, disponible } = curso;
+  const { _id, nombre, nombre_ruta, fecha, fecha_text, duracion, horario, especialidad_id, ponente_uno_id, ponente_dos_id, objetivo, temario, precio, precioUSD, descuento, imagen, register, lugar, disponible, label } = curso;
   const { ponente, ponente_cv, ponente_img } = ponente_uno_id;
   const { ponente: ponente_dos, ponente_cv: ponente_cv_dos, ponente_img: ponente_img_dos } = ponente_dos_id;
 
@@ -222,21 +222,26 @@ const ItemCourse = ({curso}) => {
                   Imprimir Temario
                 </button>
                 </Link>
-                <a href={register} target="blank">
-                <button className='bg-redConsufarma rounded-xl text-white font-bold text-lg w-11/12 uppercase my-3 p-2'>
-                  Regístrate
-                </button>
-                </a>
+                {label === "Cerrado" ? (
+                    <></>
+                ) : (
+                  <a href={register} target="blank">
+                    <button className='bg-redConsufarma rounded-xl text-white font-bold text-lg w-11/12 uppercase my-3 p-2'>
+                      Regístrate
+                    </button>
+                  </a>
+                )}
+                
                 {!disponible && (
                   <>
-                    <div>
+                    <div className='mt-2'>
                       Con tu inscripción estamos más cerca de tener el mínimo de participantes para aperturar el curso, te estaremos avisando si el curso se abre en la fecha programada o se reprograma para que puedas realizar tu compra.
                     </div>
                   </>
                 )}
               </div>
               
-              <div className='flex justify-center flex-col text-center mt-2'>
+              <div className='flex justify-center flex-col text-center '>
 
                 <div>
                   <a href={`https://api.whatsapp.com/send?phone=5215618003145&text=Hola, me gustaría mayor información del curso: ${nombre}`}>
