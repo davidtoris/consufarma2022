@@ -127,10 +127,17 @@ const ItemCourse = ({curso}) => {
             
             <div className='flex ml-1 md:ml-4 items-center'> 
               <FaCalendarAlt className='w-4 h-4 ml-3 mr-1'/>
-                {fecha > today ? fecha_text : 'Por Programar'}
+                {fecha > today && fecha_text}
+                {fecha < today && label !== 'Cerrado' && 'Por Programar'}
+                {fecha < today && label === 'Cerrado' && 'Fecha de acuerdo a tus requerimientos'}
             </div>
           </div>
-          
+
+          {label === 'Cerrado' && (
+            <div className='text-blueConsufarma mt-2'>
+              <div className='font-bold'>Nota:</div>
+              <div className='font-semibold'>Este curso se puede impartir de manera cerrada para tu empresa, vía zoom, a partir de 6 participantes.</div></div>
+          )}  
           
           <h2 className='text-2xl text-blueConsufarma uppercase font-bold mt-10 border-b-4 border-redConsufarma w-24'>objetivos</h2>
           <ul className='ml-2 mt-2 text-gray-600 mb-7 objectives-html'>
@@ -139,7 +146,7 @@ const ItemCourse = ({curso}) => {
 
           <a href={register} target="blank">
             <button className='bg-redConsufarma rounded-xl text-white text-center font-bold text-lg w-full uppercase my-3 p-2 flex justify-center md:hidden'>
-              Regístrate
+              {label === 'Cerrado' ? 'Cotiza tu curso' : 'Regístrate'} 
             </button>
           </a>
 
@@ -147,10 +154,10 @@ const ItemCourse = ({curso}) => {
             <h2 className='text-2xl text-blueConsufarma uppercase font-bold mt-10 mb-7 border-b-4 border-redConsufarma w-24'>Temario</h2>
             <div dangerouslySetInnerHTML={Topics()} className='ml-2 mt-2 topic-html'/>
           </div>
-
+          
           <a href={register} target="blank">
             <button className='bg-redConsufarma rounded-xl text-white text-center font-bold text-lg w-full uppercase my-3 p-2 flex justify-center md:hidden'>
-              Regístrate
+             {label === 'Cerrado' ? 'Cotiza tu curso' : 'Regístrate'} 
             </button>
           </a>
 
@@ -204,7 +211,7 @@ const ItemCourse = ({curso}) => {
               <div className='bg-gray-100 px-5 py-4 rounded-md text-center mt-10'>
                 <div className='text-grayCustom font-bold mt-2'> Precio a empresas: </div>
                 <div className='text-grayCustom font-light'> (Por participante) </div>
-                <div className='font-bold text-3xl mt-3'>${Thousands(precio)} + Impuestos</div>
+                {/* <div className='font-bold text-3xl mt-3'>${Thousands(precio)} + Impuestos</div> */}
                 <div className='text-grayCustom font-bold mt-3'> 
                   Pago personal: Pregunta por nuestro precio especial y opción a 3 meses sin interéses
                 </div>
@@ -222,19 +229,17 @@ const ItemCourse = ({curso}) => {
                   Imprimir Temario
                 </button>
                 </Link>
-                {label === "Cerrado" ? (
-                    <></>
-                ) : (
-                  <a href={register} target="blank">
-                    <button className='bg-redConsufarma rounded-xl text-white font-bold text-lg w-11/12 uppercase my-3 p-2'>
-                      Regístrate
-                    </button>
-                  </a>
-                )}
+                
+                <a href={register} target="blank">
+                  <button className='bg-redConsufarma rounded-xl text-white font-bold text-lg w-11/12 uppercase my-3 p-2'>
+                  {label === 'Cerrado' ? 'Cotiza tu curso' : 'Regístrate'} 
+                  </button>
+                </a>
+
                 
                 {!disponible && (
                   <>
-                    <div className='mt-2'>
+                    <div>
                       Con tu inscripción estamos más cerca de tener el mínimo de participantes para aperturar el curso, te estaremos avisando si el curso se abre en la fecha programada o se reprograma para que puedas realizar tu compra.
                     </div>
                   </>

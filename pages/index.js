@@ -173,7 +173,7 @@ const Calendario = ({specialities, cursosDate}) => {
                   ponente={c.ponente_uno_id.ponente}
                   ponenteDos={c.ponente_dos_id.ponente}
                   fecha={'CERRADO”'}
-                  fechaText={'CERRADO'}
+                  fechaText={'Programa tu Fecha'}
                   duracion={c.duracion}
                   horario={c.horario}
                 />
