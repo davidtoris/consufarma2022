@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Script from 'next/script'
 import { useDispatch, useSelector } from 'react-redux';
 import { addCoursesDate } from '../store/slices/Courses/CoursesSlice'
@@ -13,6 +13,9 @@ import Logotipos from '../src/components/logotipos';
 import CarouselSection from '../src/containers/Carousel';
 import { addSpecialities } from '../store/slices/Speciality/SpecialitiesSlice';
 import Modal from '../src/components/modal';
+import { useRouter } from 'next/router'
+import { TiArrowUpThick } from "react-icons/ti";
+import Link from 'next/link';
 
 
 const Calendario = ({specialities, cursosDate}) => {
@@ -21,6 +24,50 @@ const Calendario = ({specialities, cursosDate}) => {
   const { allCoursesDate, statusDate } = useSelector((state) => state.courses);
   const { allSpecialities } = useSelector((state) => state.specialities);
   const { selectSpeciality } = useSelector((state) => state.specialities);
+  
+  const [showUpArrow, setShowUpArrow] = useState(false);
+  
+  const inicioRef = useRef(null);
+  const cerradosRef = useRef(null);
+  const programarRef = useRef(null);
+  const {query: {section}} = useRouter()
+  
+  useEffect(() => {
+    if (section === "Inicio" && inicioRef.current) {
+      window.scrollTo({
+        top: inicioRef.current.offsetTop,
+        behavior: "smooth",
+      });
+    }
+    if (section === "Cerrados" && cerradosRef.current) {
+      window.scrollTo({
+        top: cerradosRef.current.offsetTop,
+        behavior: "smooth",
+      });
+    }
+    if (section === "Programar" && programarRef.current) {
+      window.scrollTo({
+        top: programarRef.current.offsetTop,
+        behavior: "smooth",
+      });
+    }
+  }, [section]);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 200) {
+        setShowUpArrow(true);
+      } else {
+        setShowUpArrow(false);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
 
   useEffect(() => {
     dispatch(addCoursesDate(cursosDate));
@@ -28,10 +75,11 @@ const Calendario = ({specialities, cursosDate}) => {
   });
   
   const today = moment().startOf('day').format()
+
   return (
     <>
+      <div className="container">
 
-        <div className="container">
         {/* <!-- Global site tag (gtag.js) - Google Analytics --> */}
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-QV34QL6593"
@@ -70,7 +118,8 @@ const Calendario = ({specialities, cursosDate}) => {
           `}
         </Script>
       </div>
-      <NavBar />
+
+      <NavBar ref={inicioRef} />
       <CarouselSection /> 
       <Logotipos />
       <Filter 
@@ -78,14 +127,21 @@ const Calendario = ({specialities, cursosDate}) => {
         active='fecha'
       />
       
+      {showUpArrow && (
+        <Link href="/?section=Inicio">
+          <div className={`hidden md:inline fixed bottom-10 right-8 bg-blueConsufarma p-2 z-10 cursor-pointer hover:scale-105 transform duration-500 ease-out shadow-lg transition-opacity
+          ${showUpArrow ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
+            <TiArrowUpThick className='text-4xl  text-white'/>
+          </div>
+        </Link>
+      )}
+      
       {/* <Modal /> */}
 
       <div className='container m-auto px-2 md:px-2 mt-10'>
         <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'>
-
           {
             selectSpeciality != '' ? allCoursesDate.filter(e => e.especialidad_id.especialidad === selectSpeciality).map(c => (
-
               <div className='mb-7 m-auto' key={c.nombre}>
                 <CardCourse  
                   link={`/cursos/${c.nombre_ruta}`}
@@ -124,15 +180,13 @@ const Calendario = ({specialities, cursosDate}) => {
         </div>
       </div>
 
-      <div className='bg-redConsufarma text-white p-3 text-center font-bold text-2xl'> 
+      <div className='bg-redConsufarma text-white p-3 text-center font-bold text-2xl' ref={programarRef}> 
         Cursos que se programan al llegar al mínimo de participantes. <br></br> 
         <span className='font-normal'>Da click en el curso de tu interés para registrarte y se de seguimiento a la programación del curso</span>
       </div>
 
-
       <div className='container m-auto px-2 md:px-2 mt-10'>
         <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'>
-
           {
             allCoursesDate.filter(course => course.fecha < today && course.label !== 'Cerrado').map(c => (
               <div className='mb-7 m-auto' key={c.nombre}>
@@ -154,14 +208,12 @@ const Calendario = ({specialities, cursosDate}) => {
         </div>
       </div>
 
-      <div className='bg-blueConsufarma text-white p-3 text-center font-bold text-2xl'> 
+      <div className='bg-blueConsufarma text-white p-3 text-center font-bold text-2xl' ref={cerradosRef}> 
         Cursos Cerrados para Empresas - Estos cursos se pueden impartir de manera cerrada para su empresa, vía zoom, a partir de 6 participantes.
       </div>
 
-
       <div className='container m-auto px-2 md:px-2 mt-10'>
         <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'>
-
           {
             allCoursesDate.filter(course => course.label === 'Cerrado').map(c => (
               <div className='mb-7 m-auto' key={c.nombre}>
