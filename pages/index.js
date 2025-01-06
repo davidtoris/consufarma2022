@@ -11,11 +11,14 @@ import Footer from '../src/containers/Footer';
 import Filter from '../src/components/filter'
 import Logotipos from '../src/components/logotipos';
 import CarouselSection from '../src/containers/Carousel';
+import LastCourses from '../src/containers/LastCourses';
 import { addSpecialities } from '../store/slices/Speciality/SpecialitiesSlice';
 import Modal from '../src/components/modal';
-import { useRouter } from 'next/router'
+import Router, { useRouter } from 'next/router'
 import { TiArrowUpThick } from "react-icons/ti";
 import Link from 'next/link';
+import CardCourseSmall from '../src/components/cursos/CardCourseSmall';
+import Cookies from 'js-cookie'
 
 
 const Calendario = ({specialities, cursosDate}) => {
@@ -73,6 +76,10 @@ const Calendario = ({specialities, cursosDate}) => {
     dispatch(addCoursesDate(cursosDate));
     dispatch(addSpecialities(specialities));
   });
+
+  useEffect(() => {
+    console.log(localStorage.getItem('lastCourses'))
+  }, []);
   
   const today = moment().startOf('day').format()
 
@@ -122,6 +129,11 @@ const Calendario = ({specialities, cursosDate}) => {
       <NavBar ref={inicioRef} />
       <CarouselSection /> 
       <Logotipos />
+
+      
+          <LastCourses />
+    
+
       <Filter 
         specialities={allSpecialities}
         active='fecha'
@@ -139,6 +151,7 @@ const Calendario = ({specialities, cursosDate}) => {
       {/* <Modal /> */}
 
       <div className='container m-auto px-2 md:px-2 mt-10'>
+        
         <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'>
           {
             selectSpeciality != '' ? allCoursesDate.filter(e => e.especialidad_id.especialidad === selectSpeciality).map(c => (
@@ -232,6 +245,12 @@ const Calendario = ({specialities, cursosDate}) => {
               </div>
             ))
           }
+        </div>
+      </div>
+
+      <div className='bg-gray-50 mt-4 mb-10'>
+        <div className='container m-auto px-2 md:px-2 pt-2'>
+          <LastCourses />
         </div>
       </div>
 

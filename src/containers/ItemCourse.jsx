@@ -11,9 +11,9 @@ import { FaCalendarAlt, FaClock, FaHardHat, FaBeer } from 'react-icons/fa';
 import { QuestionMarkCircleIcon, PrinterIcon, EmojiHappyIcon, DocumentIcon, AcademicCapIcon, ShoppingCartIcon } from '@heroicons/react/solid'
 import { useRouter } from 'next/router'
 import { useDispatch, useSelector } from 'react-redux';
-
 import { Thousands } from '../helpers/Thousands';
 import { addItem } from '../../store/slices/basketSlice';
+import CardCourseSmall from '../components/cursos/CardCourseSmall';
 
 const ItemCourse = ({curso}) => {
 
@@ -85,8 +85,7 @@ const ItemCourse = ({curso}) => {
   const addToBasket = () => {
     
     // Check if the item is already in the cart
-    const itemIndex = cartItems.findIndex(
-      (item) => item._id === _id);
+    const itemIndex = cartItems.findIndex((item) => item._id === _id);
       if (itemIndex === -1) {
         setCartItems([...cartItems, dataItem])
         dispatch(addItem(allBasket + 1))
@@ -96,6 +95,42 @@ const ItemCourse = ({curso}) => {
       alert('Item already exists in the cart.');
     }
   }
+  
+  const dataLastItem  = {
+    nombre_ruta,
+    nombre,
+    duracion,
+    lugar,
+    fecha,
+    fecha_text,
+    horario,
+    ponente,
+    ponenteDos: ponente_dos,
+    imagen,
+    _id,
+  }
+
+  const [lastItems, setLastItems] = useState(() => {
+    if (typeof window !== 'undefined') {
+      const storedItems = localStorage.getItem('lastCourses');
+      return storedItems ? JSON.parse(storedItems) : [];
+    }
+  });
+  
+  useEffect(() => {
+    localStorage.setItem('lastCourses', JSON.stringify(lastItems));
+  }, [lastItems]);
+
+  useEffect(() => {
+    // Check if the item is already exist
+    const itemIndex = lastItems.findIndex((item) => item._id === _id);
+    if (itemIndex === -1) {
+      // const updatedItems = ;
+      setLastItems([...lastItems, dataLastItem])
+      localStorage.setItem('lastCourses', JSON.stringify(lastItems ));
+    }
+  }, [])
+  
 
   return (
     <div className='no-print'>
@@ -338,7 +373,9 @@ const ItemCourse = ({curso}) => {
         ))}
         </div>
       </div>
-    </div>
+
+      </div>
+      
   )
 }
 
