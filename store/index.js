@@ -5,9 +5,11 @@ import resultsReducer from './slices/resultsSlice';
 import basketReducer from './slices/basketSlice';
 import orderReducer from './slices/OrderSlice';
 import authReducer from './slices/Auth/AuthSlice';
+import testReducer from './slices/Tests/TestSlice';
 
 const store = configureStore({
   reducer: {
+    tests: testReducer,
     auths: authReducer,
     orders: orderReducer,
     basket: basketReducer,
