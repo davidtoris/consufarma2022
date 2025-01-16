@@ -131,7 +131,7 @@ const Calendario = ({specialities, cursosDate}) => {
       <Logotipos />
 
       
-          <LastCourses />
+        {/* <LastCourses /> */}
     
 
       <Filter 
