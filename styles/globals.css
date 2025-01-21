@@ -334,9 +334,9 @@ padding: 1em 2em;
   height: 100vh;
 }
 
-.react-responsive-modal-modal {
+/* .react-responsive-modal-modal {
   max-width: 30% !important 
-}
+} */
 @media (max-width: 600px) {
   .react-responsive-modal-modal {
     padding: 5px !important;
@@ -348,9 +348,9 @@ padding: 1em 2em;
   background: rgba(0, 0, 0, 0.5);
 }
 
-.react-responsive-modal-closeButton {
+/* .react-responsive-modal-closeButton {
   background: #D1001F !important;
-}
+} */
 
 .lds-dual-ring {
   display: inline-block;
@@ -388,4 +388,13 @@ input[type="radio"] {
 
 html {
   scroll-behavior: smooth;
+}
+
+.customOverlay {
+  background: rgba(36, 123, 160, 0.7);
+}
+.customModal {
+  background: #b2dbbf;
+  max-width: 500px;
+  width: 100%;
 }

@@ -128,12 +128,9 @@ const Calendario = ({specialities, cursosDate}) => {
 
       <NavBar ref={inicioRef} />
       <CarouselSection /> 
-      <Logotipos />
 
-      
-        {/* <LastCourses /> */}
+      <LastCourses />
     
-
       <Filter 
         specialities={allSpecialities}
         active='fecha'

@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { Formik, Form, Field, ErrorMessage, FieldArray } from 'formik';
-import * as Yup from 'yup';
-import { FaRegTrashAlt } from 'react-icons/fa';
-import { IoAddCircle } from "react-icons/io5";
-import { createTest, editTest } from '../../../store/slices/Tests/TestService';
 import { useDispatch, useSelector } from 'react-redux';
 import { useRouter } from 'next/router';
+import { FaRegTrashAlt } from 'react-icons/fa';
+import { IoAddCircle } from "react-icons/io5";
+import { createTest } from '../../../store/slices/Tests/TestService';
+import * as Yup from 'yup';
 
 
 const FormNewTest = ({ coursesName }) => {
@@ -23,7 +23,7 @@ const FormNewTest = ({ coursesName }) => {
       preguntas: Yup.array().of(
         Yup.object().shape({
           pregunta: Yup.string().required('La pregunta es obligatoria').min(5, 'La pregunta debe tener al menos 5 caracteres'),
-          respuesta: Yup.string().required('La respuesta es obligatoria'),
+          respuesta: Yup.string(),
           imagen: Yup.string(),
         })
       ).min(1, 'Debe haber al menos una pregunta'),
@@ -45,19 +45,21 @@ const FormNewTest = ({ coursesName }) => {
           C: '',
           D: '',
           respuesta: '',
+          respuestaMultiple: [],
           imagen: '',
         },
       ]
     }
 
     const [courseSelected, setCourseSelected] = useState([])
+
+    // Regresar al listado en Success
     useEffect(() => {
       if (testSuccess && testLoading){
-        router.push("/tests")
+        router.push("/examen/consAdmTes")
       }
     }, [testSuccess, testLoading])
     
-    console.log(courseSelected)
   
     return (
       <div>
@@ -75,12 +77,24 @@ const FormNewTest = ({ coursesName }) => {
               img_curso: courseSelected.imagen,
               preguntas: valores.preguntas
             }
-            console.log(data)
-            createTest(dispatch, data)
+
+            valores.preguntas.map( p => {
+              if (p.tipo === 'multipleOpcion') {
+                const arrayRespuestas = p.respuestaMultiple.toUpperCase().trim().split(",")
+                p.respuestaMultiple = arrayRespuestas
+              }
+            })
+
+            const preguntasMult = {
+              ...data,
+              preguntas: valores.preguntas
+            }
+            console.log(preguntasMult)
+            createTest(dispatch, preguntasMult)
           }}>
           
           {
-            function fillInputs ({ values, errors, setFieldValue }) {              
+            function FillInputs ({ values, errors, setFieldValue }) {              
               
               useEffect(() => {
                 const course = coursesName.find(c => c._id === values.nombre_curso)
@@ -97,7 +111,7 @@ const FormNewTest = ({ coursesName }) => {
             
             <Form className="p-0 md:p-5 flex justify-center flex-col w-10/12 m-auto">
   
-            <img src="../logo.png" width="600px" className='my-5 m-auto'/>
+            <img src="https://consufarma2022-davidtoris-projects.vercel.app/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Flogo.502e107c.png&w=1920&q=75" width="450px" className='my-5 m-auto'/>
   
             <div className='my-2 mb-3'>
               <label className="block text-md font-light text-gray-900 dark:text-white">Nombre del Exámen</label>
@@ -197,7 +211,7 @@ const FormNewTest = ({ coursesName }) => {
                               />
                               <ErrorMessage
                                 name={`preguntas.${index}.pregunta`}
-                                component={() => ( <div className="text-orangeCustom text-xs ml-2 mt-1">Campo requerido</div>)} />
+                                component={() => ( <div className="text-orangeCustom text-xs ml-2 mt-1">{errors.preguntas[index].pregunta}</div>)} />
                             </div>
 
                             {values.preguntas[index].tipo !== 'verdaderoFalso' && (
@@ -282,16 +296,18 @@ const FormNewTest = ({ coursesName }) => {
                             )}
 
                             { values.preguntas[index].tipo === 'multipleOpcion' && ( 
-                              <div className='my-2 mb-3'>
-                                <label className="block text-md font-light text-gray-900">Separa las respuestas por una coma</label>
-                                <Field name={`preguntas.${index}.respuesta`}
-                                className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                />
+                              <div>
+                                <div className='my-2 mb-3'>
+                                  <label className="block text-xs font-semibold text-gray-900 -mt-2">Separa las respuestas por una coma</label>
+                                  <Field name={`preguntas.${index}.respuestaMultiple`}
+                                  className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                  />
+                                </div>
                               </div>
                             )}
 
                             <ErrorMessage
-                              name={`preguntas.${index}.respuesta`}
+                              name={`preguntas.${index}.respuestaMultiple`}
                               component={() => ( <div className="text-orangeCustom text-xs ml-2 mt-1">Campo requerido</div>)} />
     
                             <div className='my-2 mb-3'>

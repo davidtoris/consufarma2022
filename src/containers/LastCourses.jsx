@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import CardCourseSmall from '../components/cursos/CardCourseSmall';
 import moment from 'moment';
+import Logotipos from '../components/logotipos';
 
 const lastCourses = () => {
 
@@ -48,7 +49,7 @@ const lastCourses = () => {
           </div>
         </div>
       ) : (
-        <></>
+        <Logotipos />
       )}
     </div>
       

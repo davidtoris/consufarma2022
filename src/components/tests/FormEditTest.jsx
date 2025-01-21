@@ -1,15 +1,34 @@
 import React, { useEffect, useState } from 'react'
 import { Formik, Form, Field, ErrorMessage, FieldArray } from 'formik';
-import * as Yup from 'yup';
+import { useRouter } from 'next/router';
+import { useDispatch, useSelector } from 'react-redux';
 import { FaRegTrashAlt } from 'react-icons/fa';
 import { IoAddCircle } from "react-icons/io5";
-import { AllTests, createTest, editTest } from '../../../store/slices/Tests/TestService';
-import { useDispatch, useSelector } from 'react-redux';
-import { useRouter } from 'next/router';
+import { editTest } from '../../../store/slices/Tests/TestService';
+import * as Yup from 'yup';
 
 const FormEditTest = ({ coursesName, tests }) => {
 
-  console.log(coursesName)
+  console.log(tests);
+
+  const [arrayTest, setArrayTest] = useState([])
+
+  useEffect(() => {
+    const arrPreguntasMultString = tests[0].preguntas.map( t => ({
+      ...t,
+      respuestaMultiple: t.respuestaMultiple.toString()
+    }))
+
+    const data = {
+      ...tests[0],
+      preguntas: arrPreguntasMultString
+    }
+    setArrayTest(data)
+  }, [])
+
+
+  console.log(arrayTest);
+  
 
   const dispatch = useDispatch()
   const router = useRouter();
@@ -23,7 +42,7 @@ const FormEditTest = ({ coursesName, tests }) => {
       preguntas: Yup.array().of(
         Yup.object().shape({
           pregunta: Yup.string().required('La pregunta es obligatoria').min(5, 'La pregunta debe tener al menos 5 caracteres'),
-          respuesta: Yup.string().required('La respuesta es obligatoria'),
+          respuesta: Yup.string(),
           imagen: Yup.string(),
         })
       ).min(1, 'Debe haber al menos una pregunta'),
@@ -36,18 +55,18 @@ const FormEditTest = ({ coursesName, tests }) => {
       fecha_finalizacion: '',
       ponente_uno: '',
       ponente_dos: '',
-      preguntas: tests[0].preguntas === undefined ? '' : tests[0].preguntas,
+      preguntas: ''
     }
 
     const [courseSelected, setCourseSelected] = useState([])
     
-       useEffect(() => {
-        if (testSuccess && testLoading){
-          router.push("/tests")
-        }
-      }, [testSuccess, testLoading])
+    // Regresar al listado en Success
+    useEffect(() => {
+      if (testSuccess && testLoading){
+        router.push("/examen/consAdmTes")
+      }
+    }, [testSuccess, testLoading])
 
-      console.log(testSuccess, testLoading)
   
     return (
       <div>
@@ -55,18 +74,32 @@ const FormEditTest = ({ coursesName, tests }) => {
           initialValues={valuesTest}
           validationSchema={validationSchema}
           onSubmit={async (valores) => {
+            
             const data = {
               nombre_examen: valores.nombre_examen,
-              nombre_curso: courseSelected.length ? courseSelected.nombre : valores.nombre_curso,
-              fecha_texto: courseSelected.length ? courseSelected.fecha_text : valores.fecha_texto,
-              ponente_uno: courseSelected.length ? courseSelected.ponente_uno_id : valores.ponente_uno,
-              ponente_dos: courseSelected.length ? courseSelected.ponente_dos_id : valores.ponente_dos,
-              img_curso: courseSelected.length ? courseSelected.img_curso : tests[0].img_curso,
+              nombre_curso: courseSelected ? courseSelected.nombre : valores.nombre_curso,
+              fecha_texto: courseSelected ? courseSelected.fecha_text : valores.fecha_texto,
+              ponente_uno: courseSelected ? courseSelected.ponente_uno_id : tests.ponente_uno_id,
+              ponente_dos: courseSelected ? courseSelected.ponente_dos_id : tests.ponente_dos_id,
+              img_curso: courseSelected ? courseSelected.imagen : tests[0].img_curso,
               fecha_finalizacion: valores.fecha_finalizacion,
               preguntas: valores.preguntas
             }
-            console.log(data)
-            editTest(dispatch, data, tests[0]._id)
+
+            valores.preguntas.map( p => {
+              if (p.tipo === 'multipleOpcion') {
+                const arrayRespuestas = p.respuestaMultiple.trim().toUpperCase().split(",")
+                p.respuestaMultiple = arrayRespuestas
+              }
+            })
+
+            const preguntasMult = {
+              ...data,
+              preguntas: valores.preguntas
+            }
+
+            console.log(preguntasMult);
+            editTest(dispatch, preguntasMult, tests[0]._id)
           }}>
           
           {
@@ -83,19 +116,18 @@ const FormEditTest = ({ coursesName, tests }) => {
               }, [values.nombre_curso])
 
               useEffect(() => {
-                setFieldValue('nombre_examen', tests[0].nombre_examen || '')
-                setFieldValue('nombre_curso', tests[0].nombre_curso || '')
-                setFieldValue('fecha_texto', tests[0].fecha_texto || '')
-                setFieldValue('fecha_finalizacion', tests[0].fecha_finalizacion || '')
-                // setFieldValue('ponente_uno', tests[0].ponente_uno_id.ponente)
-                // setFieldValue('ponente_dos', tests[0].ponente_dos_id.ponente)
-              }, [tests])
+                setFieldValue('nombre_examen', arrayTest.nombre_examen || '')
+                setFieldValue('nombre_curso', arrayTest.nombre_curso || '')
+                setFieldValue('fecha_texto', arrayTest.fecha_texto || '')
+                setFieldValue('fecha_finalizacion', arrayTest.fecha_finalizacion || '')
+                setFieldValue('preguntas', arrayTest.preguntas || '')
+              }, [arrayTest])
   
             return (
             
             <Form className="p-0 md:p-5 flex justify-center flex-col w-10/12 m-auto">
               
-            <img src="../logo.png" width="600px" className='my-5 m-auto'/>
+              <img src="https://consufarma2022-davidtoris-projects.vercel.app/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Flogo.502e107c.png&w=1920&q=75" width="450px" className='my-5 m-auto'/>
   
             <div className='my-2 mb-3'>
               <label className="block text-md font-light text-gray-900 dark:text-white">Nombre del Exámen</label>
@@ -155,8 +187,9 @@ const FormEditTest = ({ coursesName, tests }) => {
                   className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
               </div>
             </div>
-  
-  
+
+            {values.preguntas.length > 0 && (
+                
             <FieldArray name="preguntas">
               {({ remove, push }) => (
                 <div>
@@ -177,7 +210,7 @@ const FormEditTest = ({ coursesName, tests }) => {
                             <option value="verdaderoFalso">Verdadero/Falso</option>
                           </Field>
                           <ErrorMessage
-                            name="tipo"
+                            name={`preguntas.${index}.tipo`}
                             component={() => ( <div className="text-orangeCustom text-xs ml-2 mt-1">Campo requerido</div>)} />
                         </div>
                         
@@ -195,7 +228,7 @@ const FormEditTest = ({ coursesName, tests }) => {
                               />
                               <ErrorMessage
                                 name={`preguntas.${index}.pregunta`}
-                                component={() => ( <div className="text-orangeCustom text-xs ml-2 mt-1">Campo requerido</div>)} />
+                                component={() => ( <div className="text-orangeCustom text-xs ml-2 mt-1">{errors.preguntas[index].pregunta}</div>)} />
                             </div>
 
                             {values.preguntas[index].tipo !== 'verdaderoFalso' && (
@@ -280,17 +313,19 @@ const FormEditTest = ({ coursesName, tests }) => {
                             )}
 
                             { values.preguntas[index].tipo === 'multipleOpcion' && ( 
-                              <div className='my-2 mb-3'>
-                                <label className="block text-md font-light text-gray-900">Separa las respuestas por una coma</label>
-                                <Field name={`preguntas.${index}.respuesta`}
-                                className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                />
+                              <div>
+                                <div className='my-2 mb-3'>
+                                  <label className="block text-md font-light text-gray-900">Separa las respuestas por una coma</label>
+                                  <Field name={`preguntas.${index}.respuestaMultiple`}
+                                  className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                  />
+                                </div>
+                                <ErrorMessage
+                                  name={`preguntas.${index}.respuestaMultiple`}
+                                  component={() => ( <div className="text-orangeCustom text-xs ml-2 mt-1">Campo requerido</div>)} />
                               </div>
                             )}
 
-                            <ErrorMessage
-                              name={`preguntas.${index}.respuesta`}
-                              component={() => ( <div className="text-orangeCustom text-xs ml-2 mt-1">Campo requerido</div>)} />
     
                             <div className='my-2 mb-3'>
                               <label className="block text-md font-light text-gray-700 dark:text-white text-sm">Imagen</label>
@@ -303,10 +338,7 @@ const FormEditTest = ({ coursesName, tests }) => {
                             </div>
                           </div>
                         )}
-
-  
                         </div>
-  
                       
                       <button className='flex' type="button" onClick={() => remove(index)} style={{ marginTop: '10px', color: 'red' }}>
                         <FaRegTrashAlt />
@@ -333,9 +365,8 @@ const FormEditTest = ({ coursesName, tests }) => {
                 </div>
               )}
             </FieldArray>
-  
-  
-  
+
+            )}
             
             <button type="submit" className="w-3/12 text-white mt-4 bg-blueConsufarma hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Crear Examen</button>
             

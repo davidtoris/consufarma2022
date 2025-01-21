@@ -1,6 +1,6 @@
 import React from 'react'
-import { API_BASE_URL } from '../../../src/constants'
-import FormMakeTest from '../../../src/components/tests/FormMakeTest'
+import FormMakeTest from '../../src/components/tests/FormMakeTest'
+import { API_BASE_URL } from '../../src/constants'
 
 const CourseTest = ({Test}) => {
   return (
@@ -15,8 +15,8 @@ const CourseTest = ({Test}) => {
 export default CourseTest
 
 
-export const getServerSideProps = async () => {
-  const resTest = await fetch(`${API_BASE_URL}/tests/677c57710992c28b23139c8b`);
+export const getServerSideProps = async ({query: {test}}) => {
+  const resTest = await fetch(`${API_BASE_URL}/tests/${test}`);
   const dataTest = await resTest.json()
   const Test = dataTest.test
 

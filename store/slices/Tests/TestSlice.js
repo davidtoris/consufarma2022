@@ -6,6 +6,7 @@ const testsSlice = createSlice({
     testLoading: false,
     testErrorMsg: '',
     testSuccess: false,
+    testReload: false,
     allTests: [],
     status: null,
   },
@@ -14,6 +15,10 @@ const testsSlice = createSlice({
       state.testLoading = false;
       state.testErrorMsg = '';
       state.testSuccess = false;
+    },
+    testSuccess: ( state ) => {
+      state.testLoading = false;
+      state.testReload = true;
     },
     testLoading: (state, action) => {
       state.testLoading = action.payload;
@@ -38,6 +43,7 @@ const testsSlice = createSlice({
   }
 });
 
-export const { testDefault, testLoading, testError, listTests, addTests, selectTests } = testsSlice.actions;
+export const { testDefault, testSuccess, testLoading, testError, 
+  listTests, addTests, selectTests } = testsSlice.actions;
 
 export default testsSlice.reducer;

@@ -1,6 +1,6 @@
 import React from 'react'
-import { API_BASE_URL } from '../../src/constants';
-import FormNewTest from '../../src/components/tests/FormNewTest';
+import { API_BASE_URL } from '../../../src/constants';
+import FormNewTest from '../../../src/components/tests/FormNewTest';
 
 const newTest = ({ coursesName}) => {
     return (
