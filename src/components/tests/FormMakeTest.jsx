@@ -222,7 +222,7 @@ const FormMakeTest = ({ Test }) => {
   
             {preguntas.map( (p,i) => (
 
-              <div className='mt-3'>
+              <div className='mt-3' key={p.pregunta}>
                 { p.tipo === 'verdaderoFalso' && (
                   <div className='ml-2'>
                     <div className='font-bold'>{i+1}. {p.pregunta}</div>

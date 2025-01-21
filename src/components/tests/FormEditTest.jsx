@@ -103,7 +103,7 @@ const FormEditTest = ({ coursesName, tests }) => {
           }}>
           
           {
-            function fillInputs ({ values, errors, setFieldValue }) {              
+            function FillInputs ({ values, errors, setFieldValue }) {              
                           
               useEffect(() => {
                 const course = coursesName.find(c => c.nombre === values.nombre_curso)

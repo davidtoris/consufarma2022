@@ -143,7 +143,7 @@ const FormScoreTest = ({ Test, TestAnswer, point }) => {
   
             {preguntas.map( (p,i) => (
 
-              <div className='mt-3'>
+              <div className='mt-3' key={p.pregunta}>
                 { p.tipo === 'verdaderoFalso' && (
                   <div>
                     <div className='ml-2'>
@@ -229,7 +229,7 @@ const FormScoreTest = ({ Test, TestAnswer, point }) => {
                         <div className='font-bold italic'>Respuesta correcta:</div>
                         <div className='text-gray-700 flex'>
                           {p.respuestaMultiple.map( (r, i) => (
-                            <div className='flex mr-1'>
+                            <div className='flex mr-1' key={i}>
                               {r}){i+1 < p.respuestaMultiple.length && ','}
                             </div>
                           ))}
