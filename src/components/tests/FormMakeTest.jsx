@@ -234,11 +234,14 @@ const FormMakeTest = ({ Test }) => {
                 { p.tipo === 'unaOpcion' && (
                   <div>
                     <div className='font-bold'>{i+1}. {p.pregunta}</div>
+                    <div className="w-1/3">
+                      <img src={p.imagen} className="" alt="imagen" />
+                    </div>
                     <div className='ml-2'>
                       <div onClick={() => selectOption(p.tipo, i, 'A')} className={`${answersUser[i] === 'A' && 'bg-blue-100'} cursor-pointer my-1 p-1 px-2 rounded-lg`}>A) {p.A}</div>
                       <div onClick={() => selectOption(p.tipo, i, 'B')} className={`${answersUser[i] === 'B' && 'bg-blue-100'} cursor-pointer my-1 p-1 px-2 rounded-lg`}>B) {p.B}</div>
-                      {p.C !== '' && (<div onClick={() => selectOption(p.tipo, i, 'C')} className={`${answersUser[i] === 'C' && 'bg-blue-100'} cursor-pointer my-1 p-1 px-2 rounded-lg`}>C) {p.C}</div>)}
-                      {p.D !== '' && (<div onClick={() => selectOption(p.tipo, i, 'D')} className={`${answersUser[i] === 'D' && 'bg-blue-100'} cursor-pointer my-1 p-1 px-2 rounded-lg`}>D) {p.D}</div>)}
+                      {p.C !== undefined && (<div onClick={() => selectOption(p.tipo, i, 'C')} className={`${answersUser[i] === 'C' && 'bg-blue-100'} cursor-pointer my-1 p-1 px-2 rounded-lg`}>C) {p.C}</div>)}
+                      {p.D !== undefined && (<div onClick={() => selectOption(p.tipo, i, 'D')} className={`${answersUser[i] === 'D' && 'bg-blue-100'} cursor-pointer my-1 p-1 px-2 rounded-lg`}>D) {p.D}</div>)}
                     </div>
                   </div>
                 )}
@@ -249,8 +252,8 @@ const FormMakeTest = ({ Test }) => {
                     <div className='ml-2'>
                       <div onClick={() => selectOption(p.tipo, i, 'A')} className={`${answerMultipleOption(i, 'A')} cursor-pointer my-1 p-1 px-2 rounded-lg`}>A) {p.A}</div>
                       <div onClick={() => selectOption(p.tipo, i, 'B')} className={`${answerMultipleOption(i, 'B')} cursor-pointer my-1 p-1 px-2 rounded-lg`}>B) {p.B}</div>
-                      <div onClick={() => selectOption(p.tipo, i, 'C')} className={`${answerMultipleOption(i, 'C')} cursor-pointer my-1 p-1 px-2 rounded-lg`}>C) {p.C}</div>
-                      <div onClick={() => selectOption(p.tipo, i, 'D')} className={`${answerMultipleOption(i, 'D')} cursor-pointer my-1 p-1 px-2 rounded-lg`}>D) {p.D}</div>
+                      {p.C !== undefined && (<div onClick={() => selectOption(p.tipo, i, 'C')} className={`${answerMultipleOption(i, 'C')} cursor-pointer my-1 p-1 px-2 rounded-lg`}>C) {p.C}</div>)}
+                      {p.D !== undefined && (<div onClick={() => selectOption(p.tipo, i, 'D')} className={`${answerMultipleOption(i, 'D')} cursor-pointer my-1 p-1 px-2 rounded-lg`}>D) {p.D}</div>)}
                     </div>
                   </div>
                 )}

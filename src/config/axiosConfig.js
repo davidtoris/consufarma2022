@@ -11,4 +11,10 @@ const instanceAPI = axios.create({
   axiosConfig,
 });
 
+export const instanceAPIData = axios.create({
+  baseURL: API_BASE_URL,
+  headers: { 'Content-Type': 'multipart/form-data' },
+  axiosConfig,
+});
+
 export default instanceAPI;

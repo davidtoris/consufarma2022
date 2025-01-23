@@ -6,9 +6,12 @@ import { FaRegTrashAlt } from 'react-icons/fa';
 import { IoAddCircle } from "react-icons/io5";
 import { editTest } from '../../../store/slices/Tests/TestService';
 import * as Yup from 'yup';
+import { instanceAPIData } from '../../config/axiosConfig';
+import { IoMdCloseCircle } from 'react-icons/io';
 
 const FormEditTest = ({ coursesName, tests }) => {
 
+  console.log(coursesName);
   console.log(tests);
 
   const [arrayTest, setArrayTest] = useState([])
@@ -26,8 +29,6 @@ const FormEditTest = ({ coursesName, tests }) => {
     setArrayTest(data)
   }, [])
 
-
-  console.log(arrayTest);
   
 
   const dispatch = useDispatch()
@@ -59,6 +60,29 @@ const FormEditTest = ({ coursesName, tests }) => {
     }
 
     const [courseSelected, setCourseSelected] = useState([])
+    
+    const [loading, setLoading] = useState(false)
+
+    // Subir imagen, obtener URL y agregar a la pregunta
+    const handlePhoto = async (e, setFieldValue, index) => {     
+      setLoading(true)
+      console.log(e.target.files[0]);
+      const formData = new FormData();
+      formData.append('image', e.target.files[0]);
+      try {
+        const {data} = await instanceAPIData.post(`/tests/uploadImage`, formData)
+          console.log(data);
+          setFieldValue(`preguntas.${index}.imagen`, data.imagen)
+          setLoading(false)
+      } catch (error) {
+        console.log(error);
+      }
+    }
+
+    // Eliminar imagen de la pregunta
+    const removeImage = (setFieldValue, index) => {
+      setFieldValue(`preguntas.${index}.imagen`, '')
+    }
     
     // Regresar al listado en Success
     useEffect(() => {
@@ -327,14 +351,33 @@ const FormEditTest = ({ coursesName, tests }) => {
                             )}
 
     
+                            {/* IMAGEN */}
                             <div className='my-2 mb-3'>
                               <label className="block text-md font-light text-gray-700 dark:text-white text-sm">Imagen</label>
                               <Field 
                                 type="text"
                                 name={`preguntas.${index}.imagen`}
                                 placeholder="Imagen"
-                                className="border-b-2 bg-gray-50 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                className="border-b-2 text-gray-900 text-sm w-full hidden "
                               />
+
+                              {loading && (
+                                <div>Cargando...</div>
+                              )}
+
+                              {values.preguntas[index].imagen && (
+                                <div className='flex my-2' onClick={() => removeImage(setFieldValue, index)}>
+                                  <img src={values.preguntas[index].imagen}
+                                    alt="Previsualización"
+                                    width={150}
+                                  />
+                                  <div className='cursor-pointer'>
+                                    <IoMdCloseCircle className='text-xl ml-2'/>
+                                  </div>
+                                </div>
+                              )}
+
+                              <input type="file" onChange={(e) => handlePhoto(e, setFieldValue, index)} />
                             </div>
                           </div>
                         )}

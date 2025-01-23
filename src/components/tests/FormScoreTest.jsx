@@ -148,6 +148,11 @@ const FormScoreTest = ({ Test, TestAnswer, point }) => {
                   <div>
                     <div className='ml-2'>
                       <div className={`font-bold`}>{i+1}. {p.pregunta}</div>
+                      {p.imagen !== '' && (
+                        <div className="w-1/3">
+                          <img src={p.imagen} className="" alt="imagen" />
+                        </div>
+                      )}
                       <div className={`${rateAnswers(p.respuesta, 'A', TestAnswer.answersUser[i])} my-1 p-1 px-2 rounded-lg flex items-center`}>
                         { setIconTrueFalse(p.respuesta, 'A', TestAnswer.answersUser[i]) }
                         A) Verdadero
@@ -173,6 +178,11 @@ const FormScoreTest = ({ Test, TestAnswer, point }) => {
                   <div>
                     <div className='ml-2 '>
                     <div className='font-bold'>{i+1}. {p.pregunta}</div>
+                      {p.imagen !== '' && (
+                        <div className="w-1/3">
+                          <img src={p.imagen} className="" alt="imagen" />
+                        </div>
+                      )}
                       <div className={`${rateAnswers(p.respuesta, 'A', TestAnswer.answersUser[i])} my-1 p-1 px-2 rounded-lg flex items-center`}>
                         {setIconOneTrueFalse(p.respuesta, 'A', TestAnswer.answersUser[i])}
                         A) {p.A}
@@ -181,14 +191,14 @@ const FormScoreTest = ({ Test, TestAnswer, point }) => {
                         {setIconOneTrueFalse(p.respuesta, 'B', TestAnswer.answersUser[i])}
                         B) {p.B}
                       </div>
-                      <div className={`${rateAnswers(p.respuesta, 'C', TestAnswer.answersUser[i])} my-1 p-1 px-2 rounded-lg flex items-center`}>
+                      {p.C !== undefined && (<div className={`${rateAnswers(p.respuesta, 'C', TestAnswer.answersUser[i])} my-1 p-1 px-2 rounded-lg flex items-center`}>
                         {setIconOneTrueFalse(p.respuesta, 'C', TestAnswer.answersUser[i])}
                         C) {p.C}
-                      </div>
-                      <div className={`${rateAnswers(p.respuesta, 'D', TestAnswer.answersUser[i])} my-1 p-1 px-2 rounded-lg flex items-center`}>
+                      </div>)}
+                      {p.D !== undefined && (<div className={`${rateAnswers(p.respuesta, 'D', TestAnswer.answersUser[i])} my-1 p-1 px-2 rounded-lg flex items-center`}>
                         {setIconOneTrueFalse(p.respuesta, 'D', TestAnswer.answersUser[i])}
                         D) {p.D}
-                      </div>
+                      </div>)}
 
                       {p.respuesta !== TestAnswer.answersUser[i] && (
                         <div className='my-2 ml-2 '>
@@ -205,6 +215,11 @@ const FormScoreTest = ({ Test, TestAnswer, point }) => {
                 { p.tipo === 'multipleOpcion' && (
                   <div>
                     <div className='font-bold'>{i+1}. {p.pregunta}</div>
+                    {p.imagen !== '' && (
+                      <div className="w-1/3">
+                        <img src={p.imagen} className="" alt="imagen" />
+                      </div>
+                    )}
                     <div className='ml-2'>
                       <div className={`${rateMultipleAnswer(p.respuestaMultiple, 'A', TestAnswer.answersUser[i])} my-1 p-1 px-2 rounded-lg flex items-center`}>
                         {setIconMultipleAnswer(p.respuestaMultiple, 'A', TestAnswer.answersUser[i])}
@@ -214,14 +229,14 @@ const FormScoreTest = ({ Test, TestAnswer, point }) => {
                         {setIconMultipleAnswer(p.respuestaMultiple, 'B', TestAnswer.answersUser[i])}  
                         B) {p.B}
                       </div>
-                      <div className={`${rateMultipleAnswer(p.respuestaMultiple, 'C', TestAnswer.answersUser[i])} my-1 p-1 px-2 rounded-lg flex items-center`}>
+                      {p.C !== undefined && (<div className={`${rateMultipleAnswer(p.respuestaMultiple, 'C', TestAnswer.answersUser[i])} my-1 p-1 px-2 rounded-lg flex items-center`}>
                         {setIconMultipleAnswer(p.respuestaMultiple, 'C', TestAnswer.answersUser[i])}
                         C) {p.C}
-                      </div>
-                      <div className={`${rateMultipleAnswer(p.respuestaMultiple, 'D', TestAnswer.answersUser[i])} my-1 p-1 px-2 rounded-lg flex items-center`}>
+                      </div>)}
+                      {p.D !== undefined && (<div className={`${rateMultipleAnswer(p.respuestaMultiple, 'D', TestAnswer.answersUser[i])} my-1 p-1 px-2 rounded-lg flex items-center`}>
                         {setIconMultipleAnswer(p.respuestaMultiple, 'D', TestAnswer.answersUser[i])}
                         D) {p.D}
-                      </div>
+                      </div>)}
                     </div>
 
                     { !p.respuestaMultiple.every( resp => TestAnswer.answersUser.includes(resp)) && (
