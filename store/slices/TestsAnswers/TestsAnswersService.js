@@ -1,5 +1,5 @@
 import instanceAPI from "../../../src/config/axiosConfig";
-import { addTestsAnswers, addTestsAnswersTemp, testsAnswersDefault, testsAnswersError, testsAnswersLoading } from "./TestsAnswersSlice";
+import { addTestsAnswers, addTestsAnswersTemp, showTryings, testsAnswersDefault, testsAnswersError, testsAnswersLoading } from "./TestsAnswersSlice";
 
 export const ListTestsAnswers = async (dispatch, courseName, date) => {
   dispatch(testsAnswersDefault())
@@ -76,5 +76,15 @@ export const createAnswersTests = async (dispatch, testAnswer) => {
     if(error !== undefined){
       dispatch(testsAnswersError(error.response.data.errors[0].msg))
     }
+  })
+};
+
+export const validateUserTryings = async (dispatch, testId, nameStudent) => {
+  await instanceAPI.get(`/testsAnswers/validateUserTryings?testId=${testId}&nameStudent=${nameStudent}`)
+  .then(resp => {
+    dispatch(showTryings(resp.data));
+  })
+  .catch(error => {
+    console.log(error);
   })
 };

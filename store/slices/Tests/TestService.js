@@ -22,7 +22,7 @@ export const createTest = async (dispatch, test) => {
   dispatch(testLoading(true))
   await instanceAPI.post(`/tests`, test)
   .then(resp => {
-    dispatch(addTests(resp.data));
+    dispatch(testSuccess());
   })
   .catch(error => {
     if(error !== undefined){

@@ -40,10 +40,13 @@ const testsSlice = createSlice({
     selectTests: (state, action) => {
       state.selectSpeciality = action.payload;
     },
+    testReloadFunc: (state) => {
+      state.testReload = false;
+    },
   }
 });
 
-export const { testDefault, testSuccess, testLoading, testError, 
+export const { testDefault, testSuccess, testLoading, testError, testReloadFunc,
   listTests, addTests, selectTests } = testsSlice.actions;
 
 export default testsSlice.reducer;

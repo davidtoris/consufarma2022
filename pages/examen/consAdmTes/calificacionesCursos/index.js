@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { API_BASE_URL, URL_SITE } from '../../../../src/constants';
 import { ListTestsAnswersCourseName } from '../../../../store/slices/TestsAnswers/TestsAnswersService';
-import { IoIosCopy } from "react-icons/io";
+import { dateFormat } from '../../../../src/helpers/FomateDate';
+import { FaRegCopy } from 'react-icons/fa';
 import Select from 'react-select'
-import moment from 'moment';
 
 
 const TableTestsAnswers = ({ courses }) => {
@@ -91,13 +91,13 @@ const TableTestsAnswers = ({ courses }) => {
         <tbody>
           {allTestsAnswers.length && allTestsAnswers.map(t => (
             <tr className='border-2 text-1enter' key={t._id}>
-              <td className='border-2 border-gray-200 p-1 text-center'>{moment(t.fecha_finalizacion).format('DD-MM-YYYY')}</td>
+              <td className='border-2 border-gray-200 p-1 text-center'>{dateFormat(t.fecha_finalizacion)}</td>
               <td className='border-2 border-gray-200 p-1 text-center'>{t.fecha_texto}</td>
               <td className='border-2 border-gray-200 p-1'>{t.nombre_curso}</td>
               <td className='border-2 border-gray-200 p-1'>
                 <div className='flex text-xl justify-center px-1'>
                   {/* examen/resultadoCurso?TestId=6781c4eddb9f4b177be16006&date=2025-03-08 */}
-                  <div onClick={() => copyLink(`${URL_SITE}/examen/resultadoCurso?TestId=${t.test_id}&date=${t.fecha_finalizacion}`)} className='cursor-pointer hover:scale-110 transition-all mx-3'><IoIosCopy /></div>
+                  <div onClick={() => copyLink(`${URL_SITE}/examen/resultadoCurso?TestId=${t.test_id}&date=${t.fecha_finalizacion}`)} className='cursor-pointer hover:scale-110 transition-all mx-3'><FaRegCopy title="Copiar al portapapeles" className='text-gray-500'/></div>
                 </div>
               </td>
             </tr>

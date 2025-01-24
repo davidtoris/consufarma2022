@@ -377,6 +377,31 @@ padding: 1em 2em;
   }
 }
 
+.lds-dual-small-ring {
+  display: inline-block;
+  width: 50px;
+  height: 50px;
+}
+.lds-dual-small-ring:after {
+  content: " ";
+  display: block;
+  width: 30px;
+  height: 30px;
+  margin: 10px;
+  border-radius: 50%;
+  border: 3px solid #173452;
+  border-color: #173452 transparent #c4232b transparent;
+  animation: lds-dual-small-ring 1.2s linear infinite;
+}
+@keyframes lds-dual-small-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
 input:checked {
   opacity: 0;
   background: #D1001F;

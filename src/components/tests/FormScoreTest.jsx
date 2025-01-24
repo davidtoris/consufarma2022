@@ -5,8 +5,7 @@ import { BsFillXCircleFill } from "react-icons/bs";
 import { FaAward, FaCheckCircle, FaPrint } from 'react-icons/fa';
 import { API_BASE_URL } from '../../constants';
 import axios from 'axios';
-import moment from 'moment';
-import 'moment/locale/es';
+import { dateFormat } from '../../helpers/FomateDate';
 
 const FormScoreTest = ({ Test, TestAnswer, point }) => {
 
@@ -38,9 +37,11 @@ const FormScoreTest = ({ Test, TestAnswer, point }) => {
 
     // Validar si respUsuario selecciono el inciso correcto de Opción Multiple y Poner bg-green-300
     const rateMultipleAnswer = (respCorrecta, inciso, respUsuario) => {
-      if(respUsuario.includes(inciso)){
-        if(respCorrecta.includes(inciso)){
-          return 'bg-green-300'
+      if (respUsuario) {
+        if(respUsuario.includes(inciso)){
+          if(respCorrecta.includes(inciso)){
+            return 'bg-green-300'
+          }
         }
       }
     }
@@ -48,12 +49,13 @@ const FormScoreTest = ({ Test, TestAnswer, point }) => {
     // Icono verde: Se muestre solo si el inciso está en respUsuario y en respCorrecta.
     // Icono rojo: Se muestre solo si el inciso está en respUsuario pero no está en respCorrecta.    
     const setIconMultipleAnswer = (respCorrecta, inciso, respUsuario) => {
-      if( respUsuario.includes(inciso) && respCorrecta.includes(inciso) ) {
-        return <FaCheckCircle className='-ml-6 mr-1 text-green-500 w-[20px] h-[20px]' />  
-      }
-
-      if( respUsuario.includes(inciso) && !respCorrecta.includes(inciso) ) {
-        return <BsFillXCircleFill className='-ml-6 mr-1 text-red-500 w-[20px] h-[20px]' />
+      if (respUsuario) {
+        if( respUsuario.includes(inciso) && respCorrecta.includes(inciso) ) {
+          return <FaCheckCircle className='-ml-6 mr-1 text-green-500 w-[20px] h-[20px]' />  
+        }
+        if( respUsuario.includes(inciso) && !respCorrecta.includes(inciso) ) {
+          return <BsFillXCircleFill className='-ml-6 mr-1 text-red-500 w-[20px] h-[20px]' />
+        }
       }
     }
 
@@ -124,7 +126,7 @@ const FormScoreTest = ({ Test, TestAnswer, point }) => {
             
             <div className='mt-2'>
               <div className='font-extrabold text-xl'>Nombre: {TestAnswer.estudiante}</div>
-              <div><span className='font-bold'>Fecha:</span> {moment(TestAnswer.fecha_finalizacion).format('D MMM YYYY')}</div>
+              <div><span className='font-bold'>Fecha:</span> {dateFormat(TestAnswer.fecha_sistema)}</div>
               <div><span className='font-bold'>Ponente:</span> {ponente_uno[0].ponente}</div>
               {ponente_dos[0].ponente !== 'ninguno' && (
                 <div><span className='font-bold'>Ponente:</span> {ponente_dos[0].ponente}</div>
@@ -179,7 +181,7 @@ const FormScoreTest = ({ Test, TestAnswer, point }) => {
                     <div className='ml-2 '>
                     <div className='font-bold'>{i+1}. {p.pregunta}</div>
                       {p.imagen !== '' && (
-                        <div className="w-1/3">
+                        <div className="w-[170px] mt-2">
                           <img src={p.imagen} className="" alt="imagen" />
                         </div>
                       )}
@@ -195,16 +197,17 @@ const FormScoreTest = ({ Test, TestAnswer, point }) => {
                         {setIconOneTrueFalse(p.respuesta, 'C', TestAnswer.answersUser[i])}
                         C) {p.C}
                       </div>)}
-                      {p.D !== undefined && (<div className={`${rateAnswers(p.respuesta, 'D', TestAnswer.answersUser[i])} my-1 p-1 px-2 rounded-lg flex items-center`}>
+                      {(p.D !== undefined && p.D !== '') && (<div className={`${rateAnswers(p.respuesta, 'D', TestAnswer.answersUser[i])} my-1 p-1 px-2 rounded-lg flex items-center`}>
                         {setIconOneTrueFalse(p.respuesta, 'D', TestAnswer.answersUser[i])}
                         D) {p.D}
                       </div>)}
 
+                      {/* {/* "B" !== "A" && ( */}
                       {p.respuesta !== TestAnswer.answersUser[i] && (
                         <div className='my-2 ml-2 '>
                           <div className='font-bold italic'>Respuesta correcta:</div>
                           <div className='text-gray-700'>
-                            {proiedadIgualRespuesta(p)}
+                            {p.respuesta})
                           </div>
                         </div>
                       )}
@@ -239,8 +242,11 @@ const FormScoreTest = ({ Test, TestAnswer, point }) => {
                       </div>)}
                     </div>
 
-                    { !p.respuestaMultiple.every( resp => TestAnswer.answersUser.includes(resp)) && (
-                      <div className='my-2 ml-2 '>
+                    { !p.respuestaMultiple.every( cadaRespuesta => TestAnswer.answersUser.includes(cadaRespuesta)) 
+                    ? (
+                        <div></div>
+                      ) : (
+                        <div className='my-2 ml-2 '>
                         <div className='font-bold italic'>Respuesta correcta:</div>
                         <div className='text-gray-700 flex'>
                           {p.respuestaMultiple.map( (r, i) => (
@@ -249,8 +255,9 @@ const FormScoreTest = ({ Test, TestAnswer, point }) => {
                             </div>
                           ))}
                         </div>
-                      </div>
-                    )}
+                        </div>
+                      )
+                    }
 
                   </div>
                 )}
@@ -279,14 +286,14 @@ const FormScoreTest = ({ Test, TestAnswer, point }) => {
             </>
           )}
 
-            <div className='flex text-lg font-semibold mb-10'>
-              <div onClick={handlePrint} className='bg-blueConsufarma p-4 rounded-md text-white flex items-center hover:scale-110 transition-all cursor-pointer'>
-                <FaPrint className="mr-2 text-lg" />
-                Imprimir Examen</div>
-              <div className='bg-blueConsufarma p-4 rounded-md text-white ml-4 flex items-center hover:scale-110 transition-all cursor-pointer'>
-                <FaAward className="mr-2 text-xl" />
-                Obtener Constancia</div>
-            </div>
+          <div className='flex text-lg font-semibold mt-5 mb-10'>
+            <div onClick={handlePrint} className='bg-blueConsufarma p-4 rounded-md text-white flex items-center hover:scale-110 transition-all cursor-pointer'>
+              <FaPrint className="mr-2 text-lg" />
+              Imprimir Examen</div>
+            <div className='bg-blueLightCustom p-4 rounded-md text-white ml-4 flex items-center hover:scale-110 transition-all cursor-pointer'>
+              <FaAward className="mr-2 text-xl" />
+              Obtener Constancia</div>
+          </div>
       </div>
 
 

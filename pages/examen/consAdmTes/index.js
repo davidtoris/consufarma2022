@@ -1,21 +1,24 @@
 import React, { useEffect, useState } from 'react'
 import Link from 'next/link';
-import { AllTests } from '../../../store/slices/Tests/TestService';
+import { useDispatch, useSelector } from 'react-redux';
+import { AllTests, createTest } from '../../../store/slices/Tests/TestService';
 import { API_BASE_URL, URL_SITE } from '../../../src/constants'
+
+import { dateFormat } from '../../../src/helpers/FomateDate';
+import { testReloadFunc } from '../../../store/slices/Tests/TestSlice';
 import { FaRegCopy } from 'react-icons/fa'
-import { BsFileEarmarkPdf } from "react-icons/bs";
+import { BsFileEarmarkPdf, BsPlusCircleDotted } from "react-icons/bs";
 import { MdModeEditOutline } from "react-icons/md";
 import { IoAddCircle, IoTrashOutline } from 'react-icons/io5';
-import { useDispatch, useSelector } from 'react-redux';
-import instanceAPI from '../../../src/config/axiosConfig';
+
 import ModalDelete from '../../../src/components/tests/ModalDelete';
+import instanceAPI from '../../../src/config/axiosConfig';
 import Select from 'react-select'
-import moment from 'moment';
-import 'moment/locale/es';
+
 
 const LandingItemCourse = ({ courses }) => {
   
-  const { allTests, testReload } = useSelector((state) => state.tests);
+  const { allTests, testReload, testLoading } = useSelector((state) => state.tests);
   const dispatch = useDispatch()
   
   const [listSelected, setListSelected] = useState(null);
@@ -36,27 +39,12 @@ const LandingItemCourse = ({ courses }) => {
   }
   
   const handleChange = (selected) => setSelectedCourse(selected.value);
-
-  useEffect(() => {
-    newListCourse()
-  }, [courses])
   
-  useEffect(() => {
-    AllTests(dispatch, selectedCourse, selectedDate)
-  }, [selectedCourse, selectedDate, testReload])
-
   const copyLink = async (link) => {
     await navigator.clipboard.writeText(link);
     setCopied(true)
   }
   
-  useEffect(() => {
-    setTimeout(() => {
-      setCopied(false)
-    }, 3000);
-  }, [copied])
-  
-
   const onchangeDate = (e) => setSelectedDate(e.target.value)
 
   const handlePrint = async (TestId) => {
@@ -69,6 +57,22 @@ const LandingItemCourse = ({ courses }) => {
     })
   }
 
+  const DuplicateTest = (test) => {
+
+    const data = {
+      nombre_examen: test.nombre_examen,
+      nombre_curso: test.nombre_curso,
+      fecha_finalizacion: test.fecha_finalizacion,
+      img_curso: test.img_curso,
+      fecha_texto: test.fecha_texto,
+      ponente_uno: test.ponente_uno,
+      ponente_dos: test.ponente_dos,
+      preguntas: test.preguntas,
+    }
+
+    createTest(dispatch, data)
+  }
+
   const [openModalDelete, setOpenModalDelete] = useState(false);
   const [nameCourse, setNameCourse] = useState('')
   const [idCourse, setIdCourse] = useState('')
@@ -79,15 +83,31 @@ const LandingItemCourse = ({ courses }) => {
     setIdCourse(idTest)
   }
 
-  const mejorarDate = (fecha) => {
-    moment.locale('es');
-    const some = moment(fecha).format('DD-MMM-YYYY')
-    const demo = some.replace(
-      /de ([a-záéíóúñ]+)/, // Busca la palabra después de "de"
-      (match, p1) => `de ${p1.charAt(0).toUpperCase()}${p1.slice(1)}`
-    )
-    return demo
-  }
+  useEffect(() => {
+    newListCourse()
+  }, [courses])
+  
+  useEffect(() => {
+    AllTests(dispatch, selectedCourse, selectedDate)
+  }, [selectedCourse, selectedDate, testReload])
+
+  useEffect(() => {
+    setTimeout(() => {
+      setCopied(false)
+    }, 3000);
+  }, [copied])
+  
+  useEffect(() => {
+    if ( testReload ) {
+      const timer = setTimeout(() => {
+        dispatch(testReloadFunc())
+      }, 1000);
+      return () => clearTimeout(timer);
+    } 
+  }, [testReload, dispatch])
+
+  console.log(testLoading);
+
 
   return (
     <div className="max-w-7xl mx-auto pb-10">
@@ -108,7 +128,14 @@ const LandingItemCourse = ({ courses }) => {
       )}
 
       <div className='mt-7 flex justify-between items-center'>
-        <div className='font-bold text-3xl text-blueConsufarma'>Exámenes</div>
+        <div className='flex items-center'>
+          <div className='font-bold text-3xl text-blueConsufarma'>Exámenes</div>
+          {testLoading && (
+          <div>
+            <div className="lds-dual-small-ring"></div>
+          </div>
+          )}
+        </div>
         <Link href="/examen/consAdmTes/newTest">
           <div className='font-bold text-2xl text-blueConsufarma'>
             <div className='flex bg-redConsufarma p-2 rounded-lg items-center text-white font-medium text-lg hover:scale-110 transition-all cursor-pointer'>
@@ -127,7 +154,7 @@ const LandingItemCourse = ({ courses }) => {
         </div>
       </div>
        
-       <table id="table-to-xls" className="table-auto pb-10 mt-8 w-full rounded-xl">
+       <table className="table-auto pb-10 mt-8 w-full rounded-xl">
         <thead>
           <tr className='border-2 bg-blueDarkCustom text-white'>
             <th className='border-2 border-gray-100 font-bold text-md p-2'>Fecha finalización</th>
@@ -140,7 +167,7 @@ const LandingItemCourse = ({ courses }) => {
         <tbody>
           {allTests.length && allTests.map(t => (
               <tr className='border-2 text-1enter' key={t._id}>
-                <td className='border-2 border-gray-200 p-1 text-center'>{mejorarDate(t.fecha_finalizacion)}</td>
+                <td className='border-2 border-gray-200 p-1 text-center'>{dateFormat(t.fecha_finalizacion)}</td>
                 <td className='border-2 border-gray-200 p-1'>{t.nombre_curso}</td>
                 <td className='border-2 border-gray-200 p-1'>{t.nombre_examen}</td>
                 <td className='border-2 border-gray-200 p-1'>{t.fecha_texto}</td>
@@ -152,6 +179,7 @@ const LandingItemCourse = ({ courses }) => {
                     <div onClick={() => copyLink(`${URL_SITE}/examen/${t._id}`)} className='cursor-pointer hover:scale-110 transition-all mx-3'><FaRegCopy title="Copiar al portapapeles" className='text-gray-500'/></div>
                     <div onClick={() => handlePrint(t._id)} className='cursor-pointer hover:scale-110 transition-all'><BsFileEarmarkPdf title='Ver Examen en PDF' className='text-gray-500' /></div>
                     <div onClick={() => setOpenModal(t.nombre_examen, t._id)} className='cursor-pointer hover:scale-110 transition-all ml-3'><IoTrashOutline title="Eliminar Examen" className='text-gray-500' /></div>
+                    <div onClick={() => DuplicateTest(t)} className='cursor-pointer hover:scale-110 transition-all ml-3'><BsPlusCircleDotted title="Duplicar Examen" className='text-gray-500' /></div>
                   </div>
                 </td>
               </tr>

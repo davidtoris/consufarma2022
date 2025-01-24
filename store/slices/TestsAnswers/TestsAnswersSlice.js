@@ -9,6 +9,7 @@ const testsAnswersSlice = createSlice({
     allTestsAnswers: [],
     allTestsAnswersTemp: '',
     terminoExamen: false,
+    intentosExamen: 0,
     status: null,
   },
   reducers: {
@@ -40,11 +41,14 @@ const testsAnswersSlice = createSlice({
     SeTerminoExamen: (state, action) => {
       state.terminoExamen = action.payload;
     },
+    showTryings: (state, action) => {
+      state.intentosExamen = action.payload;
+    },
     
   }
 });
 
 export const { testsAnswersDefault, testsAnswersLoading, testsAnswersError, listTestsAnswers, 
-  addTestsAnswers, addTestsAnswersTemp, selectTestsAnswers, SeTerminoExamen } = testsAnswersSlice.actions;
+  addTestsAnswers, addTestsAnswersTemp, selectTestsAnswers, SeTerminoExamen, showTryings } = testsAnswersSlice.actions;
 
 export default testsAnswersSlice.reducer;
