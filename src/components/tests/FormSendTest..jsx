@@ -143,7 +143,7 @@ const FormSendTest = ({ Test }) => {
                       <div className='mt-5 text-sm text-green-600 font-bold'>
                         <div>Correos que se enviaron</div>
                         {goodEmails.map(email => (
-                          <div className='flex'>
+                          <div className='flex' key={email}>
                             <div className='mr-2 text-gray-600 font-normal'>
                               {email}
                             </div>
@@ -158,7 +158,7 @@ const FormSendTest = ({ Test }) => {
                       <div className='mt-4 text-sm text-red-600 font-bold'>
                         <div>Correos que no son válidos</div>
                         {errorsEmail.map(email => (
-                          <div className='flex'>
+                          <div className='flex' key={email}>
                             <div className='mr-2 text-gray-600 font-normal'>
                               {email}
                             </div>
