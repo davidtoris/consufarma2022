@@ -56,7 +56,7 @@ const TableTestsAnswers = ({ courses }) => {
   }, [copied])
 
   const handlePrint = async (TestId, ScoreId) => {
-    await instanceAPI.get(`testsPDF/downloadPDF?testId=${TestId}&scoreId=${ScoreId}`, {responseType: 'blob'})
+    await instanceAPI.get(`testsPDF/showTestPDF?testId=${TestId}&scoreId=${ScoreId}`, {responseType: 'blob'})
     .then((resp) => {
       window.open(URL.createObjectURL(resp.data));
     })
