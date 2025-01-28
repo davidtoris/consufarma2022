@@ -7,9 +7,11 @@ import orderReducer from './slices/OrderSlice';
 import authReducer from './slices/Auth/AuthSlice';
 import testReducer from './slices/Tests/TestSlice';
 import testsAnswersReducer from './slices/TestsAnswers/TestsAnswersSlice';
+import mailReducer from './slices/Mail/MailSlice';
 
 const store = configureStore({
   reducer: {
+    mail: mailReducer,
     testsAnswers: testsAnswersReducer,
     tests: testReducer,
     auths: authReducer,

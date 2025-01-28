@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Link from 'next/link';
 import { useDispatch, useSelector } from 'react-redux';
 import { API_BASE_URL, URL_SITE } from '../../../../src/constants';
-import { FaRegCopy } from 'react-icons/fa'
+import { VscCopy } from "react-icons/vsc";
 import { ListTestsAnswers } from '../../../../store/slices/TestsAnswers/TestsAnswersService';
 import { dateFormat, dateTimeFormat } from '../../../../src/helpers/FomateDate';
 import { BsFileEarmarkPdf } from 'react-icons/bs';
@@ -120,7 +120,7 @@ const TableTestsAnswers = ({ courses }) => {
                   <Link href={`/examen/resultado/${t.test_id}?student=${t._id}`}>
                     <div className='cursor-pointer hover:scale-110 transition-all'><IoEyeOutline title="Ver Examen" className='text-gray-500'/></div>
                   </Link>
-                  <div onClick={() => copyLink(`${URL_SITE}/examen/resultado/${t.test_id}?student=${t._id}`)} className='cursor-pointer hover:scale-110 transition-all mx-3'><FaRegCopy title="Copiar al portapapeles" className='text-gray-500'/></div>
+                  <div onClick={() => copyLink(`${URL_SITE}/examen/resultado/${t.test_id}?student=${t._id}`)} className='cursor-pointer hover:scale-110 transition-all mx-3'><VscCopy title="Copiar al portapapeles" className='text-gray-500'/></div>
                   <div onClick={() => handlePrint(t.test_id, t._id)} className='cursor-pointer hover:scale-110 transition-all'><BsFileEarmarkPdf title='Ver Examen en PDF' className='text-gray-500' /></div>
                 </div>
               </td>

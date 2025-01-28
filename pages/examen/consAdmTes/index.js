@@ -6,9 +6,10 @@ import { API_BASE_URL, URL_SITE } from '../../../src/constants'
 
 import { dateFormat } from '../../../src/helpers/FomateDate';
 import { testReloadFunc } from '../../../store/slices/Tests/TestSlice';
-import { FaRegCopy } from 'react-icons/fa'
+import { VscCopy } from "react-icons/vsc";
+
 import { BsFileEarmarkPdf, BsPlusCircleDotted } from "react-icons/bs";
-import { MdModeEditOutline } from "react-icons/md";
+import { MdModeEditOutline, MdOutlineMailOutline } from "react-icons/md";
 import { IoAddCircle, IoTrashOutline } from 'react-icons/io5';
 
 import ModalDelete from '../../../src/components/tests/ModalDelete';
@@ -48,7 +49,7 @@ const LandingItemCourse = ({ courses }) => {
   const onchangeDate = (e) => setSelectedDate(e.target.value)
 
   const handlePrint = async (TestId) => {
-    await instanceAPI.get(`testsPDF/downloadTestPDF?testId=${TestId}`, {responseType: 'blob'})
+    await instanceAPI.get(`testsPDF/showTestPDF?testId=${TestId}`, {responseType: 'blob'})
     .then((resp) => {
       window.open(URL.createObjectURL(resp.data));
     })
@@ -176,10 +177,13 @@ const LandingItemCourse = ({ courses }) => {
                     <Link href={`/examen/consAdmTes/${t._id}`}>
                       <div className='cursor-pointer hover:scale-110 transition-all'><MdModeEditOutline title="Editar Examen" className='text-gray-500' /></div>
                     </Link>
-                    <div onClick={() => copyLink(`${URL_SITE}/examen/${t._id}`)} className='cursor-pointer hover:scale-110 transition-all mx-3'><FaRegCopy title="Copiar al portapapeles" className='text-gray-500'/></div>
+                    <div onClick={() => copyLink(`${URL_SITE}/examen/${t._id}`)} className='cursor-pointer hover:scale-110 transition-all mx-2'><VscCopy title="Copiar al portapapeles" className='text-gray-500'/></div>
                     <div onClick={() => handlePrint(t._id)} className='cursor-pointer hover:scale-110 transition-all'><BsFileEarmarkPdf title='Ver Examen en PDF' className='text-gray-500' /></div>
-                    <div onClick={() => setOpenModal(t.nombre_examen, t._id)} className='cursor-pointer hover:scale-110 transition-all ml-3'><IoTrashOutline title="Eliminar Examen" className='text-gray-500' /></div>
-                    <div onClick={() => DuplicateTest(t)} className='cursor-pointer hover:scale-110 transition-all ml-3'><BsPlusCircleDotted title="Duplicar Examen" className='text-gray-500' /></div>
+                    <div onClick={() => setOpenModal(t.nombre_examen, t._id)} className='cursor-pointer hover:scale-110 transition-all ml-2'><IoTrashOutline title="Eliminar Examen" className='text-gray-500' /></div>
+                    <div onClick={() => DuplicateTest(t)} className='cursor-pointer hover:scale-110 transition-all ml-2'><BsPlusCircleDotted title="Duplicar Examen" className='text-gray-500' /></div>
+                    <Link href={`/examen/consAdmTes/enviarExamen/${t._id}`}>
+                      <div className='cursor-pointer hover:scale-110 transition-all'><MdOutlineMailOutline title="Enviar Examen" className='text-gray-500 ml-2' /></div>
+                    </Link>
                   </div>
                 </td>
               </tr>

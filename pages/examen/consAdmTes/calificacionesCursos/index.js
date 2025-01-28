@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { API_BASE_URL, URL_SITE } from '../../../../src/constants';
 import { ListTestsAnswersCourseName } from '../../../../store/slices/TestsAnswers/TestsAnswersService';
 import { dateFormat } from '../../../../src/helpers/FomateDate';
-import { FaRegCopy } from 'react-icons/fa';
+import { VscCopy } from "react-icons/vsc";
 import Select from 'react-select'
 
 
@@ -97,7 +97,7 @@ const TableTestsAnswers = ({ courses }) => {
               <td className='border-2 border-gray-200 p-1'>
                 <div className='flex text-xl justify-center px-1'>
                   {/* examen/resultadoCurso?TestId=6781c4eddb9f4b177be16006&date=2025-03-08 */}
-                  <div onClick={() => copyLink(`${URL_SITE}/examen/resultadoCurso?TestId=${t.test_id}&date=${t.fecha_finalizacion}`)} className='cursor-pointer hover:scale-110 transition-all mx-3'><FaRegCopy title="Copiar al portapapeles" className='text-gray-500'/></div>
+                  <div onClick={() => copyLink(`${URL_SITE}/examen/resultadoCurso?TestId=${t.test_id}&date=${t.fecha_finalizacion}`)} className='cursor-pointer hover:scale-110 transition-all mx-3'><VscCopy title="Copiar al portapapeles" className='text-gray-500'/></div>
                 </div>
               </td>
             </tr>

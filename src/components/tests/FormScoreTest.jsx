@@ -17,7 +17,7 @@ const FormScoreTest = ({ Test, TestAnswer, point }) => {
 
 
     const handlePrint = async () => {
-      await instanceAPI.get(`testsPDF/downloadPDF?testId=${TestAnswer.test_id}&scoreId=${TestAnswer._id}`, {responseType: 'blob'})
+      await instanceAPI.get(`testsPDF/scoreTestPDF?testId=${TestAnswer.test_id}&scoreId=${TestAnswer._id}`, {responseType: 'blob'})
       .then((resp) => {
         window.open(URL.createObjectURL(resp.data));
       })
@@ -242,7 +242,7 @@ const FormScoreTest = ({ Test, TestAnswer, point }) => {
                       </div>)}
                     </div>
 
-                    { !p.respuestaMultiple.every( cadaRespuesta => TestAnswer.answersUser.includes(cadaRespuesta)) 
+                    { p.respuestaMultiple.every( cadaRespuesta => TestAnswer.answersUser.includes(cadaRespuesta)) 
                     ? (
                         <div></div>
                       ) : (
