@@ -21,7 +21,7 @@ const lastCourses = () => {
 
   return (
     <div>
-      {lastItems.length ? (
+      {!lastItems.length ? (
         <div className='bg-gray-50 mt-4 mb-10'>
           <div className='container m-auto px-2 md:px-2 pt-2'>
             <div className='text-2xl text-blueConsufarma font-bold mb-4 mt-8'>Cursos que has visto recientemente</div>

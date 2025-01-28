@@ -5,6 +5,7 @@ import { ListTestsAnswersCourseName } from '../../../../store/slices/TestsAnswer
 import { dateFormat } from '../../../../src/helpers/FomateDate';
 import { VscCopy } from "react-icons/vsc";
 import Select from 'react-select'
+import Menu from '../../../../src/components/tests/UI/Menu';
 
 
 const TableTestsAnswers = ({ courses }) => {
@@ -55,6 +56,9 @@ const TableTestsAnswers = ({ courses }) => {
 
   return (
     <div className="max-w-7xl mx-auto">
+
+      <Menu />
+
       <img src="https://consufarma2022-davidtoris-projects.vercel.app/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Flogo.502e107c.png&w=1920&q=75" width="450px" className='my-5 m-auto'/>
 
       {copied && (

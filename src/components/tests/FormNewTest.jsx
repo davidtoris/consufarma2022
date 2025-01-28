@@ -94,6 +94,7 @@ const FormNewTest = ({ coursesName }) => {
               fecha_finalizacion: valores.fecha_finalizacion,
               ponente_uno: courseSelected.ponente_uno_id,
               ponente_dos: courseSelected.ponente_dos_id,
+              especialidad_id: courseSelected.especialidad_id._id,
               img_curso: courseSelected.imagen,
               preguntas: valores.preguntas
             }

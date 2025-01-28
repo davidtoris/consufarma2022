@@ -10,11 +10,12 @@ import { VscCopy } from "react-icons/vsc";
 
 import { BsFileEarmarkPdf, BsPlusCircleDotted } from "react-icons/bs";
 import { MdModeEditOutline, MdOutlineMailOutline } from "react-icons/md";
-import { IoAddCircle, IoTrashOutline } from 'react-icons/io5';
+import { IoAddCircle, IoMenu, IoTrashOutline } from 'react-icons/io5';
 
 import ModalDelete from '../../../src/components/tests/ModalDelete';
 import instanceAPI from '../../../src/config/axiosConfig';
 import Select from 'react-select'
+import Menu from '../../../src/components/tests/UI/Menu';
 
 
 const LandingItemCourse = ({ courses }) => {
@@ -112,6 +113,8 @@ const LandingItemCourse = ({ courses }) => {
 
   return (
     <div className="max-w-7xl mx-auto pb-10">
+
+        <Menu />
 
         <ModalDelete 
           setOpenModalDelete={setOpenModalDelete}

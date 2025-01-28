@@ -56,6 +56,7 @@ const FormEditTest = ({ coursesName, tests }) => {
       fecha_finalizacion: '',
       ponente_uno: '',
       ponente_dos: '',
+      especialidad: '',
       preguntas: ''
     }
 
@@ -105,6 +106,7 @@ const FormEditTest = ({ coursesName, tests }) => {
               fecha_texto: courseSelected ? courseSelected.fecha_text : valores.fecha_texto,
               ponente_uno: courseSelected ? courseSelected.ponente_uno_id : tests.ponente_uno_id,
               ponente_dos: courseSelected ? courseSelected.ponente_dos_id : tests.ponente_dos_id,
+              especialidad_id: courseSelected ? courseSelected.especialidad_id : tests.especialidad_id,
               img_curso: courseSelected ? courseSelected.imagen : tests[0].img_curso,
               fecha_finalizacion: valores.fecha_finalizacion,
               preguntas: valores.preguntas
