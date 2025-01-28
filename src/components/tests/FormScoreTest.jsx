@@ -95,7 +95,9 @@ const FormScoreTest = ({ Test, TestAnswer, point }) => {
       const data = {
         testId: TestAnswer.test_id,
         userId: TestAnswer._id,
-        correo: TestAnswer.correo
+        correo: TestAnswer.correo,
+        nombreCurso: nombre_curso,
+        estudiante: TestAnswer.estudiante,
       }
       console.log(data);
       await axios.post(`${API_BASE_URL}/email/sendTest`, data);
