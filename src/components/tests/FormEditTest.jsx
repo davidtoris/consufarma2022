@@ -103,7 +103,7 @@ const FormEditTest = ({ coursesName, tests }) => {
             const data = {
               nombre_examen: valores.nombre_examen,
               nombre_curso: courseSelected ? courseSelected.nombre : valores.nombre_curso,
-              fecha_texto: courseSelected ? courseSelected.fecha_text : valores.fecha_texto,
+              fecha_texto: valores.fecha_texto ? valores.fecha_texto : courseSelected.fecha_text,
               ponente_uno: courseSelected ? courseSelected.ponente_uno_id : tests.ponente_uno_id,
               ponente_dos: courseSelected ? courseSelected.ponente_dos_id : tests.ponente_dos_id,
               especialidad_id: courseSelected ? courseSelected.especialidad_id : tests.especialidad_id,

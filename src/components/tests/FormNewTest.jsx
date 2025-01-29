@@ -90,7 +90,7 @@ const FormNewTest = ({ coursesName }) => {
             const data = {
               nombre_examen: valores.nombre_examen,
               nombre_curso: courseSelected.nombre,
-              fecha_texto: courseSelected.fecha_text,
+              fecha_texto: valores.fecha_texto ? valores.fecha_texto : courseSelected.fecha_text,
               fecha_finalizacion: valores.fecha_finalizacion,
               ponente_uno: courseSelected.ponente_uno_id,
               ponente_dos: courseSelected.ponente_dos_id,

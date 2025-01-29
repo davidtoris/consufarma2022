@@ -20,11 +20,11 @@ const CourseTest = ({Test}) => {
     }
   }, [student])
 
-  console.log(student);
-  console.log(allTestsAnswers);
-  console.log(allTestsAnswers.length);
-  console.log(allTestsAnswersTemp);
-  console.log(allTestsAnswersTemp.length);
+  console.log('student', student);
+  console.log('allTestsAnswers', allTestsAnswers);
+  console.log('allTestsAnswers.length', allTestsAnswers.length);
+  console.log('allTestsAnswersTemp', allTestsAnswersTemp);
+  console.log('allTestsAnswersTemp.length', allTestsAnswersTemp.length);
 
   return (
     <>
