@@ -14,6 +14,10 @@ const CourseTest = ({Test}) => {
   const dispatch = useDispatch()
   const { allTestsAnswers, allTestsAnswersTemp } = useSelector((state) => state.testsAnswers);
 
+  const goToHome = () => {
+    router.push("/")
+  }
+
   useEffect(() => {
     if (student && student !== ''){
       OneTestsAnswers(dispatch, student)
@@ -46,7 +50,7 @@ const CourseTest = ({Test}) => {
         />
       )}
       { student === undefined && allTestsAnswers.length === 0 && allTestsAnswersTemp.length === 0 &&(
-        <div>Vuelve a intentarlo</div>
+        <div onClick={goToHome()}>Vuelve a intentarlo</div>
       )}
       </div>
     </>
