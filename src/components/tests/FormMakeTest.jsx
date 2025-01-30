@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
 import { createAnswersTests, validateUserTryings } from '../../../store/slices/TestsAnswers/TestsAnswersService';
-import { addTestsAnswers, SeTerminoExamen } from '../../../store/slices/TestsAnswers/TestsAnswersSlice';
+import { SeTerminoExamen } from '../../../store/slices/TestsAnswers/TestsAnswersSlice';
 import { useRouter } from 'next/router';
 import moment from 'moment';
 import * as Yup from 'yup';
@@ -21,7 +21,7 @@ const FormMakeTest = ({ Test }) => {
   const { fecha_finalizacion, fecha_texto, img_curso, nombre_curso, nombre_examen, 
     ponente_uno, ponente_dos, preguntas, _id } = Test[0]
 
-  const { intentosExamen } = useSelector((state) => state.testsAnswers);
+  const { testsAnswersLoading, intentosExamen, allTestsAnswers } = useSelector((state) => state.testsAnswers);
   const INTENTOS_PERMITIDOS = 2
 
   
@@ -130,10 +130,8 @@ const FormMakeTest = ({ Test }) => {
         }
 
         createAnswersTests(dispatch, dataToSend)
-        dispatch(addTestsAnswers());
         dispatch(SeTerminoExamen(true))
 
-        router.push(`/examen/resultado/${_id}`)
         
         console.log(dataToSend);
       }
@@ -147,7 +145,7 @@ const FormMakeTest = ({ Test }) => {
       const idTest = _id
       validateUserTryings(dispatch, idTest, nameStudent)
     }
-
+    
     useEffect(() => {
       console.log(intentosExamen);
       if (intentosExamen > INTENTOS_PERMITIDOS){
@@ -155,6 +153,15 @@ const FormMakeTest = ({ Test }) => {
         setShowTest(false)
       }
     }, [intentosExamen])
+    
+    // Envia a calificación una vez terminado el examen
+    useEffect(() => {
+      if(allTestsAnswers.testsAnswers){
+        const studentId = allTestsAnswers.testsAnswers._id
+        router.push(`/examen/resultado/${_id}?student=${studentId}`)
+      }
+    }, [allTestsAnswers])
+    
     
     
   
@@ -298,7 +305,12 @@ const FormMakeTest = ({ Test }) => {
                   </div>
                 ))}
               
-                <button type="submit" className="w-12/12 md:w-3/12 text-white mt-4 bg-blueConsufarma hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Calificar Examen</button>
+                <div className='flex items-center'>
+                  <button disabled={testsAnswersLoading} type="submit" className="flex items-center justify-center w-12/12 md:w-4/12 text-white mt-4 bg-blueConsufarma hover:bg-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center disabled:bg-gray-300 disabled:text-gray-400">
+                    Calificar Examen {testsAnswersLoading && (<div className="lds-dual-small-ring"></div>)}
+                  </button>
+                  
+                </div>
 
 
               </div>
