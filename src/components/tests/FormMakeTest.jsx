@@ -204,7 +204,7 @@ const FormMakeTest = ({ Test }) => {
               <div>
     
                 <div className='mt-5 flex:col md:flex'>
-                  <div className='w-4/4 md:2/4'>
+                  <div className='w-4/4 md:w-2/4'>
                     <label className="block text-md font-light text-gray-900 dark:text-white">Nombre:</label>
                     <Field 
                       onBlur={(e) => {
@@ -219,7 +219,7 @@ const FormMakeTest = ({ Test }) => {
                       name="estudiante"
                       component={() => ( <div className="text-orangeCustom text-xs ml-2 mt-1">{ errors.estudiante }</div>)} />
                   </div>
-                  <div className='w-4/4 md:2/4 ml-0 md:ml-3 mt-4 md:mt-0'>
+                  <div className='w-4/4 md:w-2/4 ml-0 md:ml-3 mt-4 md:mt-0'>
                     <label className="block text-md font-light text-gray-900 dark:text-white">Correo <span className='font-semibold text-sm'>(Escribe el correo donde se enviarán tus evaluación)</span></label>
                     <Field 
                       type="email"

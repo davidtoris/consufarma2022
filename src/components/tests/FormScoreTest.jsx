@@ -289,7 +289,7 @@ const FormScoreTest = ({ Test, TestAnswer, point }) => {
           )}
 
           <div className='flex-col md:flex text-lg font-semibold mt-5 mb-10 px-4 md:px-0'>
-            <div onClick={handlePrint} className='bg-blueConsufarma p-4 rounded-md text-white flex items-center hover:scale-110 transition-all cursor-pointer justify-center'>
+            <div onClick={handlePrint} className='w-12/12 md:w-4/12 bg-blueConsufarma p-4 rounded-md text-white flex items-center hover:scale-110 transition-all cursor-pointer justify-center'>
               <FaPrint className="mr-2 text-lg" />
               Imprimir Examen</div>
             {/* <div className='bg-blueLightCustom p-4 rounded-md text-white ml-4 flex items-center hover:scale-110 transition-all cursor-pointer justify-center'>
