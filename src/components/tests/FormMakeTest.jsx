@@ -205,7 +205,7 @@ const FormMakeTest = ({ Test }) => {
     
                 <div className='mt-5 flex:col md:flex'>
                   <div className='w-4/4 md:w-2/4'>
-                    <label className="block text-md font-light text-gray-900 dark:text-white">Nombre:</label>
+                    <label className="block text-md font-light text-gray-900">Nombre:</label>
                     <Field 
                       onBlur={(e) => {
                         howManyTryings(e)
@@ -213,18 +213,18 @@ const FormMakeTest = ({ Test }) => {
                       }} 
                       type="text"
                       name="estudiante"
-                      className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                      className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                       />
                     <ErrorMessage
                       name="estudiante"
                       component={() => ( <div className="text-orangeCustom text-xs ml-2 mt-1">{ errors.estudiante }</div>)} />
                   </div>
                   <div className='w-4/4 md:w-2/4 ml-0 md:ml-3 mt-4 md:mt-0'>
-                    <label className="block text-md font-light text-gray-900 dark:text-white">Correo <span className='font-semibold text-sm'>(Escribe el correo donde se enviarán tus evaluación)</span></label>
+                    <label className="block text-md font-light text-gray-900">Correo <span className='font-semibold text-sm'>(Escribe el correo donde se enviarán tus evaluación)</span></label>
                     <Field 
                       type="email"
                       name="correo"
-                      className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                      className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                     />
                     <ErrorMessage
                       name="correo"
@@ -298,7 +298,7 @@ const FormMakeTest = ({ Test }) => {
                   </div>
                 ))}
               
-                <button type="submit" className="w-12/12 md:w-3/12 text-white mt-4 bg-blueConsufarma hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Calificar Examen</button>
+                <button type="submit" className="w-12/12 md:w-3/12 text-white mt-4 bg-blueConsufarma hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Calificar Examen</button>
 
 
               </div>
