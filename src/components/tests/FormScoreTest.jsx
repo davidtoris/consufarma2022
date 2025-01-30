@@ -115,7 +115,7 @@ const FormScoreTest = ({ Test, TestAnswer, point }) => {
       <>
       
       <div className='container m-auto mt-5'>
-        <img src="https://consufarma2022-davidtoris-projects.vercel.app/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Flogo.502e107c.png&w=1920&q=75" width="450px" className='m-auto'/>
+        <img src="https://consufarma2022-davidtoris-projects.vercel.app/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Flogo.502e107c.png&w=1920&q=75" width="450px" className='m-auto px-4 md:px-0'/>
             
             <div className='flex flex-col justify-center m-auto'>
               <h1 className="mt-5 font-bold text-2xl text-blueConsufarma text-center">{nombre_curso}</h1>
@@ -126,7 +126,7 @@ const FormScoreTest = ({ Test, TestAnswer, point }) => {
               </div>
             </div>
             
-            <div className='mt-2'>
+            <div className='mt-10 md:mt-2 px-4 md:px-0'>
               <div className='font-extrabold text-xl'>Nombre: {TestAnswer.estudiante}</div>
               <div><span className='font-bold'>Fecha:</span> {dateFormat(TestAnswer.fecha_sistema)}</div>
               <div><span className='font-bold'>Ponente:</span> {ponente_uno[0].ponente}</div>
@@ -136,18 +136,18 @@ const FormScoreTest = ({ Test, TestAnswer, point }) => {
               <div><span className='font-bold'>Calificación:</span> {TestAnswer.score}</div>
             </div>
 
-            <div className='mt-4'>
+            <div className='mt-4 px-4 md:px-0'>
               <div className='font-semibold'>Instrucciones:</div>
-              <div className='font-extralight'>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Minima et eveniet dolorem ipsum numquam omnis doloribus repellat aliquid modi perferendis adipisci nulla velit eos, assumenda quae. Esse dolor saepe expedita.</div>
+              <div className='font-extralight'>Elige la respuesta correcta</div>
             </div>
 
-            <div className='mt-8'>
+            <div className='mt-8 px-4 md:px-0'>
               <div className='font-extrabold text-xl'>Preguntas:</div>
             </div>
   
             {preguntas.map( (p,i) => (
 
-              <div className='mt-3' key={p.pregunta}>
+              <div className='mt-3 px-4 md:px-0' key={p.pregunta}>
                 { p.tipo === 'verdaderoFalso' && (
                   <div>
                     <div className='ml-2'>
@@ -271,7 +271,7 @@ const FormScoreTest = ({ Test, TestAnswer, point }) => {
 
           {hasTest && (
             <>
-              <div className='mt-10 text-blueLightCustom font-extrabold text-lg'>
+              <div className='mt-10 text-blueLightCustom font-extrabold text-lg px-3 md:px-0'>
                 {emailSended === '' ? 'Te estaremos enviando ' : 'Te hemos enviado '}
                 un correo a: <span className='underline'>{TestAnswer.correo}</span> con tu evaluación
               </div>
@@ -288,13 +288,13 @@ const FormScoreTest = ({ Test, TestAnswer, point }) => {
             </>
           )}
 
-          <div className='flex text-lg font-semibold mt-5 mb-10'>
-            <div onClick={handlePrint} className='bg-blueConsufarma p-4 rounded-md text-white flex items-center hover:scale-110 transition-all cursor-pointer'>
+          <div className='flex-col md:flex text-lg font-semibold mt-5 mb-10 px-4 md:px-0'>
+            <div onClick={handlePrint} className='bg-blueConsufarma p-4 rounded-md text-white flex items-center hover:scale-110 transition-all cursor-pointer justify-center'>
               <FaPrint className="mr-2 text-lg" />
               Imprimir Examen</div>
-            <div className='bg-blueLightCustom p-4 rounded-md text-white ml-4 flex items-center hover:scale-110 transition-all cursor-pointer'>
+            {/* <div className='bg-blueLightCustom p-4 rounded-md text-white ml-4 flex items-center hover:scale-110 transition-all cursor-pointer justify-center'>
               <FaAward className="mr-2 text-xl" />
-              Obtener Constancia</div>
+              Obtener Constancia</div> */}
           </div>
       </div>
 

@@ -203,8 +203,8 @@ const FormMakeTest = ({ Test }) => {
               {ShowTest && (
               <div>
     
-                <div className='mt-5 flex'>
-                  <div className='w-2/4'>
+                <div className='mt-5 flex:col md:flex'>
+                  <div className='w-4/4 md:2/4'>
                     <label className="block text-md font-light text-gray-900 dark:text-white">Nombre:</label>
                     <Field 
                       onBlur={(e) => {
@@ -219,7 +219,7 @@ const FormMakeTest = ({ Test }) => {
                       name="estudiante"
                       component={() => ( <div className="text-orangeCustom text-xs ml-2 mt-1">{ errors.estudiante }</div>)} />
                   </div>
-                  <div className='w-2/4 ml-3'>
+                  <div className='w-4/4 md:2/4 ml-0 md:ml-3 mt-4 md:mt-0'>
                     <label className="block text-md font-light text-gray-900 dark:text-white">Correo <span className='font-semibold text-sm'>(Escribe el correo donde se enviarán tus evaluación)</span></label>
                     <Field 
                       type="email"
@@ -242,7 +242,7 @@ const FormMakeTest = ({ Test }) => {
 
                 <div className='mt-4'>
                   <div className='font-semibold'>Instrucciones:</div>
-                  <div className='font-extralight'>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Minima et eveniet dolorem ipsum numquam omnis doloribus repellat aliquid modi perferendis adipisci nulla velit eos, assumenda quae. Esse dolor saepe expedita.</div>
+                  <div className='font-extralight'>Elige la respuesta correcta</div>
                 </div>
 
                 <div className='mt-8'>
@@ -298,7 +298,7 @@ const FormMakeTest = ({ Test }) => {
                   </div>
                 ))}
               
-                <button type="submit" className="w-3/12 text-white mt-4 bg-blueConsufarma hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Calificar Examen</button>
+                <button type="submit" className="w-12/12 md:w-3/12 text-white mt-4 bg-blueConsufarma hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Calificar Examen</button>
 
 
               </div>
