@@ -17,14 +17,33 @@ const FormScoreTest = ({ Test, TestAnswer, point }) => {
 
 
     const handlePrint = async () => {
-      await instanceAPI.get(`testsPDF/scoreTestPDF?testId=${TestAnswer.test_id}&scoreId=${TestAnswer._id}`, {responseType: 'blob'})
-      .then((resp) => {
-        window.open(URL.createObjectURL(resp.data));
-      })
-      .catch((err) => {
-        console.log(err)
-      })
-    }
+      try {
+        const resp = await instanceAPI.get(
+          `testsPDF/scoreTestPDF?testId=${TestAnswer.test_id}&scoreId=${TestAnswer._id}`,
+          { responseType: 'blob' }
+        );
+    
+        if (resp.data) {
+          const fileURL = URL.createObjectURL(resp.data);
+    
+          // Crear un enlace temporal para descargar el archivo
+          const link = document.createElement('a');
+          link.href = fileURL;
+          link.download = `Examen - ${TestAnswer.estudiante}.pdf`; // Nombre del archivo
+          document.body.appendChild(link);
+          link.click();
+    
+          // Limpieza: eliminar el enlace y liberar el objeto URL
+          document.body.removeChild(link);
+          URL.revokeObjectURL(fileURL);
+        } else {
+          console.error('No data found in response.');
+        }
+      } catch (err) {
+        console.error('Error fetching the PDF:', err);
+      }
+    };
+    
 
     // Validar cuando la respuesta sea correcta agregar fondo verde
     const rateAnswers = (respCorrecta, inciso, respUsuario) => {
