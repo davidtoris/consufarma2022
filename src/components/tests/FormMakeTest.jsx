@@ -13,8 +13,6 @@ import ModalTryings from './ModalTryings';
 
 const FormMakeTest = ({ Test }) => {
 
-  console.log(Test);
-
   const router = useRouter()
   const dispatch = useDispatch()
 
@@ -25,98 +23,109 @@ const FormMakeTest = ({ Test }) => {
   const INTENTOS_PERMITIDOS = 2
 
   
-    const validationSchema = Yup.object().shape({
-      estudiante: Yup.string().required('El campo es obligatorio'),
-      correo: Yup.string().email("Introduce un correo válido").required('El campo es obligatorio'),
-    });
-  
-    const valuesTest = {
-      estudiante: '',
-      correo: '',
+  const validationSchema = Yup.object().shape({
+    estudiante: Yup.string().required('El campo es obligatorio'),
+    correo: Yup.string().email("Introduce un correo válido").required('El campo es obligatorio'),
+  });
+
+  const initialValues = {
+    estudiante: '',
+    correo: '',
+  }
+
+  const [ShowQuestions, setShowQuestions] = useState(false)
+    const [choose, setChoose] = useState(false)
+    const [hasTest, setHasTest] = useState(false)
+    
+    const handleTestDiploma = () => {
+      setChoose(true)
+      setShowQuestions(true)
     }
 
-    // selectOption(tipo, i, 'A')
-    const [answersUser, setAnswersUser] = useState([])
-    const [score, setScore] = useState(0)
+  // selectOption(tipo, i, 'A')
+  const [answersUser, setAnswersUser] = useState([])
+  const [score, setScore] = useState(0)
 
-    // Guardar las Respuestas del Usuario
-    const selectOption = (tipo, i, Opc) => {
+  // Guardar las Respuestas del Usuario
+  const selectOption = (tipo, i, Opc) => {
+    
+    setAnswersUser((prevAnswers) => {
+      const updatedAnswers = [...prevAnswers]; // Crea una copia del array actual
       
-      setAnswersUser((prevAnswers) => {
-        const updatedAnswers = [...prevAnswers]; // Crea una copia del array actual
-        
-        if (tipo === 'multipleOpcion') {
-          // Asegúrate de que la posición `i` sea un array si no existe
-          if (!Array.isArray(updatedAnswers[i])) {
-            updatedAnswers[i] = [];
-          }
-    
-          // Agrega el valor de `Opc` al array si no existe ya
-          if (!updatedAnswers[i].includes(Opc)) {
-            updatedAnswers[i] = [...updatedAnswers[i], Opc];
-          } else {
-            // Si ya existe, remuévelo (comportamiento de "toggle")
-            updatedAnswers[i] = updatedAnswers[i].filter((item) => item !== Opc);
-          }
+      if (tipo === 'multipleOpcion') {
+        // Asegúrate de que la posición `i` sea un array si no existe
+        if (!Array.isArray(updatedAnswers[i])) {
+          updatedAnswers[i] = [];
+        }
+  
+        // Agrega el valor de `Opc` al array si no existe ya
+        if (!updatedAnswers[i].includes(Opc)) {
+          updatedAnswers[i] = [...updatedAnswers[i], Opc];
         } else {
-          // Para otros tipos, simplemente asigna `Opc`
-          updatedAnswers[i] = Opc;
+          // Si ya existe, remuévelo (comportamiento de "toggle")
+          updatedAnswers[i] = updatedAnswers[i].filter((item) => item !== Opc);
         }
-    
-        return updatedAnswers; // Devuelve la copia actualizada
-      });
-    }
+      } else {
+        // Para otros tipos, simplemente asigna `Opc`
+        updatedAnswers[i] = Opc;
+      }
+  
+      return updatedAnswers; // Devuelve la copia actualizada
+    });
+  }
 
-    // Crear un array con base a la cantidad de preguntas
-    useEffect(() => {
-      let ArrayAnswers = []
-      preguntas.map( p => {
-        ArrayAnswers.push( p.tipo === 'multipleOpcion' ? [] : '')
-      })
-      setAnswersUser(ArrayAnswers)
-    }, [])
+  // Crear un array con base a la cantidad de preguntas
+  useEffect(() => {
+    let ArrayAnswers = []
+    preguntas.map( p => {
+      ArrayAnswers.push( p.tipo === 'multipleOpcion' ? [] : '')
+    })
+    setAnswersUser(ArrayAnswers)
+  }, [])
 
     
-    // Validar si la respuesta Usuario esta en Array multipleOpciones === Agrega fondo azul
-    const answerMultipleOption = (Index, Opc) => {
-      if(answersUser.length){
-        if(answersUser[Index].includes(Opc)){
-          return 'bg-blue-100'
-        }
+  // Validar si la respuesta Usuario esta en Array multipleOpciones === Agrega fondo azul
+  const answerMultipleOption = (Index, Opc) => {
+    if(answersUser.length){
+      if(answersUser[Index].includes(Opc)){
+        return 'bg-blue-100'
       }
     }
+  }
 
     // CALIFICAR EXAMEN
-    const getScore = () => {
-      preguntas.map( (p, idxPregunta) => {
-        const answersUserTemp =  answersUser[idxPregunta]
+  const getScore = () => {
+    preguntas.map( (p, idxPregunta) => {
+      const answersUserTemp =  answersUser[idxPregunta]
 
-        if (p.tipo === 'multipleOpcion') {
-          
-          // Verificar el largo de los dos arrays sea igual
-          if (p.respuestaMultiple.length === answersUserTemp.length) {
-            // Verificar si cada elemento de respExamen está en answersUserTemp y viceversa
-            if ( p.respuestaMultiple.every(elem => answersUserTemp.includes(elem)) && answersUserTemp.every(elem => p.respuestaMultiple.includes(elem)) ) {
-              setScore(prevScore => prevScore + 1);
-            } 
-          } 
-        } else {
-          if ( p.respuesta === answersUser[idxPregunta] ) {
+      if (p.tipo === 'multipleOpcion') {
+        
+        // Verificar el largo de los dos arrays sea igual
+        if (p.respuestaMultiple.length === answersUserTemp.length) {
+          // Verificar si cada elemento de respExamen está en answersUserTemp y viceversa
+          if ( p.respuestaMultiple.every(elem => answersUserTemp.includes(elem)) && answersUserTemp.every(elem => p.respuestaMultiple.includes(elem)) ) {
             setScore(prevScore => prevScore + 1);
-          } else {
-          }
+          } 
         } 
-      })
+      } else {
+        if ( p.respuesta === answersUser[idxPregunta] ) {
+          setScore(prevScore => prevScore + 1);
+        } else {
+        }
+      } 
+    })
 
-      setSendAnswers(true)
-    }
+    setSendAnswers(true)
+  }
 
-    const [infoUser, setInfoUser] = useState({})
-    const [sendAnswers, setSendAnswers] = useState(false)
+  const [infoUser, setInfoUser] = useState({})
+  const [sendAnswers, setSendAnswers] = useState(false)
 
-    useEffect(() => {
-      if (sendAnswers) {
-        const dataToSend = {
+  useEffect(() => {
+    if (sendAnswers) {
+      let dataToSend
+      if (hasTest){
+        dataToSend = {
           estudiante: infoUser.estudiante,
           correo: infoUser.correo,
           answersUser,
@@ -128,125 +137,147 @@ const FormMakeTest = ({ Test }) => {
           nombre_curso,
           hizoExamen: 'true'
         }
-
-        createAnswersTests(dispatch, dataToSend)
-        dispatch(SeTerminoExamen(true))
-
-        
-        console.log(dataToSend);
+      } else  {
+        dataToSend = {
+          estudiante: infoUser.estudiante,
+          correo: infoUser.correo,
+          answersUser: [],
+          score: 'Sin Calificacion',
+          fecha_sistema: moment().format(),
+          fecha_finalizacion,
+          fecha_texto,
+          test_id: _id,
+          nombre_curso,
+          hizoExamen: 'false'
+        }
       }
-    }, [sendAnswers])
 
-    const [ShowTest, setShowTest] = useState(true);
-    const [openModalTryings, setOpenModalTryings] = useState(false);
+      createAnswersTests(dispatch, dataToSend)
+      dispatch(SeTerminoExamen(true))
 
-    const howManyTryings = (e) => {
-      const nameStudent = e.target.value
-      const idTest = _id
-      validateUserTryings(dispatch, idTest, nameStudent)
+      
+      console.log(dataToSend);
     }
-    
-    useEffect(() => {
-      console.log(intentosExamen);
-      if (intentosExamen > INTENTOS_PERMITIDOS){
-        setOpenModalTryings(true)
-        setShowTest(false)
-      }
-    }, [intentosExamen])
-    
-    // Envia a calificación una vez terminado el examen
-    useEffect(() => {
-      if(allTestsAnswers.testsAnswers){
-        const studentId = allTestsAnswers.testsAnswers._id
-        router.push(`/examen/resultado/${_id}?student=${studentId}`)
-      }
-    }, [allTestsAnswers])
-    
-    
-    
+  }, [sendAnswers])
+
+  const [ShowTest, setShowTest] = useState(true);
+  const [openModalTryings, setOpenModalTryings] = useState(false);
+
+  const howManyTryings = (e) => {
+    const nameStudent = e.target.value
+    const idTest = _id
+    validateUserTryings(dispatch, idTest, nameStudent)
+  }
   
-    return (
-      <div>
+  useEffect(() => {
+    if (intentosExamen > INTENTOS_PERMITIDOS){
+      setOpenModalTryings(true)
+      setShowTest(false)
+    }
+  }, [intentosExamen])
+  
+  // Envia a calificación una vez terminado el examen
+  useEffect(() => {
+    if(allTestsAnswers.testsAnswers){
+      const studentId = allTestsAnswers.testsAnswers._id
+      if (hasTest){
+        router.push(`/examen/resultado/${_id}?student=${studentId}`)
+      } else {
+        router.push(`/examen/diploma/${_id}?student=${studentId}`)
+      }
+    }
+  }, [allTestsAnswers])
 
-        <ModalTryings 
-          setOpenModalTryings={setOpenModalTryings}
-          openModalTryings={openModalTryings}
-        />
+  console.log(hasTest);
 
+  return (
+    <div>
+
+      <ModalTryings 
+        setOpenModalTryings={setOpenModalTryings}
+        openModalTryings={openModalTryings}/>
+
+      <Formik
+        initialValues={initialValues}
+        validationSchema={validationSchema}
+        onSubmit={async (valores) => {
+
+          const data = {
+            estudiante: valores.estudiante,
+            correo: valores.correo,
+            fecha: fecha_finalizacion,
+          }
+          setInfoUser(data)
+          getScore()
+
+        }}>
         
-          <Formik
-            initialValues={valuesTest}
-            validationSchema={validationSchema}
-            onSubmit={async (valores) => {
+        {
+          function FillInputs ({ values, errors, setFieldValue, handleBlur }) {
 
-              const data = {
-                estudiante: valores.estudiante,
-                correo: valores.correo,
-                fecha: fecha_finalizacion,
-              }
-              setInfoUser(data)
-              getScore()
+          return (
+          
+          <Form className="p-0 md:p-5 flex justify-center flex-col w-10/12 m-auto">
 
-            }}>
-            
-            {
-              function FillInputs ({ values, errors, setFieldValue, handleBlur }) {
-    
-              return (
-              
-              <Form className="p-0 md:p-5 flex justify-center flex-col w-10/12 m-auto">
-    
-              <img src="https://consufarma2022-davidtoris-projects.vercel.app/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Flogo.502e107c.png&w=1920&q=75" width="450px" className='m-auto'/>
-              
-              <div className='flex flex-col justify-center m-auto'>
-                <h1 className="mt-5 font-bold text-2xl text-blueConsufarma text-center">{nombre_curso}</h1>
-                <h1 className="mb-4 font-semibold text-lg text-blueConsufarma text-center">Fecha del curso: {fecha_texto} </h1>
-                <h1 className="mb-4 font-light text-lg text-blueConsufarma text-center">EVALUACIÓN DEL CURSO</h1>
-                <div className='rounded-full'>
-                  <img src={img_curso} width="300px" className='m-auto rounded-full'/>
-                </div>
+          <img src="https://consufarma2022-davidtoris-projects.vercel.app/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Flogo.502e107c.png&w=1920&q=75" width="450px" className='m-auto'/>
+          
+          <div className='flex flex-col justify-center m-auto'>
+            <h1 className="mt-3 font-bold text-2xl text-blueConsufarma text-center">{nombre_curso}</h1>
+            <h1 className="font-semibold text-lg text-blueConsufarma text-center">Fecha del curso: {fecha_texto} </h1>
+            <h1 className="mb-5 font-light text-lg text-blueConsufarma text-center">EVALUACIÓN DEL CURSO</h1>
+            <div className='rounded-full'>
+              <img src={img_curso} width="300px" className='m-auto rounded-full'/>
+            </div>
+          </div>
+
+          <div className='mt-2 m-auto text-center'>
+              <div><span className='font-bold'>Fecha:</span> {dateFormat()}</div>
+              <div><span className='font-bold'>Ponente1:</span> {ponente_uno[0].ponente}</div>
+              {ponente_dos[0].ponente !== 'ninguno' && (
+                <div><span className='font-bold'>Ponente2:</span> {ponente_dos[0].ponente}</div>
+              )}
+            </div>
+
+          <div>
+
+            <div className='mt-5 grid grid-cols-1 gap-4'>
+              <div className='w-6/12 m-auto text-center'>
+                <label className="block text-md font-light text-gray-900">Nombre: <span className='font-semibold text-sm'>(Escribe el nombre que aparecerá en tu Diploma)</span></label>
+                <Field 
+                  onBlur={(e) => {
+                    howManyTryings(e)
+                    handleBlur(e)
+                  }} 
+                  type="text"
+                  name="estudiante"
+                  className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                  />
+                <ErrorMessage
+                  name="estudiante"
+                  component={() => ( <div className="text-orangeCustom text-xs ml-2 mt-1">{ errors.estudiante }</div>)} />
               </div>
+              <div className='w-6/12 m-auto text-center'>
+                <label className="block text-md font-light text-gray-900">Correo <span className='font-semibold text-sm'>(Escribe el correo donde se enviarán tu evaluación)</span></label>
+                <Field 
+                  type="email"
+                  name="correo"
+                  className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                />
+                <ErrorMessage
+                  name="correo"
+                  component={() => ( <div className="text-orangeCustom text-xs ml-2 mt-1">{ errors.correo }</div>)} />
+              </div>
+            </div>
+            
+            {!choose && (
+              <div className='flex justify-center mt-5'>
+                <button onClick={() => handleTestDiploma()} className='bg-blueDarkCustom text-white p-4 rounded-md font-semibold hover:scale-110 transition-all cursor-pointer'>Realizar Examen y Obtener diploma </button>
+                <button type="submit" className='bg-blueLightCustom text-white p-4 rounded-md font-semibold ml-4 hover:scale-110 transition-all cursor-pointer'>Obtener diploma </button>
+              </div>
+            )}
 
-              {ShowTest && (
+            {ShowQuestions && (
               <div>
-    
-                <div className='mt-5 flex:col md:flex'>
-                  <div className='w-4/4 md:w-2/4'>
-                    <label className="block text-md font-light text-gray-900">Nombre:</label>
-                    <Field 
-                      onBlur={(e) => {
-                        howManyTryings(e)
-                        handleBlur(e)
-                      }} 
-                      type="text"
-                      name="estudiante"
-                      className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                      />
-                    <ErrorMessage
-                      name="estudiante"
-                      component={() => ( <div className="text-orangeCustom text-xs ml-2 mt-1">{ errors.estudiante }</div>)} />
-                  </div>
-                  <div className='w-4/4 md:w-2/4 ml-0 md:ml-3 mt-4 md:mt-0'>
-                    <label className="block text-md font-light text-gray-900">Correo <span className='font-semibold text-sm'>(Escribe el correo donde se enviarán tus evaluación)</span></label>
-                    <Field 
-                      type="email"
-                      name="correo"
-                      className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                    />
-                    <ErrorMessage
-                      name="correo"
-                      component={() => ( <div className="text-orangeCustom text-xs ml-2 mt-1">{ errors.correo }</div>)} />
-                  </div>
-                </div>
-                
-                <div className='mt-2'>
-                  <div><span className='font-bold'>Fecha:</span> {dateFormat()}</div>
-                  <div><span className='font-bold'>Ponente:</span> {ponente_uno[0].ponente}</div>
-                  {ponente_dos[0].ponente !== 'ninguno' && (
-                    <div><span className='font-bold'>Ponente:</span> {ponente_dos[0].ponente}</div>
-                  )}
-                </div>
-
                 <div className='mt-4'>
                   <div className='font-semibold'>Instrucciones:</div>
                   <div className='font-extralight'>Elige la respuesta correcta</div>
@@ -306,22 +337,22 @@ const FormMakeTest = ({ Test }) => {
                 ))}
               
                 <div className='flex items-center'>
-                  <button disabled={testsAnswersLoading} type="submit" className="flex items-center justify-center w-12/12 md:w-4/12 text-white mt-4 bg-blueConsufarma hover:bg-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center disabled:bg-gray-300 disabled:text-gray-400">
+                  <button disabled={testsAnswersLoading} type="submit" onClick={() => setHasTest(true)} className="flex items-center justify-center w-12/12 md:w-4/12 text-white mt-4 bg-blueConsufarma hover:bg-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center disabled:bg-gray-300 disabled:text-gray-400">
                     Calificar Examen {testsAnswersLoading && (<div className="lds-dual-small-ring"></div>)}
                   </button>
-                  
                 </div>
-
-
               </div>
-              )}
-              
-            </Form>
-            )}}
-          </Formik>
+            )}
 
-  
-      </div>
+
+          </div>
+
+          
+        </Form>
+        )}}
+      </Formik>
+
+    </div>
   )
 }
 
