@@ -67,10 +67,14 @@ const FormSendTest = ({ Test }) => {
             initialValues={valuesTest}
             validationSchema={validationSchema}
             onSubmit={async (valores) => {
-
-              const emails = valores.correoEstudiantes.split(", ");
-              console.log(emails);
+              
+              const emails = valores.correoEstudiantes.split(/\s+/)
+              
+              // console.log(arrayCorreos);
+              
+              // const emails = valores.correoEstudiantes.split(", ");
               const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+              console.log(emails);
               let badEmails = []
               let goodEmails = []
 
@@ -133,8 +137,6 @@ const FormSendTest = ({ Test }) => {
                     </div>
                   )}
                 </div>
-
-
 
                 <div className='grid grid-cols-2'>
 
