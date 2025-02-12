@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import { Formik, Form, Field, ErrorMessage, FieldArray } from 'formik';
 import { useRouter } from 'next/router';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { FaRegTrashAlt } from 'react-icons/fa';
 import { IoAddCircle } from "react-icons/io5";
 import { editTest } from '../../../store/slices/Tests/TestService';
 import * as Yup from 'yup';
 import { instanceAPIData } from '../../config/axiosConfig';
-import { IoMdCloseCircle } from 'react-icons/io';
+import { IoIosArrowDown, IoIosArrowUp, IoMdCloseCircle } from 'react-icons/io';
 
 const FormEditTest = ({ coursesName, tests }) => {
 
@@ -29,17 +29,15 @@ const FormEditTest = ({ coursesName, tests }) => {
     setArrayTest(data)
   }, [])
 
-  
-
   const dispatch = useDispatch()
   const router = useRouter();
-  const { testSuccess, testLoading } = useSelector((state) => state.tests);
   
     const validationSchema = Yup.object().shape({
       nombre_examen: Yup.string().required('El nombre del examen es obligatorio'),
       nombre_curso: Yup.string().required('El curso es obligatorio'),
       fecha_texto: Yup.string().required('La fecha es obligatoria'),
       fecha_finalizacion: Yup.date().required('La fecha es obligatoria'),
+      presencialVirtual: Yup.string().required('El campo es obligatorio'),
       preguntas: Yup.array().of(
         Yup.object().shape({
           pregunta: Yup.string().required('La pregunta es obligatoria').min(5, 'La pregunta debe tener al menos 5 caracteres'),
@@ -47,6 +45,9 @@ const FormEditTest = ({ coursesName, tests }) => {
           imagen: Yup.string(),
         })
       ).min(1, 'Debe haber al menos una pregunta'),
+      curso_relacionado_uno: Yup.string().required('El campo es obligatoria'),
+      curso_relacionado_dos: Yup.string().required('El campo es obligatoria'),
+      curso_relacionado_tres: Yup.string().required('El campo es obligatoria'),
     });
 
     const valuesTest = {
@@ -56,11 +57,17 @@ const FormEditTest = ({ coursesName, tests }) => {
       fecha_finalizacion: '',
       ponente_uno: '',
       ponente_dos: '',
+      presencialVirtual: '',
       especialidad: '',
-      preguntas: ''
+      duracion: '',
+      preguntas: '',
+      curso_relacionado_uno: '',
+      curso_relacionado_dos: '',
+      curso_relacionado_tres: '',
     }
 
     const [courseSelected, setCourseSelected] = useState([])
+    const [showRelationCourses, setShowRelationCourses] = useState(false)
     
     const [loading, setLoading] = useState(false)
 
@@ -84,13 +91,6 @@ const FormEditTest = ({ coursesName, tests }) => {
     const removeImage = (setFieldValue, index) => {
       setFieldValue(`preguntas.${index}.imagen`, '')
     }
-    
-    // Regresar al listado en Success
-    useEffect(() => {
-      if (testSuccess && testLoading){
-        router.push("/examen/consAdmTes")
-      }
-    }, [testSuccess, testLoading])
 
   
     return (
@@ -106,10 +106,16 @@ const FormEditTest = ({ coursesName, tests }) => {
               fecha_texto: valores.fecha_texto ? valores.fecha_texto : courseSelected.fecha_text,
               ponente_uno: courseSelected ? courseSelected.ponente_uno_id : tests.ponente_uno_id,
               ponente_dos: courseSelected ? courseSelected.ponente_dos_id : tests.ponente_dos_id,
+              duracion: courseSelected ? courseSelected.duracion_id : tests.duracion_id,
               especialidad_id: courseSelected ? courseSelected.especialidad_id : tests.especialidad_id,
+              presencialVirtual: valores.presencialVirtual,
               img_curso: courseSelected ? courseSelected.imagen : tests[0].img_curso,
               fecha_finalizacion: valores.fecha_finalizacion,
-              preguntas: valores.preguntas
+              preguntas: valores.preguntas,
+              duracion: valores.duracion,
+              curso_relacionado_uno: valores.curso_relacionado_uno,
+              curso_relacionado_dos: valores.curso_relacionado_dos,
+              curso_relacionado_tres: valores.curso_relacionado_tres,
             }
 
             valores.preguntas.map( p => {
@@ -125,7 +131,7 @@ const FormEditTest = ({ coursesName, tests }) => {
             }
 
             console.log(preguntasMult);
-            editTest(dispatch, preguntasMult, tests[0]._id)
+            editTest(dispatch, preguntasMult, tests[0]._id, router)
           }}>
           
           {
@@ -138,15 +144,23 @@ const FormEditTest = ({ coursesName, tests }) => {
                   setFieldValue('fecha_texto', course.fecha_text)
                   setFieldValue('ponente_uno', course.ponente_uno_id.ponente)
                   setFieldValue('ponente_dos', course.ponente_dos_id.ponente)
+                  setFieldValue('duracion', course.duracion)
                 }
               }, [values.nombre_curso])
 
               useEffect(() => {
-                setFieldValue('nombre_examen', arrayTest.nombre_examen || '')
-                setFieldValue('nombre_curso', arrayTest.nombre_curso || '')
-                setFieldValue('fecha_texto', arrayTest.fecha_texto || '')
-                setFieldValue('fecha_finalizacion', arrayTest.fecha_finalizacion || '')
-                setFieldValue('preguntas', arrayTest.preguntas || '')
+                if (arrayTest){
+                  setFieldValue('nombre_examen', arrayTest.nombre_examen || '')
+                  setFieldValue('nombre_curso', arrayTest.nombre_curso || '')
+                  setFieldValue('fecha_texto', arrayTest.fecha_texto || '')
+                  setFieldValue('fecha_finalizacion', arrayTest.fecha_finalizacion || '')
+                  setFieldValue('preguntas', arrayTest.preguntas || '')
+                  setFieldValue('curso_relacionado_uno', arrayTest.curso_relacionado_uno || '')
+                  setFieldValue('curso_relacionado_dos', arrayTest.curso_relacionado_dos || '')
+                  setFieldValue('curso_relacionado_tres', arrayTest.curso_relacionado_tres || '')
+                  setFieldValue('presencialVirtual', arrayTest.presencialVirtual || '')
+                  setFieldValue('duracion', arrayTest.duracion || '')
+                }
               }, [arrayTest])
   
             return (
@@ -166,18 +180,34 @@ const FormEditTest = ({ coursesName, tests }) => {
                 name="nombre_examen"
                 component={() => ( <div className="text-orangeCustom text-xs ml-2 mt-1">{ errors.nombre_examen }</div>)} />
             </div>
-            <div className='mb-3'>
-              <label className="block text-md font-light text-gray-900 dark:text-white">Nombre del Curso</label>
-              <Field as="select" name="nombre_curso"
-                className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                <option value="">Seleccione una respuesta</option>
-                {coursesName.map( s => (
-                  <option key={s._id} value={s._nombre}>{s.nombre}</option>
-                ))}
-              </Field>
-              <ErrorMessage
-                name="nombre_curso"
-                component={() => ( <div className="text-orangeCustom text-xs ml-2 mt-1">{ errors.nombre_examen }</div>)} />
+            
+            <div className='flex gap-4'>
+              <div className='mb-3 w-3/4'>
+                <label className="block text-md font-light text-gray-900 ">Nombre del Curso</label>
+                <Field as="select" name="nombre_curso"
+                  className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ">
+                  <option value="">Seleccione una respuesta</option>
+                  {coursesName.map( s => (
+                    <option key={s._id} value={s.nombre}>{s.nombre}</option>
+                  ))}
+                </Field>
+                <ErrorMessage
+                  name="nombre_curso"
+                  component={() => ( <div className="text-orangeCustom text-xs ml-2 mt-1">{ errors.nombre_curso }</div>)} />
+              </div>
+
+              <div className='mb-3 w-1/4'>
+                <label className="block text-md font-light text-gray-900 ">Presencial / Virtual</label>
+                <Field as="select" name="presencialVirtual"
+                  className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+                  <option value="">Seleccione una respuesta</option>
+                  <option value="presencial">Presencial</option>
+                  <option value="virtual">Virtual</option>
+                </Field>
+                <ErrorMessage
+                  name="presencialVirtual"
+                  component={() => ( <div className="text-orangeCustom text-xs ml-2 mt-1">{ errors.presencialVirtual }</div>)} />
+              </div>
             </div>
             
             <div className='grid grid-cols-4 gap-4'>
@@ -212,6 +242,68 @@ const FormEditTest = ({ coursesName, tests }) => {
                   disabled
                   className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
               </div>
+              <div className='mb-3'>
+                <label className="block text-md font-light text-gray-900 ">Duración</label>
+                <Field name="duracion"
+                  disabled
+                  className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " />
+              </div>
+            </div>
+
+            <div className='bg-blue-100 p-4 rounded-md'>
+              <div className='flex justify-between items-center cursor-pointer' onClick={() => setShowRelationCourses(!showRelationCourses)}>
+                <div className='font-extrabold text-xl text-blueConsufarma mb-2'>Cursos relacionados</div>
+                <div>
+                { showRelationCourses ? <IoIosArrowUp /> : <IoIosArrowDown />  }
+                </div>
+
+              </div>
+              {showRelationCourses && (
+                <>
+                  <div className='mb-3'>
+                    <label className="block text-md font-light text-gray-900 dark:text-white">Curso 1</label>
+                    <Field 
+                    as="select" name="curso_relacionado_uno"
+                      className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                      <option value="">Seleccione una respuesta</option>
+                      {coursesName.map( s => (
+                        <option key={s._id} value={s._id}>{s.nombre}</option>
+                      ))}
+                    </Field>
+                    <ErrorMessage
+                      name="curso_relacionado_uno"
+                      component={() => ( <div className="text-orangeCustom text-xs ml-2 mt-1">{ errors.curso_relacionado_uno }</div>)} />
+                  </div>
+                  <div className='mb-3'>
+                    <label className="block text-md font-light text-gray-900 dark:text-white">Curso 2</label>
+                    <Field 
+                      as="select" name="curso_relacionado_dos"
+                      className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                      <option value="">Seleccione una respuesta</option>
+                      {coursesName.map( s => (
+                        <option key={s._id} value={s._id}>{s.nombre}</option>
+                      ))}
+                    </Field>
+                    <ErrorMessage
+                      name="curso_relacionado_dos"
+                      component={() => ( <div className="text-orangeCustom text-xs ml-2 mt-1">{ errors.curso_relacionado_dos }</div>)} />
+                  </div>
+                  <div className='mb-3'>
+                    <label className="block text-md font-light text-gray-900 dark:text-white">Curso 3</label>
+                    <Field 
+                      as="select" name="curso_relacionado_tres"
+                      className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                      <option value="">Seleccione una respuesta</option>
+                      {coursesName.map( s => (
+                        <option key={s._id} value={s._id}>{s.nombre}</option>
+                      ))}
+                    </Field>
+                    <ErrorMessage
+                      name="curso_relacionado_tres"
+                      component={() => ( <div className="text-orangeCustom text-xs ml-2 mt-1">{ errors.curso_relacionado_tres }</div>)} />
+                  </div>
+                </>
+              )}
             </div>
 
             {values.preguntas.length > 0 && (
@@ -413,7 +505,7 @@ const FormEditTest = ({ coursesName, tests }) => {
 
             )}
             
-            <button type="submit" className="w-3/12 text-white mt-4 bg-blueConsufarma hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Crear Examen</button>
+            <button type="submit" className="w-3/12 text-white mt-4 bg-blueConsufarma hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Actualizar Examen</button>
             
           </Form>
         )}}

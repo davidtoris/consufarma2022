@@ -6,6 +6,7 @@ import { FaAward, FaCheckCircle, FaFilePdf } from 'react-icons/fa';
 import { API_BASE_URL } from '../../constants';
 import axios from 'axios';
 import { dateFormat } from '../../helpers/FomateDate';
+import ModalDownload from './ModalDownload';
 
 const FormScoreTest = ({ Test, TestAnswer, point }) => {
 
@@ -15,11 +16,12 @@ const FormScoreTest = ({ Test, TestAnswer, point }) => {
     console.log(Test[0]);
     console.log(TestAnswer);
 
+    const [openModal, setOpenModal] = useState(false)
 
-    const handlePrint = async () => {
+    const handlePrint = async ( UrlScoreDiploma, TipoScoreDiploma ) => {
       try {
         const resp = await instanceAPI.get(
-          `testsPDF/scoreTestPDF?testId=${TestAnswer.test_id}&scoreId=${TestAnswer._id}`,
+          `testsPDF/${UrlScoreDiploma}?testId=${TestAnswer.test_id}&scoreId=${TestAnswer._id}`,
           { responseType: 'blob' }
         );
     
@@ -29,13 +31,14 @@ const FormScoreTest = ({ Test, TestAnswer, point }) => {
           // Crear un enlace temporal para descargar el archivo
           const link = document.createElement('a');
           link.href = fileURL;
-          link.download = `Examen - ${TestAnswer.estudiante}.pdf`; // Nombre del archivo
+          link.download = `${TipoScoreDiploma} - ${TestAnswer.estudiante}.pdf`; // Nombre del archivo
           document.body.appendChild(link);
           link.click();
     
           // Limpieza: eliminar el enlace y liberar el objeto URL
           document.body.removeChild(link);
           URL.revokeObjectURL(fileURL);
+          setOpenModal(true)
         } else {
           console.error('No data found in response.');
         }
@@ -117,6 +120,10 @@ const FormScoreTest = ({ Test, TestAnswer, point }) => {
         correo: TestAnswer.correo,
         nombreCurso: nombre_curso,
         estudiante: TestAnswer.estudiante,
+        examenConstancia: 'examen',
+        curso_relacionado_uno: Test[0].curso_relacionado_uno,
+        curso_relacionado_dos: Test[0].curso_relacionado_dos,
+        curso_relacionado_tres: Test[0].curso_relacionado_tres,
       }
       console.log(data);
       await axios.post(`${API_BASE_URL}/email/sendTest`, data);
@@ -133,31 +140,38 @@ const FormScoreTest = ({ Test, TestAnswer, point }) => {
     return (
       <>
       
+      <ModalDownload 
+        setOpenModal={setOpenModal}
+        openModal={openModal}/>
+
       <div className='container m-auto mt-5'>
         <img src="https://consufarma2022-davidtoris-projects.vercel.app/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Flogo.502e107c.png&w=1920&q=75" width="450px" className='m-auto px-4 md:px-0'/>
-            
             <div className='flex flex-col justify-center m-auto'>
               <h1 className="mt-5 font-bold text-2xl text-blueConsufarma text-center">{nombre_curso}</h1>
               <h1 className="mb-4 font-semibold text-lg text-blueConsufarma text-center">Fecha del curso: {fecha_texto}</h1>
-              <h1 className="mb-4 font-light text-lg text-blueConsufarma text-center">EVALUACIÓN DEL CURSO</h1>
+              <h1 className="mb-4 font-light text-lg text-blueConsufarma text-center">EXAMEN DEL CURSO</h1>
               <div className='rounded-full'>
-                <img src={img_curso} width="300px" className='m-auto rounded-full'/>
+                <img src={img_curso} width="370px" className='m-auto rounded-full'/>
               </div>
             </div>
             
             <div className='mt-10 md:mt-2 px-4 md:px-0'>
               <div className='font-extrabold text-xl'>Nombre: {TestAnswer.estudiante}</div>
-              <div><span className='font-bold'>Fecha:</span> {dateFormat(TestAnswer.fecha_sistema)}</div>
-              <div><span className='font-bold'>Ponente:</span> {ponente_uno[0].ponente}</div>
-              {ponente_dos[0].ponente !== 'ninguno' && (
-                <div><span className='font-bold'>Ponente:</span> {ponente_dos[0].ponente}</div>
+              <div><span className='font-bold'>Fecha de realización del Examen:</span> {dateFormat(TestAnswer.fecha_sistema)}</div>
+              {ponente_dos[0].ponente === 'ninguno' ? (
+                <div><span className='font-bold'>Ponente:</span> {ponente_uno[0].ponente}</div>
+              ) : (
+                <div><span className='font-bold'>Ponentes:</span> {ponente_uno[0].ponente} y {ponente_dos[0].ponente}</div>
               )}
-              <div><span className='font-bold'>Calificación:</span> {TestAnswer.score}</div>
+              <div className='bg-blueLightCustom inline-block py-2 px-4 mt-2 rounded-full text-white'>
+                <span className='font-bold mr-1'>Calificación:</span>
+                {TestAnswer.score}
+              </div>
             </div>
 
             <div className='mt-4 px-4 md:px-0'>
               <div className='font-semibold'>Instrucciones:</div>
-              <div className='font-extralight'>Elige la respuesta correcta</div>
+              <div className='font-extralight'>Elige la respuesta correcta según aplique.</div>
             </div>
 
             <div className='mt-8 px-4 md:px-0'>
@@ -170,7 +184,7 @@ const FormScoreTest = ({ Test, TestAnswer, point }) => {
                 { p.tipo === 'verdaderoFalso' && (
                   <div>
                     <div className='ml-2'>
-                      <div className={`font-bold`}>{i+1}. {p.pregunta}</div>
+                      <div className={`font-bold text-justify`}>{i+1}. {p.pregunta}</div>
                       {p.imagen !== '' && (
                         <div className="w-1/3">
                           <img src={p.imagen} className="" alt="imagen" />
@@ -187,10 +201,7 @@ const FormScoreTest = ({ Test, TestAnswer, point }) => {
                       
                       {p.respuesta !== TestAnswer.answersUser[i] && (
                         <div className='my-2 ml-2 '>
-                          <div className='font-bold italic'>Respuesta correcta:</div>
-                          <div className='text-gray-700'>
-                            {`${p.respuesta}) ${TestAnswer.answersUser[i] === 'A' ? 'Falso' : 'Veradero'}`}
-                          </div>
+                          <div className='font-bold italic'>Respuesta correcta: {`${p.respuesta}`}</div>
                         </div>
                       )}
                     </div>
@@ -200,7 +211,7 @@ const FormScoreTest = ({ Test, TestAnswer, point }) => {
                 { p.tipo === 'unaOpcion' && (
                   <div>
                     <div className='ml-2 '>
-                    <div className='font-bold'>{i+1}. {p.pregunta}</div>
+                    <div className='font-bold text-justify'>{i+1}. {p.pregunta}</div>
                       {p.imagen !== '' && (
                         <div className="w-[170px] mt-2">
                           <img src={p.imagen} className="" alt="imagen" />
@@ -226,10 +237,7 @@ const FormScoreTest = ({ Test, TestAnswer, point }) => {
                       {/* {/* "B" !== "A" && ( */}
                       {p.respuesta !== TestAnswer.answersUser[i] && (
                         <div className='my-2 ml-2 '>
-                          <div className='font-bold italic'>Respuesta correcta:</div>
-                          <div className='text-gray-700'>
-                            {p.respuesta})
-                          </div>
+                          <div className='font-bold italic'>Respuesta correcta: {p.respuesta}</div>
                         </div>
                       )}
                     </div>
@@ -238,7 +246,7 @@ const FormScoreTest = ({ Test, TestAnswer, point }) => {
 
                 { p.tipo === 'multipleOpcion' && (
                   <div>
-                    <div className='font-bold'>{i+1}. {p.pregunta}</div>
+                    <div className='font-bold text-justify'>{i+1}. {p.pregunta}</div>
                     {p.imagen !== '' && (
                       <div className="w-1/3">
                         <img src={p.imagen} className="" alt="imagen" />
@@ -292,7 +300,7 @@ const FormScoreTest = ({ Test, TestAnswer, point }) => {
             <>
               <div className='mt-10 text-blueLightCustom font-extrabold text-lg px-3 md:px-0'>
                 {emailSended === '' ? 'Te estaremos enviando ' : 'Te hemos enviado '}
-                un correo a: <span className='underline'>{TestAnswer.correo}</span> con tu evaluación
+                un correo a: <span className='underline'>{TestAnswer.correo}</span> con tu Examen
               </div>
               <div>
                 {emailSended === '' && (
@@ -307,13 +315,13 @@ const FormScoreTest = ({ Test, TestAnswer, point }) => {
             </>
           )}
 
-          <div className='flex-col md:flex text-lg font-semibold mt-5 mb-10 px-4 md:px-0'>
-            <div onClick={handlePrint} className='w-12/12 md:w-4/12 bg-blueConsufarma p-4 rounded-md text-white flex items-center hover:scale-110 transition-all cursor-pointer justify-center'>
+          <div className='flex flex-col md:flex-row text-lg font-semibold mt-5 mb-10 px-4 md:px-0 justify-center'>
+            <div onClick={() => handlePrint('scoreTestPDF', 'Examen')} className='w-12/12 md:w-4/12 bg-blueConsufarma p-4 rounded-md text-white flex items-center hover:scale-110 transition-all cursor-pointer justify-center'>
               <FaFilePdf className="mr-2 text-lg" />
-                Descargar Examen en PDF</div>
-            {/* <div className='bg-blueLightCustom p-4 rounded-md text-white ml-4 flex items-center hover:scale-110 transition-all cursor-pointer justify-center'>
+                Descargar Examen</div>
+            <div onClick={() => handlePrint('diplomaPDF', 'Constancia')} className='w-12/12 md:w-4/12 bg-blueLightCustom p-4 rounded-md text-white ml-6 flex items-center hover:scale-110 transition-all cursor-pointer justify-center'>
               <FaAward className="mr-2 text-xl" />
-              Obtener Constancia</div> */}
+                Obtener Constancia</div>
           </div>
       </div>
 

@@ -88,7 +88,7 @@ const FormMakeTest = ({ Test }) => {
   const answerMultipleOption = (Index, Opc) => {
     if(answersUser.length){
       if(answersUser[Index].includes(Opc)){
-        return 'bg-blue-100'
+        return 'bg-selectedColor'
       }
     }
   }
@@ -183,7 +183,7 @@ const FormMakeTest = ({ Test }) => {
       if (hasTest){
         router.push(`/examen/resultado/${_id}?student=${studentId}`)
       } else {
-        router.push(`/examen/diploma/${_id}?student=${studentId}`)
+        router.push(`/examen/constancia/${_id}?student=${studentId}`)
       }
     }
   }, [allTestsAnswers])
@@ -191,7 +191,7 @@ const FormMakeTest = ({ Test }) => {
   console.log(hasTest);
 
   return (
-    <div>
+    <div className='bg-backGroundColor pb-8'>
 
       <ModalTryings 
         setOpenModalTryings={setOpenModalTryings}
@@ -224,17 +224,19 @@ const FormMakeTest = ({ Test }) => {
           <div className='flex flex-col justify-center m-auto'>
             <h1 className="mt-3 font-bold text-2xl text-blueConsufarma text-center">{nombre_curso}</h1>
             <h1 className="font-semibold text-lg text-blueConsufarma text-center">Fecha del curso: {fecha_texto} </h1>
-            <h1 className="mb-5 font-light text-lg text-blueConsufarma text-center">EVALUACIÓN DEL CURSO</h1>
+            <h1 className="mb-5 font-light text-lg text-blueConsufarma text-center">EXAMEN DEL CURSO</h1>
             <div className='rounded-full'>
-              <img src={img_curso} width="300px" className='m-auto rounded-full'/>
+              <img src={img_curso} width="370px" className='m-auto rounded-full'/>
             </div>
           </div>
 
           <div className='mt-2 m-auto text-center'>
-              <div><span className='font-bold'>Fecha:</span> {dateFormat()}</div>
-              <div><span className='font-bold'>Ponente1:</span> {ponente_uno[0].ponente}</div>
-              {ponente_dos[0].ponente !== 'ninguno' && (
-                <div><span className='font-bold'>Ponente2:</span> {ponente_dos[0].ponente}</div>
+              <div><span className='font-bold'>Fecha de realización del Examen:</span> {dateFormat()}</div>
+              
+              {ponente_dos[0].ponente === 'ninguno' ? (
+                <div><span className='font-bold'>Ponente:</span> {ponente_uno[0].ponente}</div>
+              ) : (
+                <div><span className='font-bold'>Ponentes:</span> {ponente_uno[0].ponente} y {ponente_dos[0].ponente}</div>
               )}
             </div>
 
@@ -242,7 +244,7 @@ const FormMakeTest = ({ Test }) => {
 
             <div className='mt-5 grid grid-cols-1 gap-4'>
               <div className='w-6/12 m-auto text-center'>
-                <label className="block text-md font-light text-gray-900">Nombre: <span className='font-semibold text-sm'>(Escribe el nombre que aparecerá en tu Diploma)</span></label>
+                <label className="block text-md font-light text-gray-900">Nombre: <span className='font-semibold text-sm'>(Aparecerá así en tus documentos)</span></label>
                 <Field 
                   onBlur={(e) => {
                     howManyTryings(e)
@@ -257,7 +259,7 @@ const FormMakeTest = ({ Test }) => {
                   component={() => ( <div className="text-orangeCustom text-xs ml-2 mt-1">{ errors.estudiante }</div>)} />
               </div>
               <div className='w-6/12 m-auto text-center'>
-                <label className="block text-md font-light text-gray-900">Correo <span className='font-semibold text-sm'>(Escribe el correo donde se enviarán tu evaluación)</span></label>
+                <label className="block text-md font-light text-gray-900">Correo <span className='font-semibold text-sm'>(Donde se enviará tu Examen y/o Constancia)</span></label>
                 <Field 
                   type="email"
                   name="correo"
@@ -271,8 +273,8 @@ const FormMakeTest = ({ Test }) => {
             
             {!choose && (
               <div className='flex justify-center mt-5'>
-                <button onClick={() => handleTestDiploma()} className='bg-blueDarkCustom text-white p-4 rounded-md font-semibold hover:scale-110 transition-all cursor-pointer'>Realizar Examen y Obtener diploma </button>
-                <button type="submit" className='bg-blueLightCustom text-white p-4 rounded-md font-semibold ml-4 hover:scale-110 transition-all cursor-pointer'>Obtener diploma </button>
+                <button onClick={() => handleTestDiploma()} className='bg-blueDarkCustom text-white p-4 rounded-md font-semibold hover:scale-110 transition-all cursor-pointer'>Realizar Examen y Obtener Constancia </button>
+                <button type="submit" className='bg-blueLightCustom text-white p-4 rounded-md font-semibold ml-4 hover:scale-110 transition-all cursor-pointer'>Obtener solo Constancia </button>
               </div>
             )}
 
@@ -280,7 +282,7 @@ const FormMakeTest = ({ Test }) => {
               <div>
                 <div className='mt-4'>
                   <div className='font-semibold'>Instrucciones:</div>
-                  <div className='font-extralight'>Elige la respuesta correcta</div>
+                  <div className='font-extralight'>Elige la respuesta correcta según aplique.</div>
                 </div>
 
                 <div className='mt-8'>
@@ -292,26 +294,26 @@ const FormMakeTest = ({ Test }) => {
                   <div className='mt-3' key={p.pregunta}>
                     { p.tipo === 'verdaderoFalso' && (
                       <div className='ml-2'>
-                        <div className='font-bold'>{i+1}. {p.pregunta}</div>
-                        <div onClick={() => selectOption(p.tipo, i, 'A', p.respuesta)} className={`${answersUser[i] === 'A' && 'bg-blue-100'} cursor-pointer my-1 p-1 px-2 rounded-lg`}>A) Verdadero</div>
-                        <div onClick={() => selectOption(p.tipo, i, 'B', p.respuesta)} className={`${answersUser[i] === 'B' && 'bg-blue-100'} cursor-pointer my-1 p-1 px-2 rounded-lg`}>B) Falso</div>
+                        <div className='font-bold text-justify'>{i+1}. {p.pregunta}</div>
+                        <div onClick={() => selectOption(p.tipo, i, 'A', p.respuesta)} className={`${answersUser[i] === 'A' && 'bg-selectedColor'} cursor-pointer my-1 p-1 px-2 rounded-lg`}>A) Verdadero</div>
+                        <div onClick={() => selectOption(p.tipo, i, 'B', p.respuesta)} className={`${answersUser[i] === 'B' && 'bg-selectedColor'} cursor-pointer my-1 p-1 px-2 rounded-lg`}>B) Falso</div>
                       </div>
                     )}
 
                     { p.tipo === 'unaOpcion' && (
                       <div>
-                        <div className='font-bold'>{i+1}. {p.pregunta}</div>
+                        <div className='font-bold text-justify'>{i+1}. {p.pregunta}</div>
                         {p.imagen !== '' && (
                           <div className="w-[170px] mt-2">
                             <img src={p.imagen} className="" alt="imagen" />
                           </div>
                         )}
                         <div className='ml-2'>
-                          <div onClick={() => selectOption(p.tipo, i, 'A')} className={`${answersUser[i] === 'A' && 'bg-blue-100'} cursor-pointer my-1 p-1 px-2 rounded-lg`}>A) {p.A}</div>
-                          <div onClick={() => selectOption(p.tipo, i, 'B')} className={`${answersUser[i] === 'B' && 'bg-blue-100'} cursor-pointer my-1 p-1 px-2 rounded-lg`}>B) {p.B}</div>
-                          {(p.C !== undefined )  && (<div onClick={() => selectOption(p.tipo, i, 'C')} className={`${answersUser[i] === 'C' && 'bg-blue-100'} cursor-pointer my-1 p-1 px-2 rounded-lg`}>C) {p.C}</div>)}
+                          <div onClick={() => selectOption(p.tipo, i, 'A')} className={`${answersUser[i] === 'A' && 'bg-selectedColor'} cursor-pointer my-1 p-1 px-2 rounded-lg`}>A) {p.A}</div>
+                          <div onClick={() => selectOption(p.tipo, i, 'B')} className={`${answersUser[i] === 'B' && 'bg-selectedColor'} cursor-pointer my-1 p-1 px-2 rounded-lg`}>B) {p.B}</div>
+                          {(p.C !== undefined )  && (<div onClick={() => selectOption(p.tipo, i, 'C')} className={`${answersUser[i] === 'C' && 'bg-selectedColor'} cursor-pointer my-1 p-1 px-2 rounded-lg`}>C) {p.C}</div>)}
                           {(p.D !== undefined && p.D !== '' ) && (
-                            <div onClick={() => selectOption(p.tipo, i, 'D')} className={`${answersUser[i] === 'D' && 'bg-blue-100'} cursor-pointer my-1 p-1 px-2 rounded-lg`}>
+                            <div onClick={() => selectOption(p.tipo, i, 'D')} className={`${answersUser[i] === 'D' && 'bg-selectedColor'} cursor-pointer my-1 p-1 px-2 rounded-lg`}>
                               D) {p.D}
                             </div>
                           )}
@@ -321,7 +323,7 @@ const FormMakeTest = ({ Test }) => {
 
                     { p.tipo === 'multipleOpcion' && (
                       <div>
-                        <div className='font-bold'>{i+1}. {p.pregunta}</div>
+                        <div className='font-bold text-justify'>{i+1}. {p.pregunta}</div>
                         <div className='ml-2'>
                           <div onClick={() => selectOption(p.tipo, i, 'A')} className={`${answerMultipleOption(i, 'A')} cursor-pointer my-1 p-1 px-2 rounded-lg`}>A) {p.A}</div>
                           <div onClick={() => selectOption(p.tipo, i, 'B')} className={`${answerMultipleOption(i, 'B')} cursor-pointer my-1 p-1 px-2 rounded-lg`}>B) {p.B}</div>
@@ -336,8 +338,8 @@ const FormMakeTest = ({ Test }) => {
                   </div>
                 ))}
               
-                <div className='flex items-center'>
-                  <button disabled={testsAnswersLoading} type="submit" onClick={() => setHasTest(true)} className="flex items-center justify-center w-12/12 md:w-4/12 text-white mt-4 bg-blueConsufarma hover:bg-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center disabled:bg-gray-300 disabled:text-gray-400">
+                <div className='flex items-center justify-center mt-4'>
+                  <button disabled={testsAnswersLoading} type="submit" onClick={() => setHasTest(true)} className="flex items-center justify-center w-12/12 md:w-4/12 text-white mt-4 bg-blueConsufarma hover:bg-blue-800 font-medium rounded-lg text-lg px-5 py-3 text-center disabled:bg-gray-300 disabled:text-gray-400">
                     Calificar Examen {testsAnswersLoading && (<div className="lds-dual-small-ring"></div>)}
                   </button>
                 </div>

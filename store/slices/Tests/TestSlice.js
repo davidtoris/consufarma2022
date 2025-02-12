@@ -19,6 +19,7 @@ const testsSlice = createSlice({
     testSuccess: ( state ) => {
       state.testLoading = false;
       state.testReload = true;
+      state.testSuccess = true;
     },
     testLoading: (state, action) => {
       state.testLoading = action.payload;

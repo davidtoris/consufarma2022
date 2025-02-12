@@ -1,4 +1,5 @@
 import instanceAPI from '../../../src/config/axiosConfig';
+import { URL_SITE } from '../../../src/constants';
 import { addTests, testDefault, testError, testLoading, testSuccess } from "./TestSlice";
 
 export const AllTests = async (dispatch, courseName, date) => {
@@ -16,28 +17,30 @@ export const AllTests = async (dispatch, courseName, date) => {
   })
 };
 
-export const createTest = async (dispatch, test) => {
-  console.log(test)
+export const createTest = async (dispatch, test, router) => {
   dispatch(testDefault())
   dispatch(testLoading(true))
-  await instanceAPI.post(`/tests`, test)
-  .then(resp => {
-    dispatch(testSuccess());
-  })
-  .catch(error => {
-    if(error !== undefined){
-      dispatch(testError(error.response.data.errors[0].msg))
+
+  try {
+    const resp = await instanceAPI.post(`/tests`, test)
+    if( resp.status === 200){
+      dispatch(testSuccess());
+      dispatch(testLoading(false))
     }
-  })
+  } catch (error) {
+    console.log(error);
+  }
 };
 
-export const editTest = async (dispatch, test, id) => {
-  console.log(test)
+export const editTest = async (dispatch, test, id, router) => {
+  console.log(test);
   dispatch(testDefault())
   dispatch(testLoading(true))
   await instanceAPI.put(`/tests/${id}`, test)
   .then(resp => {
-    dispatch(addTests(resp.data));
+    if( resp.status === 200){
+      router.push("/examen/consAdmTes")
+    }
   })
   .catch(error => {
     if(error !== undefined){

@@ -1,27 +1,28 @@
 import React, { useEffect, useState } from 'react'
 import { Formik, Form, Field, ErrorMessage, FieldArray } from 'formik';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useRouter } from 'next/router';
 import { FaRegTrashAlt } from 'react-icons/fa';
 import { IoAddCircle } from "react-icons/io5";
 import { createTest } from '../../../store/slices/Tests/TestService';
 import * as Yup from 'yup';
 import { instanceAPIData } from '../../config/axiosConfig';
-import { IoMdCloseCircle } from 'react-icons/io';
+import { IoIosArrowDown, IoIosArrowUp, IoMdCloseCircle } from 'react-icons/io';
 
 
 const FormNewTest = ({ coursesName }) => {
 
+  console.log(coursesName);
+
   const dispatch = useDispatch()
   const router = useRouter();
-
-    const { testSuccess, testLoading } = useSelector((state) => state.tests);
   
     const validationSchema = Yup.object().shape({
       nombre_examen: Yup.string().required('El nombre del examen es obligatorio'),
       nombre_curso: Yup.string().required('El curso es obligatorio'),
       fecha_texto: Yup.string().required('La fecha es obligatoria'),
       fecha_finalizacion: Yup.date().required('La fecha es obligatoria'),
+      presencialVirtual: Yup.string().required('El campo es obligatoria'),
       preguntas: Yup.array().of(
         Yup.object().shape({
           pregunta: Yup.string().required('La pregunta es obligatoria').min(5, 'La pregunta debe tener al menos 5 caracteres'),
@@ -29,6 +30,9 @@ const FormNewTest = ({ coursesName }) => {
           imagen: Yup.string(),
         })
       ).min(1, 'Debe haber al menos una pregunta'),
+      curso_relacionado_uno: Yup.string().required('El campo es obligatoria'),
+      curso_relacionado_dos: Yup.string().required('El campo es obligatoria'),
+      curso_relacionado_tres: Yup.string().required('El campo es obligatoria'),
     });
   
     const valuesTest = {
@@ -38,6 +42,8 @@ const FormNewTest = ({ coursesName }) => {
       fecha_finalizacion: '',
       ponente_uno: '',
       ponente_dos: '',
+      presencialVirtual: '',
+      duracion: '',
       preguntas: [
         {
           tipo: '',
@@ -50,17 +56,14 @@ const FormNewTest = ({ coursesName }) => {
           respuestaMultiple: [],
           imagen: '',
         },
-      ]
+      ],
+      curso_relacionado_uno: '',
+      curso_relacionado_dos: '',
+      curso_relacionado_tres: '',
     }
 
     const [courseSelected, setCourseSelected] = useState([])
-
-    // Regresar al listado en Success
-    useEffect(() => {
-      if (testSuccess && testLoading){
-        router.push("/examen/consAdmTes")
-      }
-    }, [testSuccess, testLoading])
+    const [showRelationCourses, setShowRelationCourses] = useState(false)
 
     // Subir imagen, obtener URL y agregar a la pregunta
     const handlePhoto = async (e, setFieldValue, index) => {     
@@ -96,7 +99,12 @@ const FormNewTest = ({ coursesName }) => {
               ponente_dos: courseSelected.ponente_dos_id,
               especialidad_id: courseSelected.especialidad_id._id,
               img_curso: courseSelected.imagen,
-              preguntas: valores.preguntas
+              preguntas: valores.preguntas,
+              presencialVirtual: valores.presencialVirtual,
+              duracion: valores.duracion,
+              curso_relacionado_uno: valores.curso_relacionado_uno,
+              curso_relacionado_dos: valores.curso_relacionado_dos,
+              curso_relacionado_tres: valores.curso_relacionado_tres,
             }
 
             valores.preguntas.map( p => {
@@ -110,11 +118,12 @@ const FormNewTest = ({ coursesName }) => {
               ...data,
               preguntas: valores.preguntas
             }
-            createTest(dispatch, preguntasMult)
+
+            createTest(dispatch, preguntasMult, router)
           }}>
           
           {
-            function FillInputs ({ values, errors, setFieldValue }) {              
+            function FillInputs ({ values, errors, setFieldValue, handleBlur }) {              
               
               useEffect(() => {
                 const course = coursesName.find(c => c._id === values.nombre_curso)
@@ -123,6 +132,7 @@ const FormNewTest = ({ coursesName }) => {
                   setFieldValue('fecha_texto', course.fecha_text)
                   setFieldValue('ponente_uno', course.ponente_uno_id.ponente)
                   setFieldValue('ponente_dos', course.ponente_dos_id.ponente)
+                  setFieldValue('duracion', course.duracion)
                 }
               }, [values.nombre_curso])
               
@@ -132,66 +142,145 @@ const FormNewTest = ({ coursesName }) => {
             <Form className="p-0 md:p-5 flex justify-center flex-col w-10/12 m-auto">
   
             <img src="https://consufarma2022-davidtoris-projects.vercel.app/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Flogo.502e107c.png&w=1920&q=75" width="450px" className='my-5 m-auto'/>
-  
+              
             <div className='my-2 mb-3'>
-              <label className="block text-md font-light text-gray-900 dark:text-white">Nombre del Exámen</label>
+              <label className="block text-md font-light text-gray-900 ">Nombre del Exámen</label>
               <Field 
                 type="text"
                 name="nombre_examen"
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
               />
               <ErrorMessage
                 name="nombre_examen"
                 component={() => ( <div className="text-orangeCustom text-xs ml-2 mt-1">{ errors.nombre_examen }</div>)} />
             </div>
-            <div className='mb-3'>
-              <label className="block text-md font-light text-gray-900 dark:text-white">Nombre del Curso</label>
-              <Field as="select" name="nombre_curso"
-                className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                <option value="">Seleccione una respuesta</option>
-                {coursesName.map( s => (
-                  <option key={s._id} value={s._id}>{s.nombre}</option>
-                ))}
-              </Field>
-              <ErrorMessage
-                name="nombre_curso"
-                component={() => ( <div className="text-orangeCustom text-xs ml-2 mt-1">{ errors.nombre_examen }</div>)} />
+
+            <div className='flex gap-4'>
+              <div className='mb-3 w-3/4'>
+                <label className="block text-md font-light text-gray-900 ">Nombre del Curso</label>
+                <Field as="select" name="nombre_curso"
+                  className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ">
+                  <option value="">Seleccione una respuesta</option>
+                  {coursesName.map( s => (
+                    <option key={s._id} value={s._id}>{s.nombre}</option>
+                  ))}
+                </Field>
+                <ErrorMessage
+                  name="nombre_curso"
+                  component={() => ( <div className="text-orangeCustom text-xs ml-2 mt-1">{ errors.nombre_curso }</div>)} />
+              </div>
+
+              <div className='mb-3 w-1/4'>
+                <label className="block text-md font-light text-gray-900 ">Presencial / Virtual</label>
+                <Field as="select" name="presencialVirtual"
+                  className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+                  <option value="">Seleccione una respuesta</option>
+                  <option value="presencial">Presencial</option>
+                  <option value="virtual">Virtual</option>
+                </Field>
+                <ErrorMessage
+                  name="presencialVirtual"
+                  component={() => ( <div className="text-orangeCustom text-xs ml-2 mt-1">{ errors.presencialVirtual }</div>)} />
+              </div>
             </div>
             
             <div className='grid grid-cols-4 gap-4'>
               <div className='mb-3'>
-                <label className="block text-md font-light text-gray-900 dark:text-white">Fecha del Curso</label>
+                <label className="block text-md font-light text-gray-900 ">Fecha del Curso</label>
                 <Field 
                   type="text"
                   name="fecha_texto"
-                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
                 />
               </div>
               <div className='mb-3'>
-                <label className="block text-md font-light text-gray-900 dark:text-white">Fecha de Finalización</label>
+                <label className="block text-md font-light text-gray-900 ">Fecha de Finalización</label>
                 <Field 
                   type="date"
                   name="fecha_finalizacion"
-                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
                 />
                 <ErrorMessage
                   name="fecha_finalizacion"
                   component={() => ( <div className="text-orangeCustom text-xs ml-2 mt-1">{ errors.fecha_finalizacion }</div>)} />
               </div>
               <div className='mb-3'>
-                <label className="block text-md font-light text-gray-900 dark:text-white">Ponente Uno</label>
+                <label className="block text-md font-light text-gray-900 ">Ponente Uno</label>
                 <Field name="ponente_uno"
                   disabled
-                  className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
+                  className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " />
               </div>
               <div className='mb-3'>
-                <label className="block text-md font-light text-gray-900 dark:text-white">Ponente Dos</label>
+                <label className="block text-md font-light text-gray-900 ">Ponente Dos</label>
                 <Field name="ponente_dos"
                   disabled
-                  className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
+                  className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " />
+              </div>
+              <div className='mb-3'>
+                <label className="block text-md font-light text-gray-900 ">Duración</label>
+                <Field name="duracion"
+                  disabled
+                  className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " />
               </div>
             </div>
-  
+
+
+            <div className='bg-blue-100 p-4 rounded-md'>
+              <div className='flex justify-between items-center cursor-pointer' onClick={() => setShowRelationCourses(!showRelationCourses)}>
+                <div className='font-extrabold text-xl text-blueConsufarma mb-2'>Cursos relacionados</div>
+                <div>
+                { showRelationCourses ? <IoIosArrowUp /> : <IoIosArrowDown />  }
+                </div>
+
+              </div>
+              {showRelationCourses && (
+                <>
+                  <div className='mb-3'>
+                    <label className="block text-md font-light text-gray-900 ">Curso 1</label>
+                    <Field 
+                    as="select" name="curso_relacionado_uno"
+                      className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ">
+                      <option value="">Seleccione una respuesta</option>
+                      {coursesName.map( s => (
+                        <option key={s._id} value={s._id}>{s.nombre}</option>
+                      ))}
+                    </Field>
+                    <ErrorMessage
+                      name="curso_relacionado_uno"
+                      component={() => ( <div className="text-orangeCustom text-xs ml-2 mt-1">{ errors.curso_relacionado_uno }</div>)} />
+                  </div>
+                  <div className='mb-3'>
+                    <label className="block text-md font-light text-gray-900 ">Curso 2</label>
+                    <Field 
+                      as="select" name="curso_relacionado_dos"
+                      className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ">
+                      <option value="">Seleccione una respuesta</option>
+                      {coursesName.map( s => (
+                        <option key={s._id} value={s._id}>{s.nombre}</option>
+                      ))}
+                    </Field>
+                    <ErrorMessage
+                      name="curso_relacionado_dos"
+                      component={() => ( <div className="text-orangeCustom text-xs ml-2 mt-1">{ errors.curso_relacionado_dos }</div>)} />
+                  </div>
+                  <div className='mb-3'>
+                    <label className="block text-md font-light text-gray-900 ">Curso 3</label>
+                    <Field 
+                      as="select" name="curso_relacionado_tres"
+                      className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ">
+                      <option value="">Seleccione una respuesta</option>
+                      {coursesName.map( s => (
+                        <option key={s._id} value={s._id}>{s.nombre}</option>
+                      ))}
+                    </Field>
+                    <ErrorMessage
+                      name="curso_relacionado_tres"
+                      component={() => ( <div className="text-orangeCustom text-xs ml-2 mt-1">{ errors.curso_relacionado_tres }</div>)} />
+                  </div>
+                </>
+              )}
+            </div>
+
   
             <FieldArray name="preguntas">
               {({ remove, push }) => (
@@ -200,12 +289,12 @@ const FormNewTest = ({ coursesName }) => {
                     <div key={index} style={{ marginBottom: '20px' }}>
   
                       <div className='bg-gray-50 p-4 rounded-lg my-3'>
-                        <h4 className="block text-md mb-1 font-bold text-gray-900 dark:text-white">Pregunta {index + 1}</h4>
+                        <h4 className="block text-md mb-1 font-bold text-gray-900 ">Pregunta {index + 1}</h4>
 
                         <div className='my-2 mb-3'>
-                          <label className="block text-md font-light text-gray-700 dark:text-white text-sm">Tipo de pregunta</label>
+                          <label className="block text-md font-light text-gray-700  text-sm">Tipo de pregunta</label>
                           <Field as="select" name={`preguntas.${index}.tipo`}
-                          className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                          className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
                           >
                             <option value="">Selecciona un tipo</option>
                             <option value="unaOpcion">Una opción</option>
@@ -222,12 +311,12 @@ const FormNewTest = ({ coursesName }) => {
                         ) : (
                           <div className='mx-5'>
                             <div className='my-2 mb-3'>
-                              <label className="block text-md font-light text-gray-700 dark:text-white text-sm">Pregunta</label>
+                              <label className="block text-md font-light text-gray-700  text-sm">Pregunta</label>
                               <Field 
                                 as="textarea"
                                 type="text"
                                 name={`preguntas.${index}.pregunta`} placeholder="Texto de la pregunta"
-                                className=" border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                className=" border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
                               />
                               <ErrorMessage
                                 name={`preguntas.${index}.pregunta`}
@@ -237,13 +326,13 @@ const FormNewTest = ({ coursesName }) => {
                             {values.preguntas[index].tipo !== 'verdaderoFalso' && (
                               <div>
                                 <div className='my-2 mb-3'>
-                                  <label className="block text-md font-light text-gray-700 dark:text-white text-sm">Opción A</label>
+                                  <label className="block text-md font-light text-gray-700  text-sm">Opción A</label>
                                   <Field 
                                     as="textarea"
                                     type="text"
                                     name={`preguntas.${index}.A`}
                                     placeholder="* Opción_A"
-                                    className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                    className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
                                   />
                                   <ErrorMessage
                                     name={`preguntas.${index}.A`}
@@ -251,48 +340,48 @@ const FormNewTest = ({ coursesName }) => {
                                 </div>
         
                                 <div className='my-2 mb-3'>
-                                  <label className="block text-md font-light text-gray-700 dark:text-white text-sm">Opción B</label>
+                                  <label className="block text-md font-light text-gray-700  text-sm">Opción B</label>
                                   <Field 
                                     as="textarea"
                                     type="text"
                                     name={`preguntas.${index}.B`}
                                     placeholder="* Opción_B"
-                                    className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                    className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
                                   />
                                   <ErrorMessage
                                     name={`preguntas.${index}.B`}
                                     component={() => ( <div className="text-orangeCustom text-xs ml-2 mt-1">Campo requerido</div>)} />
                                 </div>
                                 <div className='my-2 mb-3'>
-                                  <label className="block text-md font-light text-gray-700 dark:text-white text-sm">Opción C</label>
+                                  <label className="block text-md font-light text-gray-700  text-sm">Opción C</label>
                                   <Field 
                                     as="textarea"
                                     type="text"
                                     name={`preguntas.${index}.C`}
                                     placeholder="Opción_C"
-                                    className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                    className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
                                   />
                                 </div>
 
                                 <div className='my-2 mb-3'>
-                                  <label className="block text-md font-light text-gray-700 dark:text-white text-sm">Opción D</label>
+                                  <label className="block text-md font-light text-gray-700  text-sm">Opción D</label>
                                   <Field 
                                     as="textarea"
                                     type="text"
                                     name={`preguntas.${index}.D`}
                                     placeholder="Opción_D"
-                                    className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                    className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
                                   />
                                 </div>
                               </div>
                             )}
 
-                            <label className="block text-md font-light text-gray-700 dark:text-white text-sm">Respuesta (s)</label>
+                            <label className="block text-md font-light text-gray-700  text-sm">Respuesta (s)</label>
                             { values.preguntas[index].tipo === 'verdaderoFalso' && ( 
                               
                               <div className='my-2 mb-3'>
                                 <Field as="select" name={`preguntas.${index}.respuesta`}
-                                className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
                                 >
                                   <option value="">Selecciona un tipo</option>
                                   <option value="A">Verdadero</option>
@@ -304,7 +393,7 @@ const FormNewTest = ({ coursesName }) => {
                             { values.preguntas[index].tipo === 'unaOpcion' && ( 
                               <div className='my-2 mb-3'>
                                 <Field as="select" name={`preguntas.${index}.respuesta`}
-                                className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
                                 >
                                 <option value="">Seleccione una respuesta</option>
                                 <option value="A">Opción A</option>
@@ -320,7 +409,7 @@ const FormNewTest = ({ coursesName }) => {
                                 <div className='my-2 mb-3'>
                                   <label className="block text-xs font-semibold text-gray-900 -mt-2">Separa las respuestas por una coma</label>
                                   <Field name={`preguntas.${index}.respuestaMultiple`}
-                                  className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                  className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
                                   />
                                 </div>
                               </div>
@@ -332,7 +421,7 @@ const FormNewTest = ({ coursesName }) => {
     
                             {/* IMAGEN */}
                             <div className='my-2 mb-3'>
-                              <label className="block text-md font-light text-gray-700 dark:text-white text-sm">Imagen</label>
+                              <label className="block text-md font-light text-gray-700  text-sm">Imagen</label>
                               <Field 
                                 type="text"
                                 name={`preguntas.${index}.imagen`}
@@ -390,7 +479,7 @@ const FormNewTest = ({ coursesName }) => {
   
   
             
-            <button type="submit" className="w-3/12 text-white mt-4 bg-blueConsufarma hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Crear Examen</button>
+            <button type="submit" className="w-3/12 text-white mt-4 bg-blueConsufarma hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center ">Crear Examen</button>
             
           </Form>
         )}}

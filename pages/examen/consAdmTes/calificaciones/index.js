@@ -5,7 +5,7 @@ import { API_BASE_URL, URL_SITE } from '../../../../src/constants';
 import { VscCopy } from "react-icons/vsc";
 import { ListTestsAnswers } from '../../../../store/slices/TestsAnswers/TestsAnswersService';
 import { dateFormat, dateTimeFormat } from '../../../../src/helpers/FomateDate';
-import { BsFileEarmarkPdf } from 'react-icons/bs';
+import { BsAward, BsFileEarmarkPdf } from 'react-icons/bs';
 import { IoEyeOutline } from 'react-icons/io5';
 import instanceAPI from '../../../../src/config/axiosConfig';
 import Select from 'react-select'
@@ -55,8 +55,8 @@ const TableTestsAnswers = ({ courses }) => {
     }, 3000);
   }, [copied])
 
-  const handlePrint = async (TestId, ScoreId) => {
-    await instanceAPI.get(`testsPDF/showTestPDF?testId=${TestId}&scoreId=${ScoreId}`, {responseType: 'blob'})
+  const handlePrint = async (TestId, ScoreId, urlTestDiploma) => {
+    await instanceAPI.get(`testsPDF/${urlTestDiploma}?testId=${TestId}&scoreId=${ScoreId}`, {responseType: 'blob'})
     .then((resp) => {
       window.open(URL.createObjectURL(resp.data));
     })
@@ -121,11 +121,18 @@ const TableTestsAnswers = ({ courses }) => {
               <td className='border-2 border-gray-200 p-1 text-center'>{dateTimeFormat(t.fecha_sistema)}</td>
               <td className='border-2 border-gray-200 p-1'>
                 <div className='flex text-xl justify-center px-1'>
-                  <Link href={`/examen/resultado/${t.test_id}?student=${t._id}`}>
-                    <div className='cursor-pointer hover:scale-110 transition-all'><IoEyeOutline title="Ver Examen" className='text-gray-500'/></div>
-                  </Link>
-                  <div onClick={() => copyLink(`${URL_SITE}/examen/resultado/${t.test_id}?student=${t._id}`)} className='cursor-pointer hover:scale-110 transition-all mx-3'><VscCopy title="Copiar al portapapeles" className='text-gray-500'/></div>
-                  <div onClick={() => handlePrint(t.test_id, t._id)} className='cursor-pointer hover:scale-110 transition-all'><BsFileEarmarkPdf title='Ver Examen en PDF' className='text-gray-500' /></div>
+                  <div onClick={() => handlePrint(t.test_id, t._id, 'diplomaPDF')} className='cursor-pointer hover:scale-110 transition-all'><BsAward title='Ver Constancia' className='text-gray-500' /></div>
+                  {t.score !== 'Sin Calificacion' && (
+                    <Link href={`/examen/resultado/${t.test_id}?student=${t._id}`}>
+                      <div className='cursor-pointer hover:scale-110 transition-all'><IoEyeOutline title="Ver Examen" className='text-gray-500 ml-3'/></div>
+                    </Link>
+                  )}
+                  {t.score !== 'Sin Calificacion' && (
+                    <div onClick={() => copyLink(`${URL_SITE}/examen/resultado/${t.test_id}?student=${t._id}`)} className='cursor-pointer hover:scale-110 transition-all ml-3'><VscCopy title="Copiar Link" className='text-gray-500'/></div>
+                  )}
+                  {t.score !== 'Sin Calificacion' && (
+                    <div onClick={() => handlePrint(t.test_id, t._id, 'scoreTestPDF')} className='cursor-pointer hover:scale-110 transition-all ml-3'><BsFileEarmarkPdf title='Ver Examen en PDF' className='text-gray-500' /></div>
+                  )}
                 </div>
               </td>
             </tr>

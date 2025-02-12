@@ -14,7 +14,7 @@ const FormSendTest = ({ Test }) => {
   const dispatch = useDispatch()
 
   const { fecha_finalizacion, fecha_texto, img_curso, nombre_curso, nombre_examen, 
-    ponente_uno, ponente_dos, _id } = Test[0]
+    ponente_uno, ponente_dos, curso_relacionado_uno, curso_relacionado_dos, curso_relacionado_tres,_id } = Test[0]
   
     const { mailStatus } = useSelector((state) => state.mail)
     console.log(mailStatus);
@@ -41,7 +41,10 @@ const FormSendTest = ({ Test }) => {
         nombre_curso,  
         ponente_uno, 
         ponente_dos,
-        emails: goodEmails.toString()
+        emails: goodEmails.toString(),
+        curso_relacionado_uno,
+        curso_relacionado_dos,
+        curso_relacionado_tres,
       } 
       SendMailTest(dispatch, dataEmails)
     }
@@ -143,7 +146,7 @@ const FormSendTest = ({ Test }) => {
                   <div>
                     {goodEmails.length > 0 && (
                       <div className='mt-5 text-sm text-green-600 font-bold'>
-                        <div>Correos que se enviaron</div>
+                        <div>Correos que se enviarán:</div>
                         {goodEmails.map(email => (
                           <div className='flex' key={email}>
                             <div className='mr-2 text-gray-600 font-normal'>
@@ -158,7 +161,7 @@ const FormSendTest = ({ Test }) => {
                   <div>
                     {errorsEmail.length > 0 && (
                       <div className='mt-4 text-sm text-red-600 font-bold'>
-                        <div>Correos que no son válidos</div>
+                        <div>Correos que no son válidos:</div>
                         {errorsEmail.map(email => (
                           <div className='flex' key={email}>
                             <div className='mr-2 text-gray-600 font-normal'>

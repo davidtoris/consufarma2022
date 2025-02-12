@@ -1,26 +1,24 @@
 import React, { useEffect, useState } from 'react'
 import instanceAPI from '../../config/axiosConfig';
 import { useSelector } from 'react-redux';
-import { BsFillXCircleFill } from "react-icons/bs";
-import { FaAward, FaCheckCircle, FaFilePdf } from 'react-icons/fa';
+import { FaFilePdf } from 'react-icons/fa';
 import { API_BASE_URL } from '../../constants';
 import axios from 'axios';
-import { dateFormat } from '../../helpers/FomateDate';
+import ModalDownload from './ModalDownload';
 
-const FormDiploma = ({ Test, TestAnswer, point }) => {
+const FormDiploma = ({ Test, TestAnswer }) => {
+
 
   const { terminoExamen } = useSelector((state) => state.testsAnswers);
   
-  const { fecha_texto, nombre_curso, ponente_uno, ponente_dos, preguntas, img_curso } = Test[0]
+  const { fecha_texto, nombre_curso, ponente_uno, ponente_dos, img_curso } = Test[0]
 
-    console.log(Test[0]);
-    console.log(TestAnswer);
-
+  const [openModal, setOpenModal] = useState(false)
 
     const handlePrint = async () => {
       try {
         const resp = await instanceAPI.get(
-          `testsPDF/scoreTestPDF?testId=${TestAnswer.test_id}&scoreId=${TestAnswer._id}`,
+          `testsPDF/diplomaPDF?testId=${TestAnswer.test_id}&scoreId=${TestAnswer._id}`,
           { responseType: 'blob' }
         );
     
@@ -30,13 +28,14 @@ const FormDiploma = ({ Test, TestAnswer, point }) => {
           // Crear un enlace temporal para descargar el archivo
           const link = document.createElement('a');
           link.href = fileURL;
-          link.download = `Examen - ${TestAnswer.estudiante}.pdf`; // Nombre del archivo
+          link.download = `Constancia - ${TestAnswer.estudiante}.pdf`; // Nombre del archivo
           document.body.appendChild(link);
           link.click();
     
           // Limpieza: eliminar el enlace y liberar el objeto URL
           document.body.removeChild(link);
           URL.revokeObjectURL(fileURL);
+          setOpenModal(true)
         } else {
           console.error('No data found in response.');
         }
@@ -56,6 +55,10 @@ const FormDiploma = ({ Test, TestAnswer, point }) => {
         correo: TestAnswer.correo,
         nombreCurso: nombre_curso,
         estudiante: TestAnswer.estudiante,
+        examenConstancia: 'constancia',
+        curso_relacionado_uno: Test[0].curso_relacionado_uno,
+        curso_relacionado_dos: Test[0].curso_relacionado_dos,
+        curso_relacionado_tres: Test[0].curso_relacionado_tres,
       }
       console.log(data);
       await axios.post(`${API_BASE_URL}/email/sendTest`, data);
@@ -71,6 +74,10 @@ const FormDiploma = ({ Test, TestAnswer, point }) => {
   
     return (
       <>
+
+      <ModalDownload 
+        setOpenModal={setOpenModal}
+        openModal={openModal}/>
       
       <div className='container m-auto mt-5'>
         <img src="https://consufarma2022-davidtoris-projects.vercel.app/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Flogo.502e107c.png&w=1920&q=75" width="450px" className='m-auto px-4 md:px-0'/>
@@ -78,27 +85,28 @@ const FormDiploma = ({ Test, TestAnswer, point }) => {
           <div className='flex flex-col justify-center m-auto'>
             <h1 className="mt-5 font-bold text-2xl text-blueConsufarma text-center">{nombre_curso}</h1>
             <h1 className="font-semibold text-lg text-blueConsufarma text-center">Fecha del curso: {fecha_texto}</h1>
-            <h1 className="mb-4 font-light text-lg text-blueConsufarma text-center">EVALUACIÓN DEL CURSO</h1>
-            <div className='rounded-full'>
-              <img src={img_curso} width="300px" className='m-auto rounded-full'/>
+
+            <div className='rounded-full my-4'>
+              <img src={img_curso} width="450px" className='m-auto rounded-full'/>
             </div>
           </div>
           
           <div className='mt-10 md:mt-4 px-4 md:px-0 text-center'>
-            <div className='font-extrabold text-xl'>Nombre: {TestAnswer.estudiante}</div>
-            <div><span className='font-bold'>Fecha:</span> {dateFormat(TestAnswer.fecha_sistema)}</div>
-            <div><span className='font-bold'>Ponente:</span> {ponente_uno[0].ponente}</div>
-            {ponente_dos[0].ponente !== 'ninguno' && (
-              <div><span className='font-bold'>Ponente:</span> {ponente_dos[0].ponente}</div>
-            )}
-            <div><span className='font-bold'>Calificación:</span> {TestAnswer.score}</div>
+            <div className='font-extrabold text-3xl'>Nombre: {TestAnswer.estudiante}</div>
+
+            {ponente_dos[0].ponente === 'ninguno' ? (
+                <div><span className='font-bold text-lg'>Ponente:</span> {ponente_uno[0].ponente}</div>
+              ) : (
+                <div><span className='font-bold text-lg'>Ponentes:</span> {ponente_uno[0].ponente} y {ponente_dos[0].ponente}</div>
+              )}
+
           </div>
 
           {hasTest && (
             <div className='text-center'>
               <div className='mt-5 text-blueLightCustom font-extrabold text-lg px-3 md:px-0'>
                 {emailSended === '' ? 'Te estaremos enviando ' : 'Te hemos enviado '}
-                un correo a: <span className='underline'>{TestAnswer.correo}</span> con tu Diploma
+                un correo a: <span className='underline'>{TestAnswer.correo}</span> con tu Constancia
               </div>
               <div>
                 {emailSended === '' && (
@@ -116,7 +124,7 @@ const FormDiploma = ({ Test, TestAnswer, point }) => {
           <div className='flex-col md:flex text-lg font-semibold mt-4 mb-10 px-4 md:px-0'>
             <div onClick={handlePrint} className='w-12/12 md:w-4/12 bg-blueConsufarma p-4 rounded-md text-white flex items-center hover:scale-110 transition-all cursor-pointer justify-center m-auto'>
               <FaFilePdf className="mr-2 text-lg" />
-              Descargar Diploma en PDF</div>
+              Descargar Constancia</div>
           </div>
       </div>
 
