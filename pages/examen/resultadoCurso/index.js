@@ -39,7 +39,7 @@ const TableTestsAnswers = () => {
 
       <div className='mb-10 flex flex-col justify-center items-center m-auto text-center text-blueConsufarma'>
         <div className='font-normal text-xl uppercase'>
-          Calificaciónes del curso
+          Calificaciones del curso
         </div>
         <div className='font-light text-lg uppercase'></div>
         <div className='font-semibold text-xl uppercase'>{allTestsAnswers.length && allTestsAnswers[0].nombre_curso}</div>

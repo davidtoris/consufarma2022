@@ -17,10 +17,10 @@ const Menu = () => {
             <div className='cursor-pointer font-bold hover:underline hover:scale-105 transform duration-500 ease-out'>Exámenes</div>
           </Link>
           <Link href="/examen/consAdmTes/calificaciones">
-            <div className='cursor-pointer font-bold hover:underline my-2 hover:scale-105 transform duration-500 ease-out'>Calificaciones Individuales</div>
+            <div className='cursor-pointer font-bold hover:underline my-2 hover:scale-105 transform duration-500 ease-out'>Calificaciones/Constancia Individuales</div>
           </Link>
           <Link href="/examen/consAdmTes/calificacionesCursos">
-            <div className='cursor-pointer font-bold hover:underline hover:scale-105 transform duration-500 ease-out'>Calificaciones Grupales</div>
+            <div className='cursor-pointer font-bold hover:underline hover:scale-105 transform duration-500 ease-out'>Calificaciones/Constancia Grupales</div>
           </Link>
         </div>
       )}

@@ -69,7 +69,7 @@ const TableTestsAnswers = ({ courses }) => {
 
       <div className='mb-10 flex justify-center items-center m-auto text-center'>
         <div className='font-bold text-3xl text-blueConsufarma'>
-          Calificaciónes <span className='font-light text-lg ml-1'>(Todos los estudiantes)</span>
+          Calificaciones <span className='font-light text-lg ml-1'>(Todos los estudiantes)</span>
         </div>
       </div>
 

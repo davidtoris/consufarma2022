@@ -23,7 +23,7 @@ const ModalDownload = ({  openModal, setOpenModal }) => {
             <div className='m-6 p-4 pt-2 text-2xl font-extrabold sm:mb-6 text-center'>
               El documento se ha sido descargado exitosamente
               <div className='font-light text-lg'>
-                Puedes revisar en tu carpetas de descargas
+                Revisa tu carpetas de descargas
               </div>
               <div className='font-extralight text-lg'>
                 
