@@ -136,7 +136,13 @@ const FormScoreTest = ({ Test, TestAnswer, point }) => {
         sendEmailTest();
       }
     }, [terminoExamen]);
-  
+
+
+    // Validar si todas las respuestas multiples han sido elegidas por el usuario
+    const validateMultipleOptions = (arr1, arr2) => 
+      arr1.every(el => arr2.includes(el)) && arr2.every(el => arr1.includes(el))
+
+
     return (
       <>
       
@@ -271,19 +277,16 @@ const FormScoreTest = ({ Test, TestAnswer, point }) => {
                       </div>)}
                     </div>
 
-                    { p.respuestaMultiple.every( cadaRespuesta => TestAnswer.answersUser.includes(cadaRespuesta)) 
-                    ? (
-                        <div></div>
-                      ) : (
+                    {  validateMultipleOptions(p.respuestaMultiple, TestAnswer.answersUser) && (
                         <div className='my-2 ml-2 '>
-                        <div className='font-bold italic'>Respuesta correcta:</div>
-                        <div className='text-gray-700 flex'>
-                          {p.respuestaMultiple.map( (r, i) => (
-                            <div className='flex mr-1' key={i}>
-                              {r}){i+1 < p.respuestaMultiple.length && ','}
-                            </div>
-                          ))}
-                        </div>
+                          <div className='font-bold italic'>Respuesta correcta:</div>
+                          <div className='text-gray-700 flex'>
+                            {p.respuestaMultiple.map( (r, i) => (
+                              <div className='flex mr-1' key={i}>
+                                {r}){i+1 < p.respuestaMultiple.length && ','}
+                              </div>
+                            ))}
+                          </div>
                         </div>
                       )
                     }

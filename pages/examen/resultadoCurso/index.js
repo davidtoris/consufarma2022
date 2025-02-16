@@ -5,7 +5,7 @@ import { ListTestsAnswersByCourseAndDate } from '../../../store/slices/TestsAnsw
 import { useRouter } from 'next/router';
 import { dateFormat, dateTimeFormat } from '../../../src/helpers/FomateDate';
 import { IoEyeOutline } from 'react-icons/io5';
-import { BsFileEarmarkPdf } from 'react-icons/bs';
+import { BsAward, BsFileEarmarkPdf } from 'react-icons/bs';
 import instanceAPI from '../../../src/config/axiosConfig';
 
 
@@ -22,8 +22,8 @@ const TableTestsAnswers = () => {
     }
   }, [TestId, date])
 
-  const handlePrint = async (TestId, ScoreId) => {
-    await instanceAPI.get(`testsPDF/scoreTestPDF?testId=${TestId}&scoreId=${ScoreId}`, {responseType: 'blob'})
+  const handlePrint = async (TestId, ScoreId, urlTestDiploma) => {
+    await instanceAPI.get(`testsPDF/${urlTestDiploma}?testId=${TestId}&scoreId=${ScoreId}`, {responseType: 'blob'})
     .then((resp) => {
       window.open(URL.createObjectURL(resp.data));
     })
@@ -68,12 +68,23 @@ const TableTestsAnswers = () => {
               <td className='border-2 border-gray-200 p-1 text-center'>{t.score}</td>
               <td className='border-2 border-gray-200 p-1 text-center'>{dateTimeFormat(t.fecha_sistema)}</td>
               <td className='border-2 border-gray-200 p-1'>
-                <div className='flex text-xl justify-center px-1'>
+              <div className='flex text-xl justify-center px-1'>
+                  <div onClick={() => handlePrint(t.test_id, t._id, 'diplomaPDF')} className='cursor-pointer hover:scale-110 transition-all'><BsAward title='Ver Constancia' className='text-gray-500' /></div>
+                      {t.score !== 'Sin Calificacion' && (
+                        <Link href={`/examen/resultado/${t.test_id}?student=${t._id}`}>
+                          <div className='cursor-pointer hover:scale-110 transition-all'><IoEyeOutline title="Ver Examen" className='text-gray-500 ml-3'/></div>
+                        </Link>
+                      )}
+                      {t.score !== 'Sin Calificacion' && (
+                        <div onClick={() => handlePrint(t.test_id, t._id, 'scoreTestPDF')} className='cursor-pointer hover:scale-110 transition-all ml-3'><BsFileEarmarkPdf title='Ver Examen en PDF' className='text-gray-500' /></div>
+                      )}
+                    </div>
+                {/* <div className='flex text-xl justify-center px-1'>
                   <Link href={`/examen/resultado/${t.test_id}?student=${t._id}`}>
                     <div className='cursor-pointer hover:scale-110 transition-all mr-2'><IoEyeOutline title="Ver Examen" className='text-gray-500'/></div>
                   </Link>
                   <div onClick={() => handlePrint(t.test_id, t._id)} className='cursor-pointer hover:scale-110 transition-all'><BsFileEarmarkPdf title='Ver Examen en PDF' className='text-gray-500' /></div>
-                </div>
+                </div> */}
               </td>
             </tr>
             ))
