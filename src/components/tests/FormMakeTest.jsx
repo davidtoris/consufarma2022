@@ -294,7 +294,7 @@ const FormMakeTest = ({ Test }) => {
                   <div className='mt-3' key={p.pregunta}>
                     { p.tipo === 'verdaderoFalso' && (
                       <div className='ml-2'>
-                        <div className='font-bold text-justify'>{i+1}. {p.pregunta}</div>
+                        <div className='font-bold text-justify'>{p.pregunta}</div>
                         <div onClick={() => selectOption(p.tipo, i, 'A', p.respuesta)} className={`${answersUser[i] === 'A' && 'bg-selectedColor'} cursor-pointer my-1 p-1 px-2 rounded-lg`}>A) Verdadero</div>
                         <div onClick={() => selectOption(p.tipo, i, 'B', p.respuesta)} className={`${answersUser[i] === 'B' && 'bg-selectedColor'} cursor-pointer my-1 p-1 px-2 rounded-lg`}>B) Falso</div>
                       </div>
@@ -302,7 +302,7 @@ const FormMakeTest = ({ Test }) => {
 
                     { p.tipo === 'unaOpcion' && (
                       <div>
-                        <div className='font-bold text-justify'>{i+1}. {p.pregunta}</div>
+                        <div className='font-bold text-justify'>{p.pregunta}</div>
                         {p.imagen !== '' && (
                           <div className="w-[170px] mt-2">
                             <img src={p.imagen} className="" alt="imagen" />
@@ -323,7 +323,7 @@ const FormMakeTest = ({ Test }) => {
 
                     { p.tipo === 'multipleOpcion' && (
                       <div>
-                        <div className='font-bold text-justify'>{i+1}. {p.pregunta}</div>
+                        <div className='font-bold text-justify'>{p.pregunta}</div>
                         <div className='ml-2'>
                           <div onClick={() => selectOption(p.tipo, i, 'A')} className={`${answerMultipleOption(i, 'A')} cursor-pointer my-1 p-1 px-2 rounded-lg`}>A) {p.A}</div>
                           <div onClick={() => selectOption(p.tipo, i, 'B')} className={`${answerMultipleOption(i, 'B')} cursor-pointer my-1 p-1 px-2 rounded-lg`}>B) {p.B}</div>

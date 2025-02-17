@@ -190,7 +190,7 @@ const FormScoreTest = ({ Test, TestAnswer, point }) => {
                 { p.tipo === 'verdaderoFalso' && (
                   <div>
                     <div className='ml-2'>
-                      <div className={`font-bold text-justify`}>{i+1}. {p.pregunta}</div>
+                      <div className={`font-bold text-justify`}>{p.pregunta}</div>
                       {p.imagen !== '' && (
                         <div className="w-1/3">
                           <img src={p.imagen} className="" alt="imagen" />
@@ -217,7 +217,7 @@ const FormScoreTest = ({ Test, TestAnswer, point }) => {
                 { p.tipo === 'unaOpcion' && (
                   <div>
                     <div className='ml-2 '>
-                    <div className='font-bold text-justify'>{i+1}. {p.pregunta}</div>
+                    <div className='font-bold text-justify'>{p.pregunta}</div>
                       {p.imagen !== '' && (
                         <div className="w-[170px] mt-2">
                           <img src={p.imagen} className="" alt="imagen" />
@@ -252,7 +252,7 @@ const FormScoreTest = ({ Test, TestAnswer, point }) => {
 
                 { p.tipo === 'multipleOpcion' && (
                   <div>
-                    <div className='font-bold text-justify'>{i+1}. {p.pregunta}</div>
+                    <div className='font-bold text-justify'>{p.pregunta}</div>
                     {p.imagen !== '' && (
                       <div className="w-1/3">
                         <img src={p.imagen} className="" alt="imagen" />
