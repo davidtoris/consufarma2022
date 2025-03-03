@@ -38,7 +38,7 @@ const Thanks = () => {
     // const coursesData = await axios.get(`${API_BASE_URL}/courses/fundamentos-y-aplicacion-de-los-metodos-farmacopeicos-y-calculos-criticos-empleados-en-el-analisis-farmaceutico`);
     // setCoursesSpeker(coursesData.data.course);
     
-    const coursesData = await axios.get(`${API_BASE_URL}/courses/especialidad/63128fb30e17f3e5fe489d19`);
+    const coursesData = await axios.get(`${API_BASE_URL}/courses/especialidad/6312575968423e81ea97defe`);
     setCoursesSpeker(coursesData.data.courseSpecialitty);
   }
   
