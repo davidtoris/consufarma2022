@@ -89,7 +89,7 @@ const Thanks = () => {
         </div> */}
         
         <div className='text-blueConsufarma text-3xl font-extrabold mt-5'>
-          15 de Marzo de 2024
+          15 de Marzo de 2025
         </div>
         <div className='text-gray-500 text-2xl font-italic my-2'>
           CDMX - 10h <br></br>
