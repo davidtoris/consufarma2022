@@ -144,7 +144,7 @@ const FormNewTest = ({ coursesName }) => {
             <img src="https://consufarma2022-davidtoris-projects.vercel.app/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Flogo.502e107c.png&w=1920&q=75" width="450px" className='my-5 m-auto'/>
               
             <div className='my-2 mb-3'>
-              <label className="block text-md font-light text-gray-900 ">Nombre del Exámen</label>
+              <label className="block text-md font-light text-gray-900 ">Nombre del Examen</label>
               <Field 
                 type="text"
                 name="nombre_examen"
