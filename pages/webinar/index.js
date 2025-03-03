@@ -18,9 +18,9 @@ const Home = () => {
     // correoDos: Yup.string().email('Escribe un correo válido').required('Campo requerido'),
   });
 
-  const tag = 'webinarAbr24';
+  const tag = 'webinarMar25';
   const fecha = moment().format();
-  const fechaFin = '2024-05-01T00:00:00-00:00';
+  const fechaFin = '2025-05-01T00:00:00-00:00';
 
 
   return (
@@ -38,7 +38,7 @@ const Home = () => {
         </div>
           
         <div className=''>
-          <img src="https://res.cloudinary.com/drq8o9k36/image/upload/v1712871699/reto/Captura_de_pantalla_2024-04-11_a_la_s_3.41.26_p.m._nei3hm.png" width="600px"/>
+          <img src="https://res.cloudinary.com/drq8o9k36/image/upload/v1741024840/Captura_de_pantalla_2025-03-03_a_la_s_12.00.26_p.m._zjthvp.png" width="600px"/>
           <div className='px-6 sm:px-0'>
 
             <Formik

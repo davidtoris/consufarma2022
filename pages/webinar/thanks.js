@@ -51,7 +51,7 @@ const Thanks = () => {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen py-2 bg-gray-100">
       {/* <img src="..//logo.png" width="600px" className='my-5 m-auto'/> */}
-      <img src="https://res.cloudinary.com/drq8o9k36/image/upload/v1712871699/reto/Captura_de_pantalla_2024-04-11_a_la_s_3.41.26_p.m._nei3hm.png" width="300px" className='my-5 m-auto'/>
+      <img src="https://res.cloudinary.com/drq8o9k36/image/upload/v1741024840/Captura_de_pantalla_2025-03-03_a_la_s_12.00.26_p.m._zjthvp.png" width="300px" className='my-5 m-auto'/>
       <div className='text-center'>
         <div className='text-redConsufarma p-3 text-5xl font-extrabold'>
           Agradecemos tu interés para éste Webinar
@@ -81,8 +81,7 @@ const Thanks = () => {
         }
         
         <div className='text-gray-600 p-3 text-xl font-extrabold mt-5 w-10/12 sm:w-6/12 m-auto'>
-        Conocerá los elementos básicos a considerar para determinar la calidad deseada en un producto desde su diseño hasta el desarrollo del proceso de producción.
-          
+          Conocer la importancia del riesgo de contaminación por Burkholderia en los Productos Farmacéuticos
         </div>
         
         {/* <div className='text-blueConsufarma p-3 text-xl font-extrabold mt-10'>
@@ -90,19 +89,19 @@ const Thanks = () => {
         </div> */}
         
         <div className='text-blueConsufarma text-3xl font-extrabold mt-5'>
-        22 de Abril de 2024
+          15 de Marzo de 2024
         </div>
         <div className='text-gray-500 text-2xl font-italic my-2'>
-          CDMX - 15h <br></br>
+          CDMX - 10h <br></br>
         </div>
         <div className='text-gray-500 text-2xl font-italic my-2'>
-          Colombia - 16h <br></br>
+          Colombia - 11h <br></br>
         </div>
         <div className='text-gray-500 text-2xl font-italic my-2'>
-          Chile - 17h <br></br>
+          Rep. Dominicana - 12h <br></br>
         </div>
         <div className='text-gray-500 text-2xl font-italic my-2'>
-          Argentina - 18h <br></br>
+          Argentina - 13h <br></br>
         </div>
         
         <div className='text-blueConsufarma text-3xl font-extrabold my-10'>

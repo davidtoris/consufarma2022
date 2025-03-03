@@ -145,7 +145,7 @@ const Calendario = ({specialities, cursosDate}) => {
         </Link>
       )}
       
-      {/* <Modal /> */}
+      <Modal />
 
       <div className='container m-auto px-2 md:px-2 mt-10'>
         
