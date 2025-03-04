@@ -53,17 +53,17 @@ const Thanks = () => {
       {/* <img src="..//logo.png" width="600px" className='my-5 m-auto'/> */}
       <img src="https://res.cloudinary.com/drq8o9k36/image/upload/v1741024840/Captura_de_pantalla_2025-03-03_a_la_s_12.00.26_p.m._zjthvp.png" width="300px" className='my-5 m-auto'/>
       <div className='text-center'>
-        <div className='text-redConsufarma p-3 text-5xl font-extrabold'>
+        <div className='text-redConsufarma p-3 text-xl md:text-5xl font-extrabold'>
           Agradecemos tu interés para éste Webinar
         </div>
 
         { emailSended === '' ? (
             <>
               <div className='bg-blueConsufarma p-3 h-2 mt-10'></div>
-              <div className='bg-redConsufarma p-3 text-white text-3xl font-extrabold'>
+              <div className='bg-redConsufarma p-3 text-white text-xl md:text-3xl font-extrabold'>
                 <div>Te estaremos enviando un correo con el link para que puedas acceder</div>
               </div>
-              <div className='text-blueConsufarma text-3xl font-extrabold italic my-4'>
+              <div className='text-blueConsufarma text-lg md:text-2xl font-extrabold italic my-4'>
                 ¿No lo recibiste? <br /> Revisa tu carpeta de correo no deseado ó escríbenos a <span> <a className="underline" href="mailto:pedro.valadez@consufarma.com">pedro.valadez@consufarma.com</a></span>
               </div>
             </>
@@ -73,7 +73,7 @@ const Thanks = () => {
               <div className='bg-blueConsufarma p-3 text-white text-3xl font-extrabold'>
                 <div>Hemos enviado, al correo electrónico registrado, el enlace para que puedas acceder al webinar</div>
               </div>
-              <div className='text-redConsufarma text-2xl font-extrabold italic my-4'>
+              <div className='text-redConsufarma text-lg md:text-2xl font-extrabold italic my-4'>
                 ¿No lo recibiste? Revisa tu carpeta de correo no deseado ó escríbenos a <span> <a className="underline" href="mailto:pedro.valadez@consufarma.com">pedro.valadez@consufarma.com</a></span>
               </div>
             </div>
