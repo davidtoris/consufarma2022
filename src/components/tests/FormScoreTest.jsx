@@ -303,7 +303,7 @@ const FormScoreTest = ({ Test, TestAnswer, point }) => {
             <>
               <div className='mt-10 text-blueLightCustom font-extrabold text-lg px-3 md:px-0'>
                 {emailSended === '' ? 'Te estaremos enviando ' : 'Te hemos enviado '}
-                un correo a: <span className='underline'>{TestAnswer.correo}</span> con tu Examen
+                un correo a: <span className='underline'>{TestAnswer.correo}</span> con tu Examen y Constancia
               </div>
               <div>
                 {emailSended === '' && (

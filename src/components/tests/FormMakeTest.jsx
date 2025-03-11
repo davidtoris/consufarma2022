@@ -13,6 +13,8 @@ import ModalTryings from './ModalTryings';
 
 const FormMakeTest = ({ Test }) => {
 
+  console.log(Test);
+
   const router = useRouter()
   const dispatch = useDispatch()
 
@@ -311,7 +313,11 @@ const FormMakeTest = ({ Test }) => {
                         <div className='ml-2'>
                           <div onClick={() => selectOption(p.tipo, i, 'A')} className={`${answersUser[i] === 'A' && 'bg-selectedColor'} cursor-pointer my-1 p-1 px-2 rounded-lg`}>A) {p.A}</div>
                           <div onClick={() => selectOption(p.tipo, i, 'B')} className={`${answersUser[i] === 'B' && 'bg-selectedColor'} cursor-pointer my-1 p-1 px-2 rounded-lg`}>B) {p.B}</div>
-                          {(p.C !== undefined )  && (<div onClick={() => selectOption(p.tipo, i, 'C')} className={`${answersUser[i] === 'C' && 'bg-selectedColor'} cursor-pointer my-1 p-1 px-2 rounded-lg`}>C) {p.C}</div>)}
+                          {(p.C !== undefined && p.C !== '' )  && (
+                            <div onClick={() => selectOption(p.tipo, i, 'C')} className={`${answersUser[i] === 'C' && 'bg-selectedColor'} cursor-pointer my-1 p-1 px-2 rounded-lg`}>
+                              C) {p.C}
+                            </div>
+                          )}
                           {(p.D !== undefined && p.D !== '' ) && (
                             <div onClick={() => selectOption(p.tipo, i, 'D')} className={`${answersUser[i] === 'D' && 'bg-selectedColor'} cursor-pointer my-1 p-1 px-2 rounded-lg`}>
                               D) {p.D}
