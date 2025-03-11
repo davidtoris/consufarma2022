@@ -13,8 +13,6 @@ import ModalTryings from './ModalTryings';
 
 const FormMakeTest = ({ Test }) => {
 
-  console.log(Test);
-
   const router = useRouter()
   const dispatch = useDispatch()
 
