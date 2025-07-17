@@ -30,7 +30,7 @@ const Footer = () => {
               
 
               <div className='ml-5'>
-                <Link href="https://wa.me/525618003145?text=Hola%20me%20gusta%20el%20curso%20de..." target="blank">
+                <Link href="https://wa.me/525640009095?text=Hola%20me%20gusta%20el%20curso%20de..." target="blank">
                   <a>
                     <FaWhatsapp className='text-white text-2xl' />
                   </a>
@@ -39,8 +39,8 @@ const Footer = () => {
             </div>
             
             <div className='text-center my-2'>
-              <Link href="tel:525618003145">
-                <span className='text-white ml-2'> (+52) 56 1800 3145</span>
+              <Link href="tel:525640009095">
+                <span className='text-white ml-2'> (+52) 56 4000 9095</span>
               </Link>
             </div>
 

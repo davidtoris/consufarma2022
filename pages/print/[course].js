@@ -149,7 +149,7 @@ const Print = ({curso}) => {
             </a>
           </div>
           <div>
-            <a href="tel:5618003145">
+            <a href="tel:5640009095">
               <span className='text-white'> 56 1800 3145</span>
             </a>
           </div>

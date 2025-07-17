@@ -284,7 +284,7 @@ const ItemCourse = ({curso}) => {
               <div className='flex justify-center flex-col text-center '>
 
                 <div>
-                  <a href={`https://api.whatsapp.com/send?phone=5215618003145&text=Hola, me gustaría mayor información del curso: ${nombre}`}>
+                  <a href={`https://api.whatsapp.com/send?phone=5215640009095&text=Hola, me gustaría mayor información del curso: ${nombre}`}>
                     <Image src="https://res.cloudinary.com/drq8o9k36/image/upload/v1661528416/BOTON_WHATSAPP-01_lktuwg.webp" layout='fixed' width={250} height={90} alt="">
                     </Image>
                   </a>

@@ -19,12 +19,12 @@ const SocialContact = () => {
           </a> 
         </div>
         <div className='mx-3'>
-          <a href="https://wa.me/525618003145?text=Hola%20me%20gusta%20el%20curso%20de..." target="blank">
+          <a href="https://wa.me/525640009095?text=Hola%20me%20gusta%20el%20curso%20de..." target="blank">
               <FaWhatsapp className='text-white text-2xl' />
           </a>
         </div>
         <span>
-          <a href="tel:525618003145">
+          <a href="tel:525640009095">
             <FaPhone className='text-white text-2xl' />
           </a>
         </span>
