@@ -132,13 +132,13 @@ const calendario = ( {curso} ) => {
           </a>
         </div>
         <div className='mx-3'>
-          <a href="https://wa.me/525547810505?text=Hola%20me%20gusta%20el%20curso%20de..." target="blank">
+          <a href="https://wa.me/525640009095?text=Hola%20me%20gusta%20el%20curso%20de..." target="blank">
             <img src="/whatsapp.png" height={25} width={25} alt="whatsapp"/>
           </a>
         </div>
         <div>
           <a href="tel:5640009095">
-            <span className='text-white'> 56 1800 3145</span>
+            <span className='text-white'> 56 4000 9095</span>
           </a>
         </div>
       </div>
