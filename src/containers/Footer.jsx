@@ -64,9 +64,9 @@ const Footer = () => {
             <Link href="/servicios">
               <div className="px-2 cursor-pointer">Servicios</div>
             </Link>
-            <Link href="/calendario">
+            <a href="../calendario.pdf">
               <div className="px-2 cursor-pointer">Calendario</div>
-            </Link>
+            </a>
           </div>
         </div>
 
