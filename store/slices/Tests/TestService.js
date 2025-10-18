@@ -1,5 +1,4 @@
 import instanceAPI from '../../../src/config/axiosConfig';
-import { URL_SITE } from '../../../src/constants';
 import { addTests, testDefault, testError, testLoading, testSuccess } from "./TestSlice";
 
 export const AllTests = async (dispatch, courseName, date) => {
