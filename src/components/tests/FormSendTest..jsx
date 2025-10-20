@@ -10,15 +10,12 @@ import ModalSendedLink from './ModalSendedLink';
 
 const FormSendTest = ({ Test }) => {
 
-  console.log(Test);
   const dispatch = useDispatch()
 
   const { fecha_finalizacion, fecha_texto, img_curso, nombre_curso, nombre_examen, 
     ponente_uno, ponente_dos, curso_relacionado_uno, curso_relacionado_dos, curso_relacionado_tres,_id } = Test[0]
   
     const { mailStatus } = useSelector((state) => state.mail)
-    console.log(mailStatus);
-
   
     const validationSchema = Yup.object().shape({
       correoEstudiantes: Yup.string().required('El campo es obligatorio'),
@@ -32,7 +29,6 @@ const FormSendTest = ({ Test }) => {
     const [goodEmails, setGoodEmails] = useState([])
     
     const sendEmail = () => {
-      console.log(goodEmails.toString());
       const dataEmails = {
         testId:_id,
         fecha_finalizacion, 
@@ -73,11 +69,8 @@ const FormSendTest = ({ Test }) => {
               
               const emails = valores.correoEstudiantes.split(/\s+/)
               
-              // console.log(arrayCorreos);
-              
               // const emails = valores.correoEstudiantes.split(", ");
               const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-              console.log(emails);
               let badEmails = []
               let goodEmails = []
 

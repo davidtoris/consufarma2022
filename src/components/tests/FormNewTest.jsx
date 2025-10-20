@@ -12,8 +12,6 @@ import { IoIosArrowDown, IoIosArrowUp, IoMdCloseCircle } from 'react-icons/io';
 
 const FormNewTest = ({ coursesName }) => {
 
-  console.log(coursesName);
-
   const dispatch = useDispatch()
   const router = useRouter();
   
@@ -67,12 +65,10 @@ const FormNewTest = ({ coursesName }) => {
 
     // Subir imagen, obtener URL y agregar a la pregunta
     const handlePhoto = async (e, setFieldValue, index) => {     
-      console.log(e.target.files[0]);
       const formData = new FormData();
       formData.append('image', e.target.files[0]);
       try {
         const {data} = await instanceAPIData.post(`/tests/uploadImage`, formData)
-          console.log(data);
           setFieldValue(`preguntas.${index}.imagen`, data.imagen)
       } catch (error) {
         console.log(error);

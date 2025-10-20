@@ -24,12 +24,6 @@ const CourseTest = ({Test}) => {
     }
   }, [student])
 
-  console.log('student', student);
-  console.log('allTestsAnswers', allTestsAnswers);
-  console.log('allTestsAnswers.length', allTestsAnswers.length);
-  console.log('allTestsAnswersTemp', allTestsAnswersTemp);
-  console.log('allTestsAnswersTemp.length', allTestsAnswersTemp.length);
-
   return (
     <>
     <div>
@@ -60,7 +54,6 @@ const CourseTest = ({Test}) => {
 export default CourseTest
 
 export const getServerSideProps = async ({query: {scoreTest, student}}) => {
-  console.log(student);
   const resTest = await fetch(`${API_BASE_URL}/tests/${scoreTest}`);
   const dataTest = await resTest.json()
   const Test = dataTest.test

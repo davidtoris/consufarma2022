@@ -32,7 +32,6 @@ export const createTest = async (dispatch, test, router) => {
 };
 
 export const editTest = async (dispatch, test, id, router) => {
-  console.log(test);
   dispatch(testDefault())
   dispatch(testLoading(true))
   await instanceAPI.put(`/tests/${id}`, test)

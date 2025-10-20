@@ -11,9 +11,6 @@ import { IoIosArrowDown, IoIosArrowUp, IoMdCloseCircle } from 'react-icons/io';
 
 const FormEditTest = ({ coursesName, tests }) => {
 
-  console.log(coursesName);
-  console.log(tests);
-
   const [arrayTest, setArrayTest] = useState([])
 
   useEffect(() => {
@@ -74,12 +71,10 @@ const FormEditTest = ({ coursesName, tests }) => {
     // Subir imagen, obtener URL y agregar a la pregunta
     const handlePhoto = async (e, setFieldValue, index) => {     
       setLoading(true)
-      console.log(e.target.files[0]);
       const formData = new FormData();
       formData.append('image', e.target.files[0]);
       try {
         const {data} = await instanceAPIData.post(`/tests/uploadImage`, formData)
-          console.log(data);
           setFieldValue(`preguntas.${index}.imagen`, data.imagen)
           setLoading(false)
       } catch (error) {
@@ -130,7 +125,6 @@ const FormEditTest = ({ coursesName, tests }) => {
               preguntas: valores.preguntas
             }
 
-            console.log(preguntasMult);
             editTest(dispatch, preguntasMult, tests[0]._id, router)
           }}>
           

@@ -13,9 +13,6 @@ const FormScoreTest = ({ Test, TestAnswer, point }) => {
   const { terminoExamen } = useSelector((state) => state.testsAnswers);
   const { fecha_texto, nombre_curso, ponente_uno, ponente_dos, preguntas, img_curso } = Test[0]
 
-    console.log(Test[0]);
-    console.log(TestAnswer);
-
     const [openModal, setOpenModal] = useState(false)
 
     const handlePrint = async ( UrlScoreDiploma, TipoScoreDiploma ) => {
@@ -125,7 +122,6 @@ const FormScoreTest = ({ Test, TestAnswer, point }) => {
         curso_relacionado_dos: Test[0].curso_relacionado_dos,
         curso_relacionado_tres: Test[0].curso_relacionado_tres,
       }
-      console.log(data);
       await axios.post(`${API_BASE_URL}/email/sendTest`, data);
       setEmailSended('Se hizo correcto');
     }

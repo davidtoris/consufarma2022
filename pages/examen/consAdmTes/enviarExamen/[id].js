@@ -3,7 +3,6 @@ import { API_BASE_URL } from '../../../../src/constants';
 import FormSendTest from '../../../../src/components/tests/FormSendTest.';
 
 const newTest = ({tests}) => {
-  console.log(tests);
     return (
       <FormSendTest Test={tests} />
     )

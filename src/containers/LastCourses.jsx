@@ -11,7 +11,6 @@ const lastCourses = () => {
       if ( localStorage.getItem('lastCourses') ) {
         const storedLast = JSON.parse(localStorage.getItem('lastCourses'));
         if (storedLast) {
-          console.log(storedLast)
           setLastItems(storedLast);
         }
       }

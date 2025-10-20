@@ -155,8 +155,6 @@ const FormMakeTest = ({ Test }) => {
       createAnswersTests(dispatch, dataToSend)
       dispatch(SeTerminoExamen(true))
 
-      
-      console.log(dataToSend);
     }
   }, [sendAnswers])
 
@@ -187,8 +185,6 @@ const FormMakeTest = ({ Test }) => {
       }
     }
   }, [allTestsAnswers])
-
-  console.log(hasTest);
 
   return (
     <div className='bg-backGroundColor pb-8'>

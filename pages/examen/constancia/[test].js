@@ -27,12 +27,6 @@ const CourseDiploma = ({Test}) => {
     }
   }, [student])
 
-  console.log('student', student);
-  console.log('allTestsAnswers', allTestsAnswers);
-  console.log('allTestsAnswers.length', allTestsAnswers.length);
-  console.log('allTestsAnswersTemp', allTestsAnswersTemp);
-  console.log('allTestsAnswersTemp.length', allTestsAnswersTemp.length);
-
   return (
     <>
     <div>
@@ -63,7 +57,6 @@ const CourseDiploma = ({Test}) => {
 export default CourseDiploma
 
 export const getServerSideProps = async ({query: {test, student}}) => {
-  console.log(student);
   const resTest = await fetch(`${API_BASE_URL}/tests/${test}`);
   const dataTest = await resTest.json()
   const Test = dataTest.test

@@ -44,7 +44,6 @@ const CardCourse = ({link, nombre, img, label, ponente, ponenteDos, horario, fec
   //   });
   // };
   
-  // console.log(listLastCourses)
 
   return (
     <Link href={link}>

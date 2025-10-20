@@ -60,7 +60,7 @@ const FormDiploma = ({ Test, TestAnswer }) => {
         curso_relacionado_dos: Test[0].curso_relacionado_dos,
         curso_relacionado_tres: Test[0].curso_relacionado_tres,
       }
-      console.log(data);
+
       await axios.post(`${API_BASE_URL}/email/sendTest`, data);
       setEmailSended('Se hizo correcto');
     }
