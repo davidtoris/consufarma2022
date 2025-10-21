@@ -6,13 +6,13 @@ const axiosConfig = {
 };
 
 const instanceAPI = axios.create({
-  baseURL: process.env.NEXT_API_BASE_URL,
+  baseURL: process.env.NEXT_PUBLIC_API_BASE_URL,
   headers: { 'Content-type': 'application/json' },
   axiosConfig,
 });
 
 export const instanceAPIData = axios.create({
-  baseURL: process.env.NEXT_API_BASE_URL,
+  baseURL: process.env.NEXT_PUBLIC_API_BASE_URL,
   headers: { 'Content-Type': 'multipart/form-data' },
   axiosConfig,
 });
