@@ -95,7 +95,7 @@ const Nosotros = () => {
 
     <div className="max-w-7xl mx-auto container px-5 py-10">
       <div className='grid sm:grid-cols-3 grid-cols-1 text-lg gap-10 text-center'>
-        <Link href="/cursos/calendario">
+        <Link href="calendario.pdf">
           <div className='p-3 bg-blueConsufarma text-white mt-4 cursor-pointer hover:scale-105 transition rounded-md font-bold'>
             Consulta el calendario anual
           </div>
@@ -105,9 +105,9 @@ const Nosotros = () => {
             Contáctanos ahora
           </div>
         </Link>
-        <div onClick={() => getPdf()} className='p-3 bg-blueConsufarma text-white mt-4 cursor-pointer hover:scale-105 transition rounded-md font-bold'>
+        {/* <div onClick={() => getPdf()} className='p-3 bg-blueConsufarma text-white mt-4 cursor-pointer hover:scale-105 transition rounded-md font-bold'>
           PDF
-        </div>
+        </div> */}
       </div>
     </div>
 
