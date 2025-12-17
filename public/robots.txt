@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /
+Disallow: /carrito
+Disallow: /login
+Disallow: /registro
+Disallow: /recover
+Disallow: /forgot
+Disallow: /orders
+
+Sitemap: https://www.consufarma.com/sitemap.xml
