@@ -4,11 +4,11 @@ import { API_BASE_URL } from '../../src/constants'
 import Footer from '../../src/containers/Footer'
 import ItemCourse from '../../src/containers/ItemCourse'
 
-const LandingItemCourse = ({curso}) => {
+const LandingItemCourse = ({ curso }) => {
   return (
     <div>
       <NavBar />
-      <ItemCourse 
+      <ItemCourse
         curso={curso}
       />
       <Footer />
@@ -18,11 +18,21 @@ const LandingItemCourse = ({curso}) => {
 
 export default LandingItemCourse
 
-export const getServerSideProps = async ({query: {course}}) => {
+export const getStaticPaths = async () => {
+  return {
+    paths: [],
+    fallback: 'blocking' // or true
+  }
+}
+
+export const getStaticProps = async ({ params: { course } }) => {
   const res = await fetch(`${API_BASE_URL}/courses/${course}`);
   const data = await res.json()
   const curso = data.course
 
-  return { props : { curso } }
+  return {
+    props: { curso },
+    revalidate: 3600,
+  }
 }
 

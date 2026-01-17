@@ -11,6 +11,8 @@ import Cookies from "js-cookie"
 import { FaChevronDown } from "react-icons/fa";
 import { useRouter } from 'next/router';
 
+import { API_BASE_URL } from '../../constants';
+
 
 const NavBar = () => {
 
@@ -29,7 +31,7 @@ const NavBar = () => {
   const { allBasket } = useSelector((state) => state.basket);
 
   useEffect(() => {
-    if ( localStorage.getItem('cart') ) {
+    if (localStorage.getItem('cart')) {
       const storedCart = JSON.parse(localStorage.getItem('cart'));
       if (storedCart) {
         dispatch(addItem(storedCart.length))
@@ -42,11 +44,42 @@ const NavBar = () => {
     setShowMenu(!showMenu);
   }
 
+
   const logOut = () => {
     router.push("/login")
     Cookies.remove('tokenUser');
     Cookies.remove('user');
   }
+
+  const handleDownloadPDF = async () => {
+    try {
+      const response = await fetch(`${API_BASE_URL}/pdf/downloadPDF`, {
+        method: 'GET',
+        headers: {
+          // 'x-token': localStorage.getItem('token') // Si requieres auth en el futuro
+        }
+      });
+      if (!response.ok) {
+        throw new Error('Error al descargar el PDF');
+      }
+      // 1. Convertir la respuesta a Blob (Binary Large Object)
+      const blob = await response.blob();
+      // 2. Crear una URL temporal para el Blob
+      const url = window.URL.createObjectURL(blob);
+      // 3. Crear un link invisible para forzar la descarga
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', 'calendario-cursos.pdf'); // Nombre del archivo
+      document.body.appendChild(link);
+      link.click();
+      // 4. Limpiar
+      link.remove();
+      window.URL.revokeObjectURL(url);
+    } catch (error) {
+      console.error('Error:', error);
+      alert('No se pudo generar el calendario');
+    }
+  };
 
   return (
     <div className='header-content no-print'>
@@ -58,16 +91,16 @@ const NavBar = () => {
         <SocialContact />
         <header className="text-center mt-3 flex items-center justify-center">
           <div className="relative">
-          <Link href="/" passHref>
-            <a className="">
-              <Image src={logo} className='cursor-pointer' alt="logo-consufarma"/>
-            </a>
-          </Link>
+            <Link href="/" passHref>
+              <a className="">
+                <Image src={logo} className='cursor-pointer' alt="logo-consufarma" />
+              </a>
+            </Link>
           </div>
           <div className="text-3xl flex absolute right-20 ">
             <Link href="/carrito">
               <div className="relative hover:scale-105 transition hidden md:flex">
-                <FaShoppingCart className="text-blueConsufarma cursor-pointer"/>
+                <FaShoppingCart className="text-blueConsufarma cursor-pointer" />
                 {allBasket > 0 && (
                   <div className="bg-red-600 text-white font-semibold rounded-full text-sm absolute h-5 w-5 left-5 bottom-6">
                     {allBasket}
@@ -75,27 +108,27 @@ const NavBar = () => {
                 )}
               </div>
             </Link>
-            
+
             {userName ? (
-              
-                <div className="items-center cursor-pointer hover:scale-105 transition relative hidden md:flex" onClick={showMenuToogle}>
-                  <FaUserCircle className="text-blueConsufarma ml-3"/>
-                  <div className="ml-2 text-sm flex">
-                    {userName} <span className='ml-2'> <FaChevronDown /> </span>
-                  </div>
-                  {showMenu && (
-                    <div className='absolute text-xs top-10 bg-gray-200 py-3 px-5 left-1 rounded-md hover:bg-gray-300 w-full' 
-                    onClick={logOut}>
-                      Cerrar Sesión
-                    </div>
-                  )}
+
+              <div className="items-center cursor-pointer hover:scale-105 transition relative hidden md:flex" onClick={showMenuToogle}>
+                <FaUserCircle className="text-blueConsufarma ml-3" />
+                <div className="ml-2 text-sm flex">
+                  {userName} <span className='ml-2'> <FaChevronDown /> </span>
                 </div>
-              
+                {showMenu && (
+                  <div className='absolute text-xs top-10 bg-gray-200 py-3 px-5 left-1 rounded-md hover:bg-gray-300 w-full'
+                    onClick={logOut}>
+                    Cerrar Sesión
+                  </div>
+                )}
+              </div>
+
             ) : (
               <Link href="/login" className="">
                 <div className="items-center cursor-pointer hover:scale-105 transition relative hidden md:flex" onClick={showMenuToogle}>
                   <div className="flex items-center">
-                    <FaUserCircle className="text-blueConsufarma ml-3"/>
+                    <FaUserCircle className="text-blueConsufarma ml-3" />
                     <div className="ml-2 text-sm">Iniciar Sesión</div>
                   </div>
                 </div>
@@ -118,52 +151,50 @@ const NavBar = () => {
             <div className="px-4 cursor-pointer hidden md:inline">Servicios</div>
           </Link>
 
-          
-          
-            <Link href="/carrito">
-              <div className="hover:scale-105 transition flex md:hidden items-center mx-3 relative">
-                <FaShoppingCart className="text-white cursor-pointer"/>
-                {allBasket > 0 && (
-                  <div className="bg-blueConsufarma text-white font-semibold rounded-full text-sm absolute h-7 w-7 left-3 bottom-4 z-10 text-center">
-                    {allBasket}
-                  </div>
-                )}
+
+
+          <Link href="/carrito">
+            <div className="hover:scale-105 transition flex md:hidden items-center mx-3 relative">
+              <FaShoppingCart className="text-white cursor-pointer" />
+              {allBasket > 0 && (
+                <div className="bg-blueConsufarma text-white font-semibold rounded-full text-sm absolute h-7 w-7 left-3 bottom-4 z-10 text-center">
+                  {allBasket}
+                </div>
+              )}
+            </div>
+          </Link>
+
+          {/* ONLY SHOWS IN MOBILE */}
+          {userName ? (
+            <div className="flex items-center cursor-pointer hover:scale-105 transition relative md:hidden" onClick={showMenuToogle}>
+              <FaUserCircle className="text-white ml-3" />
+              <div className="ml-2 text-sm flex">
+                {userName} <span className='ml-2'> <FaChevronDown /> </span>
+              </div>
+              {showMenu && (
+                <div className='absolute text-xs top-10 bg-blueConsufarma py-3 px-5 left-1 rounded-md hover:bg-gray-300 w-[121px] z-10'
+                  onClick={logOut}>
+                  Cerrar Sesión
+                </div>
+              )}
+            </div>
+
+          ) : (
+            <Link href="/login" className="">
+              <div className="flex items-center cursor-pointer hover:scale-105 transition relative md:hidden" onClick={showMenuToogle}>
+                <div className="flex items-center">
+                  <FaUserCircle className="text-white ml-3" />
+                  <div className="ml-2 text-sm">Iniciar Sesión</div>
+                </div>
               </div>
             </Link>
+          )}
+          {/* ************** */}
 
-            {/* ONLY SHOWS IN MOBILE */}
-              {userName ? (
-                  <div className="flex items-center cursor-pointer hover:scale-105 transition relative md:hidden" onClick={showMenuToogle}>
-                    <FaUserCircle className="text-white ml-3"/>
-                    <div className="ml-2 text-sm flex">
-                      {userName} <span className='ml-2'> <FaChevronDown /> </span>
-                    </div>
-                    {showMenu && (
-                      <div className='absolute text-xs top-10 bg-blueConsufarma py-3 px-5 left-1 rounded-md hover:bg-gray-300 w-[121px] z-10' 
-                      onClick={logOut}>
-                        Cerrar Sesión
-                      </div>
-                    )}
-                  </div>
-                
-              ) : (
-                <Link href="/login" className="">
-                  <div className="flex items-center cursor-pointer hover:scale-105 transition relative md:hidden" onClick={showMenuToogle}>
-                    <div className="flex items-center">
-                      <FaUserCircle className="text-white ml-3"/>
-                      <div className="ml-2 text-sm">Iniciar Sesión</div>
-                    </div>
-                  </div>
-                </Link>
-              )}
-            {/* ************** */}
-          
-          
-          <a href="../calendario.pdf">
-            <div className="px-4 cursor-pointer hidden md:inline">
-              Calendario
-            </div>
-          </a>
+
+          <div onClick={handleDownloadPDF} className="px-4 cursor-pointer hidden md:inline">
+            Calendario
+          </div>
           <Link href="/contacto" passHref>
             <div className="px-4 cursor-pointer hidden md:inline">Contacto</div>
           </Link>

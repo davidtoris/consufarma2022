@@ -21,20 +21,20 @@ import CardCourseSmall from '../src/components/cursos/CardCourseSmall';
 import Cookies from 'js-cookie'
 
 
-const Calendario = ({specialities, cursosDate}) => {
+const Calendario = ({ specialities, cursosDate }) => {
 
   const dispatch = useDispatch();
   const { allCoursesDate, statusDate } = useSelector((state) => state.courses);
   const { allSpecialities } = useSelector((state) => state.specialities);
   const { selectSpeciality } = useSelector((state) => state.specialities);
-  
+
   const [showUpArrow, setShowUpArrow] = useState(false);
-  
+
   const inicioRef = useRef(null);
   const cerradosRef = useRef(null);
   const programarRef = useRef(null);
-  const {query: {section}} = useRouter()
-  
+  const { query: { section } } = useRouter()
+
   useEffect(() => {
     if (section === "Inicio" && inicioRef.current) {
       window.scrollTo({
@@ -77,10 +77,10 @@ const Calendario = ({specialities, cursosDate}) => {
     dispatch(addSpecialities(specialities));
   });
 
-  useEffect(() => {
-    console.log(localStorage.getItem('lastCourses'))
-  }, []);
-  
+  // useEffect(() => {
+  //   console.log(localStorage.getItem('lastCourses'))
+  // }, []);
+
   const today = moment().startOf('day').format()
 
   return (
@@ -127,33 +127,33 @@ const Calendario = ({specialities, cursosDate}) => {
       </div>
 
       <NavBar ref={inicioRef} />
-      <CarouselSection /> 
+      <CarouselSection />
 
       <LastCourses />
-    
-      <Filter 
+
+      <Filter
         specialities={allSpecialities}
         active='fecha'
       />
-      
+
       {showUpArrow && (
         <Link href="/?section=Inicio">
           <div className={`hidden md:inline fixed bottom-10 right-8 bg-blueConsufarma p-2 z-10 cursor-pointer hover:scale-105 transform duration-500 ease-out shadow-lg transition-opacity
           ${showUpArrow ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
-            <TiArrowUpThick className='text-4xl  text-white'/>
+            <TiArrowUpThick className='text-4xl  text-white' />
           </div>
         </Link>
       )}
-      
+
       {/* <Modal /> */}
 
       <div className='container m-auto px-2 md:px-2 mt-10'>
-        
+
         <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'>
           {
             selectSpeciality != '' ? allCoursesDate.filter(e => e.especialidad_id.especialidad === selectSpeciality).map(c => (
               <div className='mb-7 m-auto' key={c.nombre}>
-                <CardCourse  
+                <CardCourse
                   link={`/cursos/${c.nombre_ruta}`}
                   nombre={c.nombre}
                   img={c.imagen}
@@ -167,31 +167,31 @@ const Calendario = ({specialities, cursosDate}) => {
                   lugar={c.lugar}
                 />
               </div>
-            )) : 
-            
-            allCoursesDate.filter(course => course.fecha > today).map(c => (
-              <div className='mb-7 m-auto' key={c.nombre}>
-                <CardCourse  
-                  link={`/cursos/${c.nombre_ruta}`}
-                  nombre={c.nombre}
-                  img={c.imagen}
-                  label={c.label}
-                  ponente={c.ponente_uno_id.ponente}
-                  ponenteDos={c.ponente_dos_id.ponente}
-                  fecha={c.fecha}
-                  fechaText={c.fecha > today ? c.fecha_text : 'Por Programar'}
-                  duracion={c.duracion}
-                  horario={c.horario}
-                  lugar={c.lugar}
-                />
-              </div>
-            ))
+            )) :
+
+              allCoursesDate.filter(course => course.fecha > today).map(c => (
+                <div className='mb-7 m-auto' key={c.nombre}>
+                  <CardCourse
+                    link={`/cursos/${c.nombre_ruta}`}
+                    nombre={c.nombre}
+                    img={c.imagen}
+                    label={c.label}
+                    ponente={c.ponente_uno_id.ponente}
+                    ponenteDos={c.ponente_dos_id.ponente}
+                    fecha={c.fecha}
+                    fechaText={c.fecha > today ? c.fecha_text : 'Por Programar'}
+                    duracion={c.duracion}
+                    horario={c.horario}
+                    lugar={c.lugar}
+                  />
+                </div>
+              ))
           }
         </div>
       </div>
 
-      <div className='bg-redConsufarma text-white p-3 text-center font-bold text-2xl' ref={programarRef}> 
-        Cursos que se programan al llegar al mínimo de participantes. <br></br> 
+      <div className='bg-redConsufarma text-white p-3 text-center font-bold text-2xl' ref={programarRef}>
+        Cursos que se programan al llegar al mínimo de participantes. <br></br>
         <span className='font-normal'>Da click en el curso de tu interés para registrarte y se de seguimiento a la programación del curso</span>
       </div>
 
@@ -200,7 +200,7 @@ const Calendario = ({specialities, cursosDate}) => {
           {
             allCoursesDate.filter(course => course.fecha < today && course.label !== 'Cerrado').map(c => (
               <div className='mb-7 m-auto' key={c.nombre}>
-                <CardCourse  
+                <CardCourse
                   link={`/cursos/${c.nombre_ruta}`}
                   nombre={c.nombre}
                   img={c.imagen}
@@ -218,7 +218,7 @@ const Calendario = ({specialities, cursosDate}) => {
         </div>
       </div>
 
-      <div className='bg-blueConsufarma text-white p-3 text-center font-bold text-2xl' ref={cerradosRef}> 
+      <div className='bg-blueConsufarma text-white p-3 text-center font-bold text-2xl' ref={cerradosRef}>
         Cursos Cerrados para Empresas - Estos cursos se pueden impartir de manera cerrada para su empresa, vía zoom, a partir de 6 participantes.
       </div>
 
@@ -227,7 +227,7 @@ const Calendario = ({specialities, cursosDate}) => {
           {
             allCoursesDate.filter(course => course.label === 'Cerrado').map(c => (
               <div className='mb-7 m-auto' key={c.nombre}>
-                <CardCourse  
+                <CardCourse
                   link={`/cursos/${c.nombre_ruta}`}
                   nombre={c.nombre}
                   img={c.imagen}
@@ -267,15 +267,16 @@ export const getServerSideProps = async () => {
     fetch(urlSpecialities),
     fetch(urlListCoursesByDate),
   ])
-  
+
   const [specialities, courses] = await Promise.all([
     respSpecialities.json(),
     respCourses.json(),
   ])
 
-  return { props : { 
-      specialities : specialities.specialities,
+  return {
+    props: {
+      specialities: specialities.specialities,
       cursosDate: courses.courses
-    } 
+    }
   }
 }
