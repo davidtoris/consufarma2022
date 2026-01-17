@@ -77,10 +77,6 @@ const Calendario = ({ specialities, cursosDate }) => {
     dispatch(addSpecialities(specialities));
   });
 
-  // useEffect(() => {
-  //   console.log(localStorage.getItem('lastCourses'))
-  // }, []);
-
   const today = moment().startOf('day').format()
 
   return (
