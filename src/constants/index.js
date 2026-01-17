@@ -1,5 +1,5 @@
-export const API_BASE_URL = 'https://consu-back-node.vercel.app/api';
-export const URL_SITE = 'https://consufarma.com';
+export const API_BASE_URL = 'https://consu-back-2026.vercel.app/api';
+export const URL_SITE = 'https://consu-front-2026.vercel.app';
 
 // No borrar, aún se ocupan
 
