@@ -10,7 +10,7 @@ import { instanceAPIData } from '../../config/axiosConfig';
 import { IoIosArrowDown, IoIosArrowUp, IoMdCloseCircle } from 'react-icons/io';
 
 const FormEditTest = ({ coursesName, tests }) => {
-  console.log(tests)
+
   const [arrayTest, setArrayTest] = useState([])
 
   useEffect(() => {
@@ -115,9 +115,6 @@ const FormEditTest = ({ coursesName, tests }) => {
             curso_relacionado_dos: valores.curso_relacionado_dos,
             curso_relacionado_tres: valores.curso_relacionado_tres,
           }
-
-          console.log(data)
-          return
 
           valores.preguntas.map(p => {
             if (p.tipo === 'multipleOpcion') {
