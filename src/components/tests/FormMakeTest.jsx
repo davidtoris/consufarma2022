@@ -129,7 +129,7 @@ const FormMakeTest = ({ Test }) => {
           estudiante: infoUser.estudiante,
           correo: infoUser.correo,
           answersUser,
-          score,
+          score: score.toString(),
           fecha_sistema: moment().format(),
           fecha_finalizacion,
           fecha_texto,
