@@ -32,7 +32,7 @@ export const getStaticProps = async ({ params: { course } }) => {
 
   return {
     props: { curso },
-    revalidate: 3600,
+    revalidate: 60,
   }
 }
 
