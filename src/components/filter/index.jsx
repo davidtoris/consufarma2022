@@ -14,7 +14,7 @@ const Filter = ({ specialities, active }) => {
 
   return (
 
-    <div className='bg-blueConsufarma py-1'>
+    <div className='bg-blueConsufarma py-1 -mt-2'>
       <div className="max-w-7xl mx-auto bg-blueConsufarma">
 
         <section className='my-5 flex flex-col md:flex-row items-center justify-between px-2 '>

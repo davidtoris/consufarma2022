@@ -240,11 +240,11 @@ const Calendario = ({ specialities, cursosDate }) => {
         </div>
       </div>
 
-      <div className='bg-gray-50 mt-4 mb-10'>
+      {/* <div className='bg-gray-50 mt-4 mb-10'>
         <div className='container m-auto px-2 md:px-2 pt-2'>
           <LastCourses />
         </div>
-      </div>
+      </div> */}
 
       <Footer />
     </>
