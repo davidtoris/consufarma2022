@@ -229,7 +229,7 @@ const FormMakeTest = ({ Test }) => {
                 <div className='mt-2 m-auto text-center'>
                   <div><span className='font-bold'>Fecha de realización del Examen:</span> {dateFormat()}</div>
 
-                  {ponente_dos[0].ponente === 'ninguno' ? (
+                  {(!ponente_dos || !ponente_dos[0]) ? (
                     <div><span className='font-bold'>Ponente:</span> {ponente_uno[0].ponente}</div>
                   ) : (
                     <div><span className='font-bold'>Ponentes:</span> {ponente_uno[0].ponente} y {ponente_dos[0].ponente}</div>

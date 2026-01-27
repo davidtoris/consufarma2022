@@ -94,10 +94,10 @@ const FormDiploma = ({ Test, TestAnswer }) => {
         <div className='mt-10 md:mt-4 px-4 md:px-0 text-center'>
           <div className='font-extrabold text-3xl'>Nombre: {TestAnswer.estudiante}</div>
 
-          {ponente_dos[0].ponente === 'ninguno' ? (
-            <div><span className='font-bold text-lg'>Ponente:</span> {ponente_uno[0].ponente}</div>
+          {(!ponente_dos || !ponente_dos[0]) ? (
+            <div><span className='font-bold text-lg'>Ponente:</span> {ponente_uno && ponente_uno[0] ? ponente_uno[0].ponente : ''}</div>
           ) : (
-            <div><span className='font-bold text-lg'>Ponentes:</span> {ponente_uno[0].ponente} y {ponente_dos[0].ponente}</div>
+            <div><span className='font-bold text-lg'>Ponentes:</span> {ponente_uno && ponente_uno[0] ? ponente_uno[0].ponente : ''} y {ponente_dos && ponente_dos[0] ? ponente_dos[0].ponente : ''}</div>
           )}
 
         </div>

@@ -168,7 +168,7 @@ const FormScoreTest = ({ Test, TestAnswer, point }) => {
         <div className='mt-10 md:mt-2 px-4 md:px-0'>
           <div className='font-extrabold text-xl'>Nombre: {TestAnswer.estudiante}</div>
           <div><span className='font-bold'>Fecha de realización del Examen:</span> {dateFormat(TestAnswer.fecha_sistema)}</div>
-          {(!ponente_dos || !ponente_dos.length || ponente_dos[0].ponente === 'ninguno') ? (
+          {(!ponente_dos || !ponente_dos[0]) ? (
             <div><span className='font-bold'>Ponente:</span> {ponente_uno && ponente_uno.length > 0 ? ponente_uno[0].ponente : ''}</div>
           ) : (
             <div><span className='font-bold'>Ponentes:</span> {ponente_uno && ponente_uno.length > 0 ? ponente_uno[0].ponente : ''} y {ponente_dos[0].ponente}</div>
