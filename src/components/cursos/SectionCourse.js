@@ -1,7 +1,7 @@
 import CardCourse from './CardCourse';
 import moment from 'moment';
 
-const SectionCourse = ({cursos, nombre}) => {
+const SectionCourse = ({ cursos, nombre }) => {
 
   const today = moment().startOf('day').format()
 
@@ -12,20 +12,20 @@ const SectionCourse = ({cursos, nombre}) => {
         <div className='grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'>
           {cursos.map(c => (
             c.especialidad_id.especialidad === nombre && (
-              <div className='mb-7' key={c._id}>
-              <CardCourse 
-                link={`/cursos/${c.nombre_ruta}`}
-                nombre={c.nombre}
-                img={c.imagen}
-                label={c.label}
-                ponente={c.ponente_uno_id.ponente}
-                fecha={c.fecha}
-                fechaText={c.fecha > today ? c.fecha_text : 'Por Programar'}
-                duracion={c.duracion}
-                horario={c.horario}
-              />
+              <div className='mb-7' key={c.id}>
+                <CardCourse
+                  link={`/cursos/${c.nombre_ruta}`}
+                  nombre={c.nombre}
+                  img={c.imagen}
+                  label={c.label}
+                  ponente={c.ponente_uno_id.ponente}
+                  fecha={c.fecha}
+                  fechaText={c.fecha > today ? c.fecha_text : 'Por Programar'}
+                  duracion={c.duracion}
+                  horario={c.horario}
+                />
               </div>
-            ) 
+            )
           ))}
         </div>
       </section>

@@ -13,7 +13,7 @@ const FormSendTest = ({ Test }) => {
   const dispatch = useDispatch()
 
   const { fecha_finalizacion, fecha_texto, img_curso, nombre_curso, nombre_examen,
-    ponente_uno, ponente_dos, curso_relacionado_uno, curso_relacionado_dos, curso_relacionado_tres, _id } = Test
+    ponente_uno, ponente_dos, curso_relacionado_uno, curso_relacionado_dos, curso_relacionado_tres, id } = Test
 
   const { mailStatus } = useSelector((state) => state.mail)
 
@@ -30,7 +30,7 @@ const FormSendTest = ({ Test }) => {
 
   const sendEmail = () => {
     const dataEmails = {
-      testId: _id,
+      testId: id,
       fecha_finalizacion,
       fecha_texto,
       img_curso,

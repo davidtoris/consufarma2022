@@ -17,7 +17,7 @@ const FormMakeTest = ({ Test }) => {
   const dispatch = useDispatch()
 
   const { fecha_finalizacion, fecha_texto, img_curso, nombre_curso, nombre_examen,
-    ponente_uno, ponente_dos, preguntas, _id } = Test
+    ponente_uno, ponente_dos, preguntas, id } = Test
 
   const { testsAnswersLoading, intentosExamen, allTestsAnswers } = useSelector((state) => state.testsAnswers);
   const INTENTOS_PERMITIDOS = 2
@@ -133,7 +133,7 @@ const FormMakeTest = ({ Test }) => {
           fecha_sistema: moment().format(),
           fecha_finalizacion,
           fecha_texto,
-          test_id: _id,
+          test_id: id,
           nombre_curso,
           hizoExamen: 'true'
         }
@@ -146,7 +146,7 @@ const FormMakeTest = ({ Test }) => {
           fecha_sistema: moment().format(),
           fecha_finalizacion,
           fecha_texto,
-          test_id: _id,
+          test_id: id,
           nombre_curso,
           hizoExamen: 'false'
         }
@@ -163,7 +163,7 @@ const FormMakeTest = ({ Test }) => {
 
   const howManyTryings = (e) => {
     const nameStudent = e.target.value
-    const idTest = _id
+    const idTest = id
     validateUserTryings(dispatch, idTest, nameStudent)
   }
 
@@ -177,11 +177,11 @@ const FormMakeTest = ({ Test }) => {
   // Envia a calificación una vez terminado el examen
   useEffect(() => {
     if (allTestsAnswers.testsAnswers) {
-      const studentId = allTestsAnswers.testsAnswers._id
+      const studentId = allTestsAnswers.testsAnswers.id
       if (hasTest) {
-        router.push(`/examen/resultado/${_id}?student=${studentId}`)
+        router.push(`/examen/resultado/${id}?student=${studentId}`)
       } else {
-        router.push(`/examen/constancia/${_id}?student=${studentId}`)
+        router.push(`/examen/constancia/${id}?student=${studentId}`)
       }
     }
   }, [allTestsAnswers])

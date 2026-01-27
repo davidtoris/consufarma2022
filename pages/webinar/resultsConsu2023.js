@@ -1,4 +1,4 @@
-import React, { useEffect }  from 'react';
+import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 // import ReactHTMLTableToExcel from 'react-html-table-to-excel';
 import { useDispatch } from 'react-redux';
@@ -11,11 +11,11 @@ const Results = () => {
   useEffect(() => {
     getResults(dispatch);
   }, []);
-  
+
   return (
     <div className="max-w-7xl mx-auto pb-10">
-      <img src="../logo.png" width="600px" className='my-5 m-auto'/>
-      
+      <img src="../logo.png" width="600px" className='my-5 m-auto' />
+
       {/* <div className='m-auto text-center'>
         <ReactHTMLTableToExcel
           id="test-table-xls-button"
@@ -25,8 +25,8 @@ const Results = () => {
           sheet="tablexls"
           buttonText="Descargar"/>
       </div> */}
-       
-       <table id="table-to-xls" className="table-auto max-w-7xl mx-auto pb-10 mt-8">
+
+      <table id="table-to-xls" className="table-auto max-w-7xl mx-auto pb-10 mt-8">
         <thead>
           <tr>
             <th className='font-bold text-2xl bg-redConsufarma p-2 text-white'>Fecha</th>
@@ -40,7 +40,7 @@ const Results = () => {
         <tbody>
           {challenge !== undefined && (
             challenge.filter((f) => f.tag === 'webinarMar25').map(s => (
-              <tr className='border-2 text-center' key={s._id}>
+              <tr className='border-2 text-center' key={s.id}>
                 <td className='border-2 p-2'>{s.fecha}</td>
                 <td className='border-2 p-2'>{s.nombre}</td>
                 <td className='border-2 p-2'>{s.correo}</td>

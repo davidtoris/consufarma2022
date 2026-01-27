@@ -23,7 +23,7 @@ const Orders = () => {
   // const orderStatus = 'success'
   // const orderData = {
   //   order: {
-  //     "_id": "651cac8319b0020ef63f2235",
+  //     "id": "651cac8319b0020ef63f2235",
   //     "fecha": "2023-10-03T19:06:27-05:00",
   //     "total": "7047.00",
   //     "pagado": "true",
@@ -40,7 +40,7 @@ const Orders = () => {
   //         "precio": 7500,
   //         "precioUSD": 485,
   //         "total": 6075,
-  //         "_id": "6316d96e201a9a743920ec96"
+  //         "id": "6316d96e201a9a743920ec96"
   //       },
   //       {
   //         cantidad: 1,
@@ -54,7 +54,7 @@ const Orders = () => {
   //         precio: 7500,
   //         precioUSD: 485,
   //         total: 6682,
-  //         "_id" :"6316c59a201a9a743920ebf6"
+  //         "id" :"6316c59a201a9a743920ebf6"
   //       },
   //     ],
   //     "__v": 0,
@@ -66,7 +66,7 @@ const Orders = () => {
   useEffect(() => {
     localStorage.setItem('cart', [])
   }, [])
-  
+
 
   return (
     <>
@@ -74,7 +74,7 @@ const Orders = () => {
 
 
       {orderStatus === 'success' && (
-        
+
         <div className='container m-auto px-2 md:px-2 mt-10 w-12/12 md:w-8/12'>
           <h2 className="mt-6 text-2xl md:text-5xl font-bold text-blueDarkCustom text-center mb-0 md:mb-10">Gracias por tu compra</h2>
 
@@ -83,7 +83,7 @@ const Orders = () => {
           </div>
 
           <div className={clsx('grid gap-4 grid-cols-1', orderData?.order?.producto.length === 1 ? 'sm:grid-cols-1' : 'sm:grid-cols-2')}>
-            {orderData?.order?.producto.map( o => (
+            {orderData?.order?.producto.map(o => (
               <div key={o.nombre}>
                 <div className='flex flex-col text-center mx-9 text-blueDarkCustom font-semibold bg-slate-100 rounded-md p-4 shadow-md'>
                   <div className="mb-4 text-lg md:text-2xl">{o.nombre}</div>
@@ -113,7 +113,7 @@ const Orders = () => {
               </h2>
             </button>
           </div>
-          
+
         </div>
       )}
 

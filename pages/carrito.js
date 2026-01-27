@@ -29,45 +29,45 @@ const Carrito = ({ hoursData, peopleData }) => {
   const [userData, setUserData] = useState('')
   useEffect(() => {
     const userCookie = Cookies.get('user')
-    if ( userCookie ) {
+    if (userCookie) {
       const usuario = JSON.parse(userCookie)
       setUserData(usuario);
     }
   }, [])
-  
+
   const [haveCupon, setHaveCupon] = useState('');
   const canjearCupon = async () => {
     setHaveCupon('')
-    if ( cuponText !== '' ) {
+    if (cuponText !== '') {
       await axios.get(`${API_BASE_URL}/cupons/validate/${cuponText}`)
-      .then(({data}) => {
-        const {date, findCupon} = data;
+        .then(({ data }) => {
+          const { date, findCupon } = data;
 
-        const { descuentoCupon, fechaExpira, fechaInicia, _id } = findCupon[0]
+          const { descuentoCupon, fechaExpira, fechaInicia, id } = findCupon[0]
 
-        
-        if(findCupon.length > 0) {
-          if (date >= fechaInicia && date <= fechaExpira) {
-            setHaveCupon('valido');
-            setCuponDiscount(descuentoCupon)
-            localStorage.setItem('cuponId', _id)
+
+          if (findCupon.length > 0) {
+            if (date >= fechaInicia && date <= fechaExpira) {
+              setHaveCupon('valido');
+              setCuponDiscount(descuentoCupon)
+              localStorage.setItem('cuponId', id)
+            } else {
+              setHaveCupon('noValido');
+            }
           } else {
             setHaveCupon('noValido');
           }
-        } else {
+        })
+        .catch((err) => {
           setHaveCupon('noValido');
-        }
-      })
-      .catch((err) => {
-        setHaveCupon('noValido');
-      })
+        })
     }
   }
 
   // Traer todos los elementos de LocalStorage y ponerlos en State del componente
   useEffect(() => {
     if (localStorage.getItem('cart')) {
-      const storedCart = JSON.parse(localStorage.getItem('cart')); 
+      const storedCart = JSON.parse(localStorage.getItem('cart'));
       if (storedCart) {
         setCartItems(storedCart);
       }
@@ -84,31 +84,31 @@ const Carrito = ({ hoursData, peopleData }) => {
     dispatchTemp(addItem(storedCart.length))
   }, [cartItems]);
 
-  const [typeMoney, setTypeMoney ] = useState('MXN');
-  const [businessPersonalF3, setBusinessPersonalF3 ] = useState(0.83);
+  const [typeMoney, setTypeMoney] = useState('MXN');
+  const [businessPersonalF3, setBusinessPersonalF3] = useState(0.83);
 
   const updateQuantity = (id, value) => {
 
-    const filterNumPeople = peopleData.filter(i=> i.numPersonas === Number(value))
+    const filterNumPeople = peopleData.filter(i => i.numPersonas === Number(value))
     let discountNumPeopleF2
-    
-    discountNumPeopleF2 =  filterNumPeople[0].descuentoPersonas;
-    
-    const itemIndex = cartItems.findIndex((item) => item._id === id);
+
+    discountNumPeopleF2 = filterNumPeople[0].descuentoPersonas;
+
+    const itemIndex = cartItems.findIndex((item) => item.id === id);
     const updatedItems = [...cartItems];
-    
+
     // Constants
     const priceMXN = updatedItems[itemIndex].precio;
     const priceUSD = updatedItems[itemIndex].precioUSD;
 
     let priceSelected
     typeMoney === 'MXN' ? priceSelected = priceMXN : priceSelected = priceUSD
-    
+
     const discountPercent = updatedItems[itemIndex].descuento;
     const discountCourseF1 = (100 - discountPercent) / 100;
     const total = Math.floor(priceSelected * discountCourseF1 * discountNumPeopleF2 * businessPersonalF3 * value);
     const percent = 100 - (total * 100 / (priceSelected * value));
-    
+
     updatedItems[itemIndex].cantidad = Number(value)
     updatedItems[itemIndex].total = total
     updatedItems[itemIndex].descuentoTotal = Math.floor(percent);
@@ -117,15 +117,15 @@ const Carrito = ({ hoursData, peopleData }) => {
 
   // 
   useEffect(() => {
-    cartItems.map( item => {
-      if(item.total === 0)
-      cartItems.map( m => updateQuantity(m._id, m.cantidad))
+    cartItems.map(item => {
+      if (item.total === 0)
+        cartItems.map(m => updateQuantity(m.id, m.cantidad))
     })
   }, [cartItems]);
 
   // Actualizar valores (Business and People / MXNN and USD)
   useEffect(() => {
-    cartItems.map( m => updateQuantity(m._id, m.cantidad))
+    cartItems.map(m => updateQuantity(m.id, m.cantidad))
   }, [businessPersonalF3, typeMoney]);
 
   const [subtotal, setSubtotal] = useState(0)
@@ -140,21 +140,21 @@ const Carrito = ({ hoursData, peopleData }) => {
 
   useEffect(() => {
     const hoursOfAllCourses = cartItems.reduce((sum, value) => (value.duracion ? sum + value.duracion : sum), 0)
-    const descHoursOfAllCoursesF4 = hoursData.filter(h=> hoursOfAllCourses >= h.horasMin && hoursOfAllCourses <= h.horasMax)
+    const descHoursOfAllCoursesF4 = hoursData.filter(h => hoursOfAllCourses >= h.horasMin && hoursOfAllCourses <= h.horasMax)
     const subtotal = cartItems.reduce((sum, value) => (value.total ? sum + value.total : sum), 0)
 
     setSubtotal((subtotal).toFixed(2));
     setPrecioMasIVA((subtotal * 1.16).toFixed(2));
     setDiscountTotalHoursNum((precioMasIVA - (precioMasIVA * descHoursOfAllCoursesF4[0]?.descuentoHoras)));
     setTotal((precioMasIVA * descHoursOfAllCoursesF4[0]?.descuentoHoras * cuponDiscount).toFixed(2))
-    setDiscountTotalHoursPercent( Math.round(discountTotalHoursNum * 100 / precioMasIVA) )
+    setDiscountTotalHoursPercent(Math.round(discountTotalHoursNum * 100 / precioMasIVA))
 
 
     localStorage.setItem('totalFinal', total)
   }, [cartItems, subtotal, businessPersonalF3, cuponDiscount, precioMasIVA, discountTotalHoursNum])
 
   const removeItem = (id) => {
-    const filterToRemove = cartItems.filter(f => f._id !== id);
+    const filterToRemove = cartItems.filter(f => f.id !== id);
     setCartItems(filterToRemove);
   }
 
@@ -163,31 +163,31 @@ const Carrito = ({ hoursData, peopleData }) => {
   const validateOrder = async (order) => {
     setLoadingPay(true);
     const data = {
-      usuario_id: userData._id,
+      usuario_id: userData.id,
       total: localStorage.getItem('totalFinal'),
       producto: cartItems,
     }
 
     let idOrder
     await axios.post(`${API_BASE_URL}/orders`, data)
-    .then((resp) => {
-      const { data } = resp;
-      idOrder = data.orders._id
-    })
-    .catch((err) => {
-      throw new Error(err.response.data)
-    });
+      .then((resp) => {
+        const { data } = resp;
+        idOrder = data.orders.id
+      })
+      .catch((err) => {
+        throw new Error(err.response.data)
+      });
 
     await axios.get(`${API_BASE_URL}/pays/payOrder/${order}?idOrder=${idOrder}&cupon=${localStorage.getItem('cuponId')}`)
-    .then((resp) => {
-      const { data } = resp;
-      dispatchTemp(orderSuccess(data))
-      router.push("/orders")
-    })
-    .catch((err) => {
-      dispatchTemp(orderError(err.response.data.message))
-      router.push("/orders")
-    });
+      .then((resp) => {
+        const { data } = resp;
+        dispatchTemp(orderSuccess(data))
+        router.push("/orders")
+      })
+      .catch((err) => {
+        dispatchTemp(orderError(err.response.data.message))
+        router.push("/orders")
+      });
     setLoadingPay(false);
   }
 
@@ -203,18 +203,18 @@ const Carrito = ({ hoursData, peopleData }) => {
   const [{ options }, dispatch] = usePayPalScriptReducer();
   const onCurrencyChange = () => {
     dispatch({
-        type: "resetOptions",
-        value: {
-            ...options,
-            currency: typeMoney,
-        },
+      type: "resetOptions",
+      value: {
+        ...options,
+        currency: typeMoney,
+      },
     });
   }
 
   useEffect(() => {
     onCurrencyChange()
   }, [typeMoney])
-  
+
   return (
     <>
       <NavBar />
@@ -230,12 +230,12 @@ const Carrito = ({ hoursData, peopleData }) => {
               <div className='flex'>
                 <div className='text-sm md:text-base flex text-center'>
                   <label className={`cursor-pointer p-3 rounded-md ${businessPersonalF3 === 0.83 ? 'bg-blueConsufarma text-white' : 'text-blueConsufarma border-2 border-blueConsufarma'} `}>
-                    <button type="button" name='precio' onClick={() => setBusinessPersonalF3(0.83)} /> 
+                    <button type="button" name='precio' onClick={() => setBusinessPersonalF3(0.83)} />
                     <span className=''> Precio pago personal </span>
                   </label>
 
                   <label className={`cursor-pointer p-3 rounded-md ml-7 ${businessPersonalF3 === 1 ? 'bg-blueConsufarma text-white' : 'text-blueConsufarma border-2 border-blueConsufarma'}`}>
-                    <button type="button" name='precio'  onClick={() => setBusinessPersonalF3(1)} className=''/>
+                    <button type="button" name='precio' onClick={() => setBusinessPersonalF3(1)} className='' />
                     <span className=''> Precio a empresa / </span> por participante
                   </label>
 
@@ -249,7 +249,7 @@ const Carrito = ({ hoursData, peopleData }) => {
               </div>
 
               <h2 className='text-grayCustom font-bold md:mt-7 text-sm md:text-md p-2 text-center md:text-left'>A mayor número de asistentes y cursos, obtienes un mayor descuento</h2>
-  
+
               <div className='flex text-sm md:text-md'>
                 <div className='flex-1'>
 
@@ -272,16 +272,16 @@ const Carrito = ({ hoursData, peopleData }) => {
                         Total
                       </div>
                       <div className='w-1/12 text-right'>
-                        
+
                       </div>
                     </div>
                   </div>
-  
-                  {cartItems.length && cartItems.map( i => (
+
+                  {cartItems.length && cartItems.map(i => (
                     <>
-                      
+
                       {/* INFO CART FOR MOBILE */}
-                      <div className='flex md:hidden px-2 ml-0 text-center my-5 border-b-2 border-gray-300 pb-5 mr-0' key={i._id}>
+                      <div className='flex md:hidden px-2 ml-0 text-center my-5 border-b-2 border-gray-300 pb-5 mr-0' key={i.id}>
                         <div className='w-5/12'>
                           <img src={i.imagen} />
                           <div className='mt-2'>{i.nombre}</div>
@@ -295,7 +295,7 @@ const Carrito = ({ hoursData, peopleData }) => {
                             </div>
                             <div className='flex items-center my-2'>
                               <div className='mr-2'>Cantidad:</div>
-                              <select className='bg-blueConsufarma p-1 rounded-md text-white text-md' name="select" value={i.cantidad} onChange={(e) => updateQuantity(i._id, e.target.value)}>
+                              <select className='bg-blueConsufarma p-1 rounded-md text-white text-md' name="select" value={i.cantidad} onChange={(e) => updateQuantity(i.id, e.target.value)}>
                                 <option value="1" >1</option>
                                 <option value="2">2</option>
                                 <option value="3">3</option>
@@ -318,14 +318,14 @@ const Carrito = ({ hoursData, peopleData }) => {
 
                         </div>
                         <div className='w-1/12 font-bold text-md flex items-center'>
-                          <div className='cursor-pointer text-lg' onClick={() => removeItem(i._id)}>
+                          <div className='cursor-pointer text-lg' onClick={() => removeItem(i.id)}>
                             <IoTrashOutline />
                           </div>
                         </div>
                       </div>
 
                       {/* INFO CART FOR DESKTOP */}
-                      <div className='hidden md:flex px-0 md:px-2 ml-0 text-center my-5 border-b-2 border-gray-300 pb-5 mr-0 md:mr-5 items-center' key={i._id}>
+                      <div className='hidden md:flex px-0 md:px-2 ml-0 text-center my-5 border-b-2 border-gray-300 pb-5 mr-0 md:mr-5 items-center' key={i.id}>
                         <div className='w-3/12'>
                           <img src={i.imagen} />
                           <div className='mt-2'>{i.nombre}</div>
@@ -336,7 +336,7 @@ const Carrito = ({ hoursData, peopleData }) => {
                           ${typeMoney === 'MXN' ? Thousands(i.precio) : i.precioUSD}
                         </div>
                         <div className='w-1/12'>
-                          <select className='bg-blueConsufarma p:0 md:p-1 rounded-md text-white text-md md:text-2xl' name="select" value={i.cantidad} onChange={(e) => updateQuantity(i._id, e.target.value)}>
+                          <select className='bg-blueConsufarma p:0 md:p-1 rounded-md text-white text-md md:text-2xl' name="select" value={i.cantidad} onChange={(e) => updateQuantity(i.id, e.target.value)}>
                             <option value="1" >1</option>
                             <option value="2">2</option>
                             <option value="3">3</option>
@@ -348,16 +348,16 @@ const Carrito = ({ hoursData, peopleData }) => {
                             <option value="9">9</option>
                             <option value="10">10</option>
                           </select>
-                          {/* <input className=' text-xl p-2' type="number" value={i.cantidad} onChange={(e) => updateQuantity(i._id, e.target.value)} /> */}
+                          {/* <input className=' text-xl p-2' type="number" value={i.cantidad} onChange={(e) => updateQuantity(i.id, e.target.value)} /> */}
                         </div>
                         <div className='w-2/12 font-bold text-md md:text-2xl'>
-                        {i.descuentoTotal}%
+                          {i.descuentoTotal}%
                         </div>
                         <div className='w-2/12 font-bold text-md md:text-2xl'>
                           ${Thousands(i.total)}
                         </div>
                         <div className='w-1/12 font-bold text-md md:text-2xl'>
-                          <div className='cursor-pointer w-2/12 m-auto' onClick={() => removeItem(i._id)}>
+                          <div className='cursor-pointer w-2/12 m-auto' onClick={() => removeItem(i.id)}>
                             <IoTrashOutline />
                           </div>
                         </div>
@@ -370,22 +370,22 @@ const Carrito = ({ hoursData, peopleData }) => {
                   <div className='font-bold text-lg ml-2 text-center text-white'>Pagar</div>
                 </div>
 
-                { showResume && (
+                {showResume && (
                   <div className='bg-gray-100 p-1 rounded-t-lg absolute w-full z-10 overflow-y-scroll bottom-10 h-[390px] shadow-lg'>
 
                     <div className='font-bold text-lg ml-2'>Subtotal:</div>
                     <div className='font-normal ml-2 mb-2'>${Thousands(subtotal)}</div>
-                    
+
                     <div className='font-bold text-lg ml-2'>Precio más Impuestos:</div>
                     <div className='font-normal ml-2 mb-2'>${Thousands(precioMasIVA)}</div>
-    
+
                     <div className='font-bold text-lg ml-2'>Descuento × No. total de horas solicitadas:</div>
                     <div className='font-normal ml-2 mb-2'>Ahorraste un ${discountTotalHoursPercent}%</div>
-    
+
                     <div className='font-bold text-lg ml-2'>Cupón de descuento</div>
-                    <input type="text" className='p-2 bg-gray-300 rounded-md' value={cuponText} onChange={handleChangeCuponText}/>
+                    <input type="text" className='p-2 bg-gray-300 rounded-md' value={cuponText} onChange={handleChangeCuponText} />
                     <button type="button" className='bg-blueConsufarma text-white p-2 rounded-md ml-1' onClick={canjearCupon}>Canjear</button>
-    
+
                     {haveCupon === 'noValido' && (
                       <div className='font-bold text-xs ml-2 mt-2 text-red-600 mb-3'>Cupon no válido</div>
                     )}
@@ -398,19 +398,19 @@ const Carrito = ({ hoursData, peopleData }) => {
                     {haveCupon === 'valido' && (
                       <div className='font-bold text-xs ml-2 mt-2 text-green-600 mb-3'>El cupón se aplicó correctamente </div>
                     )}
-    
+
                     <div className='font-bold text-xl ml-2 mt-2'>Total:</div>
                     <div className='font-bold ml-2 mb-3'>${Thousands(total)}</div>
-    
+
                     {userData === '' ? (
                       <Link href="/login">
                         <div className='bg-blueLightCustom text-white p-2 mb-3 w-full rounded-md text-center cursor-pointer hover:scale-105 transition'>Inicia sesión para continuar con el pago </div>
                       </Link>
                     ) : (
-                      <PayPalButtons 
-                        style={{ layout: "vertical" }} 
-                        createOrder={( data, actions ) => {
-                          
+                      <PayPalButtons
+                        style={{ layout: "vertical" }}
+                        createOrder={(data, actions) => {
+
                           return actions.order.create({
                             purchase_units: [{
                               amount: {
@@ -419,7 +419,7 @@ const Carrito = ({ hoursData, peopleData }) => {
                             }]
                           })
                         }}
-                        onApprove={ async (data, actions) => {
+                        onApprove={async (data, actions) => {
                           const order = await actions.order.capture()
                           validateOrder(order.id)
                         }}
@@ -427,25 +427,25 @@ const Carrito = ({ hoursData, peopleData }) => {
                     )}
                   </div>
                 )}
-  
+
 
                 <div className='bg-gray-100 p-2 rounded-md hidden md:block'>
                   <div className='font-bold text-2xl ml-2 mb-3'>Resumen</div>
-                  
+
                   <div className='font-bold text-xl ml-2'>Subtotal:</div>
                   <div className='font-normal ml-2 mb-3'>${Thousands(subtotal)}</div>
-                  
+
                   <div className='font-bold text-xl ml-2'>Precio más Impuestos:</div>
                   <div className='font-normal ml-2 mb-3'>${Thousands(precioMasIVA)}</div>
-  
+
                   <div className='font-bold text-xl ml-2'>Descuento × No. total de horas solicitadas:</div>
                   <div className='font-normal ml-2 mb-3'>Ahorraste un ${discountTotalHoursPercent}%</div>
-  
+
                   <div className='font-bold text-xl ml-2 mb-2'>Cupón de descuento</div>
-                  
-                  <input type="text" className='p-2 bg-gray-300 rounded-md' value={cuponText} onChange={handleChangeCuponText}/>
+
+                  <input type="text" className='p-2 bg-gray-300 rounded-md' value={cuponText} onChange={handleChangeCuponText} />
                   <button type="button" className='bg-blueConsufarma text-white p-2 rounded-md ml-1' onClick={canjearCupon}>Canjear</button>
-  
+
                   {haveCupon === 'noValido' && (
                     <div className='font-bold text-xs ml-2 mt-2 text-red-600 mb-3'>Cupon no válido</div>
                   )}
@@ -458,18 +458,18 @@ const Carrito = ({ hoursData, peopleData }) => {
                   {haveCupon === 'valido' && (
                     <div className='font-bold text-xs ml-2 mt-2 text-green-600 mb-3'>El cupón se aplicó correctamente </div>
                   )}
-  
+
                   <div className='font-bold text-xl ml-2 mt-2'>Total:</div>
                   <div className='font-bold ml-2 mb-3'>${Thousands(total)}</div>
-  
+
                   {userData === '' ? (
                     <Link href="/login">
                       <div className='bg-blueLightCustom text-white p-2 mb-3 w-full rounded-md text-center cursor-pointer hover:scale-105 transition'>Inicia sesión para continuar con el pago </div>
                     </Link>
                   ) : (
-                    <PayPalButtons 
-                      style={{ layout: "vertical" }} 
-                      createOrder={( data, actions ) => {
+                    <PayPalButtons
+                      style={{ layout: "vertical" }}
+                      createOrder={(data, actions) => {
                         return actions.order.create({
                           purchase_units: [{
                             amount: {
@@ -478,7 +478,7 @@ const Carrito = ({ hoursData, peopleData }) => {
                           }]
                         })
                       }}
-                      onApprove={ async (data, actions) => {
+                      onApprove={async (data, actions) => {
                         const order = await actions.order.capture()
                         validateOrder(order.id)
                       }}
@@ -489,7 +489,7 @@ const Carrito = ({ hoursData, peopleData }) => {
             </div>
           ) : (
             <h3 className='font-extrabold text-2xl text-blueDarkCustom mb-5 text-center mt-5'>
-              <img src={"/../../../cart.jpg"} width={300} alt='vacio...' className='m-auto'  />
+              <img src={"/../../../cart.jpg"} width={300} alt='vacio...' className='m-auto' />
               Tu carrito esta vacio
             </h3>
           )}
@@ -509,15 +509,16 @@ export const getServerSideProps = async () => {
     fetch(urlHours),
     fetch(urlPeople),
   ])
-  
+
   const [hours, people] = await Promise.all([
     respHours.json(),
     respPeople.json(),
   ])
 
-  return { props : { 
-      hoursData : hours,
+  return {
+    props: {
+      hoursData: hours,
       peopleData: people,
-    } 
+    }
   }
 }

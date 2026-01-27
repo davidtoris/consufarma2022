@@ -10,12 +10,12 @@ import instanceAPI from '../../../src/config/axiosConfig';
 
 
 const TableTestsAnswers = () => {
-  
+
   const { allTestsAnswers } = useSelector((state) => state.testsAnswers);
 
   const dispatch = useDispatch()
-  const {query: {TestId, date}} = useRouter()
-  
+  const { query: { TestId, date } } = useRouter()
+
   useEffect(() => {
     if (TestId && date) {
       ListTestsAnswersByCourseAndDate(dispatch, TestId, date)
@@ -23,19 +23,19 @@ const TableTestsAnswers = () => {
   }, [TestId, date])
 
   const handlePrint = async (TestId, ScoreId, urlTestDiploma) => {
-    await instanceAPI.get(`testsPDF/${urlTestDiploma}?testId=${TestId}&scoreId=${ScoreId}`, {responseType: 'blob'})
-    .then((resp) => {
-      window.open(URL.createObjectURL(resp.data));
-    })
-    .catch((err) => {
-      console.log(err)
-    })
+    await instanceAPI.get(`testsPDF/${urlTestDiploma}?testId=${TestId}&scoreId=${ScoreId}`, { responseType: 'blob' })
+      .then((resp) => {
+        window.open(URL.createObjectURL(resp.data));
+      })
+      .catch((err) => {
+        console.log(err)
+      })
   }
 
 
   return (
     <div className="max-w-7xl mx-auto">
-      <img src="https://consufarma2022-davidtoris-projects.vercel.app/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Flogo.502e107c.png&w=1920&q=75" width="450px" className='my-5 m-auto'/>
+      <img src="https://consufarma2022-davidtoris-projects.vercel.app/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Flogo.502e107c.png&w=1920&q=75" width="450px" className='my-5 m-auto' />
 
       <div className='mb-10 flex flex-col justify-center items-center m-auto text-center text-blueConsufarma'>
         <div className='font-normal text-xl uppercase'>
@@ -44,8 +44,8 @@ const TableTestsAnswers = () => {
         <div className='font-light text-lg uppercase'></div>
         <div className='font-semibold text-xl uppercase'>{allTestsAnswers.length && allTestsAnswers[0].nombre_curso}</div>
       </div>
-       
-       <table id="table-to-xls" className="table-auto pb-10 my-8 w-full rounded-xl">
+
+      <table id="table-to-xls" className="table-auto pb-10 my-8 w-full rounded-xl">
         <thead>
           <tr className='border-2 bg-blueDarkCustom text-white'>
             <th className='border-2 border-gray-100 font-bold text-md p-2'>Estudiante</th>
@@ -57,10 +57,10 @@ const TableTestsAnswers = () => {
             <th className='border-2 border-gray-100 font-bold text-md p-2'>Acciones</th>
           </tr>
         </thead>
-        
+
         <tbody>
           {allTestsAnswers.length && allTestsAnswers.map(t => (
-            <tr className='border-2 text-1enter' key={t._id}>
+            <tr className='border-2 text-1enter' key={t.id}>
               <td className='border-2 border-gray-200 p-1'>{t.estudiante}</td>
               <td className='border-2 border-gray-200 p-1 text-center'>{dateFormat(t.fecha_finalización)}</td>
               <td className='border-2 border-gray-200 p-1 text-center'>{t.fecha_texto}</td>
@@ -68,26 +68,26 @@ const TableTestsAnswers = () => {
               <td className='border-2 border-gray-200 p-1 text-center'>{t.score}</td>
               <td className='border-2 border-gray-200 p-1 text-center'>{dateTimeFormat(t.fecha_sistema)}</td>
               <td className='border-2 border-gray-200 p-1'>
-              <div className='flex text-xl justify-center px-1'>
-                  <div onClick={() => handlePrint(t.test_id, t._id, 'diplomaPDF')} className='cursor-pointer hover:scale-110 transition-all'><BsAward title='Ver Constancia' className='text-gray-500' /></div>
-                      {t.score !== 'Sin Calificacion' && (
-                        <Link href={`/examen/resultado/${t.test_id}?student=${t._id}`}>
-                          <div className='cursor-pointer hover:scale-110 transition-all'><IoEyeOutline title="Ver Examen" className='text-gray-500 ml-3'/></div>
-                        </Link>
-                      )}
-                      {t.score !== 'Sin Calificacion' && (
-                        <div onClick={() => handlePrint(t.test_id, t._id, 'scoreTestPDF')} className='cursor-pointer hover:scale-110 transition-all ml-3'><BsFileEarmarkPdf title='Ver Examen en PDF' className='text-gray-500' /></div>
-                      )}
-                    </div>
+                <div className='flex text-xl justify-center px-1'>
+                  <div onClick={() => handlePrint(t.test_id, t.id, 'diplomaPDF')} className='cursor-pointer hover:scale-110 transition-all'><BsAward title='Ver Constancia' className='text-gray-500' /></div>
+                  {t.score !== 'Sin Calificacion' && (
+                    <Link href={`/examen/resultado/${t.test_id}?student=${t.id}`}>
+                      <div className='cursor-pointer hover:scale-110 transition-all'><IoEyeOutline title="Ver Examen" className='text-gray-500 ml-3' /></div>
+                    </Link>
+                  )}
+                  {t.score !== 'Sin Calificacion' && (
+                    <div onClick={() => handlePrint(t.test_id, t.id, 'scoreTestPDF')} className='cursor-pointer hover:scale-110 transition-all ml-3'><BsFileEarmarkPdf title='Ver Examen en PDF' className='text-gray-500' /></div>
+                  )}
+                </div>
                 {/* <div className='flex text-xl justify-center px-1'>
-                  <Link href={`/examen/resultado/${t.test_id}?student=${t._id}`}>
+                  <Link href={`/examen/resultado/${t.test_id}?student=${t.id}`}>
                     <div className='cursor-pointer hover:scale-110 transition-all mr-2'><IoEyeOutline title="Ver Examen" className='text-gray-500'/></div>
                   </Link>
-                  <div onClick={() => handlePrint(t.test_id, t._id)} className='cursor-pointer hover:scale-110 transition-all'><BsFileEarmarkPdf title='Ver Examen en PDF' className='text-gray-500' /></div>
+                  <div onClick={() => handlePrint(t.test_id, t.id)} className='cursor-pointer hover:scale-110 transition-all'><BsFileEarmarkPdf title='Ver Examen en PDF' className='text-gray-500' /></div>
                 </div> */}
               </td>
             </tr>
-            ))
+          ))
           }
         </tbody>
       </table>

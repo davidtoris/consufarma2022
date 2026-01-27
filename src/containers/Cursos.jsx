@@ -2,7 +2,7 @@ import React from 'react'
 import SectionCourse from '../components/cursos/SectionCourse'
 import { useSelector } from 'react-redux';
 
-const Cursos = ({specialities, cursos}) => {
+const Cursos = ({ specialities, cursos }) => {
 
   const { selectSpeciality } = useSelector((state) => state.specialities);
 
@@ -11,17 +11,17 @@ const Cursos = ({specialities, cursos}) => {
       {selectSpeciality != '' ?
         specialities.filter(e => e.especialidad === selectSpeciality).map(esp => (
           <SectionCourse
-          key={esp._id} 
-          cursos={cursos}
-          nombre={esp.especialidad}
+            key={esp.id}
+            cursos={cursos}
+            nombre={esp.especialidad}
           />
         ))
         :
         specialities.map(esp => (
           <SectionCourse
-          key={esp._id} 
-          cursos={cursos}
-          nombre={esp.especialidad}
+            key={esp.id}
+            cursos={cursos}
+            nombre={esp.especialidad}
           />
         ))
       }

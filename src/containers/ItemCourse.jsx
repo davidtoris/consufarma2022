@@ -91,8 +91,6 @@ const ItemCourse = ({ curso }) => {
   }, [cartItems]);
 
 
-  // const dataProduct = { nombre, fecha_text, duracion, horario, precio, precioUSD, descuento, imagen, _id };
-
 
   const dataItem = {
     cantidad: 1,
