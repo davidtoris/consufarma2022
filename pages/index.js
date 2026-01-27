@@ -75,7 +75,7 @@ const Calendario = ({ specialities, cursosDate }) => {
   useEffect(() => {
     dispatch(addCoursesDate(cursosDate));
     dispatch(addSpecialities(specialities));
-  });
+  }, [dispatch]);
 
   const today = moment().startOf('day').format()
 
