@@ -8,10 +8,9 @@ import ModalDownload from './ModalDownload';
 
 const FormDiploma = ({ Test, TestAnswer }) => {
 
-
   const { terminoExamen } = useSelector((state) => state.testsAnswers);
 
-  const { fecha_texto, nombre_curso, ponente_uno, ponente_dos, img_curso } = Test[0]
+  const { fecha_texto, nombre_curso, ponente_uno, ponente_dos, img_curso } = Test
 
   const [openModal, setOpenModal] = useState(false)
 
@@ -56,9 +55,9 @@ const FormDiploma = ({ Test, TestAnswer }) => {
       nombreCurso: nombre_curso,
       estudiante: TestAnswer.estudiante,
       examenConstancia: 'constancia',
-      curso_relacionado_uno: Test[0].curso_relacionado_uno,
-      curso_relacionado_dos: Test[0].curso_relacionado_dos,
-      curso_relacionado_tres: Test[0].curso_relacionado_tres,
+      curso_relacionado_uno: Test.curso_relacionado_uno,
+      curso_relacionado_dos: Test.curso_relacionado_dos,
+      curso_relacionado_tres: Test.curso_relacionado_tres,
     }
 
     await axios.post(`${API_BASE_URL}/email/sendTest`, data);
