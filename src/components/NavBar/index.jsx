@@ -67,14 +67,15 @@ const NavBar = () => {
       // 2. Crear una URL temporal para el Blob
       const url = window.URL.createObjectURL(blob);
       // 3. Crear un link invisible para forzar la descarga
-      const link = document.createElement('a');
+      /* const link = document.createElement('a');
       link.href = url;
       link.setAttribute('download', 'calendario-cursos.pdf'); // Nombre del archivo
       document.body.appendChild(link);
       link.click();
       // 4. Limpiar
-      link.remove();
-      window.URL.revokeObjectURL(url);
+      link.remove(); */
+      window.open(url, '_blank');
+      // window.URL.revokeObjectURL(url); // Should not revoke immediately if opening in new tab, or handle carefully.
     } catch (error) {
       console.error('Error:', error);
       alert('No se pudo generar el calendario');
