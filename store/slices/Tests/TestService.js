@@ -5,15 +5,15 @@ export const AllTests = async (dispatch, courseName, date) => {
   dispatch(testDefault())
   dispatch(testLoading(true))
   await instanceAPI.get(`/tests?course=${courseName}&date=${date}`)
-  .then(resp => {
-    dispatch(addTests(resp.data.tests));
-    dispatch(testLoading(false))
-  })
-  .catch(error => {
-    if(error !== undefined){
-      dispatch(testError(error.response.data.errors[0].msg))
-    }
-  })
+    .then(resp => {
+      dispatch(addTests(resp.data.tests));
+      dispatch(testLoading(false))
+    })
+    .catch(error => {
+      if (error !== undefined) {
+        dispatch(testError(error.response.data.errors[0].msg))
+      }
+    })
 };
 
 export const createTest = async (dispatch, test, router) => {
@@ -22,9 +22,10 @@ export const createTest = async (dispatch, test, router) => {
 
   try {
     const resp = await instanceAPI.post(`/tests`, test)
-    if( resp.status === 200){
+    if (resp.status === 200) {
       dispatch(testSuccess());
       dispatch(testLoading(false))
+      router.push("/examen/consAdmTes")
     }
   } catch (error) {
     console.log(error);
@@ -35,29 +36,29 @@ export const editTest = async (dispatch, test, id, router) => {
   dispatch(testDefault())
   dispatch(testLoading(true))
   await instanceAPI.put(`/tests/${id}`, test)
-  .then(resp => {
-    if( resp.status === 200){
-      router.push("/examen/consAdmTes")
-    }
-  })
-  .catch(error => {
-    if(error !== undefined){
-      dispatch(testError(error.response.data.errors[0].msg))
-    }
-  })
+    .then(resp => {
+      if (resp.status === 200) {
+        router.push("/examen/consAdmTes")
+      }
+    })
+    .catch(error => {
+      if (error !== undefined) {
+        dispatch(testError(error.response.data.errors[0].msg))
+      }
+    })
 };
 
 export const DeleteTest = async (dispatch, id) => {
   dispatch(testDefault())
   dispatch(testLoading(true))
   await instanceAPI.delete(`/tests/${id}`)
-  .then(resp => {
-    dispatch(testSuccess());
-  })
-  .catch(error => {
-    console.log(error);
-    if(error !== undefined){
-      dispatch(testError(error.response.data.errors[0].msg))
-    }
-  })
+    .then(resp => {
+      dispatch(testSuccess());
+    })
+    .catch(error => {
+      console.log(error);
+      if (error !== undefined) {
+        dispatch(testError(error.response.data.errors[0].msg))
+      }
+    })
 };
