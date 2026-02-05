@@ -155,7 +155,7 @@ const NavBar = () => {
 
 
           <Link href="/carrito">
-            <div className="hover:scale-105 transition flex md:hidden items-center mx-3 relative">
+            <div className="hover:scale-105 transition flex items-center mx-3 relative">
               <FaShoppingCart className="text-white cursor-pointer" />
               {allBasket > 0 && (
                 <div className="bg-blueConsufarma text-white font-semibold rounded-full text-sm absolute h-7 w-7 left-3 bottom-4 z-10 text-center">
@@ -167,7 +167,7 @@ const NavBar = () => {
 
           {/* ONLY SHOWS IN MOBILE */}
           {userName ? (
-            <div className="flex items-center cursor-pointer hover:scale-105 transition relative md:hidden" onClick={showMenuToogle}>
+            <div className="flex items-center cursor-pointer hover:scale-105 transition relative hidden" onClick={showMenuToogle}>
               <FaUserCircle className="text-white ml-3" />
               <div className="ml-2 text-sm flex">
                 {userName} <span className='ml-2'> <FaChevronDown /> </span>
@@ -182,7 +182,7 @@ const NavBar = () => {
 
           ) : (
             <Link href="/login" className="">
-              <div className="flex items-center cursor-pointer hover:scale-105 transition relative md:hidden" onClick={showMenuToogle}>
+              <div className="flex items-center cursor-pointer hover:scale-105 transition relative hidden" onClick={showMenuToogle}>
                 <div className="flex items-center">
                   <FaUserCircle className="text-white ml-3" />
                   <div className="ml-2 text-sm">Iniciar Sesión</div>
