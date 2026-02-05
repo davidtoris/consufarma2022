@@ -100,7 +100,7 @@ const NavBar = () => {
           </div>
           <div className="text-3xl flex absolute right-20 ">
             <Link href="/carrito">
-              <div className="relative hover:scale-105 transition hidden md:flex">
+              <div className="relative hover:scale-105 transition hidden">
                 <FaShoppingCart className="text-blueConsufarma cursor-pointer" />
                 {allBasket > 0 && (
                   <div className="bg-red-600 text-white font-semibold rounded-full text-sm absolute h-5 w-5 left-5 bottom-6">
@@ -112,7 +112,7 @@ const NavBar = () => {
 
             {userName ? (
 
-              <div className="items-center cursor-pointer hover:scale-105 transition relative hidden md:flex" onClick={showMenuToogle}>
+              <div className="items-center cursor-pointer hover:scale-105 transition relative hidden" onClick={showMenuToogle}>
                 <FaUserCircle className="text-blueConsufarma ml-3" />
                 <div className="ml-2 text-sm flex">
                   {userName} <span className='ml-2'> <FaChevronDown /> </span>
@@ -127,7 +127,7 @@ const NavBar = () => {
 
             ) : (
               <Link href="/login" className="">
-                <div className="items-center cursor-pointer hover:scale-105 transition relative hidden md:flex" onClick={showMenuToogle}>
+                <div className="items-center cursor-pointer hover:scale-105 transition relative hidden" onClick={showMenuToogle}>
                   <div className="flex items-center">
                     <FaUserCircle className="text-blueConsufarma ml-3" />
                     <div className="ml-2 text-sm">Iniciar Sesión</div>
@@ -149,13 +149,13 @@ const NavBar = () => {
             <div className="px-4 cursor-pointer hidden md:inline">Nosotros</div>
           </Link>
           <Link href="/servicios" passHref>
-            <div className="px-4 cursor-pointer hidden md:inline">Servicios</div>
+            <div className="px-4 cursor-pointer inline">Servicios</div>
           </Link>
 
 
 
           <Link href="/carrito">
-            <div className="hover:scale-105 transition flex items-center mx-3 relative">
+            <div className="hover:scale-105 transition flex hidden items-center mx-3 relative">
               <FaShoppingCart className="text-white cursor-pointer" />
               {allBasket > 0 && (
                 <div className="bg-blueConsufarma text-white font-semibold rounded-full text-sm absolute h-7 w-7 left-3 bottom-4 z-10 text-center">
@@ -193,7 +193,7 @@ const NavBar = () => {
           {/* ************** */}
 
 
-          <div onClick={handleDownloadPDF} className="px-4 cursor-pointer hidden md:inline">
+          <div onClick={handleDownloadPDF} className="px-4 cursor-pointer flex">
             Calendario
           </div>
           <Link href="/contacto" passHref>
