@@ -16,7 +16,7 @@ const FormEditTest = ({ coursesName, tests }) => {
   useEffect(() => {
     const arrPreguntasMultString = tests.preguntas.map(t => ({
       ...t,
-      respuestaMultiple: t.respuestaMultiple.toString()
+      respuestaMultiple: t.respuestaMultiple ? t.respuestaMultiple.toString() : ''
     }))
 
     const data = {
