@@ -1,4 +1,3 @@
-import React from 'react'
 import NavBar from '../../src/components/NavBar'
 import { API_BASE_URL } from '../../src/constants'
 import Footer from '../../src/containers/Footer'

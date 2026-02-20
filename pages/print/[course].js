@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react'
 import { API_BASE_URL } from '../../src/constants';
+import moment from 'moment';
 
 const Print = ({ curso }) => {
 
@@ -20,6 +21,8 @@ const Print = ({ curso }) => {
   const print = () => {
     window.print();
   }
+
+  const today = moment().startOf('day').format();
 
   return (
     <>
@@ -44,7 +47,13 @@ const Print = ({ curso }) => {
                   </div>
                   <div className='content-date'>
                     <div className='date-up'>Calendar</div>
-                    <div className='date'>{curso.fecha_text}</div>
+                    <div className='date'>
+                      <>
+                        {curso.fecha > today && curso.fecha_text}
+                        {curso.fecha < today && curso.label !== 'Cerrado' && 'Por Programar'}
+                        {curso.fecha < today && curso.label === 'Cerrado' && 'Programa tu fecha'}
+                      </>
+                    </div>
                   </div>
 
                   <div className='time'>
