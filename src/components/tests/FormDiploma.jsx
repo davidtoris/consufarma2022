@@ -10,7 +10,9 @@ const FormDiploma = ({ Test, TestAnswer }) => {
 
   const { terminoExamen } = useSelector((state) => state.testsAnswers);
 
-  const { fecha_texto, nombre_curso, ponente_uno, ponente_dos, img_curso } = Test
+  const { fecha_texto, nombre_curso, ponente_uno, ponente_dos, img_curso, tipo_evento } = Test
+
+  const tipoEvento = tipo_evento || 'curso';
 
   const [openModal, setOpenModal] = useState(false)
 
@@ -83,7 +85,7 @@ const FormDiploma = ({ Test, TestAnswer }) => {
 
         <div className='flex flex-col justify-center m-auto'>
           <h1 className="mt-5 font-bold text-2xl text-blueConsufarma text-center">{nombre_curso}</h1>
-          <h1 className="font-semibold text-lg text-blueConsufarma text-center">Fecha del curso: {fecha_texto}</h1>
+          <h1 className="font-semibold text-lg text-blueConsufarma text-center">Fecha del {tipoEvento}: {fecha_texto}</h1>
 
           <div className='rounded-full my-4'>
             <img src={img_curso} width="450px" className='m-auto rounded-full' />

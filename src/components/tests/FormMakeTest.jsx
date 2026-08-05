@@ -17,7 +17,9 @@ const FormMakeTest = ({ Test }) => {
   const dispatch = useDispatch()
 
   const { fecha_finalizacion, fecha_texto, img_curso, nombre_curso, nombre_examen,
-    ponente_uno, ponente_dos, preguntas, id } = Test
+    ponente_uno, ponente_dos, preguntas, id, tipo_evento } = Test
+
+  const tipoEvento = tipo_evento || 'curso';
 
   const { testsAnswersLoading, intentosExamen, allTestsAnswers } = useSelector((state) => state.testsAnswers);
   const INTENTOS_PERMITIDOS = 2
@@ -219,8 +221,8 @@ const FormMakeTest = ({ Test }) => {
 
                 <div className='flex flex-col justify-center m-auto'>
                   <h1 className="mt-3 font-bold text-2xl text-blueConsufarma text-center">{nombre_curso}</h1>
-                  <h1 className="font-semibold text-lg text-blueConsufarma text-center">Fecha del curso: {fecha_texto} </h1>
-                  <h1 className="mb-5 font-light text-lg text-blueConsufarma text-center">EXAMEN DEL CURSO</h1>
+                  <h1 className="font-semibold text-lg text-blueConsufarma text-center">Fecha del {tipoEvento}: {fecha_texto} </h1>
+                  <h1 className="mb-5 font-light text-lg text-blueConsufarma text-center">EXAMEN DEL {tipoEvento.toUpperCase()}</h1>
                   <div className='rounded-full'>
                     <img src={img_curso} width="370px" className='m-auto rounded-full' />
                   </div>

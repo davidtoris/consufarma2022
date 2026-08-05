@@ -13,7 +13,9 @@ const FormSendTest = ({ Test }) => {
   const dispatch = useDispatch()
 
   const { fecha_finalizacion, fecha_texto, img_curso, nombre_curso, nombre_examen,
-    ponente_uno, ponente_dos, curso_relacionado_uno, curso_relacionado_dos, curso_relacionado_tres, id } = Test
+    ponente_uno, ponente_dos, curso_relacionado_uno, curso_relacionado_dos, curso_relacionado_tres, id, tipo_evento } = Test
+
+  const tipoEvento = tipo_evento || 'curso';
 
   const { mailStatus } = useSelector((state) => state.mail)
 
@@ -96,7 +98,7 @@ const FormSendTest = ({ Test }) => {
 
                 <div className='flex flex-col justify-center m-auto'>
                   <h1 className="mt-5 font-bold text-2xl text-blueConsufarma text-center">{nombre_curso}</h1>
-                  <h1 className="mb-4 font-light text-lg text-blueConsufarma text-center">Fecha del curso: {fecha_texto} </h1>
+                  <h1 className="mb-4 font-light text-lg text-blueConsufarma text-center">Fecha del {tipoEvento}: {fecha_texto} </h1>
                 </div>
 
                 <div>

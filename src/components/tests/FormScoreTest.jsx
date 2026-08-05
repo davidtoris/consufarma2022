@@ -19,7 +19,9 @@ const FormScoreTest = ({ Test, TestAnswer, point }) => {
   const [emailSended, setEmailSended] = useState('');
 
   // Destructure safely, defaults to empty object if null
-  const { fecha_texto, nombre_curso, ponente_uno, ponente_dos, preguntas, img_curso } = testData || {};
+  const { fecha_texto, nombre_curso, ponente_uno, ponente_dos, preguntas, img_curso, tipo_evento } = testData || {};
+
+  const tipoEvento = tipo_evento || 'curso';
 
   // Enviar Correo con Link
   const sendEmailTest = async () => {
@@ -158,8 +160,8 @@ const FormScoreTest = ({ Test, TestAnswer, point }) => {
         <img src="https://consufarma2022-davidtoris-projects.vercel.app/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Flogo.502e107c.png&w=1920&q=75" width="450px" className='m-auto px-4 md:px-0' />
         <div className='flex flex-col justify-center m-auto'>
           <h1 className="mt-5 font-bold text-2xl text-blueConsufarma text-center">{nombre_curso}</h1>
-          <h1 className="mb-4 font-semibold text-lg text-blueConsufarma text-center">Fecha del curso: {fecha_texto}</h1>
-          <h1 className="mb-4 font-light text-lg text-blueConsufarma text-center">EXAMEN DEL CURSO</h1>
+          <h1 className="mb-4 font-semibold text-lg text-blueConsufarma text-center">Fecha del {tipoEvento}: {fecha_texto}</h1>
+          <h1 className="mb-4 font-light text-lg text-blueConsufarma text-center">EXAMEN DEL {tipoEvento.toUpperCase()}</h1>
           <div className='rounded-full'>
             <img src={img_curso} width="370px" className='m-auto rounded-full' />
           </div>
